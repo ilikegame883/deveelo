@@ -1,9 +1,9 @@
 import { useMediaQuery } from 'react-responsive'
 
 const useScreenType = () => {
-    const isFull = useMediaQuery({ minWidth: 1540 });
+    const isFull = useMediaQuery({ minWidth: 1490 });
     const isHalfActivityBar = useMediaQuery({ minWidth: 1316 })
-    const isTablet = useMediaQuery({ minWidth: 1222 });
+    const isTablet = useMediaQuery({ minWidth: 815 });
 
     if(isFull){
         console.log('full');

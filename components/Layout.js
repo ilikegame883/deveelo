@@ -15,9 +15,10 @@ const Layout = ({children}) => {
             content = (
                 <>
                     <Sidebar></Sidebar>
-                    
+                    <Nav></Nav>
                     <div className={styles.container}>
                         <main className={styles.main}>
+                            <h2>fullscreen</h2>
                             {children}
                         </main>
                     </div>
@@ -32,6 +33,7 @@ const Layout = ({children}) => {
                     <Nav></Nav>
                     <div className={styles.container}>
                         <main className={styles.main}>
+                            <h2>half activity bar</h2>
                             {children}
                         </main>
                     </div>
@@ -45,6 +47,7 @@ const Layout = ({children}) => {
                     <Nav></Nav>
                     <div className={styles.container}>
                         <main className={styles.main}>
+                            <h2>tablet</h2>
                             {children}
                         </main>
                     </div>
@@ -58,6 +61,7 @@ const Layout = ({children}) => {
                     <Nav></Nav>
                     <div className={styles.container}>
                         <main className={styles.main}>
+                            <h2>mobile</h2>
                             {children}
                         </main>
                     </div>
