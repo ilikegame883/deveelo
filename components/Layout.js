@@ -4,9 +4,11 @@ import Sidebar from './Sidebar'
 import styles from '../styles/Layout.module.css'
 import Link from 'next/link'
 import useScreenType from '../hooks/useScreenType'
+import { Fragment } from 'react'
 
 const Layout = ({children}) => {
     const screenType = useScreenType();
+    console.log(screenType);
 
     let content = null;
 
