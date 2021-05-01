@@ -9,6 +9,10 @@ const Meta = ({ title, keywords, description }) => {
             <meta charSet='utf-8' />
             <link rel='icon' href='/faviconround.ico' />
             <title>{title}</title>
+            <meta property="og:image" content="https://deveelo.vercel.app/largeLogo.png"></meta>
+            <meta property="og:title" content="Deveelo"></meta>
+            <meta property="og:url" content="deveelo.vercel.app"></meta>
+            <meta property="og:description" content="Social media platform for cool people only"></meta>
         </Head>
     )
 }
