@@ -16,11 +16,11 @@ const Layout = ({children}) => {
         case "full":
             content = (
                 <>
-                    <Sidebar></Sidebar>
                     <Nav></Nav>
+                    <Sidebar></Sidebar>
                     <div className={styles.container}>
                         <main className={styles.main}>
-                            <h2>fullscreen</h2>
+                        <h2>Full</h2>
                             {children}
                         </main>
                     </div>
@@ -75,7 +75,8 @@ const Layout = ({children}) => {
     return (
         <>
             <Meta />
-            {content}
+            <div>{content}</div>
+            
         </>
     )
 }
