@@ -1,7 +1,7 @@
 import { useMediaQuery } from 'react-responsive'
 
 const useScreenType = () => {
-    const isFull = useMediaQuery({ minWidth: 1490 });
+    const isFull =  useMediaQuery({ minWidth: 1490 });
     const isHalfActivityBar = useMediaQuery({ minWidth: 1316 })
     const isTablet = useMediaQuery({ minWidth: 815 });
 
@@ -17,8 +17,11 @@ const useScreenType = () => {
         console.log('tablet');
         return "tablet";
     }
-    console.log('mobile');
-    return "mobile";
+    else{
+        console.log('mobile');
+        return "mobile";
+    }
+    
 }
 
 export default useScreenType
