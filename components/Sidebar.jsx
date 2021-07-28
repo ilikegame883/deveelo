@@ -3,7 +3,6 @@ import NameGroup from './NameGroup';
 import TextButton from './TextButton';
 import ProfilePicture from './ProfilePicture';
 import Image from 'next/image'
-import statusStyles from '../styles/status.module.css'
 
 const Sidebar = () => {
     const user = {

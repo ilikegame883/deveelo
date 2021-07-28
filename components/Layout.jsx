@@ -1,8 +1,8 @@
 import dynamic from 'next/dynamic'
 import Meta from './Meta'
 import Nav from './Nav'
-import DesktopSidebar from './Sidebar'
-import ActivityBar from './ActivityBar'
+const DesktopSidebar = dynamic(() => import('./Sidebar'), {ssr: false})
+import FullActivityBar from './ActivityBar'
 import styles from '../styles/Layout.module.css'
 import useScreenType from '../hooks/useScreenType'
 
@@ -17,7 +17,7 @@ const Layout = ({children}) => {
                 <>
                     <Nav/>
                     <DesktopSidebar/>
-                    <ActivityBar/>
+                    <FullActivityBar/>
                     <div className={styles.container}>
                         <main className={styles.main}>
                         <h2>Full</h2>
@@ -33,7 +33,7 @@ const Layout = ({children}) => {
                 <>
                     <Nav/>
                     <DesktopSidebar/>
-                    <ActivityBar/>
+                    <FullActivityBar/>
                     <div className={styles.container}>
                         <main className={styles.main}>
                             <h2>half activity bar</h2>
@@ -48,7 +48,7 @@ const Layout = ({children}) => {
                 <>
                     <Nav/>
                     <DesktopSidebar/>
-                    <ActivityBar/>
+                    <FullActivityBar/>
                     <div className={styles.container}>
                         <main className={styles.main}>
                             <h2>tablet</h2>
@@ -62,7 +62,7 @@ const Layout = ({children}) => {
             content = (
                 <>
                     <Nav/>
-                    <ActivityBar/>
+                    <FullActivityBar/>
                     <div className={styles.container}>
                         <main className={styles.main}>
                             <h2>mobile</h2>
