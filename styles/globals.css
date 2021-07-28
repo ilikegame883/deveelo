@@ -1,8 +1,24 @@
+:root {
+  /*backgrounds & text*/
+  --textBlack: #121B2B;
+  --textNormalCol: #49566F; /*profile description*/
+  --midFadeGray: #7688AB; /*profile tag*/
+  --midLightGray: #99AAC3;
+  --sidebarBackground: #F9F9F9; /*& main feed*/
+
+  /*status indicators*/
+  --online: #2ED9A6;
+  --idle: #FFB129;
+  --dnd: #FF6F89;
+}
+
 html,
 body {
   padding: 0;
   margin: 0;
   font-family: "Heebo";
+  font-style: normal;
+  font-size: 16px;
 }
 
 a {
@@ -13,8 +29,6 @@ a {
 * {
   box-sizing: border-box;
 }
-
-
 
 @font-face {
   font-family: "Heebo";

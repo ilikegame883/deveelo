@@ -1,0 +1,22 @@
+.p_pictureWrapper {
+    position: relative;
+    width: 6.5625em;
+    height: 6.5625em;
+    border-radius: 9.09375em;
+    box-shadow: 0 0 0 0.8em var(--sidebarBackground);
+
+    flex: none;
+    flex-grow: 0;
+    margin-bottom: 0.9375em;
+    margin-left: 1.4062em;
+    margin-right: 1.4062em;
+}
+
+.p_picture {
+    
+    overflow: hidden;
+    
+    border-radius: 9.09375em;
+    background-color: #EEF0F4;
+    image-rendering: -webkit-optimize-contrast; /*stops blur*/
+}
