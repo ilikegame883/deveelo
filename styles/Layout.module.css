@@ -1,10 +1,14 @@
 .container {
+  margin-left: 30.9375em;
+  margin-right: 19.125em;
   min-height: 100vh;
   padding: 0 0.5rem;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
+
+  background-color: var(--sidebarBackground);
 }
 
 .main {

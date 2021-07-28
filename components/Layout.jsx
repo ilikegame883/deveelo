@@ -1,15 +1,13 @@
 import dynamic from 'next/dynamic'
 import Meta from './Meta'
 import Nav from './Nav'
-const DesktopSidebar = dynamic(() => import('./Sidebar'), {ssr: false})
+import DesktopSidebar from './Sidebar'
+import ActivityBar from './ActivityBar'
 import styles from '../styles/Layout.module.css'
-import Link from 'next/link'
 import useScreenType from '../hooks/useScreenType'
-import { Fragment } from 'react'
 
 const Layout = ({children}) => {
     const screenType = useScreenType();
-    console.log(screenType);
 
     let content = null;
 
@@ -17,8 +15,9 @@ const Layout = ({children}) => {
         case "full":
             content = (
                 <>
-                    <Nav></Nav>
-                    <DesktopSidebar></DesktopSidebar>
+                    <Nav/>
+                    <DesktopSidebar/>
+                    <ActivityBar/>
                     <div className={styles.container}>
                         <main className={styles.main}>
                         <h2>Full</h2>
@@ -32,8 +31,9 @@ const Layout = ({children}) => {
         case "halfActivityBar":
             content = (
                 <>
-                    <DesktopSidebar></DesktopSidebar>
-                    <Nav></Nav>
+                    <Nav/>
+                    <DesktopSidebar/>
+                    <ActivityBar/>
                     <div className={styles.container}>
                         <main className={styles.main}>
                             <h2>half activity bar</h2>
@@ -45,8 +45,10 @@ const Layout = ({children}) => {
             break;
         case "tablet":
             content = (
-                <>                
-                    <Nav></Nav>
+                <>
+                    <Nav/>
+                    <DesktopSidebar/>
+                    <ActivityBar/>
                     <div className={styles.container}>
                         <main className={styles.main}>
                             <h2>tablet</h2>
@@ -59,8 +61,8 @@ const Layout = ({children}) => {
         case "mobile":
             content = (
                 <>
-                    
-                    <Nav></Nav>
+                    <Nav/>
+                    <ActivityBar/>
                     <div className={styles.container}>
                         <main className={styles.main}>
                             <h2>mobile</h2>
@@ -76,7 +78,6 @@ const Layout = ({children}) => {
         <>
             <Meta />
             <div>{content}</div>
-            
         </>
     )
 }

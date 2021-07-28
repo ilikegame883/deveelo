@@ -6,19 +6,19 @@ const useScreenType = () => {
     const isTablet = useMediaQuery({ minWidth: 815 });
 
     if(isFull){
-        console.log('full');
+        //console.log('full');
         return "full";
     }
     else if(isHalfActivityBar){
-        console.log('half active bar');
+        //console.log('half active bar');
         return "halfActivityBar";
     }
     else if(isTablet){
-        console.log('tablet');
+        //console.log('tablet');
         return "tablet";
     }
     else{
-        console.log('mobile');
+        //console.log('mobile');
         return "mobile";
     }
     
