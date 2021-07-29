@@ -12,6 +12,7 @@ const userResolvers = {
 
             todo 
             -  Valitate user data
+			+  check & generate random number tags
             -  Make sure user doesnt exist already  wip 
             +  hash the password & create auth token
             +  Switch to Argon2 hashing from bcrypt
@@ -25,8 +26,7 @@ const userResolvers = {
 			let tag = username;
 
 			let max = 9;
-
-			const CheckAndGenerateUsername = async (length, testTag, repeat) => {
+			const CheckAndGenerateUsername = async (length, testTag, repeat, cycleNum) => {
 				const matchUser = await User.findOne({
 					"account.tag": testTag,
 				});
@@ -39,18 +39,19 @@ const userResolvers = {
 					}
 					testTag += Math.floor(Math.random() * length) + 1;
 
-					if (max < 999) {
+					if (max < 999 || cycleNum > 10) {
 						//add 9 to end of number for next pass
 						max = parseInt(`${max}${9}`);
 					}
 
-					return await CheckAndGenerateUsername(max, testTag, true);
+					return await CheckAndGenerateUsername(max, testTag, true, cycleNum++);
 				}
 
 				return (tag = testTag);
 			};
 
-			await CheckAndGenerateUsername(max, tag, false);
+			//check if a user with the tag already exists & add a random # to tag
+			await CheckAndGenerateUsername(max, tag, false, 0);
 
 			//check if user exists
 			const user = await User.findOne({ "account.email": email });
