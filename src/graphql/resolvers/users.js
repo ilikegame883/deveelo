@@ -1,22 +1,18 @@
 import argon2 from "argon2";
 import jwt from "jsonwebtoken";
+import { UserInputError } from "apollo-server-errors";
 
 import { dbKeys } from "../../../config";
 import User from "../../models/User";
 
 const userResolvers = {
 	Mutation: {
-		async register(
-			_,
-			{ registerInput: { password, email } },
-			context,
-			info
-		) {
+		async register(_, { registerInput: { password, email } }, context, info) {
 			/*
 
             todo 
             -  Valitate user data
-            -  Make sure user doesnt exist already
+            -  Make sure user doesnt exist already  wip 
             +  hash the password & create auth token
             +  Switch to Argon2 hashing from bcrypt
 
@@ -26,8 +22,47 @@ const userResolvers = {
             */
 			let emailSplit = String(email).split("@");
 			let username = emailSplit[0];
+			let tag = username;
 
-			// note  hashing passwords before they are saved on the database
+			let max = 9;
+
+			const CheckAndGenerateUsername = async (length, testTag, repeat) => {
+				const matchUser = await User.findOne({
+					"account.tag": testTag,
+				});
+
+				if (matchUser) {
+					//the username is already taken
+					if (repeat) {
+						//reset test-tag before adding numbers if the numbered name was taken
+						testTag = tag;
+					}
+					testTag += Math.floor(Math.random() * length) + 1;
+
+					if (max < 999) {
+						//add 9 to end of number for next pass
+						max = parseInt(`${max}${9}`);
+					}
+
+					return await CheckAndGenerateUsername(max, testTag, true);
+				}
+
+				return (tag = testTag);
+			};
+
+			await CheckAndGenerateUsername(max, tag, false);
+
+			//check if user exists
+			const user = await User.findOne({ "account.email": email });
+			if (user) {
+				throw new UserInputError("email taken", {
+					errors: {
+						email: "An account is already registered with email",
+					},
+				});
+			}
+
+			//hashing passwords before they are saved on the database
 			password = await argon2.hash(password, {
 				type: argon2.argon2id,
 				hashLength: 41,
@@ -36,7 +71,7 @@ const userResolvers = {
 			const newUser = new User({
 				account: {
 					username: username,
-					tag: username,
+					tag: tag,
 					password: password,
 					email: email,
 					createdAt: new Date().toISOString(),
