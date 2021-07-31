@@ -2,18 +2,19 @@ import argon2 from "argon2";
 import jwt from "jsonwebtoken";
 import { UserInputError } from "apollo-server-errors";
 
+import ValidateRegisterInput from "../../../util/validators";
 import { dbKeys } from "../../../config";
 import User from "../../models/User";
 
 const userResolvers = {
 	Mutation: {
-		async register(_, { registerInput: { password, email } }, context, info) {
+		async register(_, { registerInput: { password, email } }) {
 			/*
 
             todo 
             -  Valitate user data
 			+  check & generate random number tags
-            -  Make sure user doesnt exist already  wip 
+            +  Make sure user doesnt exist already
             +  hash the password & create auth token
             +  Switch to Argon2 hashing from bcrypt
 
@@ -21,10 +22,36 @@ const userResolvers = {
             +  argon2 import problem
 
             */
+
+			email = String(email).trim();
+
+			//#region Validate Input  note
+			//validate email before using it to make the username
+			const emailRes = ValidateRegisterInput(email, "email");
+			if (!emailRes.valid) {
+				const errors = emailRes.errors;
+				throw new UserInputError("Errors", { errors });
+			}
+
 			let emailSplit = String(email).split("@");
-			let username = emailSplit[0];
+			let username = String(emailSplit[0].trim()).replaceAll("@", "");
+
+			//validate username
+			const usernameRes = ValidateRegisterInput(username, "username");
+			if (!usernameRes.valid) {
+				const errors = usernameRes.errors;
+				throw new UserInputError("Errors", { errors });
+			}
+
 			let tag = username;
 
+			//validate password
+			const passwordRes = ValidateRegisterInput(password, "password");
+			if (!passwordRes.valid) {
+				const errors = passwordRes.errors;
+				throw new UserInputError("Errors", { errors });
+			}
+			//#endregion
 			let max = 9;
 			const CheckAndGenerateUsername = async (length, testTag, repeat, cycleNum) => {
 				const matchUser = await User.findOne({
@@ -73,6 +100,7 @@ const userResolvers = {
 				account: {
 					username: username,
 					tag: tag,
+					short: "",
 					password: password,
 					email: email,
 					createdAt: new Date().toISOString(),
