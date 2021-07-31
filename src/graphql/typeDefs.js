@@ -16,6 +16,7 @@ export const typeDefs = gql`
 	type U_Account {
 		username: String!
 		tag: String!
+		short: String!
 		password: String!
 		email: String!
 		createdAt: String!

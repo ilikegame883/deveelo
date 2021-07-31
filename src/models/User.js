@@ -6,6 +6,7 @@ const userSchema = new Schema({
 	account: {
 		username: String,
 		tag: String,
+		short: String,
 		password: String,
 		email: String,
 		createdAt: String,
