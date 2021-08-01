@@ -70,5 +70,6 @@ export const typeDefs = gql`
 	# note  Mutations (read/write/updates)
 	type Mutation {
 		register(registerInput: RegisterInput): User!
+		login(input: String!, password: String!): User!
 	}
 `;

@@ -8,24 +8,62 @@ import User from "../../models/User";
 
 const userResolvers = {
 	Mutation: {
+		async login(_, { input, password }) {
+			//check if email or username [tag]
+			const regEx = /^([0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+[a-zA-Z]{2,9})$/;
+			const isEmail = input.match(regEx);
+			let searchPath; //path to accound username or email
+
+			//validate input
+			if (isEmail) {
+				const emailRes = ValidateRegisterInput(input, "email");
+				if (!emailRes.valid) {
+					const errors = emailRes.errors;
+					throw new UserInputError("Errors", { errors });
+				}
+				searchPath = "account.email";
+			} else {
+				const usernameRes = ValidateRegisterInput(input, "username");
+				if (!usernameRes.valid) {
+					const errors = usernameRes.errors;
+					throw new UserInputError("Errors", { errors });
+				}
+				searchPath = "account.tag";
+			}
+
+			//validate password
+			const passwordRes = ValidateRegisterInput(password, "password");
+			if (!passwordRes.valid) {
+				const errors = passwordRes.errors;
+				throw new UserInputError("Errors", { errors });
+			}
+
+			//check if user exists
+			let user;
+			if (isEmail) {
+				user = await User.findOne({ "account.email": input });
+			} else {
+				user = await User.findOne({ "account.tag": input });
+			}
+			return user;
+		},
 		async register(_, { registerInput: { password, email } }) {
 			/*
 
             todo 
-            -  Valitate user data
+            +  Valitate user data
 			+  check & generate random number tags
             +  Make sure user doesnt exist already
             +  hash the password & create auth token
             +  Switch to Argon2 hashing from bcrypt
-
-            fixme  
-            +  argon2 import problem
+			- refresh & access token setup
 
             */
 
 			email = String(email).trim();
 
-			//#region Validate Input  note
+			// note
+			//#region Validate Input
 			//validate email before using it to make the username
 			const emailRes = ValidateRegisterInput(email, "email");
 			if (!emailRes.valid) {
@@ -134,6 +172,8 @@ const userResolvers = {
 			});
 
 			const res = await newUser.save();
+
+			// note  this is where ba stopped at 26:46, registers user data in database but does not handle tokens yet
 
 			const token = jwt.sign(
 				{
