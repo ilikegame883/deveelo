@@ -10,6 +10,7 @@ import { dbKeys } from "../config.js";
 const server = new ApolloServer({
 	typeDefs,
 	resolvers,
+	context: ({ req, res }) => ({ req, res }),
 });
 
 //connect to the mongodb database

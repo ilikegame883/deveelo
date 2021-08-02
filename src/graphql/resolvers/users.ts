@@ -5,10 +5,11 @@ import { UserInputError } from "apollo-server-errors";
 import ValidateRegisterInput from "../../../util/validators";
 import { dbKeys } from "../../../config";
 import User from "../../models/User";
+import Context from "../../context";
 
 const userResolvers = {
 	Mutation: {
-		async login(_, { input, password }) {
+		async login(_, { input, password }, { res }: Context) {
 			//check if email or username [tag]
 			const regEx = /^([0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+[a-zA-Z]{2,9})$/;
 			const isEmail = input.match(regEx);
@@ -65,12 +66,27 @@ const userResolvers = {
 				});
 			}
 
-			//successful login
+			// note  successful login
+
+			//refresh token
+			res.cookie(
+				"lid",
+				jwt.sign(
+					{
+						id: user.id,
+					},
+					dbKeys.SECRET_KEY,
+					{ expiresIn: "7d" } //15 minutes
+				),
+				{
+					httpOnly: true, //  development  set domain & path
+				}
+			);
+
 			return {
 				accessToken: jwt.sign(
 					{
 						id: user.id,
-						email: user.account.email,
 						tag: user.account.tag,
 					},
 					dbKeys.SECRET_KEY,
@@ -119,7 +135,7 @@ const userResolvers = {
 			}
 			//#endregion
 			let max = 9;
-			const CheckAndGenerateUsername = async (length, testTag, repeat, cycleNum) => {
+			const CheckAndGenerateUsername = async (length: number, testTag: string, repeat: boolean, cycleNum: number): Promise<void> => {
 				const matchUser = await User.findOne({
 					"account.tag": testTag,
 				});
@@ -140,7 +156,8 @@ const userResolvers = {
 					return await CheckAndGenerateUsername(max, testTag, true, cycleNum++);
 				}
 
-				return (tag = testTag);
+				tag = testTag;
+				return;
 			};
 
 			//check if a user with the tag already exists & add a random # to tag

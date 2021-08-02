@@ -1,13 +1,13 @@
 import postsResolvers from "./posts";
-import userResolvers from "./users";
+import userResolvers from "./users.ts";
 
 const resolvers = {
-    Query: {
-        ...postsResolvers.Query
-    },
-    Mutation: {
-        ...userResolvers.Mutation
-    }
-}
+	Query: {
+		...postsResolvers.Query,
+	},
+	Mutation: {
+		...userResolvers.Mutation,
+	},
+};
 
-export default resolvers
+export default resolvers;
