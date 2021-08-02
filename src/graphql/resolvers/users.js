@@ -12,29 +12,23 @@ const userResolvers = {
 			//check if email or username [tag]
 			const regEx = /^([0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+[a-zA-Z]{2,9})$/;
 			const isEmail = input.match(regEx);
-			let searchPath; //path to accound username or email
 
 			//validate input
 			if (isEmail) {
-				const emailRes = ValidateRegisterInput(input, "email");
-				if (!emailRes.valid) {
-					const errors = emailRes.errors;
+				let { valid, errors } = ValidateRegisterInput(input, "email");
+				if (!valid) {
 					throw new UserInputError("Errors", { errors });
 				}
-				searchPath = "account.email";
 			} else {
-				const usernameRes = ValidateRegisterInput(input, "username");
-				if (!usernameRes.valid) {
-					const errors = usernameRes.errors;
+				let { valid, errors } = ValidateRegisterInput(input, "username");
+				if (!valid) {
 					throw new UserInputError("Errors", { errors });
 				}
-				searchPath = "account.tag";
 			}
 
 			//validate password
-			const passwordRes = ValidateRegisterInput(password, "password");
-			if (!passwordRes.valid) {
-				const errors = passwordRes.errors;
+			let { valid, errors } = ValidateRegisterInput(password, "password");
+			if (!valid) {
 				throw new UserInputError("Errors", { errors });
 			}
 
@@ -44,6 +38,22 @@ const userResolvers = {
 				user = await User.findOne({ "account.email": input });
 			} else {
 				user = await User.findOne({ "account.tag": input });
+			}
+
+			if (!user) {
+				if (isEmail) {
+					throw new UserInputError("email not found", {
+						errors: {
+							email: "no user is registered with this email",
+						},
+					});
+				} else {
+					throw new UserInputError("username not found", {
+						errors: {
+							username: "no user is registered with this username",
+						},
+					});
+				}
 			}
 			return user;
 		},
@@ -65,9 +75,8 @@ const userResolvers = {
 			// note
 			//#region Validate Input
 			//validate email before using it to make the username
-			const emailRes = ValidateRegisterInput(email, "email");
-			if (!emailRes.valid) {
-				const errors = emailRes.errors;
+			let { valid, errors } = ValidateRegisterInput(email, "email");
+			if (!valid) {
 				throw new UserInputError("Errors", { errors });
 			}
 
@@ -75,18 +84,16 @@ const userResolvers = {
 			let username = String(emailSplit[0].trim()).replaceAll("@", "");
 
 			//validate username
-			const usernameRes = ValidateRegisterInput(username, "username");
-			if (!usernameRes.valid) {
-				const errors = usernameRes.errors;
+			({ valid, errors } = ValidateRegisterInput(username, "username"));
+			if (!valid) {
 				throw new UserInputError("Errors", { errors });
 			}
 
 			let tag = username;
 
 			//validate password
-			const passwordRes = ValidateRegisterInput(password, "password");
-			if (!passwordRes.valid) {
-				const errors = passwordRes.errors;
+			({ valid, errors } = ValidateRegisterInput(password, "password"));
+			if (!valid) {
 				throw new UserInputError("Errors", { errors });
 			}
 			//#endregion
