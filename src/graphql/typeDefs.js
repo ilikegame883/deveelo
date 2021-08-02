@@ -11,7 +11,9 @@ export const typeDefs = gql`
 		createdAt: String!
 		username: String!
 	}
-
+	type LoginResponse {
+		accessToken: String!
+	}
 	#user types
 	type U_Account {
 		username: String!
@@ -70,6 +72,6 @@ export const typeDefs = gql`
 	# note  Mutations (read/write/updates)
 	type Mutation {
 		register(registerInput: RegisterInput): User!
-		login(input: String!, password: String!): User!
+		login(input: String!, password: String!): LoginResponse!
 	}
 `;

@@ -42,20 +42,41 @@ const userResolvers = {
 
 			if (!user) {
 				if (isEmail) {
-					throw new UserInputError("email not found", {
+					throw new UserInputError("User not found", {
 						errors: {
-							email: "no user is registered with this email",
+							general: "no user is registered with this email",
 						},
 					});
 				} else {
-					throw new UserInputError("username not found", {
+					throw new UserInputError("User not found", {
 						errors: {
-							username: "no user is registered with this username",
+							general: "no user is registered with this username",
 						},
 					});
 				}
 			}
-			return user;
+
+			const match = await argon2.verify(user.account.password, password);
+			if (!match) {
+				throw new UserInputError("Wrong credentials", {
+					errors: {
+						general: "incorrect password",
+					},
+				});
+			}
+
+			//successful login
+			return {
+				accessToken: jwt.sign(
+					{
+						id: user.id,
+						email: user.account.email,
+						tag: user.account.tag,
+					},
+					dbKeys.SECRET_KEY,
+					{ expiresIn: "15m" } //15 minutes
+				),
+			};
 		},
 		async register(_, { registerInput: { password, email } }) {
 			/*
@@ -189,7 +210,7 @@ const userResolvers = {
 					tag: res.account.tag,
 				},
 				dbKeys.SECRET_KEY,
-				{ expiresIn: 900 } //15 minutes
+				{ expiresIn: "15m" } //15 minutes
 			);
 
 			return {
