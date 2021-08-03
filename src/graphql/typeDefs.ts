@@ -1,8 +1,5 @@
 import gql from "graphql-tag";
 
-import Post from "../models/Post";
-import User from "../models/User";
-
 export const typeDefs = gql`
 	# note  Types
 	type Post {

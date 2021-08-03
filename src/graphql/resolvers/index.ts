@@ -1,5 +1,5 @@
 import postsResolvers from "./posts";
-import userResolvers from "./users.ts";
+import userResolvers from "./users";
 
 const resolvers = {
 	Query: {

@@ -5,7 +5,7 @@
 	"main": "index.js",
 	"scripts": {
 		"watch": "tsc -w",
-		"start": "nodemon --exec ./node_modules/.bin/babel-node src/index.js"
+		"start": "nodemon --exec ./node_modules/.bin/babel-node dist/src/index.js"
 	},
 	"keywords": [],
 	"author": "",
