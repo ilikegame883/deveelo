@@ -39,4 +39,43 @@ const userSchema = new Schema({
 	},
 });
 
+export interface UserType {
+	id: string;
+	token: string;
+	account: {
+		username: string;
+		tag: string;
+		short: string;
+		password: string;
+		email: string;
+		createdAt: string;
+		lastOnline: string;
+		private: boolean;
+		blockedIds: [string];
+		pro: boolean;
+	};
+	profile: {
+		bannerUrl: string;
+		pictureUrl: string;
+		description: string;
+		followingIds: [string];
+		followerIds: [string];
+		friendIds: [string];
+		friendRqIds: [string];
+		badges: [string];
+		linkedProfiles: [string];
+	};
+	status: string;
+	social: {
+		postIds: [string];
+		blogIds: [string];
+		groupIds: [string];
+		betaIds: {
+			hostedIds: [string];
+			joinedIds: [string];
+		};
+		chatIds: [string];
+	};
+}
+
 export default model("User", userSchema);

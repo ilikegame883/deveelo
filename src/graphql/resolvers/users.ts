@@ -4,8 +4,9 @@ import { UserInputError } from "apollo-server-errors";
 
 import ValidateRegisterInput from "../../util/validators";
 import { dbKeys } from "../../../config";
-import User from "../../models/User";
+import User, { UserType } from "../../models/User";
 import Context from "../../context";
+import { createAccessToken, createRefreshToken } from "../../util/auth";
 
 interface registerParams {
 	registerInput: {
@@ -41,7 +42,7 @@ const userResolvers = {
 			}
 
 			//check if user exists
-			let user;
+			let user: UserType;
 			if (isEmail) {
 				user = await User.findOne({ "account.email": input });
 			} else {
@@ -76,29 +77,12 @@ const userResolvers = {
 			// note  successful login
 
 			//refresh token
-			res.cookie(
-				"lid",
-				jwt.sign(
-					{
-						id: user.id,
-					},
-					dbKeys.SECRET_KEY,
-					{ expiresIn: "7d" } //15 minutes
-				),
-				{
-					httpOnly: true, //  development  set domain & path
-				}
-			);
+			res.cookie("lid", createRefreshToken(user), {
+				httpOnly: true, //  development  set domain & path
+			});
 
 			return {
-				accessToken: jwt.sign(
-					{
-						id: user.id,
-						tag: user.account.tag,
-					},
-					dbKeys.SECRET_KEY,
-					{ expiresIn: "15m" } //15 minutes
-				),
+				accessToken: createAccessToken(user),
 			};
 		},
 		async register(_: any, { registerInput: { password, email } }: registerParams) {

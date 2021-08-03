@@ -9,6 +9,7 @@ const apollo_server_errors_1 = require("apollo-server-errors");
 const validators_1 = __importDefault(require("../../util/validators"));
 const config_1 = require("../../../config");
 const User_1 = __importDefault(require("../../models/User"));
+const auth_1 = require("../../util/auth");
 const userResolvers = {
     Mutation: {
         async login(_, { input, password }, { res }) {
@@ -61,16 +62,11 @@ const userResolvers = {
                     },
                 });
             }
-            res.cookie("lid", jsonwebtoken_1.default.sign({
-                id: user.id,
-            }, config_1.dbKeys.SECRET_KEY, { expiresIn: "7d" }), {
+            res.cookie("lid", auth_1.createRefreshToken(user), {
                 httpOnly: true,
             });
             return {
-                accessToken: jsonwebtoken_1.default.sign({
-                    id: user.id,
-                    tag: user.account.tag,
-                }, config_1.dbKeys.SECRET_KEY, { expiresIn: "15m" }),
+                accessToken: auth_1.createAccessToken(user),
             };
         },
         async register(_, { registerInput: { password, email } }) {
