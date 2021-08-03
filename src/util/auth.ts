@@ -1,7 +1,6 @@
 import { UserType } from "../models/User";
 import { sign } from "jsonwebtoken";
-
-import { dbKeys } from "../../config";
+import "dotenv/config";
 
 export const createAccessToken = (user: UserType): string => {
 	return sign(
@@ -9,7 +8,7 @@ export const createAccessToken = (user: UserType): string => {
 			id: user.id,
 			tag: user.account.tag,
 		},
-		dbKeys.SECRET_KEY,
+		process.env.ACCESS_TOKEN_SECRET!,
 		{ expiresIn: "15m" } //15 minutes
 	);
 };
@@ -19,7 +18,7 @@ export const createRefreshToken = (user: UserType): string => {
 		{
 			id: user.id,
 		},
-		dbKeys.R_SECRET_KEY,
+		process.env.REFRESH_TOEKEN_SECRET!,
 		{ expiresIn: "7d" } //15 minutes
 	);
 };

@@ -1,9 +1,9 @@
 import { ApolloServer } from "apollo-server";
 import mongoose from "mongoose";
+import "dotenv/config";
 
 import { typeDefs } from "./graphql/typeDefs";
 import resolvers from "./graphql/resolvers";
-import { dbKeys } from "../config.js";
 
 // development  change mongodb user password & access
 
@@ -15,7 +15,7 @@ const server = new ApolloServer({
 
 //connect to the mongodb database
 mongoose
-	.connect(dbKeys.MONGODB, {
+	.connect(process.env.MONGODB_KEY!, {
 		useNewUrlParser: true,
 		useUnifiedTopology: true,
 	})

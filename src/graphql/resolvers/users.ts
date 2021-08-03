@@ -155,7 +155,7 @@ const userResolvers = {
 			await CheckAndGenerateUsername(max, tag, false, 0);
 
 			//check if user exists
-			const user = await User.findOne({ "account.email": email });
+			const user: UserType = await User.findOne({ "account.email": email });
 			if (user) {
 				throw new UserInputError("email taken", {
 					errors: {
