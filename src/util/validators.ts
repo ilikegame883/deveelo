@@ -1,9 +1,10 @@
-const usernameLimit = 28;
-const tagLimit = 35;
-const userShort = 36;
+//allow dynamic adding of fields
+interface LooseErrors {
+	[key: string]: any;
+}
 
-const ValidateRegisterInput = (input, type) => {
-	const errors = {};
+const ValidateRegisterInput = (input: string, type: string) => {
+	const errors: LooseErrors = {};
 
 	switch (type) {
 		case "email":

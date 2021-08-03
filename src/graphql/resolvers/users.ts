@@ -2,14 +2,21 @@ import argon2 from "argon2";
 import jwt from "jsonwebtoken";
 import { UserInputError } from "apollo-server-errors";
 
-import ValidateRegisterInput from "../../../util/validators";
+import ValidateRegisterInput from "../../util/validators";
 import { dbKeys } from "../../../config";
 import User from "../../models/User";
 import Context from "../../context";
 
+interface registerParams {
+	registerInput: {
+		password: string;
+		email: string;
+	};
+}
+
 const userResolvers = {
 	Mutation: {
-		async login(_, { input, password }, { res }: Context) {
+		async login(_: any, { input, password }: { input: string; password: string }, { res }: Context) {
 			//check if email or username [tag]
 			const regEx = /^([0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+[a-zA-Z]{2,9})$/;
 			const isEmail = input.match(regEx);
@@ -94,7 +101,7 @@ const userResolvers = {
 				),
 			};
 		},
-		async register(_, { registerInput: { password, email } }) {
+		async register(_: any, { registerInput: { password, email } }: registerParams) {
 			/*
 
             todo 

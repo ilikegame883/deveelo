@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const argon2_1 = __importDefault(require("argon2"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const apollo_server_errors_1 = require("apollo-server-errors");
-const validators_1 = __importDefault(require("../../../util/validators"));
+const validators_1 = __importDefault(require("../../util/validators"));
 const config_1 = require("../../../config");
 const User_1 = __importDefault(require("../../models/User"));
 const userResolvers = {
