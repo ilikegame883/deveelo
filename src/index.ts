@@ -1,4 +1,6 @@
 import { ApolloServer } from "apollo-server";
+import { applyMiddleware } from "graphql-middleware";
+import { makeExecutableSchema } from "graphql-tools";
 import mongoose from "mongoose";
 import "dotenv/config";
 
@@ -7,9 +9,17 @@ import resolvers from "./graphql/resolvers";
 
 // development  change mongodb user password & access
 
-const server = new ApolloServer({
+const schema = makeExecutableSchema({
 	typeDefs,
 	resolvers,
+});
+
+const middleware: any = [];
+
+const schemaWithMiddleware = applyMiddleware(schema, ...middleware);
+
+const server = new ApolloServer({
+	schema: schemaWithMiddleware,
 	context: ({ req, res }) => ({ req, res }),
 });
 

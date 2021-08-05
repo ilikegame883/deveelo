@@ -4,13 +4,20 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const apollo_server_1 = require("apollo-server");
+const graphql_middleware_1 = require("graphql-middleware");
+const graphql_tools_1 = require("graphql-tools");
 const mongoose_1 = __importDefault(require("mongoose"));
 require("dotenv/config");
 const typeDefs_1 = require("./graphql/typeDefs");
 const resolvers_1 = __importDefault(require("./graphql/resolvers"));
-const server = new apollo_server_1.ApolloServer({
+const schema = graphql_tools_1.makeExecutableSchema({
     typeDefs: typeDefs_1.typeDefs,
     resolvers: resolvers_1.default,
+});
+const middleware = [];
+const schemaWithMiddleware = graphql_middleware_1.applyMiddleware(schema, ...middleware);
+const server = new apollo_server_1.ApolloServer({
+    schema: schemaWithMiddleware,
     context: ({ req, res }) => ({ req, res }),
 });
 mongoose_1.default
