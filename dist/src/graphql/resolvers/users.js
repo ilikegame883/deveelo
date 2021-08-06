@@ -12,6 +12,13 @@ const User_1 = __importDefault(require("../../models/User"));
 const auth_1 = require("../../util/auth");
 const userResolvers = {
     Mutation: {
+        async myAccount(_parent, _args, context, _info) {
+            const user = await User_1.default.findById(context.payload.id);
+            return {
+                account: user.account,
+                profile: user.profile,
+            };
+        },
         async login(_, { input, password }, { res }) {
             const regEx = /^([0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+[a-zA-Z]{2,9})$/;
             const isEmail = input.match(regEx);

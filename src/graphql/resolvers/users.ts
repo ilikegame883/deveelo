@@ -17,6 +17,14 @@ interface registerParams {
 
 const userResolvers = {
 	Mutation: {
+		async myAccount(_parent: any, _args: any, context: Context, _info: any) {
+			const user: UserType = await User.findById(context.payload!.id);
+
+			return {
+				account: user.account,
+				profile: user.profile,
+			};
+		},
 		async login(_: any, { input, password }: { input: string; password: string }, { res }: Context) {
 			//check if email or username [tag]
 			const regEx = /^([0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+[a-zA-Z]{2,9})$/;

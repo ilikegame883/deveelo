@@ -63,7 +63,8 @@ export const typeDefs = gql`
 
 	# note  Queries (searches)
 	type Query {
-		getPosts: [Post]
+		getPosts: [Post],
+		myAccount: {U_Account!, U_Profile!},
 	}
 
 	# note  Mutations (read/write/updates)

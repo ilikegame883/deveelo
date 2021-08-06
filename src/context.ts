@@ -4,6 +4,7 @@ import { Request, Response } from "express";
 interface Context {
 	req: Request;
 	res: Response;
+	payload?: { id: string; tag: string };
 }
 
 export default Context;
