@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.isAuth = void 0;
 const jsonwebtoken_1 = require("jsonwebtoken");
-const loggedInOnlyAuth = async (_reslolve, _parent, _args, context, _info) => {
+const loggedInOnlyAuth = async (resolve, _parent, _args, context, _info) => {
     const authorization = context.req.headers["authorization"];
     if (!authorization) {
         throw new Error("not authenticated");
@@ -13,9 +13,10 @@ const loggedInOnlyAuth = async (_reslolve, _parent, _args, context, _info) => {
         context.payload = payload;
     }
     catch (err) {
-        console.log(err);
         throw new Error("not authenticated");
     }
+    const result = await resolve(_parent, _args, context, _info);
+    console.log(result);
 };
 exports.isAuth = {
     Query: {

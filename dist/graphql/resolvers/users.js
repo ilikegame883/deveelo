@@ -4,22 +4,26 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const argon2_1 = __importDefault(require("argon2"));
-const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const apollo_server_errors_1 = require("apollo-server-errors");
 const validators_1 = __importDefault(require("../../util/validators"));
-const config_1 = require("../../../config");
 const User_1 = __importDefault(require("../../models/User"));
 const auth_1 = require("../../util/auth");
+const successfulLoginHandler = (user, { res }) => {
+    res.cookie("lid", auth_1.createRefreshToken(user), {
+        httpOnly: true,
+    });
+    return auth_1.createAccessToken(user);
+};
 const userResolvers = {
-    Mutation: {
-        async myAccount(_parent, _args, context, _info) {
+    Query: {
+        async myAccount(_parent, _args, context) {
+            console.log("hi");
             const user = await User_1.default.findById(context.payload.id);
-            return {
-                account: user.account,
-                profile: user.profile,
-            };
+            return user;
         },
-        async login(_, { input, password }, { res }) {
+    },
+    Mutation: {
+        async login(_, { input, password }, context) {
             const regEx = /^([0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+[a-zA-Z]{2,9})$/;
             const isEmail = input.match(regEx);
             if (isEmail) {
@@ -69,14 +73,11 @@ const userResolvers = {
                     },
                 });
             }
-            res.cookie("lid", auth_1.createRefreshToken(user), {
-                httpOnly: true,
-            });
             return {
-                accessToken: auth_1.createAccessToken(user),
+                accessToken: successfulLoginHandler(user, context),
             };
         },
-        async register(_, { registerInput: { password, email } }) {
+        async register(_, { registerInput: { password, email } }, context) {
             email = String(email).trim();
             let { valid, errors } = validators_1.default(email, "email");
             if (!valid) {
@@ -124,6 +125,7 @@ const userResolvers = {
                 type: argon2_1.default.argon2id,
                 hashLength: 41,
             });
+            await User_1.default.init();
             const newUser = new User_1.default({
                 account: {
                     username: username,
@@ -160,13 +162,15 @@ const userResolvers = {
                     chatIds: [],
                 },
             });
-            const res = await newUser.save();
-            const token = jsonwebtoken_1.default.sign({
-                id: res.id,
-                email: res.account.email,
-                tag: res.account.tag,
-            }, config_1.dbKeys.SECRET_KEY, { expiresIn: "15m" });
-            return Object.assign(Object.assign({ id: res._id }, res._doc), { token });
+            try {
+                await newUser.save();
+            }
+            catch (error) {
+                throw new Error("Unable to save user to database");
+            }
+            return {
+                accessToken: successfulLoginHandler(newUser, context),
+            };
         },
     },
 };

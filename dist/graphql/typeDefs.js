@@ -54,7 +54,7 @@ exports.typeDefs = graphql_tag_1.default `
 
 	#all types
 	type User {
-		id: ID!
+		_id: ID!
 		token: String!
 		account: U_Account!
 		profile: U_Profile!
@@ -66,15 +66,19 @@ exports.typeDefs = graphql_tag_1.default `
 		email: String!
 	}
 
+	type BoolRes {
+		success: Boolean!
+	}
+
 	# note  Queries (searches)
 	type Query {
-		getPosts: [Post],
-		myAccount: {U_Account!, U_Profile!},
+		getPosts: [Post]!
+		myAccount: User!
 	}
 
 	# note  Mutations (read/write/updates)
 	type Mutation {
-		register(registerInput: RegisterInput): User!
+		register(registerInput: RegisterInput): LoginResponse!
 		login(input: String!, password: String!): LoginResponse!
 	}
 `;

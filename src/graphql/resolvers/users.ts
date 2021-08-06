@@ -1,9 +1,7 @@
 import argon2 from "argon2";
-import jwt from "jsonwebtoken";
 import { UserInputError } from "apollo-server-errors";
 
 import ValidateRegisterInput from "../../util/validators";
-import { dbKeys } from "../../../config";
 import User, { UserType } from "../../models/User";
 import Context from "../../context";
 import { createAccessToken, createRefreshToken } from "../../util/auth";
@@ -15,17 +13,25 @@ interface registerParams {
 	};
 }
 
+const successfulLoginHandler = (user: UserType, { res }: Context): string => {
+	res.cookie("lid", createRefreshToken(user), {
+		httpOnly: true, //  development  set domain & path
+	});
+
+	return createAccessToken(user);
+};
+
 const userResolvers = {
-	Mutation: {
-		async myAccount(_parent: any, _args: any, context: Context, _info: any) {
+	Query: {
+		async myAccount(_parent: any, _args: any, context: Context) {
+			console.log("hi");
 			const user: UserType = await User.findById(context.payload!.id);
 
-			return {
-				account: user.account,
-				profile: user.profile,
-			};
+			return user;
 		},
-		async login(_: any, { input, password }: { input: string; password: string }, { res }: Context) {
+	},
+	Mutation: {
+		async login(_: any, { input, password }: { input: string; password: string }, context: Context) {
 			//check if email or username [tag]
 			const regEx = /^([0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+[a-zA-Z]{2,9})$/;
 			const isEmail = input.match(regEx);
@@ -83,17 +89,11 @@ const userResolvers = {
 			}
 
 			// note  successful login
-
-			//refresh token
-			res.cookie("lid", createRefreshToken(user), {
-				httpOnly: true, //  development  set domain & path
-			});
-
 			return {
-				accessToken: createAccessToken(user),
+				accessToken: successfulLoginHandler(user, context),
 			};
 		},
-		async register(_: any, { registerInput: { password, email } }: registerParams) {
+		async register(_: any, { registerInput: { password, email } }: registerParams, context: Context) {
 			/*
 
             todo 
@@ -133,6 +133,7 @@ const userResolvers = {
 				throw new UserInputError("Errors", { errors });
 			}
 			//#endregion
+
 			let max = 9;
 			const CheckAndGenerateUsername = async (length: number, testTag: string, repeat: boolean, cycleNum: number): Promise<void> => {
 				const matchUser = await User.findOne({
@@ -178,6 +179,8 @@ const userResolvers = {
 				hashLength: 41,
 			});
 
+			await User.init();
+
 			const newUser = new User({
 				account: {
 					username: username,
@@ -215,24 +218,14 @@ const userResolvers = {
 				},
 			});
 
-			const res = await newUser.save();
-
-			// note  this is where ba stopped at 26:46, registers user data in database but does not handle tokens yet
-
-			const token = jwt.sign(
-				{
-					id: res.id,
-					email: res.account.email,
-					tag: res.account.tag,
-				},
-				dbKeys.SECRET_KEY,
-				{ expiresIn: "15m" } //15 minutes
-			);
+			try {
+				await newUser.save();
+			} catch (error) {
+				throw new Error("Unable to save user to database");
+			}
 
 			return {
-				id: res._id,
-				...res._doc,
-				token,
+				accessToken: successfulLoginHandler(newUser, context),
 			};
 		},
 	},
