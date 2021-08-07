@@ -1,8 +1,5 @@
 import gql from "graphql-tag";
 
-import Post from "../models/Post";
-import User from "../models/User";
-
 export const typeDefs = gql`
 	# note  Types
 	type Post {
@@ -11,11 +8,14 @@ export const typeDefs = gql`
 		createdAt: String!
 		username: String!
 	}
-
+	type LoginResponse {
+		accessToken: String!
+	}
 	#user types
 	type U_Account {
 		username: String!
 		tag: String!
+		short: String!
 		password: String!
 		email: String!
 		createdAt: String!
@@ -49,7 +49,7 @@ export const typeDefs = gql`
 
 	#all types
 	type User {
-		id: ID!
+		_id: ID!
 		token: String!
 		account: U_Account!
 		profile: U_Profile!
@@ -61,13 +61,19 @@ export const typeDefs = gql`
 		email: String!
 	}
 
+	type BoolRes {
+		success: Boolean!
+	}
+
 	# note  Queries (searches)
 	type Query {
-		getPosts: [Post]
+		getPosts: [Post]!
+		myAccount: User!
 	}
 
 	# note  Mutations (read/write/updates)
 	type Mutation {
-		register(registerInput: RegisterInput): User!
+		register(registerInput: RegisterInput): LoginResponse!
+		login(input: String!, password: String!): LoginResponse!
 	}
 `;
