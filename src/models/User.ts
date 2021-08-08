@@ -1,7 +1,6 @@
 import { model, Schema } from "mongoose";
 
 const userSchema = new Schema({
-	token: String,
 	account: {
 		username: String,
 		tag: String,
@@ -40,7 +39,6 @@ const userSchema = new Schema({
 
 export interface UserType {
 	_id: string;
-	token: string;
 	account: {
 		username: string;
 		tag: string;

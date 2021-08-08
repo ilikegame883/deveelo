@@ -3,7 +3,7 @@ import gql from "graphql-tag";
 export const typeDefs = gql`
 	# note  Types
 	type Post {
-		id: ID!
+		_id: ID!
 		body: String!
 		createdAt: String!
 		username: String!
@@ -50,7 +50,6 @@ export const typeDefs = gql`
 	#all types
 	type User {
 		_id: ID!
-		token: String!
 		account: U_Account!
 		profile: U_Profile!
 		status: String!

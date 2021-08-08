@@ -17,8 +17,7 @@ const loggedInOnlyAuth: NewIMiddlewareResolver = async (resolve, _parent, _args,
 		throw new Error("not authenticated");
 	}
 
-	const result = await resolve(_parent, _args, context, _info);
-	console.log(result);
+	await resolve(_parent, _args, context, _info);
 };
 
 export const isAuth = {

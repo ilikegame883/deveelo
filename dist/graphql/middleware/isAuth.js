@@ -15,8 +15,7 @@ const loggedInOnlyAuth = async (resolve, _parent, _args, context, _info) => {
     catch (err) {
         throw new Error("not authenticated");
     }
-    const result = await resolve(_parent, _args, context, _info);
-    console.log(result);
+    await resolve(_parent, _args, context, _info);
 };
 exports.isAuth = {
     Query: {

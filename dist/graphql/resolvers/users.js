@@ -19,6 +19,10 @@ const userResolvers = {
         async myAccount(_parent, _args, context) {
             console.log("hi");
             const user = await User_1.default.findById(context.payload.id);
+            console.log(user);
+            if (!user) {
+                throw new Error("user not found");
+            }
             return user;
         },
     },
@@ -136,7 +140,7 @@ const userResolvers = {
                     createdAt: new Date().toISOString(),
                     lastOnline: new Date().toISOString(),
                     private: false,
-                    blockIds: [],
+                    blockedIds: [],
                     pro: false,
                 },
                 profile: {
