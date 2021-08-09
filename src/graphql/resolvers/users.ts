@@ -1,5 +1,6 @@
 import argon2 from "argon2";
 import { UserInputError } from "apollo-server-errors";
+import { ObjectID } from "mongodb";
 
 import ValidateRegisterInput from "../../util/validators";
 import User, { UserType } from "../../models/User";
@@ -23,9 +24,12 @@ const successfulLoginHandler = (user: UserType, { res }: Context): string => {
 
 const userResolvers = {
 	Query: {
-		async myAccount(_parent: any, _args: any, context: Context) {
-			console.log("hi");
-			const user: UserType = await User.findById(context.payload!.id);
+		async myAccount(_parent: any, _args: any, context: Context): Promise<UserType> {
+			const user: UserType = await User.findById(new ObjectID(context.payload!.id));
+
+			if (!user) {
+				throw new Error("user not found");
+			}
 
 			return user;
 		},
@@ -94,21 +98,8 @@ const userResolvers = {
 			};
 		},
 		async register(_: any, { registerInput: { password, email } }: registerParams, context: Context) {
-			/*
-
-            todo 
-            +  Valitate user data
-			+  check & generate random number tags
-            +  Make sure user doesnt exist already
-            +  hash the password & create auth token
-            +  Switch to Argon2 hashing from bcrypt
-			- refresh & access token setup
-
-            */
-
 			email = String(email).trim();
 
-			// note
 			//#region Validate Input
 			//validate email before using it to make the username
 			let { valid, errors } = ValidateRegisterInput(email, "email");
@@ -191,7 +182,7 @@ const userResolvers = {
 					createdAt: new Date().toISOString(),
 					lastOnline: new Date().toISOString(),
 					private: false,
-					blockIds: [],
+					blockedIds: [],
 					pro: false,
 				},
 				profile: {

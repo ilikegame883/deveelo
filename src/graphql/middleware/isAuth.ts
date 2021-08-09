@@ -18,7 +18,8 @@ const loggedInOnlyAuth: NewIMiddlewareResolver = async (resolve, _parent, _args,
 	}
 
 	const result = await resolve(_parent, _args, context, _info);
-	console.log(result);
+
+	return result;
 };
 
 export const isAuth = {

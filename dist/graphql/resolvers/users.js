@@ -5,6 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const argon2_1 = __importDefault(require("argon2"));
 const apollo_server_errors_1 = require("apollo-server-errors");
+const mongodb_1 = require("mongodb");
 const validators_1 = __importDefault(require("../../util/validators"));
 const User_1 = __importDefault(require("../../models/User"));
 const auth_1 = require("../../util/auth");
@@ -17,8 +18,10 @@ const successfulLoginHandler = (user, { res }) => {
 const userResolvers = {
     Query: {
         async myAccount(_parent, _args, context) {
-            console.log("hi");
-            const user = await User_1.default.findById(context.payload.id);
+            const user = await User_1.default.findById(new mongodb_1.ObjectID(context.payload.id));
+            if (!user) {
+                throw new Error("user not found");
+            }
             return user;
         },
     },
@@ -136,7 +139,7 @@ const userResolvers = {
                     createdAt: new Date().toISOString(),
                     lastOnline: new Date().toISOString(),
                     private: false,
-                    blockIds: [],
+                    blockedIds: [],
                     pro: false,
                 },
                 profile: {

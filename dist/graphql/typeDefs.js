@@ -8,7 +8,7 @@ const graphql_tag_1 = __importDefault(require("graphql-tag"));
 exports.typeDefs = graphql_tag_1.default `
 	# note  Types
 	type Post {
-		id: ID!
+		_id: ID!
 		body: String!
 		createdAt: String!
 		username: String!
@@ -55,7 +55,6 @@ exports.typeDefs = graphql_tag_1.default `
 	#all types
 	type User {
 		_id: ID!
-		token: String!
 		account: U_Account!
 		profile: U_Profile!
 		status: String!
