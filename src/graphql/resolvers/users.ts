@@ -1,5 +1,6 @@
 import argon2 from "argon2";
 import { UserInputError } from "apollo-server-errors";
+import { ObjectID } from "mongodb";
 
 import ValidateRegisterInput from "../../util/validators";
 import User, { UserType } from "../../models/User";
@@ -24,9 +25,8 @@ const successfulLoginHandler = (user: UserType, { res }: Context): string => {
 const userResolvers = {
 	Query: {
 		async myAccount(_parent: any, _args: any, context: Context): Promise<UserType> {
-			console.log("hi");
-			const user: UserType = await User.findById(context.payload!.id);
-			console.log(user);
+			const user: UserType = await User.findById(new ObjectID(context.payload!.id));
+
 			if (!user) {
 				throw new Error("user not found");
 			}
