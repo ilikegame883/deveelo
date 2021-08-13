@@ -10,9 +10,7 @@ const validators_1 = __importDefault(require("../../util/validators"));
 const User_1 = __importDefault(require("../../models/User"));
 const auth_1 = require("../../util/auth");
 const successfulLoginHandler = (user, { res }) => {
-    res.cookie("lid", auth_1.createRefreshToken(user), {
-        httpOnly: true,
-    });
+    auth_1.sendRefreshToken(res, auth_1.createRefreshToken(user));
     return auth_1.createAccessToken(user);
 };
 const userResolvers = {

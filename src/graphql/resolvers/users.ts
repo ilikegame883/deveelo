@@ -5,7 +5,7 @@ import { ObjectID } from "mongodb";
 import ValidateRegisterInput from "../../util/validators";
 import User, { UserType } from "../../models/User";
 import Context from "../../context";
-import { createAccessToken, createRefreshToken } from "../../util/auth";
+import { createAccessToken, createRefreshToken, sendRefreshToken } from "../../util/auth";
 
 interface registerParams {
 	registerInput: {
@@ -15,9 +15,7 @@ interface registerParams {
 }
 
 const successfulLoginHandler = (user: UserType, { res }: Context): string => {
-	res.cookie("lid", createRefreshToken(user), {
-		httpOnly: true, //  development  set domain & path
-	});
+	sendRefreshToken(res, createRefreshToken(user));
 
 	return createAccessToken(user);
 };

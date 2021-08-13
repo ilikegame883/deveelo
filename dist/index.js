@@ -42,6 +42,7 @@ const initServer = async () => {
         if (!user) {
             return res.send({ ok: false, accessToken: "" });
         }
+        auth_1.sendRefreshToken(res, auth_1.createRefreshToken(user));
         return res.send({ ok: true, accessToken: auth_1.createAccessToken(user) });
     });
     const schema = schema_1.makeExecutableSchema({

@@ -12,7 +12,7 @@ import { typeDefs } from "./graphql/typeDefs";
 import resolvers from "./graphql/resolvers";
 import { authMiddlewares } from "./graphql/middleware";
 import User, { UserType } from "./models/User";
-import { createAccessToken } from "./util/auth";
+import { createAccessToken, createRefreshToken, sendRefreshToken } from "./util/auth";
 
 // development  change mongodb user password & access - cors origin to site domain
 const initServer = async () => {
@@ -50,7 +50,10 @@ const initServer = async () => {
 			return res.send({ ok: false, accessToken: "" });
 		}
 
-		//login the user
+		//refresh the refresh token
+		sendRefreshToken(res, createRefreshToken(user));
+
+		//login the user (send access token)
 		return res.send({ ok: true, accessToken: createAccessToken(user) });
 	});
 

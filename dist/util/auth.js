@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createRefreshToken = exports.createAccessToken = void 0;
+exports.sendRefreshToken = exports.createRefreshToken = exports.createAccessToken = void 0;
 const jsonwebtoken_1 = require("jsonwebtoken");
 require("dotenv/config");
 const createAccessToken = (user) => {
@@ -16,4 +16,10 @@ const createRefreshToken = (user) => {
     }, process.env.REFRESH_TOEKEN_SECRET, { expiresIn: "7d" });
 };
 exports.createRefreshToken = createRefreshToken;
+const sendRefreshToken = (res, token) => {
+    res.cookie("lid", token, {
+        httpOnly: true,
+    });
+};
+exports.sendRefreshToken = sendRefreshToken;
 //# sourceMappingURL=auth.js.map
