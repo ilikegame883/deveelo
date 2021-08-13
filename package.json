@@ -6,7 +6,7 @@
 	"scripts": {
 		"watch": "tsc -w",
 		"start": "nodemon dist/index.js",
-		"start2": "nodemon --exec ./node_modules/.bin/babel-node dist/index.js"
+		"revoke": "node dist/hooks/revokeUserToken.js"
 	},
 	"keywords": [],
 	"author": "",

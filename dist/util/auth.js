@@ -13,6 +13,7 @@ exports.createAccessToken = createAccessToken;
 const createRefreshToken = (user) => {
     return jsonwebtoken_1.sign({
         id: user._id,
+        tokenVersion: user.account.tokenVersion,
     }, process.env.REFRESH_TOEKEN_SECRET, { expiresIn: "7d" });
 };
 exports.createRefreshToken = createRefreshToken;
