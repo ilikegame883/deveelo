@@ -1,6 +1,10 @@
 import activityStyles from '../styles/activitybar.module.css'
 
-const ActivityBar = ({ widgetKeys }) => {
+interface activityBarParams {
+    widgetKeys?: string
+}
+
+const ActivityBar = ({ widgetKeys }:activityBarParams) => {
     return (
         <div className={activityStyles.activityBar}>
             
