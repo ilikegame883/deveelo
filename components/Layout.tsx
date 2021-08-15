@@ -1,4 +1,6 @@
+import { useQuery, gql } from "@apollo/client";
 import dynamic from "next/dynamic";
+
 import Meta from "./Meta";
 import Nav from "./Nav";
 const DesktopSidebar = dynamic(() => import("./Sidebar"), { ssr: false });
@@ -9,7 +11,32 @@ import useScreenType from "../hooks/useScreenType";
 const Layout = ({ children }) => {
 	const screenType: string = useScreenType();
 
+	const ALLPOSTSQUERY = gql`
+		query Query {
+			getPosts {
+				_id
+				body
+				createdAt
+				username
+			}
+		}
+	`;
+
 	let content: any = null;
+	let text: string;
+
+	console.log("hi");
+	const { loading, error, data } = useQuery(ALLPOSTSQUERY);
+
+	console.log(loading);
+	console.log(data);
+	console.log(error);
+
+	if (loading) {
+		text = "loading...";
+	} else {
+		text = JSON.stringify(data);
+	}
 
 	switch (screenType) {
 		case "full":
@@ -21,6 +48,7 @@ const Layout = ({ children }) => {
 					<div className={styles.container}>
 						<main className={styles.main}>
 							<h2>Full</h2>
+							<p>testing: {text}</p>
 							{children}
 						</main>
 					</div>

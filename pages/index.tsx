@@ -1,9 +1,9 @@
-import Meta from '../components/Meta'
+import Meta from "../components/Meta";
 
 export default function Home() {
-  return (
-    <div>
-      <Meta title="Deveelo"></Meta>
-    </div>
-  )
+	return (
+		<div>
+			<Meta title="Deveelo"></Meta>
+		</div>
+	);
 }
