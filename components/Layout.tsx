@@ -9,32 +9,37 @@ import styles from "../styles/Layout.module.css";
 import useScreenType from "../hooks/useScreenType";
 import { useGetPostsQuery } from "../hooks/backend/generated/graphql";
 
-const Layout = ({ children }) => {
+interface layoutProps {
+	children?: any;
+	showSidebar: boolean;
+	showActivityBar: boolean;
+	showNav: boolean;
+}
+
+const Layout = ({ children, showSidebar, showActivityBar, showNav }: layoutProps) => {
 	const screenType: string = useScreenType();
 
 	let content: any = null;
 	let text: any;
 
-	console.log("hi");
 	const { loading, error, data } = useGetPostsQuery();
-
-	console.log(loading);
-	console.log(data);
-	console.log(error);
 
 	if (loading) {
 		text = "loading...";
 	} else {
-		text = JSON.stringify(data.getPosts);
+		text = JSON.stringify(data.getPosts[0].body);
 	}
 
 	switch (screenType) {
 		case "full":
 			content = (
 				<>
-					<Nav />
-					<DesktopSidebar />
-					<FullActivityBar />
+					{showNav && (showSidebar ? <Nav sidebarSpacing={true} /> : <Nav sidebarSpacing={false} />)}
+
+					{showSidebar && <DesktopSidebar />}
+
+					{showActivityBar && (showNav ? <FullActivityBar topSpacing={true} /> : <FullActivityBar topSpacing={false} />)}
+
 					<div className={styles.container}>
 						<main className={styles.main}>
 							<h2>Full</h2>
@@ -49,9 +54,12 @@ const Layout = ({ children }) => {
 		case "halfActivityBar":
 			content = (
 				<>
-					<Nav />
-					<DesktopSidebar />
-					<FullActivityBar />
+					{showNav && (showSidebar ? <Nav sidebarSpacing={true} /> : <Nav sidebarSpacing={false} />)}
+
+					{showSidebar && <DesktopSidebar />}
+
+					{showActivityBar && (showNav ? <FullActivityBar topSpacing={true} /> : <FullActivityBar topSpacing={false} />)}
+
 					<div className={styles.container}>
 						<main className={styles.main}>
 							<h2>half activity bar</h2>
@@ -64,9 +72,12 @@ const Layout = ({ children }) => {
 		case "tablet":
 			content = (
 				<>
-					<Nav />
-					<DesktopSidebar />
-					<FullActivityBar />
+					{showNav && (showSidebar ? <Nav sidebarSpacing={true} /> : <Nav sidebarSpacing={false} />)}
+
+					{showSidebar && <DesktopSidebar />}
+
+					{showActivityBar && (showNav ? <FullActivityBar topSpacing={true} /> : <FullActivityBar topSpacing={false} />)}
+
 					<div className={styles.container}>
 						<main className={styles.main}>
 							<h2>tablet</h2>
@@ -79,8 +90,10 @@ const Layout = ({ children }) => {
 		case "mobile":
 			content = (
 				<>
-					<Nav />
-					<FullActivityBar />
+					{showNav && (showSidebar ? <Nav sidebarSpacing={true} /> : <Nav sidebarSpacing={false} />)}
+
+					{showActivityBar && (showNav ? <FullActivityBar topSpacing={true} /> : <FullActivityBar topSpacing={false} />)}
+
 					<div className={styles.container}>
 						<main className={styles.main}>
 							<h2>mobile</h2>

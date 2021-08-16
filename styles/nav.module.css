@@ -12,8 +12,23 @@
     font-family: Heebo;
     font-style: normal;
   }
+
+  .navNoSpace {
+    width: 100vw;
+    height: 7.125em;
+    color: #1E325A;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    background-color: #fff;
+    box-shadow: 0px 0px 1.875em rgba(30, 50, 90, 0.05);
+
+    font-family: Heebo;
+    font-style: normal;
+  }
   
-  .nav ul {
+  .nav ul, .navNoSpace ul {
     display: flex;
     justify-content: center;
     align-items: center;

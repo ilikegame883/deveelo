@@ -1,15 +1,12 @@
-import activityStyles from '../styles/activitybar.module.css'
+import activityStyles from "../styles/activitybar.module.css";
 
 interface activityBarParams {
-    widgetKeys?: string
+	topSpacing: boolean;
+	widgetKeys?: string;
 }
 
-const ActivityBar = ({ widgetKeys }:activityBarParams) => {
-    return (
-        <div className={activityStyles.activityBar}>
-            
-        </div>
-    )
-}
+const ActivityBar = ({ topSpacing, widgetKeys }: activityBarParams) => {
+	return <div className={topSpacing ? activityStyles.activityBar : activityStyles.activityBarNoSpace}></div>;
+};
 
-export default ActivityBar
+export default ActivityBar;
