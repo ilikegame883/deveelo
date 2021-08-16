@@ -7,26 +7,16 @@ const DesktopSidebar = dynamic(() => import("./Sidebar"), { ssr: false });
 import FullActivityBar from "./ActivityBar";
 import styles from "../styles/Layout.module.css";
 import useScreenType from "../hooks/useScreenType";
+import { useGetPostsQuery } from "../hooks/backend/generated/graphql";
 
 const Layout = ({ children }) => {
 	const screenType: string = useScreenType();
 
-	const ALLPOSTSQUERY = gql`
-		query Query {
-			getPosts {
-				_id
-				body
-				createdAt
-				username
-			}
-		}
-	`;
-
 	let content: any = null;
-	let text: string;
+	let text: any;
 
 	console.log("hi");
-	const { loading, error, data } = useQuery(ALLPOSTSQUERY);
+	const { loading, error, data } = useGetPostsQuery();
 
 	console.log(loading);
 	console.log(data);
@@ -35,7 +25,7 @@ const Layout = ({ children }) => {
 	if (loading) {
 		text = "loading...";
 	} else {
-		text = JSON.stringify(data);
+		text = JSON.stringify(data.getPosts);
 	}
 
 	switch (screenType) {
@@ -48,7 +38,7 @@ const Layout = ({ children }) => {
 					<div className={styles.container}>
 						<main className={styles.main}>
 							<h2>Full</h2>
-							<p>testing: {text}</p>
+							<p>{text}</p>
 							{children}
 						</main>
 					</div>
