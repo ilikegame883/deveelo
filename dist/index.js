@@ -19,10 +19,11 @@ const User_1 = __importDefault(require("./models/User"));
 const auth_1 = require("./util/auth");
 const initServer = async () => {
     const app = express_1.default();
-    app.use(cors_1.default({
-        origin: "https://studio.apollographql.com",
+    const corsOptions = {
+        origin: "*",
         credentials: true,
-    }));
+    };
+    app.use(cors_1.default(corsOptions));
     app.use(cookie_parser_1.default());
     app.get("/", (_req, res) => res.send("hello"));
     app.post("/refresh_token", async (req, res) => {

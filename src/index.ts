@@ -18,12 +18,24 @@ import { createAccessToken, createRefreshToken, sendRefreshToken } from "./util/
 const initServer = async () => {
 	const app = express();
 
-	app.use(
-		cors({
-			origin: "https://studio.apollographql.com", //http://localhost:3000
-			credentials: true,
-		})
-	);
+	// const whitelist = ["http://localhost:3000", "https://studio.apollographql.com"];
+	// const corsOptions = {
+	// 	origin: function (origin: any, callback: any) {
+	// 		if (whitelist.indexOf(origin!) !== -1) {
+	// 			callback(null, true);
+	// 		} else {
+	// 			callback(new Error("Not allowed by CORS"));
+	// 		}
+	// 	},
+	// 	credentials: true,
+	// };
+
+	const corsOptions = {
+		origin: "*",
+		credentials: true,
+	};
+
+	app.use(cors(corsOptions)); // development  enable real cors options above
 	//api routes
 	app.use(cookieParser());
 	app.get("/", (_req, res) => res.send("hello"));
