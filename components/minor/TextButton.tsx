@@ -1,4 +1,4 @@
-import buttonStyles from "../styles/textbutton.module.css";
+import buttonStyles from "../../styles/textbutton.module.css";
 
 interface buttonParams {
 	colorKey: string;

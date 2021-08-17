@@ -1,7 +1,7 @@
 import sidebarStyles from "../styles/sidebar.module.css";
-import NameGroup from "./NameGroup";
-import TextButton from "./TextButton";
-import ProfilePicture from "./ProfilePicture";
+import NameGroup from "./minor/NameGroup";
+import TextButton from "./minor/TextButton";
+import ProfilePicture from "./minor/ProfilePicture";
 import Image from "next/image";
 
 const Sidebar = () => {

@@ -1,4 +1,4 @@
-import nameStyles from "../styles/namegroup.module.css";
+import nameStyles from "../../styles/namegroup.module.css";
 
 const Badge = ({ keys }: { keys?: string[] }) => {
 	let items: any = [];

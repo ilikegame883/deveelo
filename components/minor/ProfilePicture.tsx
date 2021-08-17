@@ -1,5 +1,5 @@
-import pictureStyles from "../styles/profilepicture.module.css";
-import statusStyles from "../styles/status.module.css";
+import pictureStyles from "../../styles/profilepicture.module.css";
+import statusStyles from "../../styles/status.module.css";
 import Image from "next/image";
 
 interface profilePicParams {
