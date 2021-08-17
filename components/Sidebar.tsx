@@ -18,7 +18,7 @@ const Sidebar = () => {
 		<div className={sidebarStyles.sidebar}>
 			{/*Banner*/}
 			<div className={sidebarStyles.banner}>
-				<Image className={sidebarStyles.bannerImage} alt="profile banner" src="/user_content/p_banners/pinkdunes.png" layout="fill" objectFit="cover" />
+				<Image className={sidebarStyles.bannerImage} alt="profile banner" src="/user_content/p_banners/pinkdunes.png" layout="fill" priority={true} objectFit="cover" />
 			</div>
 			{/*User Profile*/}
 			<div className={sidebarStyles.profileContainer}>
