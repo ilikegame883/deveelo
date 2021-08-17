@@ -1,13 +1,14 @@
 import { useQuery, gql } from "@apollo/client";
 import dynamic from "next/dynamic";
 
-import Meta from "./Meta";
+import Meta from "./minor/Meta";
 import Nav from "./Nav";
 const DesktopSidebar = dynamic(() => import("./Sidebar"), { ssr: false });
 import FullActivityBar from "./ActivityBar";
 import styles from "../styles/Layout.module.css";
 import useScreenType from "../hooks/useScreenType";
 import { useGetPostsQuery } from "../hooks/backend/generated/graphql";
+const SideImage = dynamic(() => import("./SideImage"), { ssr: false });
 
 interface layoutProps {
 	children?: any;
@@ -41,6 +42,7 @@ const Layout = ({ children, showSidebar, showActivityBar, showNav, useWide }: la
 
 					{showActivityBar && (showNav ? <FullActivityBar topSpacing={true} /> : <FullActivityBar topSpacing={false} />)}
 
+					{useWide && <SideImage source="" />}
 					<div className={useWide ? styles.containerWide : styles.container}>
 						<main className={styles.main}>
 							<h2>Full</h2>

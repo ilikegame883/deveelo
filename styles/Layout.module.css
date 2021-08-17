@@ -12,14 +12,18 @@
 }
 
 .containerWide {
-  margin-left: 30.9375em;
-  min-height: 100vh;
+  position: absolute;
+  left: 43.125em;
+  right: 0px;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
+  border-radius: 1.875em 0 0 1.875em;
 
   background-color: var(--sidebarBackground);
+  z-index: 1;
 }
 
 .main {
