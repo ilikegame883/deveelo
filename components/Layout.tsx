@@ -14,9 +14,10 @@ interface layoutProps {
 	showSidebar: boolean;
 	showActivityBar: boolean;
 	showNav: boolean;
+	useWide: boolean;
 }
 
-const Layout = ({ children, showSidebar, showActivityBar, showNav }: layoutProps) => {
+const Layout = ({ children, showSidebar, showActivityBar, showNav, useWide }: layoutProps) => {
 	const screenType: string = useScreenType();
 
 	let content: any = null;
@@ -40,7 +41,7 @@ const Layout = ({ children, showSidebar, showActivityBar, showNav }: layoutProps
 
 					{showActivityBar && (showNav ? <FullActivityBar topSpacing={true} /> : <FullActivityBar topSpacing={false} />)}
 
-					<div className={styles.container}>
+					<div className={useWide ? styles.containerWide : styles.container}>
 						<main className={styles.main}>
 							<h2>Full</h2>
 							<p>{text}</p>
@@ -60,7 +61,7 @@ const Layout = ({ children, showSidebar, showActivityBar, showNav }: layoutProps
 
 					{showActivityBar && (showNav ? <FullActivityBar topSpacing={true} /> : <FullActivityBar topSpacing={false} />)}
 
-					<div className={styles.container}>
+					<div className={useWide ? styles.containerWide : styles.container}>
 						<main className={styles.main}>
 							<h2>half activity bar</h2>
 							{children}
@@ -78,7 +79,7 @@ const Layout = ({ children, showSidebar, showActivityBar, showNav }: layoutProps
 
 					{showActivityBar && (showNav ? <FullActivityBar topSpacing={true} /> : <FullActivityBar topSpacing={false} />)}
 
-					<div className={styles.container}>
+					<div className={useWide ? styles.containerWide : styles.container}>
 						<main className={styles.main}>
 							<h2>tablet</h2>
 							{children}
@@ -94,7 +95,7 @@ const Layout = ({ children, showSidebar, showActivityBar, showNav }: layoutProps
 
 					{showActivityBar && (showNav ? <FullActivityBar topSpacing={true} /> : <FullActivityBar topSpacing={false} />)}
 
-					<div className={styles.container}>
+					<div className={useWide ? styles.containerWide : styles.container}>
 						<main className={styles.main}>
 							<h2>mobile</h2>
 							{children}

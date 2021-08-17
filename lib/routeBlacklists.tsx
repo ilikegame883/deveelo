@@ -15,3 +15,7 @@ export const OnNavBlacklist = (route: string): boolean => {
 
 	return !blacklist.includes(route);
 };
+
+export const MatchName = (text: string, matches: string[]): boolean => {
+	return matches.includes(text);
+};

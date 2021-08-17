@@ -3,9 +3,11 @@ import { useApollo } from "../lib/apolloClient";
 import { ApolloProvider } from "@apollo/client";
 import { useRouter } from "next/router";
 
-import { OnNavBlacklist, OnSidebarBlacklist, OnActivityBlacklist } from "../lib/routeBlacklists";
+import { OnNavBlacklist, OnSidebarBlacklist, OnActivityBlacklist, MatchName } from "../lib/routeBlacklists";
 import Layout from "../components/Layout";
 import "../styles/globals.css";
+
+const twoColRoutes = ["/login", "/register"];
 
 function MyApp({ Component, pageProps }: AppProps) {
 	const apolloClient = useApollo(pageProps.initialApolloState);
@@ -15,7 +17,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 
 	return (
 		<ApolloProvider client={apolloClient}>
-			<Layout showNav={OnNavBlacklist(currPage)} showSidebar={OnSidebarBlacklist(currPage)} showActivityBar={OnActivityBlacklist(currPage)}>
+			<Layout showNav={OnNavBlacklist(currPage)} showSidebar={OnSidebarBlacklist(currPage)} showActivityBar={OnActivityBlacklist(currPage)} useWide={MatchName(currPage, twoColRoutes)}>
 				<Component {...pageProps} />
 			</Layout>
 		</ApolloProvider>
