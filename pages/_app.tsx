@@ -17,7 +17,12 @@ function MyApp({ Component, pageProps }: AppProps) {
 
 	return (
 		<ApolloProvider client={apolloClient}>
-			<Layout showNav={OnNavBlacklist(currPage)} showSidebar={OnSidebarBlacklist(currPage)} showActivityBar={OnActivityBlacklist(currPage)} useWide={MatchName(currPage, twoColRoutes)}>
+			<Layout
+				route={currPage}
+				showNav={OnNavBlacklist(currPage)}
+				showSidebar={OnSidebarBlacklist(currPage)}
+				showActivityBar={OnActivityBlacklist(currPage)}
+				useWide={MatchName(currPage, twoColRoutes)}>
 				<Component {...pageProps} />
 			</Layout>
 		</ApolloProvider>

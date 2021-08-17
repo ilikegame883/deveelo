@@ -12,13 +12,14 @@ const SideImage = dynamic(() => import("./SideImage"), { ssr: false });
 
 interface layoutProps {
 	children?: any;
+	route: string;
 	showSidebar: boolean;
 	showActivityBar: boolean;
 	showNav: boolean;
 	useWide: boolean;
 }
 
-const Layout = ({ children, showSidebar, showActivityBar, showNav, useWide }: layoutProps) => {
+const Layout = ({ children, route, showSidebar, showActivityBar, showNav, useWide }: layoutProps) => {
 	const screenType: string = useScreenType();
 
 	let content: any = null;
@@ -42,7 +43,7 @@ const Layout = ({ children, showSidebar, showActivityBar, showNav, useWide }: la
 
 					{showActivityBar && (showNav ? <FullActivityBar topSpacing={true} /> : <FullActivityBar topSpacing={false} />)}
 
-					{useWide && <SideImage source="" />}
+					{useWide && <SideImage route={route} />}
 					<div className={useWide ? styles.containerWide : styles.container}>
 						<main className={styles.main}>
 							<h2>Full</h2>

@@ -9,3 +9,26 @@
 
     z-index: 0;
 }
+
+.picture {
+    background-color: #EEF0F4;
+    /* image-rendering: -webkit-optimize-contrast; stops blur */
+}
+
+.credit {
+    position: absolute;
+    height: 1.56rem;
+    left: 1.19rem;
+    bottom: 0.35rem;
+
+    font-family: Heebo;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 0.94rem;
+    line-height: 1.41rem;
+    display: flex;
+    align-items: center;
+
+    color: #EEF0F4;
+    z-index: 1;
+}
