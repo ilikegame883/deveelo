@@ -3,6 +3,7 @@ import { useApollo } from "../lib/apolloClient";
 import { ApolloProvider } from "@apollo/client";
 import { useRouter } from "next/router";
 
+import { OnNavBlacklist, OnSidebarBlacklist, OnActivityBlacklist } from "../lib/routeBlacklists";
 import Layout from "../components/Layout";
 import "../styles/globals.css";
 
@@ -20,23 +21,5 @@ function MyApp({ Component, pageProps }: AppProps) {
 		</ApolloProvider>
 	);
 }
-
-const OnSidebarBlacklist = (route: string): boolean => {
-	const blacklist = ["/login", "/register"];
-
-	return !blacklist.includes(route);
-};
-
-const OnActivityBlacklist = (route: string): boolean => {
-	const blacklist = ["/login", "/register"];
-
-	return !blacklist.includes(route);
-};
-
-const OnNavBlacklist = (route: string): boolean => {
-	const blacklist = ["/login", "/register"];
-
-	return !blacklist.includes(route);
-};
 
 export default MyApp;
