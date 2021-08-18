@@ -1,0 +1,17 @@
+.largeContainer {
+    position: relative;
+    width: 38.625em;
+    height: fit-content;
+
+    /* background-color: rgba(0, 255, 221, 0.294); */
+}
+
+.largeContainerOffset {
+    position: absolute;
+    left: 5.25em;
+    bottom: 1.96875em;
+    width: 38.625em;
+    height: fit-content;
+
+    background-color: rgba(0, 255, 119, 0.294);
+}
