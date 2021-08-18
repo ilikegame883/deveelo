@@ -1,4 +1,4 @@
-import Meta from "../components/minor/Meta";
+import Meta from "../components/micro/Meta";
 
 export default function Home() {
 	return (

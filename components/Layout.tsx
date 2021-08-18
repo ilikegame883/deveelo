@@ -1,7 +1,7 @@
 import { useQuery, gql } from "@apollo/client";
 import dynamic from "next/dynamic";
 
-import Meta from "./minor/Meta";
+import Meta from "./micro/Meta";
 import Nav from "./Nav";
 const DesktopSidebar = dynamic(() => import("./Sidebar"), { ssr: false });
 import FullActivityBar from "./ActivityBar";
