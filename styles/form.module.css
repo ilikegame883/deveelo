@@ -1,9 +1,14 @@
 .largeContainer {
     position: relative;
-    width: 38.625em;
-    height: fit-content;
+    width: inherit;
+    height: 100px;
 
-    /* background-color: rgba(0, 255, 221, 0.294); */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+
+    background-color: rgba(195, 0, 255, 0.294);
 }
 
 .largeContainerOffset {
@@ -12,6 +17,4 @@
     bottom: 1.96875em;
     width: 38.625em;
     height: fit-content;
-
-    background-color: rgba(0, 255, 119, 0.294);
 }
