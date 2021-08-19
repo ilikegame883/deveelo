@@ -1,0 +1,93 @@
+.p_large {
+    /*auto layout*/
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    width: fit-content;
+    height: 2.25em;
+
+    flex: none;
+    order: 1;
+    flex-grow: 0;
+    margin: 0px 0px;
+}
+
+.p_largeText {
+    height: inherit;
+    width: fit-content;
+
+    color: var(--textBlack);
+    font-weight: bold;
+    font-size: 1.5rem;
+    line-height: inherit;
+
+    display: flex;
+    align-items: flex-end;
+
+    flex: none;
+    flex-grow: 0;
+    margin: 0 0;
+}
+
+.checkmark {
+    /*
+    position: relative;
+    top: .14em;
+    left: .14em;*/
+    margin-top: .14em;
+    margin-right: 0.0625em;
+    width: 80%;
+    height: 80%;
+
+    background-image: url('../public/resources/Checkmark52.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.v_largeBadge {
+    display: flex;
+    justify-content: center;
+    width: 1.5em;
+    height: 1.5em;
+
+    border-radius: 100%;
+    background: linear-gradient(135deg, #FFD74A 0%, #FFB129 100%);
+    box-shadow: 0 0.375em 0.4687em rgba(255, 177, 41, 0.4);
+
+    margin-left: 0.5625em;
+}
+
+.shield {
+    /*position: relative;
+    top: .14em;
+    left: .14em;*/
+    margin-top: .14em;
+    margin-right: 0.0625em;
+    width: 80%;
+    height: 80%;
+
+    background-image: url('../public/resources/staff.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.s_largeBadge {
+    display: flex;
+    justify-content: center;
+    width: 1.5em;
+    height: 1.5em;
+
+    border-radius: 100%;
+    background: linear-gradient(135deg, #00D1FF 0%, #0075FF 100%);
+    box-shadow: 0px 0.375em 0.4687em rgba(0, 117, 255, 0.2);
+
+    margin-left: 0.5625em;
+}
+
+.largeSpacer {
+    width: 1.5em;
+    height: 1.5em;
+}
