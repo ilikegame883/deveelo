@@ -1,6 +1,8 @@
-import { UserType } from "../models/User";
+import { Response } from "express";
 import { sign } from "jsonwebtoken";
 import "dotenv/config";
+
+import { UserType } from "../models/User";
 
 export const createAccessToken = (user: UserType): string => {
 	//console.log("user id is: " + user.id);
@@ -19,8 +21,15 @@ export const createRefreshToken = (user: UserType): string => {
 	return sign(
 		{
 			id: user._id,
+			tokenVersion: user.account.tokenVersion,
 		},
 		process.env.REFRESH_TOEKEN_SECRET!,
 		{ expiresIn: "7d" } //7 days
 	);
+};
+
+export const sendRefreshToken = (res: Response, token: string) => {
+	res.cookie("lid", token, {
+		httpOnly: true, //  development  set domain & path
+	});
 };

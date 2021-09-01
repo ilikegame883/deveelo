@@ -1,39 +1,113 @@
-import { ApolloServer } from "apollo-server";
-import { applyMiddleware } from "graphql-middleware";
-import { makeExecutableSchema } from "@graphql-tools/schema";
-import mongoose from "mongoose";
 import "dotenv/config";
+import { ApolloServer } from "apollo-server-express";
+import { applyMiddleware as applyGqlMiddle } from "graphql-middleware";
+import { makeExecutableSchema } from "@graphql-tools/schema";
+import { verify } from "jsonwebtoken";
+import mongoose from "mongoose";
+import express from "express";
+import cookieParser from "cookie-parser";
+import cors from "cors";
 
 import { typeDefs } from "./graphql/typeDefs";
 import resolvers from "./graphql/resolvers";
 import { authMiddlewares } from "./graphql/middleware";
+import User, { UserType } from "./models/User";
+import { createAccessToken, createRefreshToken, sendRefreshToken } from "./util/auth";
 
-// development  change mongodb user password & access
+// development  change mongodb user password & access - cors origin to site domain
+const initServer = async () => {
+	const app = express();
 
-const schema = makeExecutableSchema({
-	typeDefs,
-	resolvers,
-});
+	// const whitelist = ["http://localhost:3000", "https://studio.apollographql.com"];
+	// const corsOptions = {
+	// 	origin: function (origin: any, callback: any) {
+	// 		if (whitelist.indexOf(origin!) !== -1) {
+	// 			callback(null, true);
+	// 		} else {
+	// 			callback(new Error("Not allowed by CORS"));
+	// 		}
+	// 	},
+	// 	credentials: true,
+	// };
 
-const middleware = [...authMiddlewares];
+	const corsOptions = {
+		origin: "*",
+		credentials: true,
+	};
 
-const schemaWithMiddleware = applyMiddleware(schema, ...middleware);
+	app.use(cors(corsOptions)); // development  enable real cors options above
+	//api routes
+	app.use(cookieParser());
+	app.get("/", (_req, res) => res.send("hello"));
+	app.post("/refresh_token", async (req, res) => {
+		//check if refresh token is correct & send new access token
+		const token = req.cookies.lid;
+		if (!token) {
+			//they are not signed in
+			return res.send({ ok: false, accessToken: "" });
+		}
 
-const server = new ApolloServer({
-	schema: schemaWithMiddleware,
-	context: ({ req, res }) => ({ req, res }),
-});
+		let payload: any = null;
+		try {
+			payload = verify(token, process.env.REFRESH_TOEKEN_SECRET!);
+		} catch (error) {
+			console.log(error);
+			return res.send({ ok: false, accessToken: "" });
+		}
 
-//connect to the mongodb database
-mongoose
-	.connect(process.env.MONGODB_KEY!, {
-		useNewUrlParser: true,
-		useUnifiedTopology: true,
-	})
-	.then(() => {
-		console.log("database connected");
-		return server.listen({ port: 5000 });
-	})
-	.then((res) => {
-		console.log(`Server running at ${res.url} 🎉`);
+		//token is valid, send access token
+		const user: UserType = await User.findById(payload.id);
+
+		if (!user) {
+			return res.send({ ok: false, accessToken: "" });
+		}
+
+		//check if token version is the latest
+		if (user.account.tokenVersion !== payload.tokenVersion) {
+			return res.send({ ok: false, accessToken: "" });
+		}
+
+		//refresh the refresh token
+		sendRefreshToken(res, createRefreshToken(user));
+
+		//login the user (send access token)
+		return res.send({ ok: true, accessToken: createAccessToken(user) });
 	});
+
+	const schema = makeExecutableSchema({
+		typeDefs,
+		resolvers,
+	});
+
+	const middleware = [...authMiddlewares];
+	const schemaWithMiddleware = applyGqlMiddle(schema, ...middleware);
+
+	const server = new ApolloServer({
+		schema: schemaWithMiddleware,
+		context: ({ req, res }) => ({ req, res }),
+	});
+
+	await server.start();
+
+	server.applyMiddleware({
+		app,
+		cors: false, // development  set cors paths
+	});
+
+	//connect to the mongodb database
+	mongoose
+		.connect(process.env.MONGODB_KEY!, {
+			useNewUrlParser: true,
+			useUnifiedTopology: true,
+		})
+		.then(() => {
+			console.log("📬 - database connected");
+			return app.listen(parseInt(process.env.PORT!), () => {
+				console.log(`🚀 - Server running at http://localhost:4000`);
+			});
+		});
+};
+
+initServer().catch((err) => {
+	console.log(err);
+});

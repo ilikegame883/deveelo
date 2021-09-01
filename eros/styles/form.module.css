@@ -1,9 +1,17 @@
 .largeContainer {
+    --form-text-col: #808C9D;
+    --form-border-col: #979FAA;
+
     position: relative;
-    width: 38.625em;
+    width: inherit;
     height: fit-content;
 
-    /* background-color: rgba(0, 255, 221, 0.294); */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+
+    background-color: rgba(195, 0, 255, 0.116);
 }
 
 .largeContainerOffset {
@@ -12,6 +20,33 @@
     bottom: 1.96875em;
     width: 38.625em;
     height: fit-content;
+}
 
-    background-color: rgba(0, 255, 119, 0.294);
+.label {
+    height: 1.96875rem;
+    width: 100%;
+
+    font-family: "Heebo";
+    color: var(--form-text-col);
+    font-style: normal;
+    font-weight: normal;
+    font-size: 1.3125rem;
+    line-height: 1.96875rem;
+
+    display: flex;
+    align-items: flex-end;
+
+    margin: 0px 0px;
+}
+
+.field {
+    position: relative;
+    margin: 1.40625rem;
+    width: 100%;
+
+    border-bottom: 0.75px var(--form-border-col);
+}
+
+.input {
+    width: 100%;
 }

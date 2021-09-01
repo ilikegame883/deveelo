@@ -27,6 +27,7 @@ exports.typeDefs = graphql_tag_1.default `
 		lastOnline: String!
 		private: Boolean!
 		blockedIds: [String]!
+		tokenVersion: Int!
 		pro: Boolean!
 	}
 	type U_Profile {
