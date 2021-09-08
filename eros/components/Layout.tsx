@@ -30,7 +30,7 @@ const Layout = ({ children, route, showSidebar, showActivityBar, showNav, useWid
 	if (loading) {
 		text = "loading...";
 	} else {
-		text = JSON.stringify(data.getPosts[0].body);
+		text = JSON.stringify(data?.getPosts[0]?.body);
 	}
 
 	switch (screenType) {
