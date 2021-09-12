@@ -10,6 +10,34 @@
   <a aria-label="site status" href="https://www.deveelo.com">
     <img alt="" src="https://img.shields.io/website?down_color=ff3d4a&down_message=down&up_color=34e366&up_message=up&url=https%3A%2F%2Fwww.deveelo.com&style=for-the-badge&labelColor=000000">
   </a>
+  <a aria-label="site status" href="https://www.deveelo.com">
+    <img alt="" src="https://img.shields.io/badge/contributions-welcome-%23f24492?style=for-the-badge&labelColor=000000">
+  </a>
 </p>
+
+<br>
+
+<h1 align="center">The Social Platform for Game Developers</h1>
+
+<h4 align="center">All in one platform with community & exposure at its core</h4>
+<p align="center">
+  <a href="https://www.deveelo.com">
+    <img src="https://user-images.githubusercontent.com/65512990/133001892-ed083956-c009-4e0c-97be-45c52ae2dab6.png" width="160" height="40">
+  </a>
+</p>
+<br>
+
+### 📚 Structure
+| Branches             |      Description      |
+| :------------------- | :------------------- |
+| [Dev](https://github.com/Treixatek/deveelo/tree/dev)       |      New and untested features or fixes, new commits go here       |
+| [Staging](https://github.com/Treixatek/deveelo/tree/staging) |     This is where stable features from the _dev branch_ are tested before entering _prod branch_      |
+| [Prod](https://github.com/Treixatek/deveelo/tree/prod) |     This is what is running in production, only tested versions in staging should be merged here      |
+
+| Folders             |      Description      |
+| :------------------- | :------------------- |
+| [Eros](https://github.com/Treixatek/Tavo-The-Taco/tree/dev)       |      The nextjs frontend, running on the website       |
+| [Vega](https://github.com/Treixatek/Tavo-The-Taco/tree/main) |     The apolloexpress-graphql backend      |
+| Pavo(soon) |     The electron wrapped naitive desktop app      |
 
 ⚠ wip readme
