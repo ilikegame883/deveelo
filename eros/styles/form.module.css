@@ -111,5 +111,22 @@
 
     display: flex;
     align-items: flex-end;
+}
+
+.togglePassword {
+    position: absolute;
+    cursor: help;
+    font-size: 0.8rem;
+    right: 0.25rem;
+    bottom: 0.1rem;
+
+}
+
+.toggledPassword {
+    position: absolute;
+    cursor: help;
+    font-size: 0.8rem;
+    right: 0.25rem;
+    bottom: 0.1rem;
 
 }
