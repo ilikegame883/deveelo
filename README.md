@@ -31,7 +31,7 @@
 | Branches             |      Description      |
 | :------------------- | :------------------- |
 | [Dev](https://github.com/Treixatek/deveelo/tree/dev)       |      New and untested features or fixes, new commits go here       |
-| [Staging](https://github.com/Treixatek/deveelo/tree/staging) |     This is where stable features from the _dev branch_ are tested before entering _prod branch_      |
+| [Staging](https://github.com/Treixatek/deveelo/tree/staging) |     This is where stable features from the __dev branch__ are tested before entering __prod branch__      |
 | [Prod](https://github.com/Treixatek/deveelo/tree/prod) |     This is what is running in production, only tested versions in staging should be merged here      |
 
 | Folders             |      Description      |
