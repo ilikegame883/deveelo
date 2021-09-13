@@ -78,7 +78,7 @@ const userResolvers = {
                 accessToken: successfulLoginHandler(user, context),
             };
         },
-        async register(_, { registerInput: { password, email } }, context) {
+        async register(_, { email, password }, context) {
             email = String(email).trim();
             let { valid, errors } = validators_1.default(email, "email");
             if (!valid) {

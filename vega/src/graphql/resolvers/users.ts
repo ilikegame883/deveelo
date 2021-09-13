@@ -7,13 +7,6 @@ import User, { UserType } from "../../models/User";
 import Context from "../../context";
 import { createAccessToken, createRefreshToken, sendRefreshToken } from "../../util/auth";
 
-interface registerParams {
-	registerInput: {
-		password: string;
-		email: string;
-	};
-}
-
 const successfulLoginHandler = (user: UserType, { res }: Context): string => {
 	sendRefreshToken(res, createRefreshToken(user));
 
@@ -95,7 +88,7 @@ const userResolvers = {
 				accessToken: successfulLoginHandler(user, context),
 			};
 		},
-		async register(_: any, { registerInput: { password, email } }: registerParams, context: Context) {
+		async register(_: any, { email, password }: { email: string; password: string }, context: Context) {
 			email = String(email).trim();
 
 			//#region Validate Input
