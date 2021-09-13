@@ -52,11 +52,9 @@
 
 .field:focus-within .label,
 .input:not(:placeholder-shown) + .label {
-    font-size: 0.9375rem;
-    font-size: 0.9375rem;
     line-height: 1.40625rem;
     
-    transform: translateY(-4rem);
+    transform: scale(0.714) translateY(-5rem);
     color: var(--form-label-col);
 }
 
