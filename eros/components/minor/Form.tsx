@@ -4,7 +4,7 @@ import Image from "next/image";
 import formStyles from "../../styles/form.module.css";
 import { useLoginMutation } from "../../hooks/backend/generated/graphql";
 
-const Form = () => {
+const Form = ({ type }: { type: string }) => {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [login] = useLoginMutation();
@@ -32,15 +32,15 @@ const Form = () => {
 				<input
 					className={formStyles.input}
 					value={email}
-					type="text"
-					name="emailorname"
+					type={type == "register" ? "email" : "text"}
+					name={type == "register" ? "email" : "emailorname"}
 					placeholder=" "
 					onChange={(e) => {
 						setEmail(e.target.value);
 					}}
 				/>
 				<label htmlFor="emailorname" className={formStyles.label}>
-					Enter email or username
+					{type == "register" ? "Enter email" : "Enter email or username"}
 				</label>
 			</div>
 
@@ -63,7 +63,7 @@ const Form = () => {
 					<Image src={show ? "/resources/eyeHide.svg" : "/resources/eye.svg"} width="22.5" height="22.5" />
 				</span>
 			</div>
-			<button type="submit">Login</button>
+			<button type="submit">{type == "register" ? "Register" : "Login"}</button>
 		</form>
 	);
 };
