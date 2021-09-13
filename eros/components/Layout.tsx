@@ -7,7 +7,7 @@ const DesktopSidebar = dynamic(() => import("./Sidebar"), { ssr: false });
 import FullActivityBar from "./ActivityBar";
 import styles from "../styles/Layout.module.css";
 import useScreenType from "../hooks/useScreenType";
-import { useGetPostsQuery } from "../hooks/backend/generated/graphql";
+import { useGetPostsQuery, useMyAccountApsMinQuery } from "../hooks/backend/generated/graphql";
 const SideImage = dynamic(() => import("./SideImage"), { ssr: false });
 
 interface layoutProps {
@@ -25,12 +25,12 @@ const Layout = ({ children, route, showSidebar, showActivityBar, showNav, useWid
 	let content: any = null;
 	let text: any;
 
-	const { loading, error, data } = useGetPostsQuery();
+	const { loading, error, data } = useMyAccountApsMinQuery();
 
 	if (loading) {
 		text = "loading...";
 	} else {
-		text = JSON.stringify(data?.getPosts[0]?.body);
+		text = JSON.stringify(data?.myAccount?.account?.username);
 	}
 
 	switch (screenType) {
@@ -47,7 +47,7 @@ const Layout = ({ children, route, showSidebar, showActivityBar, showNav, useWid
 					<div className={useWide ? styles.containerWide : styles.container}>
 						<main className={styles.main}>
 							<h2>Full</h2>
-							<p>{text}</p>
+							<p>Logged in user: {error ? error?.message : text}</p>
 							{children}
 						</main>
 					</div>
@@ -67,6 +67,7 @@ const Layout = ({ children, route, showSidebar, showActivityBar, showNav, useWid
 					<div className={useWide ? styles.containerWide : styles.container}>
 						<main className={styles.main}>
 							<h2>half activity bar</h2>
+							<p>Logged in user: {error ? error?.message : text}</p>
 							{children}
 						</main>
 					</div>
@@ -85,6 +86,7 @@ const Layout = ({ children, route, showSidebar, showActivityBar, showNav, useWid
 					<div className={useWide ? styles.containerWide : styles.container}>
 						<main className={styles.main}>
 							<h2>tablet</h2>
+							<p>Logged in user: {error ? error?.message : text}</p>
 							{children}
 						</main>
 					</div>

@@ -2,12 +2,13 @@ import { useState } from "react";
 import Image from "next/image";
 
 import formStyles from "../../styles/form.module.css";
-import { useLoginMutation } from "../../hooks/backend/generated/graphql";
+import { useLoginMutation, useRegisterMutation } from "../../hooks/backend/generated/graphql";
 
 const Form = ({ type }: { type: string }) => {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [login] = useLoginMutation();
+	const [register] = useRegisterMutation();
 	const [show, setShow] = useState(false);
 
 	const toggleClass = () => {
@@ -19,12 +20,23 @@ const Form = ({ type }: { type: string }) => {
 			className={formStyles.largeContainer}
 			onSubmit={async (e) => {
 				e.preventDefault();
-				const response = await login({
-					variables: {
-						loginInput: email,
-						loginPassword: password,
-					},
-				});
+				let response: any;
+
+				if (type === "register") {
+					response = await register({
+						variables: {
+							registerEmail: email,
+							registerPassword: password,
+						},
+					});
+				} else {
+					response = await login({
+						variables: {
+							loginInput: email,
+							loginPassword: password,
+						},
+					});
+				}
 
 				console.log(response);
 			}}>

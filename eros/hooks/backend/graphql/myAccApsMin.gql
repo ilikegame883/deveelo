@@ -1,0 +1,12 @@
+query myAccountApsMin {
+	myAccount {
+		account {
+			username
+			tag
+		}
+		profile {
+			description
+		}
+		status
+	}
+}
