@@ -2,11 +2,12 @@ import { useState } from "react";
 import Image from "next/image";
 
 import formStyles from "../../styles/form.module.css";
+import { useLoginMutation } from "../../hooks/backend/generated/graphql";
 
 const Form = () => {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
-	let showPassword = false;
+	const [login] = useLoginMutation();
 	const [show, setShow] = useState(false);
 
 	const toggleClass = () => {
@@ -16,10 +17,16 @@ const Form = () => {
 	return (
 		<form
 			className={formStyles.largeContainer}
-			onSubmit={(e) => {
+			onSubmit={async (e) => {
 				e.preventDefault();
-				console.log("form submitted");
-				console.log(email, password);
+				const response = await login({
+					variables: {
+						loginInput: email,
+						loginPassword: password,
+					},
+				});
+
+				console.log(response);
 			}}>
 			<div className={formStyles.field}>
 				<input
