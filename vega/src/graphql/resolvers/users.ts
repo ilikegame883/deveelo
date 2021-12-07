@@ -9,6 +9,7 @@ import { createAccessToken, createRefreshToken, sendRefreshToken } from "../../u
 
 const successfulLoginHandler = (user: UserType, { res }: Context): string => {
 	sendRefreshToken(res, createRefreshToken(user));
+	console.log(`Attempted login w/ user \n ${user}`);
 
 	return createAccessToken(user);
 };
@@ -84,6 +85,8 @@ const userResolvers = {
 			}
 
 			// note  successful login
+			console.log("login success stage 1");
+
 			return {
 				accessToken: successfulLoginHandler(user, context),
 			};

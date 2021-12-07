@@ -2,8 +2,6 @@ import Form from "../components/minor/Form";
 import formStyles from "../styles/form.module.css";
 import headerStyles from "../styles/headers.module.css";
 
-import React from "react";
-
 const register = () => {
 	return (
 		<div className={formStyles.largeContainerOffset}>

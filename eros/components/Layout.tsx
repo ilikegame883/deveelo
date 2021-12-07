@@ -25,7 +25,7 @@ const Layout = ({ children, route, showSidebar, showActivityBar, showNav, useWid
 	let content: any = null;
 	let text: any;
 
-	const { loading, error, data } = useMyAccountApsMinQuery();
+	const { loading, error, data } = useMyAccountApsMinQuery({ fetchPolicy: "network-only" });
 
 	if (loading) {
 		text = "loading...";
@@ -47,7 +47,7 @@ const Layout = ({ children, route, showSidebar, showActivityBar, showNav, useWid
 					<div className={useWide ? styles.containerWide : styles.container}>
 						<main className={styles.main}>
 							<h2>Full</h2>
-							<p>Logged in user: {error ? error?.message : text}</p>
+							<p>Logged in user: {error && !loading ? error?.message : text}</p>
 							{children}
 						</main>
 					</div>
@@ -67,7 +67,7 @@ const Layout = ({ children, route, showSidebar, showActivityBar, showNav, useWid
 					<div className={useWide ? styles.containerWide : styles.container}>
 						<main className={styles.main}>
 							<h2>half activity bar</h2>
-							<p>Logged in user: {error ? error?.message : text}</p>
+							<p>Logged in user: {error && !loading ? error?.message : text}</p>
 							{children}
 						</main>
 					</div>
@@ -86,7 +86,7 @@ const Layout = ({ children, route, showSidebar, showActivityBar, showNav, useWid
 					<div className={useWide ? styles.containerWide : styles.container}>
 						<main className={styles.main}>
 							<h2>tablet</h2>
-							<p>Logged in user: {error ? error?.message : text}</p>
+							<p>Logged in user: {error && !loading ? error?.message : text}</p>
 							{children}
 						</main>
 					</div>

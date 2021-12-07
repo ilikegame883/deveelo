@@ -1,7 +1,7 @@
 import { useMemo } from "react";
-import { ApolloClient, HttpLink, InMemoryCache } from "@apollo/client";
+import { ApolloClient, HttpLink, InMemoryCache, NormalizedCacheObject } from "@apollo/client";
 
-let apolloClient: any;
+let apolloClient: ApolloClient<NormalizedCacheObject>;
 
 function createApolloClient() {
 	return new ApolloClient({
@@ -10,6 +10,7 @@ function createApolloClient() {
 			uri: "http://localhost:4000/graphql",
 		}),
 		cache: new InMemoryCache(),
+		credentials: "include",
 	});
 }
 

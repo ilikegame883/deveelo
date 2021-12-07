@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Image from "next/image";
+import router from "next/router";
 
 import formStyles from "../../styles/form.module.css";
 import { useLoginMutation, useRegisterMutation } from "../../hooks/backend/generated/graphql";
@@ -38,7 +39,12 @@ const Form = ({ type }: { type: string }) => {
 					});
 				}
 
+				console.log(email + ", " + password);
+
 				console.log(response);
+				if (type === "register" || type === "login") {
+					router.push("/");
+				}
 			}}>
 			<div className={formStyles.field}>
 				<input
