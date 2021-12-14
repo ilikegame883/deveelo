@@ -5,6 +5,8 @@ const loggedInOnlyAuth: NewIMiddlewareResolver = async (resolve, _parent, _args,
 	//header looks like: bearer 1234abcd...
 
 	const authorization = context.req.headers["authorization"];
+	console.log(`authorization cookie check, looking for header "authorization" in context headers: ${context.req.headers}`);
+	
 	if (!authorization) {
 		throw new Error("not authenticated");
 	}
