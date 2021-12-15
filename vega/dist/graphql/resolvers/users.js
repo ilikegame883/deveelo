@@ -18,6 +18,7 @@ const userResolvers = {
     Query: {
         async myAccount(_parent, _args, context) {
             const user = await User_1.default.findById(new mongodb_1.ObjectID(context.payload.id));
+            console.log("my Account attempted with context: " + context);
             if (!user) {
                 throw new Error("user not found");
             }

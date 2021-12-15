@@ -4,6 +4,7 @@ exports.isAuth = void 0;
 const jsonwebtoken_1 = require("jsonwebtoken");
 const loggedInOnlyAuth = async (resolve, _parent, _args, context, _info) => {
     const authorization = context.req.headers["authorization"];
+    console.log(`authorization cookie check, looking for header "authorization" in context headers: ${context.req.headers}`);
     if (!authorization) {
         throw new Error("not authenticated");
     }
