@@ -11,7 +11,7 @@ const User_1 = __importDefault(require("../../models/User"));
 const auth_1 = require("../../util/auth");
 const successfulLoginHandler = (user, { res }) => {
     auth_1.sendRefreshToken(res, auth_1.createRefreshToken(user));
-    console.log(`Attempted login w/ user \n ${user}`);
+    console.log(`Attempted login w/ user \n ${user.account.email}`);
     return auth_1.createAccessToken(user);
 };
 const userResolvers = {
@@ -77,8 +77,10 @@ const userResolvers = {
                 });
             }
             console.log("login success stage 1");
+            auth_1.sendRefreshToken(context.res, auth_1.createRefreshToken(user));
             return {
                 accessToken: successfulLoginHandler(user, context),
+                user,
             };
         },
         async register(_, { email, password }, context) {
@@ -174,6 +176,7 @@ const userResolvers = {
             }
             return {
                 accessToken: successfulLoginHandler(newUser, context),
+                newUser,
             };
         },
     },

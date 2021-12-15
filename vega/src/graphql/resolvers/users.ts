@@ -9,7 +9,7 @@ import { createAccessToken, createRefreshToken, sendRefreshToken } from "../../u
 
 const successfulLoginHandler = (user: UserType, { res }: Context): string => {
 	sendRefreshToken(res, createRefreshToken(user));
-	console.log(`Attempted login w/ user \n ${user}`);
+	console.log(`Attempted login w/ user \n ${user.account.email}`);
 
 	return createAccessToken(user);
 };
@@ -88,8 +88,11 @@ const userResolvers = {
 			// note  successful login
 			console.log("login success stage 1");
 
+			sendRefreshToken(context.res, createRefreshToken(user));
+
 			return {
 				accessToken: successfulLoginHandler(user, context),
+				user,
 			};
 		},
 		async register(_: any, { email, password }: { email: string; password: string }, context: Context) {
@@ -212,6 +215,7 @@ const userResolvers = {
 
 			return {
 				accessToken: successfulLoginHandler(newUser, context),
+				newUser,
 			};
 		},
 	},

@@ -43,7 +43,7 @@ const Form = ({ type }: { type: string }) => {
 
 				console.log(response);
 				if (type === "register" || type === "login") {
-					router.push("/");
+					//router.push("/");
 				}
 			}}>
 			<div className={formStyles.field}>
