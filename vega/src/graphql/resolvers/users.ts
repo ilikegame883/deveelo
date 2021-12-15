@@ -18,6 +18,7 @@ const userResolvers = {
 	Query: {
 		async myAccount(_parent: any, _args: any, context: Context): Promise<UserType> {
 			const user: UserType = await User.findById(new ObjectID(context.payload!.id));
+			console.log("my Account attempted with context: " + context);
 
 			if (!user) {
 				throw new Error("user not found");
