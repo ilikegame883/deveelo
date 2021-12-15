@@ -30,6 +30,7 @@ const initServer = async () => {
         const token = req.cookies.lid;
         if (!token) {
             return res.send({ ok: false, accessToken: "" });
+            console.log("not signed in");
         }
         let payload = null;
         try {

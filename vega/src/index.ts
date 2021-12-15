@@ -32,7 +32,7 @@ const initServer = async () => {
 
 	const corsOptions = {
 		origin: "*",
-		credentials: false,
+		credentials: true,
 	};
 
 	app.use(cors(corsOptions)); // development  enable real cors options above

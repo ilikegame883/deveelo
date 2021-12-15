@@ -19,6 +19,8 @@ const createRefreshToken = (user) => {
 exports.createRefreshToken = createRefreshToken;
 const sendRefreshToken = (res, token) => {
     res.cookie("lid", token, {
+        path: "/refresh_token",
+        domain: ".app.localhost",
         httpOnly: true,
     });
 };

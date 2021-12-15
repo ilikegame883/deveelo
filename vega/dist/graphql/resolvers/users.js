@@ -11,6 +11,7 @@ const User_1 = __importDefault(require("../../models/User"));
 const auth_1 = require("../../util/auth");
 const successfulLoginHandler = (user, { res }) => {
     auth_1.sendRefreshToken(res, auth_1.createRefreshToken(user));
+    console.log(`Attempted login w/ user \n ${user}`);
     return auth_1.createAccessToken(user);
 };
 const userResolvers = {
@@ -74,6 +75,7 @@ const userResolvers = {
                     },
                 });
             }
+            console.log("login success stage 1");
             return {
                 accessToken: successfulLoginHandler(user, context),
             };
