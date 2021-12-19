@@ -5,17 +5,22 @@ const loggedInOnlyAuth: NewIMiddlewareResolver = async (resolve, _parent, _args,
 	//header looks like: bearer 1234abcd...
 
 	const authorization = context.req.headers["authorization"];
-	console.log(`authorization cookie check, looking for header "authorization" in context headers: ${context.req.headers}`);
-	
+	console.log(`looking for header "authorization" in context headers:\n${JSON.stringify(context.req.headers)}`);
+
 	if (!authorization) {
 		throw new Error("not authenticated");
 	}
 
 	try {
 		const token = authorization.split(" ")[1];
+		console.log(`-\nTOKEN:\n"${token}"`);
+		console.log(process.env.ACCESS_TOKEN_SECRET);
+
 		const payload = verify(token, process.env.ACCESS_TOKEN_SECRET!);
 		context.payload = payload as any;
 	} catch (err) {
+		console.log("failed");
+
 		throw new Error("not authenticated [fail]");
 	}
 

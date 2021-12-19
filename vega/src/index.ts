@@ -17,6 +17,7 @@ import { createAccessToken, createRefreshToken, sendRefreshToken } from "./util/
 // development  change mongodb user password & access - cors origin to site domain
 const initServer = async () => {
 	const app = express();
+	app.use(cookieParser());
 
 	// const whitelist = ["http://localhost:3000", "https://deveelo-f21k9vwm1-treixatek.vercel.app/", "https://www.deveelo.com", "https://studio.apollographql.com"];
 	// const corsOptions = {
@@ -37,7 +38,6 @@ const initServer = async () => {
 
 	app.use(cors(corsOptions)); // development  enable real cors options above
 	//api routes
-	app.use(cookieParser());
 	app.get("/", (_req, res) => res.send("hello"));
 	app.post("/refresh_token", async (req, res) => {
 		//check if refresh token is correct & send new access token
