@@ -24,19 +24,29 @@ const Form = ({ type }: { type: string }) => {
 				let response: any;
 
 				if (type === "register") {
-					response = await register({
-						variables: {
-							registerEmail: email,
-							registerPassword: password,
-						},
-					});
+					try {
+						response = await register({
+							variables: {
+								registerEmail: email,
+								registerPassword: password,
+							},
+						});
+					} catch (error) {
+						console.log(error);
+						response = null;
+					}
 				} else {
-					response = await login({
-						variables: {
-							loginInput: email,
-							loginPassword: password,
-						},
-					});
+					try {
+						response = await login({
+							variables: {
+								loginInput: email,
+								loginPassword: password,
+							},
+						});
+					} catch (error) {
+						console.log(error);
+						response = null;
+					}
 				}
 
 				console.log(email + ", " + password);

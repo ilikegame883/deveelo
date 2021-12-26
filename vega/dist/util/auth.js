@@ -20,8 +20,9 @@ exports.createRefreshToken = createRefreshToken;
 const sendRefreshToken = (res, token) => {
     res.cookie("lid", token, {
         path: "/refresh_token",
-        domain: ".app.localhost",
         httpOnly: true,
+        sameSite: "none",
+        secure: true,
     });
 };
 exports.sendRefreshToken = sendRefreshToken;

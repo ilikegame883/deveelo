@@ -6,7 +6,7 @@ import { verify } from "jsonwebtoken";
 import mongoose from "mongoose";
 import express from "express";
 import cookieParser from "cookie-parser";
-import cors from "cors";
+//import cors from "cors";
 
 import { typeDefs } from "./graphql/typeDefs";
 import resolvers from "./graphql/resolvers";
@@ -17,6 +17,19 @@ import { createAccessToken, createRefreshToken, sendRefreshToken } from "./util/
 // development  change mongodb user password & access - cors origin to site domain
 const initServer = async () => {
 	const app = express();
+	app.set("trust proxy", process.env.NODE_ENV !== "production");
+
+	const corsOps = {
+		origin: "http://localhost:3000",
+		credentials: true,
+	};
+	// app.use(
+	// 	cors({
+	// 		origin: "http://localhost:3000",
+	// 		credentials: true,
+	// 	})
+	// ); // development  enable real cors options above
+
 	app.use(cookieParser());
 
 	// const whitelist = ["http://localhost:3000", "https://deveelo-f21k9vwm1-treixatek.vercel.app/", "https://www.deveelo.com", "https://studio.apollographql.com"];
@@ -31,12 +44,6 @@ const initServer = async () => {
 	// 	credentials: true,
 	// };
 
-	const corsOptions = {
-		origin: "*",
-		credentials: true,
-	};
-
-	app.use(cors(corsOptions)); // development  enable real cors options above
 	//api routes
 	app.get("/", (_req, res) => res.send("hello"));
 	app.post("/refresh_token", async (req, res) => {
@@ -92,7 +99,7 @@ const initServer = async () => {
 
 	server.applyMiddleware({
 		app,
-		cors: false,
+		cors: corsOps,
 	});
 
 	//connect to the mongodb database

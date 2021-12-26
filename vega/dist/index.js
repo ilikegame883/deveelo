@@ -11,7 +11,6 @@ const jsonwebtoken_1 = require("jsonwebtoken");
 const mongoose_1 = __importDefault(require("mongoose"));
 const express_1 = __importDefault(require("express"));
 const cookie_parser_1 = __importDefault(require("cookie-parser"));
-const cors_1 = __importDefault(require("cors"));
 const typeDefs_1 = require("./graphql/typeDefs");
 const resolvers_1 = __importDefault(require("./graphql/resolvers"));
 const middleware_1 = require("./graphql/middleware");
@@ -19,12 +18,12 @@ const User_1 = __importDefault(require("./models/User"));
 const auth_1 = require("./util/auth");
 const initServer = async () => {
     const app = express_1.default();
-    app.use(cookie_parser_1.default());
-    const corsOptions = {
-        origin: "*",
+    app.set("trust proxy", process.env.NODE_ENV !== "production");
+    const corsOps = {
+        origin: "http://localhost:3000",
         credentials: true,
     };
-    app.use(cors_1.default(corsOptions));
+    app.use(cookie_parser_1.default());
     app.get("/", (_req, res) => res.send("hello"));
     app.post("/refresh_token", async (req, res) => {
         const token = req.cookies.lid;
@@ -63,7 +62,7 @@ const initServer = async () => {
     await server.start();
     server.applyMiddleware({
         app,
-        cors: false,
+        cors: corsOps,
     });
     mongoose_1.default
         .connect(process.env.MONGODB_KEY, {
