@@ -88,7 +88,7 @@ const userResolvers = {
 			// note  successful login
 			console.log("login success stage 1");
 
-			sendRefreshToken(context.res, createRefreshToken(user));
+			//sendRefreshToken(context.res, createRefreshToken(user));
 
 			return {
 				accessToken: successfulLoginHandler(user, context),

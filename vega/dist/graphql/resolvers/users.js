@@ -77,7 +77,6 @@ const userResolvers = {
                 });
             }
             console.log("login success stage 1");
-            auth_1.sendRefreshToken(context.res, auth_1.createRefreshToken(user));
             return {
                 accessToken: successfulLoginHandler(user, context),
                 user,
