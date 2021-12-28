@@ -4,6 +4,7 @@ import router from "next/router";
 
 import formStyles from "../../styles/form.module.css";
 import { useLoginMutation, useRegisterMutation } from "../../hooks/backend/generated/graphql";
+import { setAccessToken } from "../../accessToken";
 
 const Form = ({ type }: { type: string }) => {
 	const [email, setEmail] = useState("");
@@ -21,39 +22,39 @@ const Form = ({ type }: { type: string }) => {
 			className={formStyles.largeContainer}
 			onSubmit={async (e) => {
 				e.preventDefault();
-				let response: any;
 
 				if (type === "register") {
 					try {
-						response = await register({
+						const response = await register({
 							variables: {
 								registerEmail: email,
 								registerPassword: password,
 							},
 						});
+
+						if (response && response.data) {
+							setAccessToken(response.data.register.accessToken);
+							router.push("/");
+						}
 					} catch (error) {
 						console.log(error);
-						response = null;
 					}
 				} else {
 					try {
-						response = await login({
+						const response = await login({
 							variables: {
 								loginInput: email,
 								loginPassword: password,
 							},
 						});
+
+						if (response && response.data) {
+							setAccessToken(response.data.login.accessToken);
+							router.push("/");
+						}
 					} catch (error) {
 						console.log(error);
-						response = null;
 					}
-				}
-
-				console.log(email + ", " + password);
-
-				console.log(response);
-				if (type === "register" || type === "login") {
-					router.push("/");
 				}
 			}}>
 			<div className={formStyles.field}>

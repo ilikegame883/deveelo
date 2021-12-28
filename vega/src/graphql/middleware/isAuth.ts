@@ -3,9 +3,6 @@ import { NewIMiddlewareResolver } from "src/util/middlewareType";
 
 const loggedInOnlyAuth: NewIMiddlewareResolver = async (resolve, _parent, _args, context, _info) => {
 	//header looks like: bearer 1234abcd...
-	// if(context.req.cookies.lid){
-	// 	document.cookie?.lid
-	// }
 
 	const authorization = context.req.headers["authorization"];
 	console.log(`looking for header "authorization" in context headers:\n${JSON.stringify(context.req.headers)}`);
