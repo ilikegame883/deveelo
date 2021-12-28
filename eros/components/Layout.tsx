@@ -8,6 +8,7 @@ import FullActivityBar from "./ActivityBar";
 import styles from "../styles/Layout.module.css";
 import useScreenType from "../hooks/useScreenType";
 import { useGetPostsQuery, useMyAccountApsMinQuery } from "../hooks/backend/generated/graphql";
+import onConnectionError from "../hooks/popups/connectionError";
 const SideImage = dynamic(() => import("./SideImage"), { ssr: false });
 
 interface layoutProps {
@@ -24,13 +25,20 @@ const Layout = ({ children, route, showSidebar, showActivityBar, showNav, useWid
 
 	let content: any = null;
 	let text: any;
+	let popup: any = null;
+	let hasError: boolean = false;
 
 	const { loading, error, data } = useMyAccountApsMinQuery({ fetchPolicy: "network-only" });
 
 	if (loading) {
 		text = "loading...";
+		hasError = false;
 	} else {
 		text = JSON.stringify(data?.myAccount?.account?.username);
+		if (error && !hasError) {
+			hasError = true;
+			popup = onConnectionError(error);
+		}
 	}
 
 	switch (screenType) {
