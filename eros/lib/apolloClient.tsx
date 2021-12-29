@@ -1,15 +1,56 @@
 import { useMemo } from "react";
-import { ApolloClient, HttpLink, InMemoryCache, NormalizedCacheObject } from "@apollo/client";
+import { ApolloClient, InMemoryCache, NormalizedCacheObject } from "@apollo/client";
+import { ApolloLink, Observable } from "apollo-link";
+import { onError } from "apollo-link-error";
+import { HttpLink } from "apollo-link-http";
+import { getAccessToken } from "../accessToken";
 
-let apolloClient: ApolloClient<NormalizedCacheObject>;
+const requestLink = new ApolloLink(
+	(operation, forward) =>
+		new Observable((observer) => {
+			let handle: any;
+			Promise.resolve(operation)
+				.then((operation) => {
+					const accessToken = getAccessToken();
+					if (accessToken) {
+						operation.setContext({
+							headers: {
+								authorization: `bearer ${accessToken}`,
+							},
+						});
+					}
+				})
+				.then(() => {
+					handle = forward(operation).subscribe({
+						next: observer.next.bind(observer),
+						error: observer.error.bind(observer),
+						complete: observer.complete.bind(observer),
+					});
+				})
+				.catch(observer.error.bind(observer));
+
+			return () => {
+				if (handle) handle.unsubscribe();
+			};
+		})
+);
+
+let apolloClient: any; //ApolloClient<NormalizedCacheObject>
 
 function createApolloClient() {
 	return new ApolloClient({
 		ssrMode: typeof window === "undefined", // automatically set to true for SSR (on per-oage basis)
-		link: new HttpLink({
-			uri: "http://localhost:4000/graphql",
-			credentials: "include",
-		}),
+		link: ApolloLink.from([
+			onError(({ graphQLErrors, networkError }) => {
+				console.log(graphQLErrors);
+				console.log(networkError);
+			}),
+			requestLink,
+			new HttpLink({
+				uri: "http://localhost:4000/graphql",
+				credentials: "include",
+			}),
+		]),
 		cache: new InMemoryCache(),
 	});
 }
