@@ -13,22 +13,23 @@ import resolvers from "./graphql/resolvers";
 import { authMiddlewares } from "./graphql/middleware";
 import User, { UserType } from "./models/User";
 import { createAccessToken, createRefreshToken, sendRefreshToken } from "./util/auth";
+import cors from "cors";
 
 // development  change mongodb user password & access - cors origin to site domain
 const initServer = async () => {
 	const app = express();
 	app.set("trust proxy", process.env.NODE_ENV !== "production");
 
-	const corsOps = {
-		origin: "http://localhost:3000",
-		credentials: true,
-	};
-	// app.use(
-	// 	cors({
-	// 		origin: "http://localhost:3000",
-	// 		credentials: true,
-	// 	})
-	// ); // development  enable real cors options above
+	// const corsOps = {
+	// 	origin: "http://localhost:3000",
+	// 	credentials: true,
+	// };
+	app.use(
+		cors({
+			origin: "http://localhost:3000",
+			credentials: true,
+		})
+	); // development  enable real cors options above
 
 	app.use(cookieParser());
 
@@ -99,7 +100,7 @@ const initServer = async () => {
 
 	server.applyMiddleware({
 		app,
-		cors: corsOps,
+		cors: false,
 	});
 
 	//connect to the mongodb database
