@@ -5,30 +5,24 @@ import { getAccessToken } from "../accessToken";
 
 /* Communication Links*/
 
-const requestLink = (errorCallback: any) =>
-	new ApolloLink((operation, forward) => {
-		console.log("made it to auth");
+const requestLink = new ApolloLink((operation, forward) => {
+	console.log("made it to auth");
 
-		let observable = forward(operation);
-		const accessToken = getAccessToken();
-		console.log(`ACCESS TOKEN IS ${accessToken}`);
+	const accessToken = getAccessToken();
+	console.log(`ACCESS TOKEN IS ${accessToken}`);
 
-		if (accessToken) {
-			operation.setContext(({ headers }) => ({
-				headers: {
-					authorization: `bearer ${accessToken}`,
-					...headers,
-				},
-			}));
-		}
-		console.log("header set");
+	if (accessToken) {
+		operation.setContext(({ headers }) => ({
+			headers: {
+				authorization: `bearer ${accessToken}`,
+				...headers,
+			},
+		}));
+	}
+	console.log("header set");
+	return forward(operation);
+});
 
-		observable.subscribe({
-			error: errorCallback,
-		});
-		return observable;
-	});
-const authLink = requestLink(console.error);
 const errorLink = onError(({ graphQLErrors, networkError }) => {
 	console.log("error link");
 	console.log(graphQLErrors);
@@ -41,7 +35,7 @@ function createApolloClient() {
 	return new ApolloClient({
 		ssrMode: typeof window === "undefined", // automatically set to true for SSR (on per-oage basis)
 		link: from([
-			authLink,
+			requestLink,
 			new HttpLink({
 				uri: "http://localhost:4000/graphql",
 				credentials: "include",
