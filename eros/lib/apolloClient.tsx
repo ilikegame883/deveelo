@@ -41,7 +41,6 @@ function createApolloClient() {
 	return new ApolloClient({
 		ssrMode: typeof window === "undefined", // automatically set to true for SSR (on per-oage basis)
 		link: from([
-			errorLink,
 			authLink,
 			new HttpLink({
 				uri: "http://localhost:4000/graphql",

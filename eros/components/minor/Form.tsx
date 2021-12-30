@@ -41,12 +41,18 @@ const Form = ({ type }: { type: string }) => {
 					}
 				} else {
 					try {
+						console.log("LOGIN SUBMITTED");
+
 						const response = await login({
 							variables: {
 								loginInput: email,
 								loginPassword: password,
 							},
 						});
+
+						console.log("RESPONSE RETURNED");
+
+						console.log(`RES: ${response} DATA: ${response.data}`);
 
 						if (response && response.data) {
 							setAccessToken(response.data.login.accessToken);
