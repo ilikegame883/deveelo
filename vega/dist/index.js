@@ -11,12 +11,12 @@ const jsonwebtoken_1 = require("jsonwebtoken");
 const mongoose_1 = __importDefault(require("mongoose"));
 const express_1 = __importDefault(require("express"));
 const cookie_parser_1 = __importDefault(require("cookie-parser"));
+const cors_1 = __importDefault(require("cors"));
 const typeDefs_1 = require("./graphql/typeDefs");
 const resolvers_1 = __importDefault(require("./graphql/resolvers"));
 const middleware_1 = require("./graphql/middleware");
 const User_1 = __importDefault(require("./models/User"));
 const auth_1 = require("./util/auth");
-const cors_1 = __importDefault(require("cors"));
 const initServer = async () => {
     const app = express_1.default();
     app.set("trust proxy", process.env.NODE_ENV !== "production");

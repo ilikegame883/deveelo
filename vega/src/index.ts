@@ -6,24 +6,19 @@ import { verify } from "jsonwebtoken";
 import mongoose from "mongoose";
 import express from "express";
 import cookieParser from "cookie-parser";
-//import cors from "cors";
+import cors from "cors";
 
 import { typeDefs } from "./graphql/typeDefs";
 import resolvers from "./graphql/resolvers";
 import { authMiddlewares } from "./graphql/middleware";
 import User, { UserType } from "./models/User";
 import { createAccessToken, createRefreshToken, sendRefreshToken } from "./util/auth";
-import cors from "cors";
 
 // development  change mongodb user password & access - cors origin to site domain
 const initServer = async () => {
 	const app = express();
 	app.set("trust proxy", process.env.NODE_ENV !== "production");
 
-	// const corsOps = {
-	// 	origin: "http://localhost:3000",
-	// 	credentials: true,
-	// };
 	app.use(
 		cors({
 			origin: "http://localhost:3000",
