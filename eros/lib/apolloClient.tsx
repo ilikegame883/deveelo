@@ -13,7 +13,7 @@ const requestLink = (errorCallback: any) =>
 		const accessToken = getAccessToken();
 		console.log(`ACCESS TOKEN IS ${accessToken}`);
 
-		if (accessToken && accessToken !== "") {
+		if (accessToken) {
 			operation.setContext(({ headers }) => ({
 				headers: {
 					authorization: `bearer ${accessToken}`,
