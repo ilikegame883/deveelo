@@ -26,17 +26,17 @@ const Layout = ({ children, route, showSidebar, showActivityBar, showNav, useWid
 	let content: any = null;
 	let text: any;
 	let popup: any = null;
-	let hasError: boolean = false;
+	let handledError: boolean = false;
 
 	const { loading, error, data } = useMyAccountApsMinQuery({ fetchPolicy: "network-only" });
 
 	if (loading) {
 		text = "loading...";
-		hasError = false;
+		handledError = false;
 	} else {
 		text = JSON.stringify(data?.myAccount?.account?.username);
-		if (error && !hasError) {
-			hasError = true;
+		if (error && !handledError) {
+			handledError = true;
 			popup = onConnectionError(error);
 		}
 	}
