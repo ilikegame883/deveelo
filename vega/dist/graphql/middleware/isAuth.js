@@ -9,11 +9,12 @@ const loggedInOnlyAuth = async (resolve, _parent, _args, context, _info) => {
     }
     try {
         const token = authorization.split(" ")[1];
+        console.log(process.env.ACCESS_TOKEN_SECRET);
         const payload = jsonwebtoken_1.verify(token, process.env.ACCESS_TOKEN_SECRET);
         context.payload = payload;
     }
     catch (err) {
-        throw new Error("not authenticated");
+        throw new Error("not authenticated [fail]");
     }
     const result = await resolve(_parent, _args, context, _info);
     return result;

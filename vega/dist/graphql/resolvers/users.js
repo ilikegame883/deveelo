@@ -76,9 +76,10 @@ const userResolvers = {
             }
             return {
                 accessToken: successfulLoginHandler(user, context),
+                user,
             };
         },
-        async register(_, { registerInput: { password, email } }, context) {
+        async register(_, { email, password }, context) {
             email = String(email).trim();
             let { valid, errors } = validators_1.default(email, "email");
             if (!valid) {
@@ -171,6 +172,7 @@ const userResolvers = {
             }
             return {
                 accessToken: successfulLoginHandler(newUser, context),
+                newUser,
             };
         },
     },

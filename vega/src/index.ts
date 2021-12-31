@@ -17,8 +17,18 @@ import { createAccessToken, createRefreshToken, sendRefreshToken } from "./util/
 // development  change mongodb user password & access - cors origin to site domain
 const initServer = async () => {
 	const app = express();
+	app.set("trust proxy", process.env.NODE_ENV !== "production");
 
-	// const whitelist = ["http://localhost:3000", "https://studio.apollographql.com"];
+	app.use(
+		cors({
+			origin: "http://localhost:3000",
+			credentials: true,
+		})
+	); // development  enable real cors options above
+
+	app.use(cookieParser());
+
+	// const whitelist = ["http://localhost:3000", "https://deveelo-f21k9vwm1-treixatek.vercel.app/", "https://www.deveelo.com", "https://studio.apollographql.com"];
 	// const corsOptions = {
 	// 	origin: function (origin: any, callback: any) {
 	// 		if (whitelist.indexOf(origin!) !== -1) {
@@ -30,14 +40,7 @@ const initServer = async () => {
 	// 	credentials: true,
 	// };
 
-	const corsOptions = {
-		origin: "*",
-		credentials: true,
-	};
-
-	app.use(cors(corsOptions)); // development  enable real cors options above
 	//api routes
-	app.use(cookieParser());
 	app.get("/", (_req, res) => res.send("hello"));
 	app.post("/refresh_token", async (req, res) => {
 		//check if refresh token is correct & send new access token
@@ -45,6 +48,7 @@ const initServer = async () => {
 		if (!token) {
 			//they are not signed in
 			return res.send({ ok: false, accessToken: "" });
+			console.log("not signed in");
 		}
 
 		let payload: any = null;
@@ -91,7 +95,7 @@ const initServer = async () => {
 
 	server.applyMiddleware({
 		app,
-		cors: false, // development  set cors paths
+		cors: false,
 	});
 
 	//connect to the mongodb database

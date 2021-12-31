@@ -56,10 +56,6 @@ export const typeDefs = gql`
 		status: String!
 		social: U_Social!
 	}
-	input RegisterInput {
-		password: String!
-		email: String!
-	}
 
 	type BoolRes {
 		success: Boolean!
@@ -73,7 +69,7 @@ export const typeDefs = gql`
 
 	# note  Mutations (read/write/updates)
 	type Mutation {
-		register(registerInput: RegisterInput): LoginResponse!
+		register(email: String!, password: String!): LoginResponse!
 		login(input: String!, password: String!): LoginResponse!
 	}
 `;

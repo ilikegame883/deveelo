@@ -1,4 +1,5 @@
-import { useQuery, gql } from "@apollo/client";
+import { useQuery, gql, NetworkStatus } from "@apollo/client";
+import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
 
 import Meta from "./micro/Meta";
@@ -7,7 +8,10 @@ const DesktopSidebar = dynamic(() => import("./Sidebar"), { ssr: false });
 import FullActivityBar from "./ActivityBar";
 import styles from "../styles/Layout.module.css";
 import useScreenType from "../hooks/useScreenType";
-import { useGetPostsQuery } from "../hooks/backend/generated/graphql";
+import { useGetPostsQuery, useMyAccountApsMinQuery } from "../hooks/backend/generated/graphql";
+import onConnectionError from "../hooks/popups/connectionError";
+import { getAccessToken } from "../accessToken";
+import { useState } from "react";
 const SideImage = dynamic(() => import("./SideImage"), { ssr: false });
 
 interface layoutProps {
@@ -21,16 +25,34 @@ interface layoutProps {
 
 const Layout = ({ children, route, showSidebar, showActivityBar, showNav, useWide }: layoutProps) => {
 	const screenType: string = useScreenType();
+	const router = useRouter();
+	const [reloaded, setReloaded] = useState(false);
 
 	let content: any = null;
 	let text: any;
+	let popup: any = null;
+	let handledError: boolean = false;
 
-	const { loading, error, data } = useGetPostsQuery();
+	const { loading, error, data } = useMyAccountApsMinQuery({ fetchPolicy: "network-only" });
 
-	if (loading) {
+	console.log(data, error, loading);
+
+	if (loading && !data) {
 		text = "loading...";
+		handledError = false;
 	} else {
-		text = JSON.stringify(data?.getPosts[0]?.body);
+		text = JSON.stringify(data?.myAccount?.account?.username);
+		//text = JSON.stringify(data.getPosts);
+		if (error && !handledError) {
+			handledError = true;
+			const accessToken = getAccessToken();
+			if (accessToken && accessToken !== "" && !reloaded) {
+				setReloaded(true);
+				router.reload();
+			}
+
+			popup = onConnectionError(error);
+		}
 	}
 
 	switch (screenType) {
@@ -47,7 +69,7 @@ const Layout = ({ children, route, showSidebar, showActivityBar, showNav, useWid
 					<div className={useWide ? styles.containerWide : styles.container}>
 						<main className={styles.main}>
 							<h2>Full</h2>
-							<p>{text}</p>
+							<p>Logged in user: {error && !loading ? error?.message : text}</p>
 							{children}
 						</main>
 					</div>
@@ -67,6 +89,7 @@ const Layout = ({ children, route, showSidebar, showActivityBar, showNav, useWid
 					<div className={useWide ? styles.containerWide : styles.container}>
 						<main className={styles.main}>
 							<h2>half activity bar</h2>
+							<p>Logged in user: {error && !loading ? error?.message : text}</p>
 							{children}
 						</main>
 					</div>
@@ -85,6 +108,7 @@ const Layout = ({ children, route, showSidebar, showActivityBar, showNav, useWid
 					<div className={useWide ? styles.containerWide : styles.container}>
 						<main className={styles.main}>
 							<h2>tablet</h2>
+							<p>Logged in user: {error && !loading ? error?.message : text}</p>
 							{children}
 						</main>
 					</div>

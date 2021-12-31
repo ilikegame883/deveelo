@@ -26,6 +26,12 @@ a {
   text-decoration: none;
 }
 
+/* hides default show password eye in edge */
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear {
+  display: none !important;
+}
+
 * {
   box-sizing: border-box;
 }
