@@ -1,4 +1,5 @@
-import { useQuery, gql } from "@apollo/client";
+import { useQuery, gql, NetworkStatus } from "@apollo/client";
+import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
 
 import Meta from "./micro/Meta";
@@ -9,6 +10,8 @@ import styles from "../styles/Layout.module.css";
 import useScreenType from "../hooks/useScreenType";
 import { useGetPostsQuery, useMyAccountApsMinQuery } from "../hooks/backend/generated/graphql";
 import onConnectionError from "../hooks/popups/connectionError";
+import { getAccessToken } from "../accessToken";
+import { useState } from "react";
 const SideImage = dynamic(() => import("./SideImage"), { ssr: false });
 
 interface layoutProps {
@@ -22,6 +25,8 @@ interface layoutProps {
 
 const Layout = ({ children, route, showSidebar, showActivityBar, showNav, useWide }: layoutProps) => {
 	const screenType: string = useScreenType();
+	const router = useRouter();
+	const [reloaded, setReloaded] = useState(false);
 
 	let content: any = null;
 	let text: any;
@@ -40,6 +45,12 @@ const Layout = ({ children, route, showSidebar, showActivityBar, showNav, useWid
 		//text = JSON.stringify(data.getPosts);
 		if (error && !handledError) {
 			handledError = true;
+			const accessToken = getAccessToken();
+			if (accessToken && accessToken !== "" && !reloaded) {
+				setReloaded(true);
+				router.reload();
+			}
+
 			popup = onConnectionError(error);
 		}
 	}
