@@ -1,12 +1,14 @@
 import { useState } from "react";
+import { useRouter } from "next/router";
 import Image from "next/image";
-import router from "next/router";
 
 import formStyles from "../../styles/form.module.css";
 import { useLoginMutation, useRegisterMutation } from "../../hooks/backend/generated/graphql";
 import { setAccessToken } from "../../accessToken";
 
 const Form = ({ type }: { type: string }) => {
+	const router = useRouter();
+
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [login] = useLoginMutation();

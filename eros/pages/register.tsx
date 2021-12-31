@@ -1,4 +1,4 @@
-import router from "next/router";
+import { useRouter } from "next/router";
 import formStyles from "../styles/form.module.css";
 import headerStyles from "../styles/headers.module.css";
 
@@ -7,6 +7,8 @@ import { getAccessToken } from "../accessToken";
 
 const register = () => {
 	const accessToken = getAccessToken();
+	const router = useRouter();
+
 	if (accessToken && accessToken !== "") {
 		router.push("/");
 	}
