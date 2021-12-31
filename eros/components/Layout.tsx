@@ -28,18 +28,16 @@ const Layout = ({ children, route, showSidebar, showActivityBar, showNav, useWid
 	let popup: any = null;
 	let handledError: boolean = false;
 
-	const { loading, error, data } = useGetPostsQuery({ fetchPolicy: "network-only" });
+	const { loading, error, data } = useMyAccountApsMinQuery({ fetchPolicy: "network-only" });
 
 	console.log(data, error, loading);
 
-	if (loading && !error && !data) {
+	if (loading && !data) {
 		text = "loading...";
 		handledError = false;
 	} else {
-		console.log("done loading");
-
-		//text = JSON.stringify(data?.myAccount?.account?.username);
-		text = JSON.stringify(data.getPosts);
+		text = JSON.stringify(data?.myAccount?.account?.username);
+		//text = JSON.stringify(data.getPosts);
 		if (error && !handledError) {
 			handledError = true;
 			popup = onConnectionError(error);

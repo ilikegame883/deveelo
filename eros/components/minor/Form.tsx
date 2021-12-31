@@ -52,11 +52,13 @@ const Form = ({ type }: { type: string }) => {
 
 						console.log("RESPONSE RETURNED");
 
-						console.log(`RES: ${response} DATA: ${response.data}`);
+						console.log(`DATA: ${JSON.stringify(response.data)}`);
 
 						if (response && response.data) {
 							setAccessToken(response.data.login.accessToken);
-							router.push("/");
+							setTimeout(() => {
+								router.push("/");
+							}, 5000);
 						}
 					} catch (error) {
 						console.log(error);
