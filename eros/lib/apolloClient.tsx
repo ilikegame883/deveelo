@@ -6,10 +6,7 @@ import { getAccessToken } from "../accessToken";
 /* Communication Links*/
 
 const requestLink = new ApolloLink((operation, forward) => {
-	console.log("made it to auth");
-
 	const accessToken = getAccessToken();
-	console.log(`ACCESS TOKEN IS ${accessToken}`);
 
 	if (accessToken) {
 		operation.setContext(({ headers }) => ({
@@ -19,12 +16,10 @@ const requestLink = new ApolloLink((operation, forward) => {
 			},
 		}));
 	}
-	console.log("header set");
 	return forward(operation);
 });
 
 const errorLink = onError(({ graphQLErrors, networkError }) => {
-	console.log("error link");
 	console.log(graphQLErrors);
 	console.log(networkError);
 });

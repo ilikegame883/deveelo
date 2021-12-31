@@ -9,7 +9,6 @@ import { createAccessToken, createRefreshToken, sendRefreshToken } from "../../u
 
 const successfulLoginHandler = (user: UserType, { res }: Context): string => {
 	sendRefreshToken(res, createRefreshToken(user));
-	console.log(`Attempted login w/ user \n ${user.account.email}`);
 
 	return createAccessToken(user);
 };
@@ -18,7 +17,6 @@ const userResolvers = {
 	Query: {
 		async myAccount(_parent: any, _args: any, context: Context): Promise<UserType> {
 			const user: UserType = await User.findById(new ObjectID(context.payload!.id));
-			console.log("my Account attempted");
 
 			if (!user) {
 				throw new Error("user not found");
@@ -86,9 +84,6 @@ const userResolvers = {
 			}
 
 			// note  successful login
-			console.log("login success stage 1");
-
-			//sendRefreshToken(context.res, createRefreshToken(user));
 
 			return {
 				accessToken: successfulLoginHandler(user, context),

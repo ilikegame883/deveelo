@@ -11,14 +11,12 @@ const User_1 = __importDefault(require("../../models/User"));
 const auth_1 = require("../../util/auth");
 const successfulLoginHandler = (user, { res }) => {
     auth_1.sendRefreshToken(res, auth_1.createRefreshToken(user));
-    console.log(`Attempted login w/ user \n ${user.account.email}`);
     return auth_1.createAccessToken(user);
 };
 const userResolvers = {
     Query: {
         async myAccount(_parent, _args, context) {
             const user = await User_1.default.findById(new mongodb_1.ObjectID(context.payload.id));
-            console.log("my Account attempted");
             if (!user) {
                 throw new Error("user not found");
             }
@@ -76,7 +74,6 @@ const userResolvers = {
                     },
                 });
             }
-            console.log("login success stage 1");
             return {
                 accessToken: successfulLoginHandler(user, context),
                 user,
