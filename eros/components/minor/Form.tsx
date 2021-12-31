@@ -56,9 +56,7 @@ const Form = ({ type }: { type: string }) => {
 
 						if (response && response.data) {
 							setAccessToken(response.data.login.accessToken);
-							setTimeout(() => {
-								router.push("/");
-							}, 5000);
+							router.push("/");
 						}
 					} catch (error) {
 						console.log(error);
