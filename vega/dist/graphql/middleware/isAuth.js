@@ -9,7 +9,6 @@ const loggedInOnlyAuth = async (resolve, _parent, _args, context, _info) => {
     }
     try {
         const token = authorization.split(" ")[1];
-        console.log(process.env.ACCESS_TOKEN_SECRET);
         const payload = jsonwebtoken_1.verify(token, process.env.ACCESS_TOKEN_SECRET);
         context.payload = payload;
     }
