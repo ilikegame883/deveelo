@@ -15,10 +15,37 @@ const Form = ({ type }: { type: string }) => {
 	const [register] = useRegisterMutation();
 	const [show, setShow] = useState(false);
 
+	//Error states
+	const [emailErr, setEmailErr] = useState("");
+	const [passErr, setPassErr] = useState("");
+
 	const toggleClass = () => {
 		setShow(!show);
 	};
 
+	const handleSubmitErrors = (errors: any) => {
+		setEmailErr("");
+		setPassErr("");
+
+		for (var prop in errors) {
+			if (Object.prototype.hasOwnProperty.call(errors, prop)) {
+				//i.e prop=email, value=field required
+
+				if (prop === "email" || prop === "username" || prop === "general") {
+					if (errors[prop] !== "" || errors[prop] !== null) {
+						setEmailErr(errors[prop]);
+						break;
+					}
+				} else if (prop === "password") {
+					if (errors[prop] !== "" || errors[prop] !== null) {
+						setPassErr(errors[prop]);
+						break;
+					}
+				}
+			}
+		}
+	};
+	//console.log(`EmailErr = ${emailErr} \nPassErr = ${passErr}`);
 	return (
 		<form
 			className={formStyles.largeContainer}
@@ -39,7 +66,11 @@ const Form = ({ type }: { type: string }) => {
 							router.push("/");
 						}
 					} catch (error) {
-						console.log(error);
+						if (error.graphQLErrors[0].extensions.errors) {
+							//errors with user input reported in backend check
+							const inputErrs = error.graphQLErrors[0].extensions.errors;
+							handleSubmitErrors(inputErrs);
+						}
 					}
 				} else {
 					try {
@@ -55,7 +86,12 @@ const Form = ({ type }: { type: string }) => {
 							router.push("/");
 						}
 					} catch (error) {
-						console.log(error);
+						if (error.graphQLErrors[0].extensions.errors) {
+							//errors with user input reported in backend check
+							const inputErrs = error.graphQLErrors[0].extensions.errors;
+							handleSubmitErrors(inputErrs);
+							//console.log(inputErrs);
+						}
 					}
 				}
 			}}>
