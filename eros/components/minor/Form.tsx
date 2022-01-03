@@ -45,7 +45,7 @@ const Form = ({ type }: { type: string }) => {
 			}
 		}
 	};
-	//console.log(`EmailErr = ${emailErr} \nPassErr = ${passErr}`);
+
 	return (
 		<form
 			className={formStyles.largeContainer}
@@ -109,6 +109,7 @@ const Form = ({ type }: { type: string }) => {
 				<label htmlFor="emailorname" className={formStyles.label}>
 					{type == "register" ? "Enter email" : "Enter email or username"}
 				</label>
+				<p className={formStyles.error}>{emailErr}</p>
 			</div>
 
 			<div className={formStyles.field}>
@@ -125,6 +126,7 @@ const Form = ({ type }: { type: string }) => {
 				<label htmlFor="password" className={formStyles.label}>
 					Enter password
 				</label>
+				<p className={formStyles.error}>{passErr}</p>
 
 				<span className={show ? formStyles.togglePassword : formStyles.toggledPassword} onMouseDown={() => toggleClass()}>
 					<Image src={show ? "/resources/eyeHide.svg" : "/resources/eye.svg"} width="22.5" height="22.5" />
