@@ -94,7 +94,9 @@ const Form = ({ type }: { type: string }) => {
 					<Image src={show ? "/resources/eyeHide.svg" : "/resources/eye.svg"} width="22.5" height="22.5" />
 				</span>
 			</div>
-			<button type="submit">{type == "register" ? "Register" : "Login"}</button>
+			<button className={formStyles.submit} type="submit">
+				{type == "register" ? "Register" : "Login"}
+			</button>
 		</form>
 	);
 };
