@@ -31,6 +31,11 @@
     background: linear-gradient(91.48deg, #FFD74A 0%, #FFB129 100%);
     box-shadow: 0 0.375em 1.875em rgba(255, 177, 41, 0.43);
     border-radius: inherit;
+    outline: 0px solid #ffc43978;
+}
+
+.goldGrad:hover {
+    outline-color: #ffc43978;
 }
 
 .greenGrad {
@@ -45,6 +50,32 @@
     background: linear-gradient(91.48deg, #2ED9A6 0%, #2CCD9D 100%);
     box-shadow: 0 0.375em 1.875em rgba(44, 205, 157, 0.43);
     border-radius: inherit;
+    outline: 0px solid #2ed9a680;
+}
+
+.greenGrad:hover {
+    outline-color: #2ed9a680;
+}
+
+.greenGrad:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2.81rem;
+    background-color: rgba(255,255,255,0.4);
+    -webkit-transition: none;
+    -moz-transition: none;
+    transition: none;
+}
+.greenGrad:hover:after {
+    width: 120%;
+    background-color: rgba(255,255,255,0);
+
+    -webkit-transition: all 500ms cubic-bezier(0.590, -0.010, 0.460, 0.995);
+    -moz-transition: all 500ms cubic-bezier(0.590, -0.010, 0.460, 0.995);
+    transition: all 500ms cubic-bezier(0.590, -0.010, 0.460, 0.995);
 }
 
 .redGrad {
@@ -59,4 +90,9 @@
     background: linear-gradient(91.48deg, #FFD74A 0%, #FFB129 100%);
     box-shadow: 0 0.375em 1.875em rgba(255, 177, 41, 0.43);
     border-radius: inherit;
+    outline: 0px solid #ffc43978;
+}
+
+.redGrad:hover {
+    outline-color: #2ed9a680;
 }

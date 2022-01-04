@@ -140,7 +140,6 @@
     line-height: 2.81rem;
     /* identical to box height */
 
-    text-align: center;
     letter-spacing: 0.03em;
 
     color: #FFFFFF;
@@ -148,22 +147,13 @@
     background: linear-gradient(91.48deg, #FFD74A 0%, #FFB129 100%);
     box-shadow: 0px 4px 20px rgba(255, 177, 41, 0.43);
     border-radius: 0.937rem;
-    border: 0px solid;
     outline: 0px solid #ffc43978;
 
     cursor: pointer;
-    transition: .2s ease-in-out;
 }
 
 .submit:hover {
-    overflow: visible;
-    outline: 0.375rem solid #ffc43978;
-    transition: .2s ease-in-out;
-}
-
-.submit:active {
-    transition: .2s ease-in-out;
-    transform: scaleX(.9) scaleY(.9);
+    outline-color: #ffc43978;
 }
 
 .submit:after {
