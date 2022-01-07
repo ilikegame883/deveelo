@@ -14,31 +14,27 @@ import { authMiddlewares } from "./graphql/middleware";
 import User, { UserType } from "./models/User";
 import { createAccessToken, createRefreshToken, sendRefreshToken } from "./util/auth";
 
-// development  change mongodb user password & access - cors origin to site domain
+// development  change mongodb user password & access
 const initServer = async () => {
 	const app = express();
 	app.set("trust proxy", process.env.NODE_ENV !== "production");
 
+	const whitelist = process.env.NODE_ENV === "production" ? ["https://www.deveelo.com", "https://next.deveelo.com"] : ["http://localhost:3000"];
+
 	app.use(
 		cors({
-			origin: "http://localhost:3000",
+			origin: function (origin: any, callback: any) {
+				if (whitelist.indexOf(origin!) !== -1) {
+					callback(null, true);
+				} else {
+					callback(new Error("Not allowed by CORS"));
+				}
+			},
 			credentials: true,
 		})
 	); // development  enable real cors options above
 
 	app.use(cookieParser());
-
-	// const whitelist = ["http://localhost:3000", "https://deveelo-f21k9vwm1-treixatek.vercel.app/", "https://www.deveelo.com", "https://studio.apollographql.com"];
-	// const corsOptions = {
-	// 	origin: function (origin: any, callback: any) {
-	// 		if (whitelist.indexOf(origin!) !== -1) {
-	// 			callback(null, true);
-	// 		} else {
-	// 			callback(new Error("Not allowed by CORS"));
-	// 		}
-	// 	},
-	// 	credentials: true,
-	// };
 
 	//api routes
 	app.get("/", (_req, res) => res.send("hello"));
