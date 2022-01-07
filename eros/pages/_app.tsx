@@ -13,6 +13,7 @@ const twoColRoutes = ["/login", "/register"];
 
 function MyApp({ Component, pageProps }: AppProps) {
 	const apolloClient = useApollo(pageProps.initialApolloState);
+	console.log(process.env.NODE_ENV);
 
 	const router = useRouter();
 	const currPage = router.pathname;
@@ -22,7 +23,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 
 	//get the access token from the server (server will return it)
 	useEffect(() => {
-		fetch("http://localhost:4000/refresh_token", {
+		fetch(process.env.NODE_ENV === "production" ? "https://vega-deployment.herokuapp.com/refresh_token" : "http://localhost:4000/refresh_token", {
 			method: "POST",
 			credentials: "include",
 			mode: "cors",

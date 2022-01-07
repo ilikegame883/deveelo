@@ -33,7 +33,7 @@ function createApolloClient() {
 			errorLink,
 			requestLink,
 			new HttpLink({
-				uri: process.env.NODE_ENV === "production" ? "https://vega-deployment.herokuapp.com:4000/graphql" : "http://localhost:4000/graphql",
+				uri: process.env.NODE_ENV === "production" ? "https://vega-deployment.herokuapp.com/graphql" : "http://localhost:4000/graphql",
 				credentials: "include",
 			}),
 		]),
