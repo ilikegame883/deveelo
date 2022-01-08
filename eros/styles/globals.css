@@ -18,7 +18,7 @@ body {
   margin: 0;
   font-family: "Heebo";
   font-style: normal;
-  font-size: 16px;
+  font-size: 1rem;
 }
 
 @media screen and (max-width : 1600px) {
@@ -27,7 +27,7 @@ body {
    margin: 0;
    font-family: "Heebo";
    font-style: normal;
-    font-size: 13px;
+    font-size: 0.8125rem;
   }
 }
 
@@ -47,8 +47,8 @@ button {
 }
 
 button:hover {
-  outline-width: 0.375rem;
-  transition: .2s ease-in-out;
+  outline-width: 0.37rem;
+  transition: .15s ease-in-out;
 }
 
 button:active {
