@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import Image from "next/image";
 
 import formStyles from "../../styles/form.module.css";
+import TextButton from "../micro/TextButton";
 import { useLoginMutation, useRegisterMutation } from "../../hooks/backend/generated/graphql";
 import { setAccessToken } from "../../accessToken";
 
@@ -132,9 +133,9 @@ const Form = ({ type }: { type: string }) => {
 					<Image src={show ? "/resources/eyeHide.svg" : "/resources/eye.svg"} width="22.5" height="22.5" />
 				</span>
 			</div>
-			<button className={formStyles.submit} type="submit">
-				{type == "register" ? "Register" : "Login"}
-			</button>
+			<div className={formStyles.submitWrapper}>
+				<TextButton colorKey="gold" text={type == "register" ? "Register" : "Login"} submit={true} />
+			</div>
 		</form>
 	);
 };
