@@ -13,7 +13,6 @@ const twoColRoutes = ["/login", "/register"];
 
 function MyApp({ Component, pageProps }: AppProps) {
 	const apolloClient = useApollo(pageProps.initialApolloState);
-	console.log(process.env.NODE_ENV);
 
 	const router = useRouter();
 	const currPage = router.pathname;
