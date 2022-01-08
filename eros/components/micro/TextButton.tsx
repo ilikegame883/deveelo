@@ -1,7 +1,7 @@
 import buttonStyles from "../../styles/textbutton.module.css";
 
 interface buttonParams {
-	colorKey: string;
+	colorKey?: string;
 	text: string;
 	action?: any;
 	disabled?: boolean;
@@ -12,18 +12,10 @@ const TextButton = ({ colorKey, text, action, disabled }: buttonParams) => {
 
 	switch (colorKey) {
 		case "gold":
-			content = (
-				<button className={buttonStyles.goldGrad}>
-					<p className={buttonStyles.b_text}>{text}</p>
-				</button>
-			);
+			content = <button className={buttonStyles.goldGrad}>{text}</button>;
 			break;
 		case "green":
-			content = (
-				<button className={buttonStyles.greenGrad}>
-					<p className={buttonStyles.b_text}>{text}</p>
-				</button>
-			);
+			content = <button className={buttonStyles.greenGrad}>{text}</button>;
 			break;
 		default:
 			content = (
@@ -34,7 +26,7 @@ const TextButton = ({ colorKey, text, action, disabled }: buttonParams) => {
 			break;
 	}
 
-	return <div className={buttonStyles.button}>{content}</div>;
+	return content;
 };
 
 export default TextButton;
