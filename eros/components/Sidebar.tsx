@@ -3,6 +3,7 @@ import NameGroup from "./micro/NameGroup";
 import TextButton from "./micro/TextButton";
 import ProfilePicture from "./micro/ProfilePicture";
 import Image from "next/image";
+import { useState } from "react";
 
 const Sidebar = () => {
 	const user = {

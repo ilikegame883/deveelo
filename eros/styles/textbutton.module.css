@@ -10,6 +10,7 @@
 
     background: linear-gradient(91.48deg, #FFD74A 0%, #FFB129 100%);
     box-shadow: 0 0.375em 1.875em rgba(255, 177, 41, 0.43);
+    transition: 0.3s ease;
 }
 
 .goldGrad::after, .goldGrad::before{
@@ -45,6 +46,7 @@
 /* Return no normal state on mouse down */
 .goldGrad:active, .greenGrad:active, .redGrad:active {
     transform: translate(.3rem, .3rem);
+    background: linear-gradient(91.48deg, #FF6F89 0%, #FF3873 100%);
 }
 
 .goldGrad:active::after, .greenGrad:active::after, .redGrad:active::after {
