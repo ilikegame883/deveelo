@@ -29,6 +29,7 @@
     transition: transform 0.3s ease;
 }
 
+/* Raise while being hovered */
 .goldGrad:hover, .greenGrad:hover, .redGrad:hover {
     transform: translate(-.6rem, -.6rem);
 }
@@ -39,6 +40,19 @@
 
 .goldGrad:hover::before, .greenGrad:hover::before, .redGrad:hover::before {
     transform: translate(.6rem, .6rem);
+}
+
+/* Return no normal state on mouse down */
+.goldGrad:active, .greenGrad:active, .redGrad:active {
+    transform: translate(.3rem, .3rem);
+}
+
+.goldGrad:active::after, .greenGrad:active::after, .redGrad:active::after {
+    transform: translate(0rem, 0rem);
+}
+
+.goldGrad:active::before, .greenGrad:active::before, .redGrad:active::before {
+    transform: translate(-.05rem, -.05rem);
 }
 
 .greenGrad {
