@@ -23,7 +23,7 @@ const initServer = async () => {
     const whitelist = process.env.NODE_ENV === "production" ? ["https://www.deveelo.com", "https://next.deveelo.com"] : ["http://localhost:3000"];
     app.use(cors_1.default({
         origin: function (origin, callback) {
-            if (whitelist.indexOf(origin) !== -1) {
+            if (whitelist.indexOf(origin) !== -1 || process.env.NODE_ENV !== "production") {
                 callback(null, true);
             }
             else {

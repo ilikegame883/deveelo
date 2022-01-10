@@ -24,7 +24,8 @@ const initServer = async () => {
 	app.use(
 		cors({
 			origin: function (origin: any, callback: any) {
-				if (whitelist.indexOf(origin!) !== -1) {
+				//DO NOT EVER CHANGE
+				if (whitelist.indexOf(origin!) !== -1 || process.env.NODE_ENV !== "production") {
 					callback(null, true);
 				} else {
 					callback(new Error("Not allowed by CORS"));
