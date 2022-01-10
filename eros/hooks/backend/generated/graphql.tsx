@@ -121,10 +121,10 @@ export type LoginMutationVariables = Exact<{
 
 export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'LoginResponse', accessToken: string } };
 
-export type MyAccountApsMinQueryVariables = Exact<{ [key: string]: never; }>;
+export type MyAccountMinProfileQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type MyAccountApsMinQuery = { __typename?: 'Query', myAccount: { __typename?: 'User', status: string, account: { __typename?: 'U_Account', username: string, tag: string }, profile: { __typename?: 'U_Profile', description: string } } };
+export type MyAccountMinProfileQuery = { __typename?: 'Query', myAccount: { __typename?: 'User', status: string, account: { __typename?: 'U_Account', username: string, tag: string, private: boolean }, profile: { __typename?: 'U_Profile', bannerUrl: string, pictureUrl: string, description: string, followingIds: Array<Maybe<string>>, followerIds: Array<Maybe<string>>, badges: Array<Maybe<string>>, linkedProfiles: Array<Maybe<string>> } } };
 
 export type RegisterMutationVariables = Exact<{
   registerEmail: Scalars['String'];
@@ -206,15 +206,22 @@ export function useLoginMutation(baseOptions?: Apollo.MutationHookOptions<LoginM
 export type LoginMutationHookResult = ReturnType<typeof useLoginMutation>;
 export type LoginMutationResult = Apollo.MutationResult<LoginMutation>;
 export type LoginMutationOptions = Apollo.BaseMutationOptions<LoginMutation, LoginMutationVariables>;
-export const MyAccountApsMinDocument = gql`
-    query myAccountApsMin {
+export const MyAccountMinProfileDocument = gql`
+    query myAccountMinProfile {
   myAccount {
     account {
       username
       tag
+      private
     }
     profile {
+      bannerUrl
+      pictureUrl
       description
+      followingIds
+      followerIds
+      badges
+      linkedProfiles
     }
     status
   }
@@ -222,31 +229,31 @@ export const MyAccountApsMinDocument = gql`
     `;
 
 /**
- * __useMyAccountApsMinQuery__
+ * __useMyAccountMinProfileQuery__
  *
- * To run a query within a React component, call `useMyAccountApsMinQuery` and pass it any options that fit your needs.
- * When your component renders, `useMyAccountApsMinQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useMyAccountMinProfileQuery` and pass it any options that fit your needs.
+ * When your component renders, `useMyAccountMinProfileQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useMyAccountApsMinQuery({
+ * const { data, loading, error } = useMyAccountMinProfileQuery({
  *   variables: {
  *   },
  * });
  */
-export function useMyAccountApsMinQuery(baseOptions?: Apollo.QueryHookOptions<MyAccountApsMinQuery, MyAccountApsMinQueryVariables>) {
+export function useMyAccountMinProfileQuery(baseOptions?: Apollo.QueryHookOptions<MyAccountMinProfileQuery, MyAccountMinProfileQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<MyAccountApsMinQuery, MyAccountApsMinQueryVariables>(MyAccountApsMinDocument, options);
+        return Apollo.useQuery<MyAccountMinProfileQuery, MyAccountMinProfileQueryVariables>(MyAccountMinProfileDocument, options);
       }
-export function useMyAccountApsMinLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<MyAccountApsMinQuery, MyAccountApsMinQueryVariables>) {
+export function useMyAccountMinProfileLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<MyAccountMinProfileQuery, MyAccountMinProfileQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<MyAccountApsMinQuery, MyAccountApsMinQueryVariables>(MyAccountApsMinDocument, options);
+          return Apollo.useLazyQuery<MyAccountMinProfileQuery, MyAccountMinProfileQueryVariables>(MyAccountMinProfileDocument, options);
         }
-export type MyAccountApsMinQueryHookResult = ReturnType<typeof useMyAccountApsMinQuery>;
-export type MyAccountApsMinLazyQueryHookResult = ReturnType<typeof useMyAccountApsMinLazyQuery>;
-export type MyAccountApsMinQueryResult = Apollo.QueryResult<MyAccountApsMinQuery, MyAccountApsMinQueryVariables>;
+export type MyAccountMinProfileQueryHookResult = ReturnType<typeof useMyAccountMinProfileQuery>;
+export type MyAccountMinProfileLazyQueryHookResult = ReturnType<typeof useMyAccountMinProfileLazyQuery>;
+export type MyAccountMinProfileQueryResult = Apollo.QueryResult<MyAccountMinProfileQuery, MyAccountMinProfileQueryVariables>;
 export const RegisterDocument = gql`
     mutation Register($registerEmail: String!, $registerPassword: String!) {
   register(email: $registerEmail, password: $registerPassword) {
