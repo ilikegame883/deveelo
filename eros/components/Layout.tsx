@@ -8,7 +8,7 @@ const DesktopSidebar = dynamic(() => import("./Sidebar"), { ssr: false });
 import FullActivityBar from "./ActivityBar";
 import styles from "../styles/Layout.module.css";
 import useScreenType from "../hooks/useScreenType";
-import { useGetPostsQuery, useMyAccountApsMinQuery } from "../hooks/backend/generated/graphql";
+import { useGetPostsQuery } from "../hooks/backend/generated/graphql";
 import onConnectionError from "../hooks/popups/connectionError";
 import { getAccessToken } from "../accessToken";
 import { useState } from "react";
@@ -33,27 +33,31 @@ const Layout = ({ children, route, showSidebar, showActivityBar, showNav, useWid
 	let popup: any = null;
 	let handledError: boolean = false;
 
-	const { loading, error, data } = useMyAccountApsMinQuery({ fetchPolicy: "network-only" });
+	//const { loading, error, data } = useMyAccountApsMinQuery({ fetchPolicy: "network-only" });
 
-	console.log(data, error, loading);
+	//console.log(data, error, loading);
 
-	if (loading && !data) {
-		text = "loading...";
-		handledError = false;
-	} else {
-		text = JSON.stringify(data?.myAccount?.account?.username);
-		//text = JSON.stringify(data.getPosts);
-		if (error && !handledError) {
-			handledError = true;
-			const accessToken = getAccessToken();
-			if (accessToken && accessToken !== "" && !reloaded) {
-				setReloaded(true);
-				router.reload();
-			}
+	text = "hi";
+	const error = false;
+	const loading = false;
 
-			popup = onConnectionError(error);
-		}
-	}
+	// if (loading && !data) {
+	// 	text = "loading...";
+	// 	handledError = false;
+	// } else {
+	// 	text = JSON.stringify(data?.myAccount?.account?.username);
+	// 	//text = JSON.stringify(data.getPosts);
+	// 	if (error && !handledError) {
+	// 		handledError = true;
+	// 		const accessToken = getAccessToken();
+	// 		if (accessToken && accessToken !== "" && !reloaded) {
+	// 			setReloaded(true);
+	// 			router.reload();
+	// 		}
+
+	// 		popup = onConnectionError(error);
+	// 	}
+	// }
 
 	switch (screenType) {
 		case "full":
@@ -69,7 +73,7 @@ const Layout = ({ children, route, showSidebar, showActivityBar, showNav, useWid
 					<div className={useWide ? styles.containerWide : styles.container}>
 						<main className={styles.main}>
 							<h2>Full</h2>
-							<p>Logged in user: {error && !loading ? error?.message : text}</p>
+							<p>Logged in user: {error && !loading ? error : text}</p>
 							{children}
 						</main>
 					</div>
@@ -89,7 +93,7 @@ const Layout = ({ children, route, showSidebar, showActivityBar, showNav, useWid
 					<div className={useWide ? styles.containerWide : styles.container}>
 						<main className={styles.main}>
 							<h2>half activity bar</h2>
-							<p>Logged in user: {error && !loading ? error?.message : text}</p>
+							<p>Logged in user: {error && !loading ? error : text}</p>
 							{children}
 						</main>
 					</div>
@@ -108,7 +112,7 @@ const Layout = ({ children, route, showSidebar, showActivityBar, showNav, useWid
 					<div className={useWide ? styles.containerWide : styles.container}>
 						<main className={styles.main}>
 							<h2>tablet</h2>
-							<p>Logged in user: {error && !loading ? error?.message : text}</p>
+							<p>Logged in user: {error && !loading ? error : text}</p>
 							{children}
 						</main>
 					</div>
