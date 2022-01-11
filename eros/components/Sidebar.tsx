@@ -4,11 +4,11 @@ import TextButton from "./micro/TextButton";
 import ProfilePicture from "./micro/ProfilePicture";
 import Image from "next/image";
 import { useMyAccountMinProfileQuery } from "../hooks/backend/generated/graphql";
-import router from "next/router";
+import { useRouter } from "next/router";
 
 const Sidebar = () => {
 	const { data, loading, error } = useMyAccountMinProfileQuery();
-	const path = router.pathname;
+	const path = useRouter().route;
 
 	if (loading && !data) {
 		return <div>loading...</div>;
@@ -18,7 +18,7 @@ const Sidebar = () => {
 	}
 
 	const user = data.myAccount;
-	const link: string = `http://localhost:3000${user.profile.pictureUrl}`;
+	const link: string = process.env.NODE_ENV === "production" ? `https://www.deveelo.com${user.profile.pictureUrl}` : `http://localhost:3000${user.profile.pictureUrl}`;
 	console.log(link);
 
 	return (
