@@ -72,8 +72,8 @@ const Layout = ({ children, route, showSidebar, showActivityBar, showNav, useWid
 					{useWide && <SideImage route={route} />}
 					<div className={useWide ? styles.containerWide : styles.container}>
 						<main className={styles.main}>
-							<h2>Full</h2>
-							<p>Logged in user: {error && !loading ? error : text}</p>
+							{/* <h2>Full</h2>
+							<p>Logged in user: {error && !loading ? error : text}</p> */}
 							{children}
 						</main>
 					</div>
@@ -92,8 +92,8 @@ const Layout = ({ children, route, showSidebar, showActivityBar, showNav, useWid
 
 					<div className={useWide ? styles.containerWide : styles.container}>
 						<main className={styles.main}>
-							<h2>half activity bar</h2>
-							<p>Logged in user: {error && !loading ? error : text}</p>
+							{/* <h2>half activity bar</h2>
+							<p>Logged in user: {error && !loading ? error : text}</p> */}
 							{children}
 						</main>
 					</div>
@@ -111,8 +111,8 @@ const Layout = ({ children, route, showSidebar, showActivityBar, showNav, useWid
 
 					<div className={useWide ? styles.containerWide : styles.container}>
 						<main className={styles.main}>
-							<h2>tablet</h2>
-							<p>Logged in user: {error && !loading ? error : text}</p>
+							{/* <h2>tablet</h2>
+							<p>Logged in user: {error && !loading ? error : text}</p> */}
 							{children}
 						</main>
 					</div>
