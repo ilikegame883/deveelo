@@ -31,12 +31,12 @@
 | Branches             |      Description      |
 | :------------------- | :------------------- |
 | [Dev](https://github.com/Treixatek/deveelo/tree/dev)       |      New and untested features or fixes, new commits go here       |
-| [Staging](https://github.com/Treixatek/deveelo/tree/staging) |     This is where stable features from the __dev branch__ are tested before entering __prod branch__      |
+| [Staging](https://github.com/Treixatek/deveelo/tree/staging) |     This is where completed features from the __dev branch__ are tested before entering __prod branch__      |
 | [Prod](https://github.com/Treixatek/deveelo/tree/prod) |     This is what is running in production, only tested versions in staging should be merged here      |
 
 | Folders             |      Description      |
 | :------------------- | :------------------- |
-| [Eros](https://github.com/Treixatek/Tavo-The-Taco/tree/dev)       |      The nextjs frontend, running on the website       |
+| [Eros](https://github.com/Treixatek/Tavo-The-Taco/tree/dev)       |      The nextjs frontend, running on the website. The frontend acts as the base for the __Pavo client__       |
 | [Vega](https://github.com/Treixatek/Tavo-The-Taco/tree/main) |     The apolloexpress-graphql backend      |
 | Pavo(soon) |     The electron wrapped naitive desktop app      |
 
