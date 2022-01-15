@@ -17,14 +17,20 @@
 
 <br>
 
-<h1 align="center">The Social Platform for Game Developers</h1>
+<div align="center">
+	<a href="https://github.com/othneildrew/Best-README-Template">
+		<img src="https://user-images.githubusercontent.com/65512990/149637323-b5894b89-8e53-488d-b925-4ddc39848607.png" alt="Logo" width="60" height="60">
+	</a>
 
-<h4 align="center">All in one platform with community & exposure at its core</h4>
-<p align="center">
-  <a href="https://www.deveelo.com">
-    <img src="https://user-images.githubusercontent.com/65512990/133001892-ed083956-c009-4e0c-97be-45c52ae2dab6.png" width="160" height="40">
-  </a>
-</p>
+	<h3 align="center">The Social Platform for Game Developers</h3>
+
+	<p align="center">
+    All in one platform with community & exposure at its core
+    <br />
+    <a href="https://github.com/othneildrew/Best-README-Template"><strong>Visit the site »</strong></a>
+   	<br />
+  </p>
+</div>
 <br>
 
 ### 📚 Structure
@@ -40,4 +46,30 @@
 | [Vega](https://github.com/Treixatek/Tavo-The-Taco/tree/main) |     The apolloexpress-graphql backend      |
 | Pavo(soon) |     The electron wrapped naitive desktop app      |
 
+### 📦 Versioning
+This project follows the [Semantic Versioning 2.0](https://semver.org/) standard
+<details>
+  <summary>More on Semantic Versioning</summary>
+  <ol>
+    <li>
+      <p>MAJOR.MINOR.PATCH-tag</p>
+      <ul>
+        <li><p>MAJOR - made incompatible API changes</p></li>
+        <li><p>MINOR - added functionality in a backwards compatible manner</p></li>
+        <li><p>PATCH - made backwards compatible bug fixes</p></li>
+        <li><p>tag - a pre-release version MAY be denoted by appending a hyphen and dot separated indentifiers</p></li>
+      </ul>
+    </li>
+    <li>
+      <p>Examples</p>
+      <ul>
+        <li><p>1.2.0</p></li>
+        <li><p>1.2.0-alpha</p></li>
+        <li><p>3.12.7-alpha.1</p></li>
+      </ul>
+    </li>
+  </ol>
+</details>
+
+<br />
 ⚠ wip readme
