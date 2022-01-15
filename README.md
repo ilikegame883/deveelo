@@ -4,7 +4,7 @@
 <!--   <a aria-label="Join the discord" href="https://discord.gg/CwCH2Wspjt">
     <img alt="" src="https://img.shields.io/badge/Join%20community-5b10cc.svg?style=for-the-badge&labelColor=000000&logoWidth=20&logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAYAAAAfSC3RAAAB1UlEQVQ4T32SPWhTYRSG3/PdJK2ihYKDFuwPFq/GEpAQsOKiECyIsQ4dhAoVKUo1IopYFCEiglhEpIMIdfDn6iDioEO1IAWhZKiCmHhT6tAqmEEHN5Pv+849cguVirk948vzcA6HlxAx4rW3QqvfdGyh1gihSLEAVd/cdZ6Y+8maM4mR6vuVLMn2/ZsQwy1AegG0AngLwV0qvZkKwfpEZ79w8FS0GV6Trz5elkl2Ztugmn/B6h6Ik4KoPESlAOcOlV6cDcHa/a57ZHmYtRlYm68+D7P/TpXkwDooNQVRuwA1RGXvQe2R66Jer8Byufnkt56GYhhK8mg7KP4ZgfLJn8gsnfywuyrablQs6cSJxQ/Rz0me8iAqR/74+iXRc2dguRfWDDYdX/SixW0XRgG6RJWbLaGonyXnRXM3DA82DX1ZRXSv3AY5W6hSyMnL9AZj9A9YBpgziSNzs9Eb3evTUDhN/uWSmczcgLUXxdivicOfOqKf444dQuBspflzY/rdnrTSpijaxsjYg7Hcx1eriONtNJf/LrN7DwSan4ixLaKDq/FssfC3ACtrJFJQ8It9IGefMGdhOBUYOyNWrsV3T0/+U7lGXRW/rxOgDgTBT9rxutyI+QNy388P0ZETlAAAAABJRU5ErkJggg==">
   </a> -->
-<!-- community badge -->
+<!-- download badge -->
 <a aria-label="All Contributors" href="#contributors-"><img alt="" src="https://img.shields.io/badge/-download-eb2a67?style=for-the-badge&labelColor=1b202e&logoWidth=20&logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAYAAAAfSC3RAAAB1UlEQVQ4T32SPWhTYRSG3/PdJK2ihYKDFuwPFq/GEpAQsOKiECyIsQ4dhAoVKUo1IopYFCEiglhEpIMIdfDn6iDioEO1IAWhZKiCmHhT6tAqmEEHN5Pv+849cguVirk948vzcA6HlxAx4rW3QqvfdGyh1gihSLEAVd/cdZ6Y+8maM4mR6vuVLMn2/ZsQwy1AegG0AngLwV0qvZkKwfpEZ79w8FS0GV6Trz5elkl2Ztugmn/B6h6Ik4KoPESlAOcOlV6cDcHa/a57ZHmYtRlYm68+D7P/TpXkwDooNQVRuwA1RGXvQe2R66Jer8Byufnkt56GYhhK8mg7KP4ZgfLJn8gsnfywuyrablQs6cSJxQ/Rz0me8iAqR/74+iXRc2dguRfWDDYdX/SixW0XRgG6RJWbLaGonyXnRXM3DA82DX1ZRXSv3AY5W6hSyMnL9AZj9A9YBpgziSNzs9Eb3evTUDhN/uWSmczcgLUXxdivicOfOqKf444dQuBspflzY/rdnrTSpijaxsjYg7Hcx1eriONtNJf/LrN7DwSan4ixLaKDq/FssfC3ACtrJFJQ8It9IGefMGdhOBUYOyNWrsV3T0/+U7lGXRW/rxOgDgTBT9rxutyI+QNy388P0ZETlAAAAABJRU5ErkJggg=="></a>
 <!-- other badges -->
   <a aria-label="site status" href="https://www.deveelo.com">
@@ -42,6 +42,12 @@
 | [Vega](https://github.com/Treixatek/Tavo-The-Taco/tree/main) |     The apolloexpress-graphql backend      |
 | Pavo(soon) |     The electron wrapped naitive desktop app      |
 
+### 📥🎀 Installation
+
+### 🤠 Usage
+
+### 🎁 Contributing
+
 ### 📦 Versioning
 This project follows the [Semantic Versioning 2.0](https://semver.org/) standard
 <details>
@@ -66,6 +72,10 @@ This project follows the [Semantic Versioning 2.0](https://semver.org/) standard
     </li>
   </ol>
 </details>
+
+### 📬 Contact
+- hello@deveelo.com for general inqueries, introducing yourself 😘 and everything else.
+- support@deveelo.com to contact our support team regarding the platform.
 
 <br />
 ⚠ wip readme
