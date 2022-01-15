@@ -15,23 +15,19 @@
   </a>
 </p>
 
-<br>
-
+<br />
 <div align="center">
-	<a href="https://github.com/othneildrew/Best-README-Template">
-		<img src="https://user-images.githubusercontent.com/65512990/149637323-b5894b89-8e53-488d-b925-4ddc39848607.png" alt="Logo" width="60" height="60">
-	</a>
-
+	<a href="https://www.deveelo.com"><img src="https://user-images.githubusercontent.com/65512990/149637323-b5894b89-8e53-488d-b925-4ddc39848607.png" alt="Logo" width="60" height="60"></a>
 	<h3 align="center">The Social Platform for Game Developers</h3>
-
 	<p align="center">
     All in one platform with community & exposure at its core
     <br />
-    <a href="https://github.com/othneildrew/Best-README-Template"><strong>Visit the site »</strong></a>
+    <a href="https://www.deveelo.com"><strong>Visit the site »</strong></a>
    	<br />
   </p>
 </div>
-<br>
+		
+<br />
 
 ### 📚 Structure
 | Branches             |      Description      |
