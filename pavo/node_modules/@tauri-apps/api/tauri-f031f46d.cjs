@@ -1,0 +1,1 @@
+"use strict";var r=require("./tauri-a5e1eaa6.cjs");exports.invokeTauriCommand=function(i){return r.__awaiter(this,void 0,void 0,(function(){return r.__generator(this,(function(t){return[2,r.invoke("tauri",i)]}))}))};

@@ -1,11 +1,18 @@
 {
-  "name": "deveelo-native",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "",
-  "license": "ISC"
+	"name": "deveelo-native",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"tauri": "tauri"
+	},
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"@tauri-apps/api": "^1.0.0-beta.8"
+	},
+	"devDependencies": {
+		"@tauri-apps/cli": "^1.0.0-beta.10"
+	}
 }

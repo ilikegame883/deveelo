@@ -1,0 +1,1 @@
+import o from"chalk";import r from"ms";var n,e=function(e,t){return void 0===t&&(t=o.green),function(i){var l=+new Date,a=l-(n||l);n=l,i?console.log(" "+t(String(e))+" "+i+" "+o.green("+"+r(a))):console.log()}};export{e as l};
