@@ -63,13 +63,13 @@ const userResolvers = {
 				if (isEmail) {
 					throw new UserInputError("User not found", {
 						errors: {
-							general: "no user is registered with this email",
+							email: "no user is registered with this email",
 						},
 					});
 				} else {
 					throw new UserInputError("User not found", {
 						errors: {
-							general: "no user is registered with this username",
+							username: "no user is registered with this username",
 						},
 					});
 				}
@@ -79,7 +79,7 @@ const userResolvers = {
 			if (!match) {
 				throw new UserInputError("Wrong credentials", {
 					errors: {
-						general: "incorrect password",
+						password: "incorrect password",
 					},
 				});
 			}

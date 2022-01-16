@@ -32,7 +32,7 @@ const Form = ({ type }: { type: string }) => {
 			if (Object.prototype.hasOwnProperty.call(errors, prop)) {
 				//i.e prop=email, value=field required
 
-				if (prop === "email" || prop === "username" || prop === "general") {
+				if (prop === "email" || prop === "username") {
 					if (errors[prop] !== "" || errors[prop] !== null) {
 						setEmailErr(errors[prop]);
 						break;
