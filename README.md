@@ -17,7 +17,7 @@
 
 <br />
 <div align="center">
-	<a href="https://www.deveelo.com"><img src="https://user-images.githubusercontent.com/65512990/149637323-b5894b89-8e53-488d-b925-4ddc39848607.png" alt="Logo" width="60" height="60"></a>
+	<a href="https://www.deveelo.com"><img src="https://user-images.githubusercontent.com/65512990/149637323-b5894b89-8e53-488d-b925-4ddc39848607.png" alt="Logo" width="40" height="40"></a>
 	<h3 align="center">The Social Platform for Game Developers</h3>
 	<p align="center">
     All in one platform with community & exposure at its core
@@ -40,9 +40,13 @@
 | :------------------- | :------------------- |
 | [Eros](https://github.com/Treixatek/deveelo/tree/staging/eros)       |      The nextjs frontend, running on the website. The frontend acts as the base for the __Pavo client__       |
 | [Vega](https://github.com/Treixatek/deveelo/tree/staging/vega) |     The apolloexpress-graphql backend      |
-| Pavo(soon) |     The electron wrapped naitive desktop app      |
+| Pavo(soon) |     The tauri wrapped naitive desktop app      |
 
 ### 🎀 Installation
+A desktop app Deveelo app is available for Windows, Mac, and Linux. This application contains all the features of the website plus native keybinds and the **Deveelo Game Portal**, which allows you to install and play the games you have on your account. To get the desktop app:
+
+1. Download the installer for your platform from [here »](https://github.com/Treixatek/deveelo/releases/latest)
+2. Run the installer _(deveelo-installer64.exe)_
 
 ### 🤠 Usage
 | <img src="https://user-images.githubusercontent.com/65512990/149643306-226fc470-050b-4474-ad94-b1c423ce2c77.png" width="600"> | <img src="https://user-images.githubusercontent.com/65512990/149643285-156a9792-d3e5-423b-b08d-2a22e511a2ff.png" width="600"> | <img src="https://user-images.githubusercontent.com/65512990/149643295-a69ed9d0-9869-4ce1-945a-d8f35aa12561.png" width="600"> |
@@ -50,7 +54,34 @@
 | <b>Devlogs</b> | <strong>Devlogs</strong> | <strong>Groups</strong> |
 
 ### 🎁 Contributing
+If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement" that announces what feature/fix you will be working on!
 
+1. Fork the project _(only 1st time)_
+2. Create your feature branch (on your own fork)
+	```sh
+   git checkout -b feature-or-fix-name
+   ```
+3. Commit your changes
+	```sh
+   git commit -m 'Added feature-name'
+	## or with vscode source control UI
+   ```
+4. Push to the feature branch
+	```sh
+   git push origin feature-or-fix-name
+   ```
+5. Open a pull request in your fork **that merges into the dev branch on Treixatek/deveelo**
+6. Connect to this repo to fetch other's changes _(only 1st time)_
+	 ```sh
+   git remote add upstream git@github.com:Treixatek/deveelo.git
+   ```
+7. Routinely fetch changes from this (upstream) repo
+	```sh
+   git fetch upstream
+	## or with vscode source control UI under remotes
+   ```
+
+ _always search [issues](https://github.com/Treixatek/deveelo/issues) first to ensure nobody is already working on the feature❗_
 ### 📦 Versioning
 This project follows the [Semantic Versioning 2.0](https://semver.org/) standard. Keep in mind that the desktop client [Pavo]() and the mobile apps are on different versions which can be found in their subdirectory's readme, the Pavo version is also under releases.
 <details>
@@ -79,9 +110,6 @@ This project follows the [Semantic Versioning 2.0](https://semver.org/) standard
 ### 📬 Contact
 - hello@deveelo.com for general inqueries, introducing yourself 😘 and everything else.
 - support@deveelo.com to contact our support team regarding the platform.
-
-<br />
-⚠ wip readme
 
 <br />
 <p align="center">(<a href="#top">👆</a>)</p>
