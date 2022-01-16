@@ -38,18 +38,21 @@
 
 | Folders             |      Description      |
 | :------------------- | :------------------- |
-| [Eros](https://github.com/Treixatek/Tavo-The-Taco/tree/dev)       |      The nextjs frontend, running on the website. The frontend acts as the base for the __Pavo client__       |
-| [Vega](https://github.com/Treixatek/Tavo-The-Taco/tree/main) |     The apolloexpress-graphql backend      |
+| [Eros](https://github.com/Treixatek/deveelo/tree/staging/eros)       |      The nextjs frontend, running on the website. The frontend acts as the base for the __Pavo client__       |
+| [Vega](https://github.com/Treixatek/deveelo/tree/staging/vega) |     The apolloexpress-graphql backend      |
 | Pavo(soon) |     The electron wrapped naitive desktop app      |
 
-### 📥🎀 Installation
+### 🎀 Installation
 
 ### 🤠 Usage
+| <img src="https://user-images.githubusercontent.com/65512990/149643306-226fc470-050b-4474-ad94-b1c423ce2c77.png" width="600"> | <img src="https://user-images.githubusercontent.com/65512990/149643285-156a9792-d3e5-423b-b08d-2a22e511a2ff.png" width="600"> | <img src="https://user-images.githubusercontent.com/65512990/149643295-a69ed9d0-9869-4ce1-945a-d8f35aa12561.png" width="600"> |
+|------------|-------------|-------------|
+| <b>Devlogs</b> | <strong>Devlogs</strong> | <strong>Groups</strong> |
 
 ### 🎁 Contributing
 
 ### 📦 Versioning
-This project follows the [Semantic Versioning 2.0](https://semver.org/) standard
+This project follows the [Semantic Versioning 2.0](https://semver.org/) standard. Keep in mind that the desktop client [Pavo]() and the mobile apps are on different versions which can be found in their subdirectory's readme, the Pavo version is also under releases.
 <details>
   <summary>More on Semantic Versioning</summary>
   <ol>
@@ -82,6 +85,7 @@ This project follows the [Semantic Versioning 2.0](https://semver.org/) standard
 - [ ] Posting
 - [ ] Follow & friending
 <!-- - [ ] Populate sidebar -->
+<!-- - [ ] Searchbar -->
 
 ### 📬 Contact
 - hello@deveelo.com for general inqueries, introducing yourself 😘 and everything else.
