@@ -93,5 +93,6 @@ This project follows the [Semantic Versioning 2.0](https://semver.org/) standard
 
 <br />
 ⚠ wip readme
-<h3 align="center"><a href="#top">to top☝️👆</a></h3>
-<p align="right">(<a href="#the-social-platform-for-game-developers">back to top</a>)</p>
+
+<br />
+<p align="center">(<a href="#top">👆</a>)</p>
