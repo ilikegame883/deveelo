@@ -5,8 +5,6 @@ import "dotenv/config";
 import { UserType } from "../models/User";
 
 export const createAccessToken = (user: UserType): string => {
-	//console.log("user id is: " + user.id);
-
 	return sign(
 		{
 			id: user._id,

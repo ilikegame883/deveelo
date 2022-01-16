@@ -13,8 +13,6 @@ const loggedInOnlyAuth: NewIMiddlewareResolver = async (resolve, _parent, _args,
 
 	try {
 		const token = authorization.split(" ")[1];
-		console.log(process.env.ACCESS_TOKEN_SECRET);
-
 		const payload = verify(token, process.env.ACCESS_TOKEN_SECRET!);
 		context.payload = payload as any;
 	} catch (err) {

@@ -6,11 +6,12 @@ import ValidateRegisterInput from "../../util/validators";
 import User, { UserType } from "../../models/User";
 import Context from "../../context";
 import { createAccessToken, createRefreshToken, sendRefreshToken } from "../../util/auth";
+import { Document } from "mongoose";
 
-const successfulLoginHandler = (user: UserType, { res }: Context): string => {
-	sendRefreshToken(res, createRefreshToken(user));
+const successfulLoginHandler = (user: UserType | Document<any, any, any>, { res }: Context): string => {
+	sendRefreshToken(res, createRefreshToken(user as UserType));
 
-	return createAccessToken(user);
+	return createAccessToken(user as UserType);
 };
 
 const userResolvers = {
@@ -180,7 +181,7 @@ const userResolvers = {
 				},
 				profile: {
 					bannerUrl: "default",
-					pictureUrl: "default",
+					pictureUrl: `/user_content/p_pictures/cup${Math.floor(Math.random() * 18)}.jpg`, //0-17
 					description: "I'm new to Deveelo!",
 					followingIds: [],
 					followerIds: [],
