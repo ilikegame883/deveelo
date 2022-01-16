@@ -55,25 +55,14 @@
 This project follows the [Semantic Versioning 2.0](https://semver.org/) standard. Keep in mind that the desktop client [Pavo]() and the mobile apps are on different versions which can be found in their subdirectory's readme, the Pavo version is also under releases.
 <details>
   <summary>More on Semantic Versioning</summary>
+	<p>Software using this versioning method follow a MAJOR.MINOR.PATCH-tag scheme as seen below:</p>
   <ol>
-    <li>
-      <p>MAJOR.MINOR.PATCH-tag</p>
-      <ul>
         <li><p>MAJOR - made incompatible API changes</p></li>
         <li><p>MINOR - added functionality in a backwards compatible manner</p></li>
         <li><p>PATCH - made backwards compatible bug fixes</p></li>
         <li><p>tag - a pre-release version MAY be denoted by appending a hyphen and dot separated indentifiers</p></li>
-      </ul>
-    </li>
-    <li>
-      <p>Examples</p>
-      <ul>
-        <li><p>1.2.0</p></li>
-        <li><p>1.2.0-alpha</p></li>
-        <li><p>3.12.7-alpha.1</p></li>
-      </ul>
-    </li>
   </ol>
+	<p>Examples include <b>1.2.0</b> and <b>1.2.0-alpha</b> and <b>3.12.7-alpha.1</b></p>
 </details>
 
 ### 🛤️ Roadmap
