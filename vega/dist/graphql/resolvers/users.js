@@ -54,14 +54,14 @@ const userResolvers = {
                 if (isEmail) {
                     throw new apollo_server_errors_1.UserInputError("User not found", {
                         errors: {
-                            general: "no user is registered with this email",
+                            email: "no user is registered with this email",
                         },
                     });
                 }
                 else {
                     throw new apollo_server_errors_1.UserInputError("User not found", {
                         errors: {
-                            general: "no user is registered with this username",
+                            username: "no user is registered with this username",
                         },
                     });
                 }
@@ -70,7 +70,7 @@ const userResolvers = {
             if (!match) {
                 throw new apollo_server_errors_1.UserInputError("Wrong credentials", {
                     errors: {
-                        general: "incorrect password",
+                        password: "incorrect password",
                     },
                 });
             }
