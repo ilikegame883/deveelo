@@ -100,6 +100,7 @@ This project follows the [Semantic Versioning 2.0](https://semver.org/) standard
 - [x] Account creation
 - [x] Secure JWT authentication
 - [x] Loading user profile
+- [ ] Desktop app
 - [ ] Profile pages
 - [ ] Navigation
 - [ ] Posting
