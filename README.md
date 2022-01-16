@@ -51,7 +51,7 @@ A desktop app Deveelo app is available for Windows, Mac, and Linux. This applica
 ### 🤠 Usage
 | <img src="https://user-images.githubusercontent.com/65512990/149643306-226fc470-050b-4474-ad94-b1c423ce2c77.png" width="600"> | <img src="https://user-images.githubusercontent.com/65512990/149643285-156a9792-d3e5-423b-b08d-2a22e511a2ff.png" width="600"> | <img src="https://user-images.githubusercontent.com/65512990/149643295-a69ed9d0-9869-4ce1-945a-d8f35aa12561.png" width="600"> |
 |------------|-------------|-------------|
-| <b>Devlogs</b> | <strong>Devlogs</strong> | <strong>Groups</strong> |
+| <b>Feed</b> | <strong>Devlogs</strong> | <strong>Groups</strong> |
 
 ### 🎁 Contributing
 If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement" that announces what feature/fix you will be working on!
