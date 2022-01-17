@@ -1,12 +1,14 @@
 {
-	"name": "deveelo-native",
+	"name": "deveelo-desktop",
 	"version": "1.0.0",
-	"description": "",
-	"main": "index.js",
+	"description": "The desktop app for the Deveelo social platform",
+	"main": "main.js",
 	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1",
-		"tauri": "tauri"
+		"start": "electron ."
 	},
-	"author": "",
-	"license": "ISC"
+	"author": "Deveelo LLC",
+	"license": "ISC",
+	"devDependencies": {
+		"electron": "^16.0.7"
+	}
 }
