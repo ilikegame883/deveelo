@@ -3,8 +3,12 @@
 	"version": "1.0.0",
 	"description": "The desktop app for the Deveelo social platform",
 	"main": "main.js",
+	"repository": {
+		"url": "https://github.com/Treixatek/deveelo"
+	},
 	"scripts": {
-		"start": "electron-forge start",
+		"start": "electron .",
+		"test": "electron-forge start",
 		"package": "electron-forge package",
 		"make": "electron-forge make"
 	},

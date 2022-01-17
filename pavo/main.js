@@ -5,11 +5,12 @@ const createWindow = () => {
 	const win = new BrowserWindow({
 		width: 1500,
 		height: 800,
-		frame: true,
+		frame: false,
 		show: true,
 	});
-
 	win.loadURL("http://localhost:3000");
+	win.removeMenu();
+	global.mainWindow = win;
 };
 
 app.whenReady().then(() => {

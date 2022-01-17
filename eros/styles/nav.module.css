@@ -48,3 +48,26 @@
     margin-left: 1.75rem;
     
   }
+
+  .menubar {
+    height: 30px;
+    width: 100%;
+    background-color: rgb(247, 248, 251);
+    margin-top: 0;
+    padding-left: 30.9375em;
+  }
+
+  .menuTitle {
+    font-weight: 600;
+    font-family: "Pacifico";
+    font-size: 12px;
+    color: var(--midLightGray);
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    width: fit-content;
+    height: 100%;
+
+    margin-left: 10px;
+    margin-top: 0;
+  }
