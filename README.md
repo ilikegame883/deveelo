@@ -40,7 +40,7 @@
 | :------------------- | :------------------- |
 | [Eros](https://github.com/Treixatek/deveelo/tree/staging/eros)       |      The nextjs frontend, running on the website. The frontend acts as the base for the __Pavo client__       |
 | [Vega](https://github.com/Treixatek/deveelo/tree/staging/vega) |     The apolloexpress-graphql backend      |
-| Pavo(soon) |     The tauri wrapped native desktop app      |
+| [Pavo](https://github.com/Treixatek/deveelo/tree/staging/pavo) |     The Electron wrapped native desktop app      |
 
 ### 🎀 Installation
 A desktop app Deveelo app is available for Windows, Mac, and Linux. This application contains all the features of the website plus native keybinds and the **Deveelo Game Portal**, which allows you to install and play the games you have on your account. To get the desktop app:
