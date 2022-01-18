@@ -34,7 +34,8 @@
 					"name": "@electron-forge/maker-squirrel",
 					"config": {
 						"name": "Deveelo",
-						"exe": "DeveeloSetup"
+						"exe": "DeveeloSetup",
+						"iconUrl": "https://www.deveelo.com/icon.ico"
 					}
 				},
 				{
