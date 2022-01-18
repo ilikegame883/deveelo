@@ -143,7 +143,7 @@ const Layout = ({ children, route, showSidebar, showActivityBar, showNav, useWid
 
 	return (
 		<>
-			{isElectron ? <TitleMenu /> : null}
+			{isElectron() ? <TitleMenu /> : null}
 			<Meta />
 			<div>{content}</div>
 		</>
