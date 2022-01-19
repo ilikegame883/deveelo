@@ -66,7 +66,6 @@ const Layout = ({ children, route, showSidebar, showActivityBar, showNav, useWid
 			content = (
 				<>
 					{showNav && (showSidebar ? <Nav sidebarSpacing={true} /> : <Nav sidebarSpacing={false} />)}
-
 					{showSidebar && <DesktopSidebar />}
 
 					{showActivityBar && (showNav ? <FullActivityBar topSpacing={true} /> : <FullActivityBar topSpacing={false} />)}
@@ -143,7 +142,6 @@ const Layout = ({ children, route, showSidebar, showActivityBar, showNav, useWid
 
 	return (
 		<>
-			{isElectron() ? <TitleMenu /> : null}
 			<Meta />
 			<div>{content}</div>
 		</>

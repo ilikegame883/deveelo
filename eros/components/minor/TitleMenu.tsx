@@ -32,7 +32,7 @@ const TitleMenu = () => {
 
 	return (
 		<div className={navStyles.menubar}>
-			<p className={navStyles.menuTitle}>deveelo v{getVersion()}</p>
+			<p className={navStyles.menuTitle}>v{getVersion()}</p>
 		</div>
 	);
 };
