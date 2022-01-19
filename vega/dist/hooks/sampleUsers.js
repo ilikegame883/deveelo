@@ -6,7 +6,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.getRandomUser = void 0;
 const User_1 = __importDefault(require("../models/User"));
 const getRandomUser = async (onlyId) => {
-    const user = await User_1.default.aggregate([{ $sample: { size: 1 } }]);
+    let sampled = await User_1.default.aggregate([{ $match: { "profile.description": { $ne: "I'm new to Deveelo!" } } }, { $sample: { size: 1 } }]);
+    const user = sampled[0];
     if (onlyId) {
         return user._id;
     }
