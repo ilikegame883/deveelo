@@ -9,7 +9,7 @@ let notifEmojis = new Map<string, string>([
 ]);
 
 export default function Home() {
-	const notifs: string[] = ["message", "message", "gift", "message", "message", "friend"];
+	const notifs: string[] = [];
 
 	const title = notifs.length > 0 ? `Deveelo | ${notifEmojis.get(notifs[0]) + notifs.length}` : "Deveelo";
 
