@@ -101,7 +101,9 @@ This project follows the [Semantic Versioning 2.0](https://semver.org/) standard
 - [x] Secure JWT authentication
 - [x] Loading user profile
 - [x] Desktop app
+- [ ] Splash screen
 - [ ] Profile pages
+- [ ] Attempt #2 w/ Tauri
 - [ ] Navigation
 - [ ] Posting
 - [ ] Follow & friending
