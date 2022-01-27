@@ -1,12 +1,14 @@
 import { useQuery, gql, NetworkStatus } from "@apollo/client";
 import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
+import Image from "next/image";
 
 import Meta from "./micro/Meta";
 import Nav from "./Nav";
 const DesktopSidebar = dynamic(() => import("./Sidebar"), { ssr: false });
 import FullActivityBar from "./ActivityBar";
 import styles from "../styles/Layout.module.css";
+import navStyles from "../styles/nav.module.css";
 import useScreenType from "../hooks/useScreenType";
 import { useGetPostsQuery } from "../hooks/backend/generated/graphql";
 import onConnectionError from "../hooks/popups/connectionError";
@@ -60,6 +62,21 @@ const Layout = ({ children, route, showSidebar, showActivityBar, showNav, useWid
 	// 		popup = onConnectionError(error);
 	// 	}
 	// }
+	let titlebar: any = null;
+
+	titlebar = (
+		<div data-tauri-drag-region className={navStyles.titlebar}>
+			<div className={navStyles.titlebar_buttonM} id="titlebar-minimize">
+				<Image src="/resources/minus.svg" alt="minimize" width={21} height={21} />
+			</div>
+			<div className={navStyles.titlebar_button} id="titlebar-maximize">
+				<Image src="/resources/full.svg" alt="maximize" width={16.5} height={16.5} />
+			</div>
+			<div className={navStyles.titlebar_buttonC} id="titlebar-close">
+				<Image src="/resources/x.svg" alt="close" width={21} height={21} />
+			</div>
+		</div>
+	);
 
 	switch (screenType) {
 		case "full":
@@ -143,6 +160,7 @@ const Layout = ({ children, route, showSidebar, showActivityBar, showNav, useWid
 	return (
 		<>
 			<Meta />
+			{titlebar}
 			<div>{content}</div>
 		</>
 	);

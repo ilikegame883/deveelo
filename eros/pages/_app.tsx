@@ -8,6 +8,7 @@ import Layout from "../components/Layout";
 import "../styles/globals.css";
 import { useEffect, useState } from "react";
 import { setAccessToken } from "../accessToken";
+import isLuna from "../hooks/isLuna";
 
 const twoColRoutes = ["/login", "/register"];
 
