@@ -1,4 +1,3 @@
-import { appWindow } from "@tauri-apps/api/window";
 import { AppProps } from "next/app";
 import { useApollo } from "../lib/apolloClient";
 import { ApolloProvider } from "@apollo/client";
@@ -9,7 +8,6 @@ import Layout from "../components/Layout";
 import "../styles/globals.css";
 import { useEffect, useState } from "react";
 import { setAccessToken } from "../accessToken";
-import isLuna from "../hooks/isLuna";
 
 const twoColRoutes = ["/login", "/register"];
 
@@ -21,6 +19,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 
 	// Generate a new AccessToken on Reload
 	const [loading, setLoading] = useState(true);
+	const [binded, setBinded] = useState(false);
 
 	//get the access token from the server (server will return it)
 	useEffect(() => {
@@ -37,12 +36,6 @@ function MyApp({ Component, pageProps }: AppProps) {
 
 	if (loading) {
 		return <div>loading...</div>;
-	}
-
-	if (isLuna()) {
-		document.getElementById("titlebar-minimize").addEventListener("click", () => appWindow.minimize());
-		document.getElementById("titlebar-maximize").addEventListener("click", () => appWindow.toggleMaximize());
-		document.getElementById("titlebar-close").addEventListener("click", () => appWindow.close());
 	}
 
 	return (
