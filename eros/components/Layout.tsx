@@ -160,7 +160,7 @@ const Layout = ({ children, route, showSidebar, showActivityBar, showNav, useWid
 	return (
 		<>
 			<Meta />
-			{titlebar}
+			{isLuna() ? titlebar : null}
 			<div>{content}</div>
 		</>
 	);

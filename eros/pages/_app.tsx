@@ -1,3 +1,4 @@
+import { appWindow } from "@tauri-apps/api/window";
 import { AppProps } from "next/app";
 import { useApollo } from "../lib/apolloClient";
 import { ApolloProvider } from "@apollo/client";
@@ -36,6 +37,12 @@ function MyApp({ Component, pageProps }: AppProps) {
 
 	if (loading) {
 		return <div>loading...</div>;
+	}
+
+	if (isLuna()) {
+		document.getElementById("titlebar-minimize").addEventListener("click", () => appWindow.minimize());
+		document.getElementById("titlebar-maximize").addEventListener("click", () => appWindow.toggleMaximize());
+		document.getElementById("titlebar-close").addEventListener("click", () => appWindow.close());
 	}
 
 	return (
