@@ -15,7 +15,7 @@
   font-style: normal;
   z-index: 10;
 
-  border-radius: 0 15px 0 0;
+  border-radius: 15px 15px 0 0;
 }
 
 .navNoSpace {
@@ -158,8 +158,12 @@
   border-radius: 0 0 0 15px;
 }
 
+.titlebar_buttonC {
+  border-radius: 0 15px 0 0;
+}
+
 .titlebar_button:hover, .titlebar_buttonM:hover {
-  background: #1b1c1d18;
+  background: #28303810;
 }
 
 .titlebar_buttonC:hover {
