@@ -65,15 +65,17 @@ const Layout = ({ children, route, showSidebar, showActivityBar, showNav, useWid
 	let titlebar: any = null;
 
 	titlebar = (
-		<div data-tauri-drag-region className={navStyles.titlebar}>
-			<div className={navStyles.titlebar_buttonM} id="titlebar-minimize">
-				<Image src="/resources/minus.svg" alt="minimize" width={21} height={21} />
-			</div>
-			<div className={navStyles.titlebar_button} id="titlebar-maximize">
-				<Image src="/resources/full.svg" alt="maximize" width={16.5} height={16.5} />
-			</div>
-			<div className={navStyles.titlebar_buttonC} id="titlebar-close">
-				<Image src="/resources/x.svg" alt="close" width={21} height={21} />
+		<div data-tauri-drag-region className={navStyles.dragBar}>
+			<div className={navStyles.titlebar}>
+				<div className={navStyles.titlebar_buttonM} id="titlebar-minimize">
+					<Image src="/resources/minus.svg" alt="minimize" width={21} height={21} />
+				</div>
+				<div className={navStyles.titlebar_button} id="titlebar-maximize">
+					<Image src="/resources/full.svg" alt="maximize" width={16.5} height={16.5} />
+				</div>
+				<div className={navStyles.titlebar_buttonC} id="titlebar-close">
+					<Image src="/resources/x.svg" alt="close" width={21} height={21} />
+				</div>
 			</div>
 		</div>
 	);

@@ -89,6 +89,18 @@
   margin: 0;
 }
 
+.dragBar {
+  height: 30px;
+  width: 100%;
+
+  background: transparent;
+  position: fixed;
+  top: 0;
+  right: 0;
+  right: 0;
+  z-index: 60;
+}
+
 .titlebar {
   height: 30px;
   width: fit-content;
