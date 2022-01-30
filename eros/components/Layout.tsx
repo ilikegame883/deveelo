@@ -71,23 +71,6 @@ const Layout = ({ children, route, showSidebar, showActivityBar, showNav, useWid
 	let debugT = "";
 
 	if (luna) {
-		// const screenW = window.screen.width;
-		// const screenH = window.screen.height;
-		// debugT = `ScreenWH: ${screenW}x${screenH}`;
-
-		// appWindow.innerSize().then((size) => {
-		// 	let fullscreen = false;
-		// 	console.log(`ScreenWH: ${screenW}x${screenH} \nWindowsWH: ${size.width}x${size.height}\nFullscreen: ${fullscreen}`);
-		// 	if (size.width >= screenW || size.height >= screenH) {
-		// 		fullscreen = true;
-		// 	}
-		// 	debugT = `ScreenWH: ${screenW}x${screenH} \nWindowsWH: ${size.width}x${size.height}\nFullscreen: ${fullscreen}`;
-
-		// 	if (maxed !== fullscreen) {
-		// 		setmaxed(fullscreen);
-		// 	}
-		// });
-
 		useEffect(() => {
 			appWindow.listen("tauri://resize", ({ event, payload }: { event: any; payload: PhysicalSize }) => {
 				const { width, height } = payload;
