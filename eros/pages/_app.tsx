@@ -19,6 +19,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 
 	// Generate a new AccessToken on Reload
 	const [loading, setLoading] = useState(true);
+	const [binded, setBinded] = useState(false);
 
 	//get the access token from the server (server will return it)
 	useEffect(() => {

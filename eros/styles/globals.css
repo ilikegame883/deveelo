@@ -5,6 +5,7 @@
   --midFadeGray: #7688AB; /*profile tag*/
   --midLightGray: #99AAC3;
   --sidebarBackground: #F9F9F9; /*& main feed*/
+  --searchbarGray: #EDF1F8;
 
   /*status indicators*/
   --online: #2ED9A6;
@@ -20,17 +21,6 @@ body {
   font-style: normal;
   font-size: 1rem;
 }
-
-@media screen and (max-width : 1600px) {
-  html, body {
-    padding: 0;
-   margin: 0;
-   font-family: "Heebo";
-   font-style: normal;
-    font-size: 0.89rem;
-  }
-}
-
 button {
   position: relative;
   display: inline-block;
@@ -54,6 +44,41 @@ button {
   cursor: pointer;
   transition: .2s ease;
 }
+
+@media screen and (max-width : 1600px) {
+  html, body {
+    padding: 0;
+   margin: 0;
+   font-family: "Heebo";
+   font-style: normal;
+    font-size: 0.89rem;
+  }
+
+  button {
+    position: relative;
+    display: inline-block;
+    border: 0px solid;
+    display: flex;
+  
+    color: white;
+    text-align: center;
+    vertical-align: middle;
+  
+    font-family: "Heebo";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1.13rem;
+    line-height: 1.69rem;
+    letter-spacing: 0.03em;
+  
+    align-items: center;
+    justify-content: center;
+  
+    cursor: pointer;
+    transition: .2s ease;
+  }
+}
+
 
 /* button:hover {
   outline-width: 0.375rem;
