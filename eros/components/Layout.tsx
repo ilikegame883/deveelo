@@ -6,8 +6,10 @@ import Image from "next/image";
 
 import Meta from "./micro/Meta";
 import Nav from "./Nav";
-const DesktopSidebar = dynamic(() => import("./Sidebar"), { ssr: false });
 import FullActivityBar from "./ActivityBar";
+import TitlebarButtons from "./micro/TitlebarButtons";
+const DesktopSidebar = dynamic(() => import("./Sidebar"), { ssr: false });
+const SideImage = dynamic(() => import("./SideImage"), { ssr: false });
 import styles from "../styles/Layout.module.css";
 import navStyles from "../styles/nav.module.css";
 import useScreenType from "../hooks/useScreenType";
@@ -15,7 +17,6 @@ import { useGetPostsQuery } from "../hooks/backend/generated/graphql";
 import onConnectionError from "../hooks/popups/connectionError";
 import { getAccessToken } from "../accessToken";
 import { useEffect, useState } from "react";
-const SideImage = dynamic(() => import("./SideImage"), { ssr: false });
 import isLuna from "../hooks/isLuna";
 
 interface layoutProps {
@@ -28,8 +29,13 @@ interface layoutProps {
 }
 
 const Layout = ({ children, route, showSidebar, showActivityBar, showNav, useWide }: layoutProps) => {
+	const storage = window.localStorage;
 	// Determins rounded or hard corners in Luna
-	let full = true;
+	if (storage.getItem("fullscreen") === null) {
+		// use hard edges by default
+		storage.setItem("fullscreen", "true");
+	}
+	let full = storage.getItem("fullscreen") === "true";
 
 	const screenType: string = useScreenType();
 	const luna = isLuna();
@@ -71,6 +77,7 @@ const Layout = ({ children, route, showSidebar, showActivityBar, showNav, useWid
 	let debugT = "";
 
 	if (luna) {
+		// set listener when widow size changes to unround or round window corners if maximized
 		useEffect(() => {
 			appWindow.listen("tauri://resize", ({ event, payload }: { event: any; payload: PhysicalSize }) => {
 				const { width, height } = payload;
@@ -80,6 +87,7 @@ const Layout = ({ children, route, showSidebar, showActivityBar, showNav, useWid
 					console.log(`set max to ${max}`);
 
 					if (maxed !== max) {
+						storage.setItem("fullscreen", max.toString());
 						setmaxed(max);
 					}
 				});
@@ -91,22 +99,6 @@ const Layout = ({ children, route, showSidebar, showActivityBar, showNav, useWid
 		}, []);
 
 		full = maxed === true;
-
-		titlebar = (
-			<div data-tauri-drag-region className={navStyles.dragBar}>
-				<div className={navStyles.titlebar}>
-					<div className={navStyles.titlebar_buttonM} id="titlebar-minimize">
-						<Image src="/resources/minus.svg" alt="minimize" width={21} height={21} />
-					</div>
-					<div className={navStyles.titlebar_button} id="titlebar-maximize">
-						<Image src="/resources/full.svg" alt="maximize" width={16.5} height={16.5} />
-					</div>
-					<div className={full ? navStyles.titlebar_buttonC_full : navStyles.titlebar_buttonC} id="titlebar-close">
-						<Image src="/resources/x.svg" alt="close" width={21} height={21} />
-					</div>
-				</div>
-			</div>
-		);
 	}
 
 	switch (screenType) {
@@ -194,7 +186,7 @@ const Layout = ({ children, route, showSidebar, showActivityBar, showNav, useWid
 	return (
 		<>
 			<Meta />
-			{luna ? titlebar : null}
+			{luna ? <TitlebarButtons /> : null}
 			<div>{content}</div>
 		</>
 	);
