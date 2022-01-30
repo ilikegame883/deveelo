@@ -1,3 +1,4 @@
+import { appWindow, PhysicalSize } from "@tauri-apps/api/window";
 import { useQuery, gql, NetworkStatus } from "@apollo/client";
 import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
@@ -13,10 +14,9 @@ import useScreenType from "../hooks/useScreenType";
 import { useGetPostsQuery } from "../hooks/backend/generated/graphql";
 import onConnectionError from "../hooks/popups/connectionError";
 import { getAccessToken } from "../accessToken";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 const SideImage = dynamic(() => import("./SideImage"), { ssr: false });
 import isLuna from "../hooks/isLuna";
-import TitleMenu from "./minor/TitleMenu";
 
 interface layoutProps {
 	children?: any;
@@ -28,9 +28,14 @@ interface layoutProps {
 }
 
 const Layout = ({ children, route, showSidebar, showActivityBar, showNav, useWide }: layoutProps) => {
+	// Determins rounded or hard corners in Luna
+	let full = true;
+
 	const screenType: string = useScreenType();
+	const luna = isLuna();
 	const router = useRouter();
 	const [reloaded, setReloaded] = useState(false);
+	const [maxed, setmaxed] = useState(null);
 
 	let content: any = null;
 	let text: any;
@@ -63,36 +68,77 @@ const Layout = ({ children, route, showSidebar, showActivityBar, showNav, useWid
 	// 	}
 	// }
 	let titlebar: any = null;
+	let debugT = "";
 
-	titlebar = (
-		<div data-tauri-drag-region className={navStyles.dragBar}>
-			<div className={navStyles.titlebar}>
-				<div className={navStyles.titlebar_buttonM} id="titlebar-minimize">
-					<Image src="/resources/minus.svg" alt="minimize" width={21} height={21} />
-				</div>
-				<div className={navStyles.titlebar_button} id="titlebar-maximize">
-					<Image src="/resources/full.svg" alt="maximize" width={16.5} height={16.5} />
-				</div>
-				<div className={navStyles.titlebar_buttonC} id="titlebar-close">
-					<Image src="/resources/x.svg" alt="close" width={21} height={21} />
+	if (luna) {
+		// const screenW = window.screen.width;
+		// const screenH = window.screen.height;
+		// debugT = `ScreenWH: ${screenW}x${screenH}`;
+
+		// appWindow.innerSize().then((size) => {
+		// 	let fullscreen = false;
+		// 	console.log(`ScreenWH: ${screenW}x${screenH} \nWindowsWH: ${size.width}x${size.height}\nFullscreen: ${fullscreen}`);
+		// 	if (size.width >= screenW || size.height >= screenH) {
+		// 		fullscreen = true;
+		// 	}
+		// 	debugT = `ScreenWH: ${screenW}x${screenH} \nWindowsWH: ${size.width}x${size.height}\nFullscreen: ${fullscreen}`;
+
+		// 	if (maxed !== fullscreen) {
+		// 		setmaxed(fullscreen);
+		// 	}
+		// });
+
+		useEffect(() => {
+			appWindow.listen("tauri://resize", ({ event, payload }: { event: any; payload: PhysicalSize }) => {
+				const { width, height } = payload;
+				console.log(`TRIGGERED\nRes: ${width}x${height}`);
+
+				appWindow.isMaximized().then((max) => {
+					console.log(`set max to ${max}`);
+
+					if (maxed !== max) {
+						setmaxed(max);
+					}
+				});
+			});
+
+			//   return () => {
+			// 	appWindow.listeners["tauri://resize"];
+			//   };
+		}, []);
+
+		full = maxed === true;
+
+		titlebar = (
+			<div data-tauri-drag-region className={navStyles.dragBar}>
+				<div className={navStyles.titlebar}>
+					<div className={navStyles.titlebar_buttonM} id="titlebar-minimize">
+						<Image src="/resources/minus.svg" alt="minimize" width={21} height={21} />
+					</div>
+					<div className={navStyles.titlebar_button} id="titlebar-maximize">
+						<Image src="/resources/full.svg" alt="maximize" width={16.5} height={16.5} />
+					</div>
+					<div className={full ? navStyles.titlebar_buttonC_full : navStyles.titlebar_buttonC} id="titlebar-close">
+						<Image src="/resources/x.svg" alt="close" width={21} height={21} />
+					</div>
 				</div>
 			</div>
-		</div>
-	);
+		);
+	}
 
 	switch (screenType) {
 		case "full":
 			content = (
 				<>
 					{showNav && (showSidebar ? <Nav sidebarSpacing={true} /> : <Nav sidebarSpacing={false} />)}
-					{showSidebar && <DesktopSidebar />}
+					{showSidebar && <DesktopSidebar hardEdge={full} />}
 
-					{showActivityBar && (showNav ? <FullActivityBar topSpacing={true} /> : <FullActivityBar topSpacing={false} />)}
+					{showActivityBar ? <FullActivityBar hardEdge={full} /> : null}
 
 					{useWide && <SideImage route={route} />}
 					<div className={useWide ? styles.containerWide : styles.container}>
 						<main className={styles.main}>
-							<p>{isLuna() ? "yeah Tauri" : "no tauri"}</p>
+							<p>{debugT}</p>
 							<a href="/login">login</a>
 							{/* <h2>Full</h2>
 							<p>Logged in user: {error && !loading ? error : text}</p> */}
@@ -108,14 +154,15 @@ const Layout = ({ children, route, showSidebar, showActivityBar, showNav, useWid
 				<>
 					{showNav && (showSidebar ? <Nav sidebarSpacing={true} /> : <Nav sidebarSpacing={false} />)}
 
-					{showSidebar && <DesktopSidebar />}
+					{showSidebar && <DesktopSidebar hardEdge={full} />}
 
-					{showActivityBar && (showNav ? <FullActivityBar topSpacing={true} /> : <FullActivityBar topSpacing={false} />)}
+					{showActivityBar ? <FullActivityBar hardEdge={full} /> : null}
 
 					<div className={useWide ? styles.containerWide : styles.container}>
 						<main className={styles.main}>
 							{/* <h2>half activity bar</h2>
 							<p>Logged in user: {error && !loading ? error : text}</p> */}
+							<p>{debugT}</p>
 							{children}
 						</main>
 					</div>
@@ -127,9 +174,9 @@ const Layout = ({ children, route, showSidebar, showActivityBar, showNav, useWid
 				<>
 					{showNav && (showSidebar ? <Nav sidebarSpacing={true} /> : <Nav sidebarSpacing={false} />)}
 
-					{showSidebar && <DesktopSidebar />}
+					{showSidebar && <DesktopSidebar hardEdge={full} />}
 
-					{showActivityBar && (showNav ? <FullActivityBar topSpacing={true} /> : <FullActivityBar topSpacing={false} />)}
+					{showActivityBar ? <FullActivityBar hardEdge={full} /> : null}
 
 					<div className={useWide ? styles.containerWide : styles.container}>
 						<main className={styles.main}>
@@ -146,7 +193,9 @@ const Layout = ({ children, route, showSidebar, showActivityBar, showNav, useWid
 				<>
 					{showNav && (showSidebar ? <Nav sidebarSpacing={true} /> : <Nav sidebarSpacing={false} />)}
 
-					{showActivityBar && (showNav ? <FullActivityBar topSpacing={true} /> : <FullActivityBar topSpacing={false} />)}
+					{showSidebar && <DesktopSidebar hardEdge={full} />}
+
+					{showActivityBar ? <FullActivityBar hardEdge={full} /> : null}
 
 					<div className={useWide ? styles.containerWide : styles.container}>
 						<main className={styles.main}>
@@ -162,7 +211,7 @@ const Layout = ({ children, route, showSidebar, showActivityBar, showNav, useWid
 	return (
 		<>
 			<Meta />
-			{isLuna() ? titlebar : null}
+			{luna ? titlebar : null}
 			<div>{content}</div>
 		</>
 	);

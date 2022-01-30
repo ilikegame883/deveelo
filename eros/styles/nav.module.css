@@ -143,7 +143,7 @@
   box-shadow: 0 -17px 0 0 var(--searchbarGray);
 }
 
-.titlebar_button, .titlebar_buttonC, .titlebar_buttonM {
+.titlebar_button, .titlebar_buttonC, .titlebar_buttonC_full, .titlebar_buttonM {
   display: inline-flex;
   justify-content: center;
   align-items: center;
@@ -161,11 +161,16 @@
 .titlebar_buttonC {
   border-radius: 0 15px 0 0;
 }
+/* unround corners when window is maximized */
+.titlebar_buttonC_full {
+  border-radius: 0;
+  background: var(--searchbarGray);
+}
 
 .titlebar_button:hover, .titlebar_buttonM:hover {
   background: #28303810;
 }
 
-.titlebar_buttonC:hover {
-  background: #ff285791;
+.titlebar_buttonC:hover, .titlebar_buttonC_full:hover {
+  background: #ff6889;
 }
