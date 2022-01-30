@@ -110,11 +110,12 @@ const Layout = ({ children, route, showSidebar, showActivityBar, showNav, useWid
 
 					{showActivityBar ? <FullActivityBar hardEdge={full} /> : null}
 
-					{useWide && <SideImage route={route} />}
-					<div className={useWide ? styles.containerWide : styles.container}>
+					{useWide && <SideImage route={route} hardEdge={full} />}
+					<div className={useWide ? (full ? styles.containerWide_full : styles.containerWide) : styles.container}>
 						<main className={styles.main}>
-							<p>{debugT}</p>
+							<p>{JSON.stringify(full)}</p>
 							<a href="/login">login</a>
+							<a href="/register">register</a>
 							{/* <h2>Full</h2>
 							<p>Logged in user: {error && !loading ? error : text}</p> */}
 							{children}
@@ -133,7 +134,9 @@ const Layout = ({ children, route, showSidebar, showActivityBar, showNav, useWid
 
 					{showActivityBar ? <FullActivityBar hardEdge={full} /> : null}
 
-					<div className={useWide ? styles.containerWide : styles.container}>
+					{useWide && <SideImage route={route} hardEdge={full} />}
+
+					<div className={useWide ? (full ? styles.containerWide_full : styles.containerWide) : styles.container}>
 						<main className={styles.main}>
 							{/* <h2>half activity bar</h2>
 							<p>Logged in user: {error && !loading ? error : text}</p> */}
@@ -153,7 +156,8 @@ const Layout = ({ children, route, showSidebar, showActivityBar, showNav, useWid
 
 					{showActivityBar ? <FullActivityBar hardEdge={full} /> : null}
 
-					<div className={useWide ? styles.containerWide : styles.container}>
+					{useWide && <SideImage route={route} hardEdge={full} />}
+					<div className={useWide ? (full ? styles.containerWide_full : styles.containerWide) : styles.container}>
 						<main className={styles.main}>
 							{/* <h2>tablet</h2>
 							<p>Logged in user: {error && !loading ? error : text}</p> */}
@@ -172,7 +176,8 @@ const Layout = ({ children, route, showSidebar, showActivityBar, showNav, useWid
 
 					{showActivityBar ? <FullActivityBar hardEdge={full} /> : null}
 
-					<div className={useWide ? styles.containerWide : styles.container}>
+					{useWide && <SideImage route={route} hardEdge={full} />}
+					<div className={useWide ? (full ? styles.containerWide_full : styles.containerWide) : styles.container}>
 						<main className={styles.main}>
 							<h2>mobile</h2>
 							{children}

@@ -1,11 +1,11 @@
 import navStyles from "../styles/nav.module.css";
 import Link from "next/link";
-import isLuna from "../hooks/isLuna";
 import TitleMenu from "./minor/TitleMenu";
+import isLuna from "../hooks/isLuna";
 
 const Nav = ({ sidebarSpacing }: { sidebarSpacing: boolean }) => {
 	return (
-		<nav className={sidebarSpacing ? navStyles.nav : navStyles.navNoSpace}>
+		<nav className={sidebarSpacing ? (isLuna() ? navStyles.nav : navStyles.nav_full) : isLuna() ? navStyles.navNoSpace : navStyles.navNoSpace_full}>
 			<div className={navStyles.wrapper}>
 				{isLuna() ? <TitleMenu /> : null}
 				<ul>

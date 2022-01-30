@@ -18,6 +18,27 @@
   border-radius: 15px 15px 0 0;
 }
 
+.nav_full {
+  position: absolute;
+  padding-left: 30.9375em;
+  width: 100vw;
+  height: 7.125em;
+  color: #1E325A;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+
+  background-color: #fff;
+  box-shadow: 0px 0px 1.875em rgba(30, 50, 90, 0.05);
+
+  font-family: Heebo;
+  font-style: normal;
+  z-index: 10;
+
+  border-radius: 0;
+}
+
+
 .navNoSpace {
   width: 100vw;
   height: 7.125em;
@@ -31,6 +52,26 @@
 
   font-family: Heebo;
   font-style: normal;
+
+  z-index: 10;
+  border-radius: 15px 15px 0 0;
+}
+.navNoSpace_full {
+  width: 100vw;
+  height: 7.125em;
+  color: #1E325A;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+
+  background-color: #fff;
+  box-shadow: 0px 0px 1.875em rgba(30, 50, 90, 0.05);
+
+  font-family: Heebo;
+  font-style: normal;
+
+  z-index: 10;
+  border-radius: 15px 15px 0 0;
 }
 
 .nav ul, .navNoSpace ul {
