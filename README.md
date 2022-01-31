@@ -101,7 +101,7 @@ This project follows the [Semantic Versioning 2.0](https://semver.org/) standard
 - [x] Loading user profile
 - [x] Desktop app
 - [x] Loading splashscreen
-- [ ] Profile pages
+- [x] Profile pages
 - [x] Attempt #2 w/ Tauri
 - [ ] Navigation
 - [ ] Auto Updater
