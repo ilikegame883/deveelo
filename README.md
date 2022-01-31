@@ -97,14 +97,14 @@ This project follows the [Semantic Versioning 2.0](https://semver.org/) standard
 </details>
 
 ### 🛤️ Roadmap
-- [x] Account creation
 - [x] Secure JWT authentication
 - [x] Loading user profile
 - [x] Desktop app
-- [ ] Splash screen
+- [x] Loading splashscreen
 - [ ] Profile pages
 - [x] Attempt #2 w/ Tauri
 - [ ] Navigation
+- [ ] Auto Updater
 - [ ] Posting
 - [ ] Follow & friending
 <!-- - [ ] Populate Sidebar Discovery -->
