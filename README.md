@@ -104,6 +104,7 @@ This project follows the [Semantic Versioning 2.0](https://semver.org/) standard
 - [x] Profile pages
 - [x] Attempt #2 w/ Tauri
 - [ ] Navigation
+- [ ] Handle token expiration & logouts
 - [ ] Auto Updater
 - [ ] Posting
 - [ ] Follow & friending
