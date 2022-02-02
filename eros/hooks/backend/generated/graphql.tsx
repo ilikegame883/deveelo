@@ -140,6 +140,11 @@ export type MyAccountMinProfileQueryVariables = Exact<{ [key: string]: never; }>
 
 export type MyAccountMinProfileQuery = { __typename?: 'Query', myAccount: { __typename?: 'User', status: string, account: { __typename?: 'U_Account', username: string, tag: string, private: boolean }, profile: { __typename?: 'U_Profile', bannerUrl: string, pictureUrl: string, description: string, followingIds: Array<Maybe<string>>, followerIds: Array<Maybe<string>>, badges: Array<Maybe<string>>, linkedProfiles: Array<Maybe<string>> } } };
 
+export type MyNameAndPfpQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type MyNameAndPfpQuery = { __typename?: 'Query', myAccount: { __typename?: 'User', account: { __typename?: 'U_Account', username: string }, profile: { __typename?: 'U_Profile', pictureUrl: string } } };
+
 export type RandomMinProfileQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -323,6 +328,45 @@ export function useMyAccountMinProfileLazyQuery(baseOptions?: Apollo.LazyQueryHo
 export type MyAccountMinProfileQueryHookResult = ReturnType<typeof useMyAccountMinProfileQuery>;
 export type MyAccountMinProfileLazyQueryHookResult = ReturnType<typeof useMyAccountMinProfileLazyQuery>;
 export type MyAccountMinProfileQueryResult = Apollo.QueryResult<MyAccountMinProfileQuery, MyAccountMinProfileQueryVariables>;
+export const MyNameAndPfpDocument = gql`
+    query myNameAndPfp {
+  myAccount {
+    account {
+      username
+    }
+    profile {
+      pictureUrl
+    }
+  }
+}
+    `;
+
+/**
+ * __useMyNameAndPfpQuery__
+ *
+ * To run a query within a React component, call `useMyNameAndPfpQuery` and pass it any options that fit your needs.
+ * When your component renders, `useMyNameAndPfpQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useMyNameAndPfpQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useMyNameAndPfpQuery(baseOptions?: Apollo.QueryHookOptions<MyNameAndPfpQuery, MyNameAndPfpQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<MyNameAndPfpQuery, MyNameAndPfpQueryVariables>(MyNameAndPfpDocument, options);
+      }
+export function useMyNameAndPfpLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<MyNameAndPfpQuery, MyNameAndPfpQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<MyNameAndPfpQuery, MyNameAndPfpQueryVariables>(MyNameAndPfpDocument, options);
+        }
+export type MyNameAndPfpQueryHookResult = ReturnType<typeof useMyNameAndPfpQuery>;
+export type MyNameAndPfpLazyQueryHookResult = ReturnType<typeof useMyNameAndPfpLazyQuery>;
+export type MyNameAndPfpQueryResult = Apollo.QueryResult<MyNameAndPfpQuery, MyNameAndPfpQueryVariables>;
 export const RandomMinProfileDocument = gql`
     query randomMinProfile {
   randomUser {
