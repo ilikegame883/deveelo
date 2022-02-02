@@ -1,0 +1,10 @@
+query myNameAndPfp {
+	myAccount {
+		account {
+			username
+		}
+		profile {
+			pictureUrl
+		}
+	}
+}
