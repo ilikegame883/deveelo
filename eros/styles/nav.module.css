@@ -125,17 +125,44 @@
   margin-left: 1.875rem;
   padding-right: 2.141rem;
 
-  border: 2px solid rgb(0, 140, 255);
+  /* border: 2px solid rgb(0, 140, 255); */
   border-radius: 8px;
 }
 
 .profile {
   display: flex;
-  align-items: flex-end;
-  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  flex-direction: row;
+
+  /* background-color: khaki; */
 
   width: 16.984rem;
   height: 3.75rem;
+}
+
+.name {
+  overflow: hidden;
+  width: 12.187rem;
+  height: 2.344rem;
+
+  font-family: Heebo;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 1.312rem;
+  line-height: 1.968rem;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  text-align: right;
+
+  color: var(--textBlueish);
+  margin: 0 1.087rem 0 0;
+}
+
+.pfpContainer {
+  width: fit-content;
+  height: inherit;
 }
 
 .buttonWrapper {

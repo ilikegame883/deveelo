@@ -14,8 +14,10 @@ const Nav = ({ sidebarSpacing }: { sidebarSpacing: boolean }) => {
 	if (getAccessToken() === "") {
 		// handle logged out users
 		profile = (
-			<div className={navStyles.buttonWrapper}>
-				<TextButton colorKey="gold" text="Login" action="/login" />
+			<div className={navStyles.rightWrapper}>
+				<div className={navStyles.buttonWrapper}>
+					<TextButton colorKey="gold" text="Login" action="/login" />
+				</div>
 			</div>
 		);
 	} else {
@@ -29,11 +31,14 @@ const Nav = ({ sidebarSpacing }: { sidebarSpacing: boolean }) => {
 		const user = data.myAccount;
 
 		profile = (
-			<>
+			<div className={navStyles.rightWrapper}>
 				<div className={navStyles.profile}>
-					<ProfilePicture size="w40" source={user.profile.pictureUrl} />
+					<p className={navStyles.name}>{user.account.username}</p>
+					<div className={navStyles.pfpContainer}>
+						<ProfilePicture size="w40" source={user.profile.pictureUrl} />
+					</div>
 				</div>
-			</>
+			</div>
 		);
 	}
 
@@ -48,7 +53,7 @@ const Nav = ({ sidebarSpacing }: { sidebarSpacing: boolean }) => {
 					</li>
 				</ul>
 			</div>
-			<div className={navStyles.rightWrapper}>{profile}</div>
+			{profile}
 		</nav>
 	);
 };
