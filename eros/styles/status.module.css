@@ -35,3 +35,11 @@
     border: 0.2812em solid var(--sidebarBackground);
     border-radius: inherit;
 }
+
+.offline {
+    width: inherit;
+    height: inherit;
+    background-color: var(--offline);
+    border: 0.2812em solid var(--sidebarBackground);
+    border-radius: inherit;
+}

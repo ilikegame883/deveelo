@@ -22,6 +22,9 @@ const ProfilePicture = ({ size, source, status }: profilePicParams) => {
 		case "dnd":
 			circle = <div className={statusStyles.dnd} />;
 			break;
+		case "offline":
+			circle = <div className={statusStyles.offline} />;
+			break;
 		default:
 			break;
 	}
