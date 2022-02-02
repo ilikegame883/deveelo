@@ -15,7 +15,7 @@ const Nav = ({ sidebarSpacing }: { sidebarSpacing: boolean }) => {
 		// handle logged out users
 		profile = (
 			<div className={navStyles.buttonWrapper}>
-				<TextButton colorKey="gold" text="Login" />
+				<TextButton colorKey="gold" text="Login" action="/login" />
 			</div>
 		);
 	} else {

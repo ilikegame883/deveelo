@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import buttonStyles from "../../styles/textbutton.module.css";
 
 interface buttonParams {
@@ -9,12 +10,19 @@ interface buttonParams {
 }
 
 const TextButton = ({ colorKey, text, submit, action, disabled }: buttonParams) => {
+	const router = useRouter();
 	let content: any = null;
+
+	const handlePress = () => {
+		if (action && !submit) {
+			router.push(action);
+		}
+	};
 
 	switch (colorKey) {
 		case "gold":
 			content = (
-				<button className={buttonStyles.goldGrad} type={submit ? "submit" : undefined}>
+				<button className={buttonStyles.goldGrad} type={submit ? "submit" : undefined} onClick={(e) => handlePress()}>
 					{text}
 				</button>
 			);
