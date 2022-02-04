@@ -28,7 +28,13 @@ const initServer = async () => {
 				if (whitelist.indexOf(origin!) !== -1 || process.env.NODE_ENV !== "production") {
 					callback(null, true);
 				} else {
-					callback(new Error("Not allowed by CORS"));
+					let ori: string = origin;
+					if (ori.includes("deveelo-") && ori.includes("-treixatek.vercel.app")) {
+						//these are vercel preview builds
+						callback(null, true);
+					} else {
+						callback(new Error("Not allowed by CORS"));
+					}
 				}
 			},
 			credentials: true,
