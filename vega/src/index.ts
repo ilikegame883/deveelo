@@ -29,7 +29,7 @@ const initServer = async () => {
 					callback(null, true);
 				} else {
 					let ori: string = origin;
-					if (ori.includes("deveelo-") && ori.includes("-treixatek.vercel.app")) {
+					if (ori.startsWith("https://deveelo-") && ori.endsWith("-treixatek.vercel.app")) {
 						//these are vercel preview builds
 						callback(null, true);
 					} else {
