@@ -27,13 +27,70 @@ const initServer = async () => {
                 callback(null, true);
             }
             else {
-                callback(new Error("Not allowed by CORS"));
+                let ori = origin;
+                if (ori.includes("deveelo-") && ori.includes("-treixatek.vercel.app")) {
+                    callback(null, true);
+                }
+                else {
+                    callback(new Error("Not allowed by CORS"));
+                }
             }
         },
         credentials: true,
     }));
     app.use(cookie_parser_1.default());
     app.get("/", (_req, res) => res.send("hello"));
+    app.get("/search", async (req, res) => {
+        if (req.query.name) {
+            try {
+                const results = await User_1.default.aggregate([
+                    {
+                        $search: {
+                            index: "s_allusers",
+                            compound: {
+                                must: [
+                                    {
+                                        text: {
+                                            query: req.query.name,
+                                            path: {
+                                                wildcard: "*",
+                                            },
+                                            fuzzy: {
+                                                maxEdits: 1,
+                                            },
+                                        },
+                                    },
+                                ],
+                            },
+                        },
+                    },
+                    {
+                        $limit: 6,
+                    },
+                    {
+                        $project: {
+                            _id: 0,
+                            "account.password": 0,
+                            "account.email": 0,
+                            "account.blockedIds": 0,
+                            "account.tokenVersion": 0,
+                            "account.pro": 0,
+                            "account.short": 0,
+                            profile: 0,
+                            social: 0,
+                            score: { $meta: "searchScore" },
+                        },
+                    },
+                ]);
+                return res.send(results);
+            }
+            catch (error) {
+                console.error(error);
+                res.send([]);
+            }
+        }
+        return res.send([]);
+    });
     app.post("/refresh_token", async (req, res) => {
         const token = req.cookies.lid;
         if (!token) {
