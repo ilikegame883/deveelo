@@ -10,9 +10,12 @@
   <a aria-label="site status" href="https://www.deveelo.com">
     <img alt="" src="https://img.shields.io/website?down_color=ff3d4a&down_message=down&up_color=38d166&up_message=up&url=https%3A%2F%2Fwww.deveelo.com&style=for-the-badge&labelColor=1b202e">
   </a>
-  <a aria-label="contributions" href="https://www.deveelo.com">
-    <img alt="" src="https://img.shields.io/badge/Contributions-welcome-3fa9eb?style=for-the-badge&labelColor=1b202e">
+	<a aria-label="issues" href="https://github.com/Treixatek/deveelo/issues">
+    <img alt="" src="https://img.shields.io/github/issues/Treixatek/deveelo?color=3fa9eb&style=for-the-badge&labelColor=1b202e">
   </a>
+<!--   <a aria-label="contributions" href="https://www.deveelo.com">
+    <img alt="" src="https://img.shields.io/badge/Contributions-welcome-3fa9eb?style=for-the-badge&labelColor=1b202e">
+  </a> -->
 </p>
 
 <br />
