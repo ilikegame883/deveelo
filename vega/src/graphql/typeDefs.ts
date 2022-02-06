@@ -10,6 +10,7 @@ export const typeDefs = gql`
 	}
 	type LoginResponse {
 		accessToken: String!
+		user: User!
 	}
 	#user types
 	type U_Account {

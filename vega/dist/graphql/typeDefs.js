@@ -15,6 +15,7 @@ exports.typeDefs = graphql_tag_1.default `
 	}
 	type LoginResponse {
 		accessToken: String!
+		user: User!
 	}
 	#user types
 	type U_Account {
