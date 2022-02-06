@@ -1,17 +1,23 @@
-import navStyles from "../styles/nav.module.css";
 import Link from "next/link";
+import { useState } from "react";
 
 import TitleMenu from "./minor/TitleMenu";
 import ProfilePicture from "./micro/ProfilePicture";
 import TextButton from "./micro/TextButton";
+import navStyles from "../styles/nav.module.css";
 import isLuna from "../hooks/isLuna";
 import { useMyNameAndPfpQuery } from "../hooks/backend/generated/graphql";
-import { getAccessToken } from "../accessToken";
 
-const Nav = ({ sidebarSpacing }: { sidebarSpacing: boolean }) => {
+interface navProps {
+	sidebarSpacing: boolean;
+	loggedIn: boolean;
+}
+
+const Nav = ({ sidebarSpacing, loggedIn }: navProps) => {
+	// const [hasError, setHasError] = useState(0);
 	let profile = null;
 
-	if (getAccessToken() === "") {
+	if (!loggedIn) {
 		// handle logged out users
 		profile = (
 			<div className={navStyles.rightWrapper}>
@@ -27,19 +33,25 @@ const Nav = ({ sidebarSpacing }: { sidebarSpacing: boolean }) => {
 		if (loading && !data) {
 			return <div></div>;
 		}
+		if (error) {
+			console.log("error is: " + error);
+			return <div>Error occured</div>;
+		}
 
 		const user = data.myAccount;
-
-		profile = (
-			<div className={navStyles.rightWrapper}>
-				<div className={navStyles.profile}>
-					<p className={navStyles.name}>{user.account.username}</p>
-					<div className={navStyles.pfpContainer}>
-						<ProfilePicture size="w40" source={user.profile.pictureUrl} />
+		//user can be null when auth fails
+		if (user) {
+			profile = (
+				<div className={navStyles.rightWrapper}>
+					<div className={navStyles.profile}>
+						<p className={navStyles.name}>{user.account.username}</p>
+						<div className={navStyles.pfpContainer}>
+							<ProfilePicture size="w40" source={user.profile.pictureUrl} />
+						</div>
 					</div>
 				</div>
-			</div>
-		);
+			);
+		}
 	}
 
 	return (
