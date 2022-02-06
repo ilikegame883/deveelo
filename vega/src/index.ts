@@ -106,7 +106,6 @@ const initServer = async () => {
 		if (!token) {
 			//they are not signed in
 			return res.send({ ok: false, accessToken: "" });
-			console.log("not signed in");
 		}
 
 		let payload: any = null;
@@ -114,6 +113,7 @@ const initServer = async () => {
 			payload = verify(token, process.env.REFRESH_TOEKEN_SECRET!);
 		} catch (error) {
 			console.log(error);
+			sendRefreshToken(res, "");
 			return res.send({ ok: false, accessToken: "" });
 		}
 
@@ -126,7 +126,7 @@ const initServer = async () => {
 
 		//check if token version is the latest
 		if (user.account.tokenVersion !== payload.tokenVersion) {
-			res.clearCookie("lid");
+			sendRefreshToken(res, "");
 			return res.send({ ok: false, accessToken: "" });
 		}
 
