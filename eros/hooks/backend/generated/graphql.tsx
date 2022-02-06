@@ -144,7 +144,7 @@ export type MyAccountMinProfileQuery = { __typename?: 'Query', myAccount: { __ty
 export type MyNameAndPfpQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type MyNameAndPfpQuery = { __typename?: 'Query', myAccount: { __typename?: 'User', account: { __typename?: 'U_Account', username: string }, profile: { __typename?: 'U_Profile', pictureUrl: string } } };
+export type MyNameAndPfpQuery = { __typename?: 'Query', myAccount: { __typename?: 'User', _id: string, account: { __typename?: 'U_Account', username: string }, profile: { __typename?: 'U_Profile', pictureUrl: string } } };
 
 export type RandomMinProfileQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -352,6 +352,7 @@ export type MyAccountMinProfileQueryResult = Apollo.QueryResult<MyAccountMinProf
 export const MyNameAndPfpDocument = gql`
     query myNameAndPfp {
   myAccount {
+    _id
     account {
       username
     }
