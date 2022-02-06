@@ -105,6 +105,9 @@ const userResolvers = {
 
 			// note  successful login
 
+			//update status
+			await User.findByIdAndUpdate(user._id, { $set: { status: "online" } });
+
 			return {
 				accessToken: successfulLoginHandler(user, context),
 				user,
@@ -233,7 +236,13 @@ const userResolvers = {
 				newUser,
 			};
 		},
-		async logout(_parent: any, _args: any, { res }: Context) {
+		async logout(_parent: any, _args: any, { res, payload }: Context) {
+			if (!payload) {
+				//payload is false
+				return false;
+			}
+			await User.findByIdAndUpdate(payload.id, { $set: { status: "offline" } });
+
 			//clear to cookie by resending it, but as empty
 			res.clearCookie("lid");
 

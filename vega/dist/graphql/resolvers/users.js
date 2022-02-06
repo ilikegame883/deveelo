@@ -89,6 +89,7 @@ const userResolvers = {
                     },
                 });
             }
+            await User_1.default.findByIdAndUpdate(user._id, { $set: { status: "online" } });
             return {
                 accessToken: successfulLoginHandler(user, context),
                 user,
@@ -190,7 +191,11 @@ const userResolvers = {
                 newUser,
             };
         },
-        async logout(_parent, _args, { res }) {
+        async logout(_parent, _args, { res, payload }) {
+            if (!payload) {
+                return false;
+            }
+            await User_1.default.findByIdAndUpdate(payload.id, { $set: { status: "offline" } });
             res.clearCookie("lid");
             return true;
         },
