@@ -22,12 +22,14 @@ export type BoolRes = {
 export type LoginResponse = {
   __typename?: 'LoginResponse';
   accessToken: Scalars['String'];
+  user: User;
 };
 
 export type Mutation = {
   __typename?: 'Mutation';
   register: LoginResponse;
   login: LoginResponse;
+  logout: Scalars['Boolean'];
 };
 
 
@@ -133,7 +135,12 @@ export type LoginMutationVariables = Exact<{
 }>;
 
 
-export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'LoginResponse', accessToken: string } };
+export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'LoginResponse', accessToken: string, user: { __typename?: 'User', _id: string, status: string, account: { __typename?: 'U_Account', username: string, tag: string, email: string, private: boolean, pro: boolean }, profile: { __typename?: 'U_Profile', bannerUrl: string, pictureUrl: string, description: string, followingIds: Array<Maybe<string>>, followerIds: Array<Maybe<string>>, badges: Array<Maybe<string>>, linkedProfiles: Array<Maybe<string>> } } } };
+
+export type LogoutMutationVariables = Exact<{ [key: string]: never; }>;
+
+
+export type LogoutMutation = { __typename?: 'Mutation', logout: boolean };
 
 export type MyAccountMinProfileQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -143,7 +150,7 @@ export type MyAccountMinProfileQuery = { __typename?: 'Query', myAccount: { __ty
 export type MyNameAndPfpQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type MyNameAndPfpQuery = { __typename?: 'Query', myAccount: { __typename?: 'User', account: { __typename?: 'U_Account', username: string }, profile: { __typename?: 'U_Profile', pictureUrl: string } } };
+export type MyNameAndPfpQuery = { __typename?: 'Query', myAccount: { __typename?: 'User', _id: string, account: { __typename?: 'U_Account', username: string, tag: string }, profile: { __typename?: 'U_Profile', pictureUrl: string } } };
 
 export type RandomMinProfileQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -156,7 +163,7 @@ export type RegisterMutationVariables = Exact<{
 }>;
 
 
-export type RegisterMutation = { __typename?: 'Mutation', register: { __typename?: 'LoginResponse', accessToken: string } };
+export type RegisterMutation = { __typename?: 'Mutation', register: { __typename?: 'LoginResponse', accessToken: string, user: { __typename?: 'User', _id: string, status: string, account: { __typename?: 'U_Account', username: string, tag: string, email: string, private: boolean, pro: boolean }, profile: { __typename?: 'U_Profile', bannerUrl: string, pictureUrl: string, description: string, followingIds: Array<Maybe<string>>, followerIds: Array<Maybe<string>>, badges: Array<Maybe<string>>, linkedProfiles: Array<Maybe<string>> } } } };
 
 
 export const GetPostsDocument = gql`
@@ -250,6 +257,26 @@ export const LoginDocument = gql`
     mutation Login($loginInput: String!, $loginPassword: String!) {
   login(input: $loginInput, password: $loginPassword) {
     accessToken
+    user {
+      _id
+      account {
+        username
+        tag
+        email
+        private
+        pro
+      }
+      profile {
+        bannerUrl
+        pictureUrl
+        description
+        followingIds
+        followerIds
+        badges
+        linkedProfiles
+      }
+      status
+    }
   }
 }
     `;
@@ -280,6 +307,36 @@ export function useLoginMutation(baseOptions?: Apollo.MutationHookOptions<LoginM
 export type LoginMutationHookResult = ReturnType<typeof useLoginMutation>;
 export type LoginMutationResult = Apollo.MutationResult<LoginMutation>;
 export type LoginMutationOptions = Apollo.BaseMutationOptions<LoginMutation, LoginMutationVariables>;
+export const LogoutDocument = gql`
+    mutation Logout {
+  logout
+}
+    `;
+export type LogoutMutationFn = Apollo.MutationFunction<LogoutMutation, LogoutMutationVariables>;
+
+/**
+ * __useLogoutMutation__
+ *
+ * To run a mutation, you first call `useLogoutMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useLogoutMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [logoutMutation, { data, loading, error }] = useLogoutMutation({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useLogoutMutation(baseOptions?: Apollo.MutationHookOptions<LogoutMutation, LogoutMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<LogoutMutation, LogoutMutationVariables>(LogoutDocument, options);
+      }
+export type LogoutMutationHookResult = ReturnType<typeof useLogoutMutation>;
+export type LogoutMutationResult = Apollo.MutationResult<LogoutMutation>;
+export type LogoutMutationOptions = Apollo.BaseMutationOptions<LogoutMutation, LogoutMutationVariables>;
 export const MyAccountMinProfileDocument = gql`
     query myAccountMinProfile {
   myAccount {
@@ -331,8 +388,10 @@ export type MyAccountMinProfileQueryResult = Apollo.QueryResult<MyAccountMinProf
 export const MyNameAndPfpDocument = gql`
     query myNameAndPfp {
   myAccount {
+    _id
     account {
       username
+      tag
     }
     profile {
       pictureUrl
@@ -419,6 +478,26 @@ export const RegisterDocument = gql`
     mutation Register($registerEmail: String!, $registerPassword: String!) {
   register(email: $registerEmail, password: $registerPassword) {
     accessToken
+    user {
+      _id
+      account {
+        username
+        tag
+        email
+        private
+        pro
+      }
+      profile {
+        bannerUrl
+        pictureUrl
+        description
+        followingIds
+        followerIds
+        badges
+        linkedProfiles
+      }
+      status
+    }
   }
 }
     `;

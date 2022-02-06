@@ -70,7 +70,7 @@ exports.typeDefs = graphql_tag_1.default `
 	# note  Queries (searches)
 	type Query {
 		getPosts: [Post]!
-		myAccount: User!
+		myAccount: User
 		findUserByTag(tag: String!): User!
 		randomUser: User!
 	}
@@ -79,6 +79,7 @@ exports.typeDefs = graphql_tag_1.default `
 	type Mutation {
 		register(email: String!, password: String!): LoginResponse!
 		login(input: String!, password: String!): LoginResponse!
+		logout: Boolean!
 	}
 `;
 //# sourceMappingURL=typeDefs.js.map

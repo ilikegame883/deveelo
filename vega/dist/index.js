@@ -95,7 +95,6 @@ const initServer = async () => {
         const token = req.cookies.lid;
         if (!token) {
             return res.send({ ok: false, accessToken: "" });
-            console.log("not signed in");
         }
         let payload = null;
         try {
@@ -103,6 +102,7 @@ const initServer = async () => {
         }
         catch (error) {
             console.log(error);
+            auth_1.sendRefreshToken(res, "");
             return res.send({ ok: false, accessToken: "" });
         }
         const user = await User_1.default.findById(payload.id);
@@ -110,6 +110,7 @@ const initServer = async () => {
             return res.send({ ok: false, accessToken: "" });
         }
         if (user.account.tokenVersion !== payload.tokenVersion) {
+            auth_1.sendRefreshToken(res, "");
             return res.send({ ok: false, accessToken: "" });
         }
         auth_1.sendRefreshToken(res, auth_1.createRefreshToken(user));

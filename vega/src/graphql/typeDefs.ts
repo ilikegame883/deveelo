@@ -65,7 +65,7 @@ export const typeDefs = gql`
 	# note  Queries (searches)
 	type Query {
 		getPosts: [Post]!
-		myAccount: User!
+		myAccount: User
 		findUserByTag(tag: String!): User!
 		randomUser: User!
 	}
@@ -74,5 +74,6 @@ export const typeDefs = gql`
 	type Mutation {
 		register(email: String!, password: String!): LoginResponse!
 		login(input: String!, password: String!): LoginResponse!
+		logout: Boolean!
 	}
 `;

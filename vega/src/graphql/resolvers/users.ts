@@ -105,6 +105,9 @@ const userResolvers = {
 
 			// note  successful login
 
+			//update status
+			await User.findByIdAndUpdate(user._id, { $set: { status: "online" } }, { useFindAndModify: false });
+
 			return {
 				accessToken: successfulLoginHandler(user, context),
 				user,
@@ -232,6 +235,22 @@ const userResolvers = {
 				accessToken: successfulLoginHandler(newUser, context),
 				newUser,
 			};
+		},
+		async logout(_parent: any, _args: any, { res, payload }: Context) {
+			if (!payload) {
+				//payload is false
+				console.log(JSON.stringify(payload));
+
+				return false;
+			}
+			try {
+				await User.findByIdAndUpdate(payload.id, { $set: { status: "offline" } }, { useFindAndModify: false });
+				//clear to cookie by resending it, but as empty
+				sendRefreshToken(res, "");
+				return true;
+			} catch (error) {
+				throw new Error(error);
+			}
 		},
 	},
 };

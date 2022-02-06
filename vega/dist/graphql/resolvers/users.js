@@ -89,6 +89,7 @@ const userResolvers = {
                     },
                 });
             }
+            await User_1.default.findByIdAndUpdate(user._id, { $set: { status: "online" } }, { useFindAndModify: false });
             return {
                 accessToken: successfulLoginHandler(user, context),
                 user,
@@ -189,6 +190,20 @@ const userResolvers = {
                 accessToken: successfulLoginHandler(newUser, context),
                 newUser,
             };
+        },
+        async logout(_parent, _args, { res, payload }) {
+            if (!payload) {
+                console.log(JSON.stringify(payload));
+                return false;
+            }
+            try {
+                await User_1.default.findByIdAndUpdate(payload.id, { $set: { status: "offline" } }, { useFindAndModify: false });
+                auth_1.sendRefreshToken(res, "");
+                return true;
+            }
+            catch (error) {
+                throw new Error(error);
+            }
         },
     },
 };
