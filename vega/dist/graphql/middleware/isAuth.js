@@ -2,10 +2,11 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.isAuth = void 0;
 const jsonwebtoken_1 = require("jsonwebtoken");
+const auth_1 = require("../../util/auth");
 const loggedInOnlyAuth = async (resolve, _parent, _args, context, _info) => {
     const authorization = context.req.headers["authorization"];
     if (!authorization) {
-        context.res.clearCookie("lid");
+        auth_1.sendRefreshToken(context.res, "");
         throw new Error("not authenticated");
     }
     try {
@@ -14,7 +15,7 @@ const loggedInOnlyAuth = async (resolve, _parent, _args, context, _info) => {
         context.payload = payload;
     }
     catch (err) {
-        context.res.clearCookie("lid");
+        auth_1.sendRefreshToken(context.res, "");
         throw new Error("not authenticated [fail]");
     }
     const result = await resolve(_parent, _args, context, _info);
@@ -23,6 +24,9 @@ const loggedInOnlyAuth = async (resolve, _parent, _args, context, _info) => {
 exports.isAuth = {
     Query: {
         myAccount: loggedInOnlyAuth,
+    },
+    Mutation: {
+        logout: loggedInOnlyAuth,
     },
 };
 //# sourceMappingURL=isAuth.js.map

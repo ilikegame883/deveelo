@@ -1,4 +1,5 @@
 import { verify } from "jsonwebtoken";
+import { sendRefreshToken } from "../../util/auth";
 import { NewIMiddlewareResolver } from "src/util/middlewareType";
 
 const loggedInOnlyAuth: NewIMiddlewareResolver = async (resolve, _parent, _args, context, _info) => {
@@ -8,7 +9,7 @@ const loggedInOnlyAuth: NewIMiddlewareResolver = async (resolve, _parent, _args,
 	//console.log(`looking for header "authorization" in context headers:\n${JSON.stringify(context.req.headers)}`);
 
 	if (!authorization) {
-		context.res.clearCookie("lid");
+		sendRefreshToken(context.res, "");
 		throw new Error("not authenticated");
 	}
 
@@ -17,7 +18,7 @@ const loggedInOnlyAuth: NewIMiddlewareResolver = async (resolve, _parent, _args,
 		const payload = verify(token, process.env.ACCESS_TOKEN_SECRET!);
 		context.payload = payload as any;
 	} catch (err) {
-		context.res.clearCookie("lid");
+		sendRefreshToken(context.res, "");
 		throw new Error("not authenticated [fail]");
 	}
 
@@ -29,5 +30,8 @@ const loggedInOnlyAuth: NewIMiddlewareResolver = async (resolve, _parent, _args,
 export const isAuth = {
 	Query: {
 		myAccount: loggedInOnlyAuth,
+	},
+	Mutation: {
+		logout: loggedInOnlyAuth,
 	},
 };
