@@ -1,6 +1,6 @@
 import { appWindow, PhysicalSize } from "@tauri-apps/api/window";
 import { useQuery, gql, NetworkStatus } from "@apollo/client";
-import { useRouter } from "next/router";
+import router, { useRouter } from "next/router";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 
@@ -13,9 +13,9 @@ const SideImage = dynamic(() => import("./SideImage"), { ssr: false });
 import styles from "../styles/Layout.module.css";
 import navStyles from "../styles/nav.module.css";
 import useScreenType from "../hooks/useScreenType";
-import { useGetPostsQuery } from "../hooks/backend/generated/graphql";
+import { useGetPostsQuery, useLogoutMutation } from "../hooks/backend/generated/graphql";
 import onConnectionError from "../hooks/popups/connectionError";
-import { getAccessToken } from "../accessToken";
+import { getAccessToken, setAccessToken } from "../accessToken";
 import { useEffect, useState } from "react";
 import isLuna from "../hooks/isLuna";
 
@@ -37,9 +37,15 @@ const Layout = ({ children, route, showSidebar, showActivityBar, showNav, useWid
 	}
 	let full = storage.getItem("fullscreen") === "true";
 
+	//determine layout type
 	const screenType: string = useScreenType();
+
+	//handle loading desktop specific content
 	const luna = isLuna();
 	const [maxed, setmaxed] = useState(null);
+
+	//TEMPORARY
+	const [logout, { client }] = useLogoutMutation();
 
 	let content: any = null;
 	let text: any;
@@ -88,6 +94,23 @@ const Layout = ({ children, route, showSidebar, showActivityBar, showNav, useWid
 					<div className={useWide ? (full ? styles.containerWide_full : styles.containerWide) : styles.container}>
 						<main className={styles.main}>
 							<a href="/register">register</a>
+							<a href="/settings/account">your account</a>
+							{getAccessToken() ? (
+								<button
+									onClick={async () => {
+										await logout();
+										console.log("logout done");
+
+										setAccessToken("");
+										console.log("token reset");
+
+										router.push("/");
+										await client!.resetStore();
+										console.log("store reset");
+									}}>
+									Logout
+								</button>
+							) : null}
 							{/* <h2>Full</h2>
 							<p>Logged in user: {error && !loading ? error : text}</p> */}
 							{children}
@@ -112,7 +135,20 @@ const Layout = ({ children, route, showSidebar, showActivityBar, showNav, useWid
 						<main className={styles.main}>
 							{/* <h2>half activity bar</h2>
 							<p>Logged in user: {error && !loading ? error : text}</p> */}
-							<p>{debugT}</p>
+							<a href="/register">register</a>
+							<a href="/settings/account">your account</a>
+							<button
+								onClick={async () => {
+									await logout();
+									setAccessToken("");
+
+									await client!.resetStore();
+									if (router.pathname !== "/") {
+										router.push("/");
+									}
+								}}>
+								Logout
+							</button>
 							{children}
 						</main>
 					</div>
@@ -131,6 +167,19 @@ const Layout = ({ children, route, showSidebar, showActivityBar, showNav, useWid
 					{useWide && <SideImage route={route} hardEdge={full} />}
 					<div className={useWide ? (full ? styles.containerWide_full : styles.containerWide) : styles.container}>
 						<main className={styles.main}>
+							<a href="/register">register</a>
+							<a href="/settings/account">your account</a>
+							<button
+								onClick={async () => {
+									await logout();
+									setAccessToken("");
+									await client!.resetStore();
+									if (router.pathname !== "/") {
+										router.push("/");
+									}
+								}}>
+								Logout
+							</button>
 							{/* <h2>tablet</h2>
 							<p>Logged in user: {error && !loading ? error : text}</p> */}
 							{children}
