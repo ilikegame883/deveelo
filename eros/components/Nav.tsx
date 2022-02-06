@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { useState } from "react";
 
 import TitleMenu from "./minor/TitleMenu";
 import ProfilePicture from "./micro/ProfilePicture";
@@ -14,7 +13,6 @@ interface navProps {
 }
 
 const Nav = ({ sidebarSpacing, loggedIn }: navProps) => {
-	// const [hasError, setHasError] = useState(0);
 	let profile = null;
 
 	if (!loggedIn) {
