@@ -22,6 +22,7 @@ export type BoolRes = {
 export type LoginResponse = {
   __typename?: 'LoginResponse';
   accessToken: Scalars['String'];
+  user: User;
 };
 
 export type Mutation = {
@@ -133,7 +134,7 @@ export type LoginMutationVariables = Exact<{
 }>;
 
 
-export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'LoginResponse', accessToken: string } };
+export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'LoginResponse', accessToken: string, user: { __typename?: 'User', _id: string, status: string, account: { __typename?: 'U_Account', username: string, tag: string, email: string, private: boolean, pro: boolean }, profile: { __typename?: 'U_Profile', bannerUrl: string, pictureUrl: string, description: string, followingIds: Array<Maybe<string>>, followerIds: Array<Maybe<string>>, badges: Array<Maybe<string>>, linkedProfiles: Array<Maybe<string>> } } } };
 
 export type MyAccountMinProfileQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -156,7 +157,7 @@ export type RegisterMutationVariables = Exact<{
 }>;
 
 
-export type RegisterMutation = { __typename?: 'Mutation', register: { __typename?: 'LoginResponse', accessToken: string } };
+export type RegisterMutation = { __typename?: 'Mutation', register: { __typename?: 'LoginResponse', accessToken: string, user: { __typename?: 'User', _id: string, status: string, account: { __typename?: 'U_Account', username: string, tag: string, email: string, private: boolean, pro: boolean }, profile: { __typename?: 'U_Profile', bannerUrl: string, pictureUrl: string, description: string, followingIds: Array<Maybe<string>>, followerIds: Array<Maybe<string>>, badges: Array<Maybe<string>>, linkedProfiles: Array<Maybe<string>> } } } };
 
 
 export const GetPostsDocument = gql`
@@ -250,6 +251,26 @@ export const LoginDocument = gql`
     mutation Login($loginInput: String!, $loginPassword: String!) {
   login(input: $loginInput, password: $loginPassword) {
     accessToken
+    user {
+      _id
+      account {
+        username
+        tag
+        email
+        private
+        pro
+      }
+      profile {
+        bannerUrl
+        pictureUrl
+        description
+        followingIds
+        followerIds
+        badges
+        linkedProfiles
+      }
+      status
+    }
   }
 }
     `;
@@ -419,6 +440,26 @@ export const RegisterDocument = gql`
     mutation Register($registerEmail: String!, $registerPassword: String!) {
   register(email: $registerEmail, password: $registerPassword) {
     accessToken
+    user {
+      _id
+      account {
+        username
+        tag
+        email
+        private
+        pro
+      }
+      profile {
+        bannerUrl
+        pictureUrl
+        description
+        followingIds
+        followerIds
+        badges
+        linkedProfiles
+      }
+      status
+    }
   }
 }
     `;
