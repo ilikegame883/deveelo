@@ -233,6 +233,12 @@ const userResolvers = {
 				newUser,
 			};
 		},
+		async logout(_parent: any, _args: any, { res }: Context) {
+			//clear to cookie by resending it, but as empty
+			sendRefreshToken(res, "");
+
+			return true;
+		},
 	},
 };
 

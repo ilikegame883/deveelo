@@ -74,5 +74,6 @@ export const typeDefs = gql`
 	type Mutation {
 		register(email: String!, password: String!): LoginResponse!
 		login(input: String!, password: String!): LoginResponse!
+		logout: Boolean!
 	}
 `;

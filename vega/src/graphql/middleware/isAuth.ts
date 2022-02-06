@@ -28,4 +28,7 @@ export const isAuth = {
 	Query: {
 		myAccount: loggedInOnlyAuth,
 	},
+	Mutation: {
+		logout: loggedInOnlyAuth,
+	},
 };

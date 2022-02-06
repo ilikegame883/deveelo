@@ -190,6 +190,10 @@ const userResolvers = {
                 newUser,
             };
         },
+        async logout(_parent, _args, { res }) {
+            auth_1.sendRefreshToken(res, "");
+            return true;
+        },
     },
 };
 exports.default = userResolvers;

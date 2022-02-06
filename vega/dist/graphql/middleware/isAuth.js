@@ -22,5 +22,8 @@ exports.isAuth = {
     Query: {
         myAccount: loggedInOnlyAuth,
     },
+    Mutation: {
+        logout: loggedInOnlyAuth,
+    },
 };
 //# sourceMappingURL=isAuth.js.map
