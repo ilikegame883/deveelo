@@ -87,7 +87,7 @@ const Layout = ({ children, route, showSidebar, showActivityBar, showNav, useWid
 		case "full":
 			content = (
 				<>
-					{/* {showNav && (showSidebar ? <Nav sidebarSpacing={true} /> : <Nav sidebarSpacing={false} />)} */}
+					{showNav && (showSidebar ? <Nav sidebarSpacing={true} loggedIn={getAccessToken() !== ""} /> : <Nav sidebarSpacing={false} loggedIn={getAccessToken() !== ""} />)}
 					{showSidebar && <DesktopSidebar hardEdge={full} />}
 
 					{showActivityBar ? <FullActivityBar hardEdge={full} /> : null}
@@ -108,6 +108,7 @@ const Layout = ({ children, route, showSidebar, showActivityBar, showNav, useWid
 											if (ok) {
 												//logout was successful
 												setAccessToken("");
+												console.log("access token cleared");
 
 												//clear the cache
 												await client!.resetStore();
@@ -133,7 +134,7 @@ const Layout = ({ children, route, showSidebar, showActivityBar, showNav, useWid
 		case "halfActivityBar":
 			content = (
 				<>
-					{showNav && (showSidebar ? <Nav sidebarSpacing={true} /> : <Nav sidebarSpacing={false} />)}
+					{showNav && (showSidebar ? <Nav sidebarSpacing={true} loggedIn={getAccessToken() !== ""} /> : <Nav sidebarSpacing={false} loggedIn={getAccessToken() !== ""} />)}
 
 					{showSidebar && <DesktopSidebar hardEdge={full} />}
 
@@ -168,7 +169,7 @@ const Layout = ({ children, route, showSidebar, showActivityBar, showNav, useWid
 		case "tablet":
 			content = (
 				<>
-					{showNav && (showSidebar ? <Nav sidebarSpacing={true} /> : <Nav sidebarSpacing={false} />)}
+					{showNav && (showSidebar ? <Nav sidebarSpacing={true} loggedIn={getAccessToken() !== ""} /> : <Nav sidebarSpacing={false} loggedIn={getAccessToken() !== ""} />)}
 
 					{showSidebar && <DesktopSidebar hardEdge={full} />}
 
@@ -201,7 +202,7 @@ const Layout = ({ children, route, showSidebar, showActivityBar, showNav, useWid
 		case "mobile":
 			content = (
 				<>
-					{showNav && (showSidebar ? <Nav sidebarSpacing={true} /> : <Nav sidebarSpacing={false} />)}
+					{showNav && (showSidebar ? <Nav sidebarSpacing={true} loggedIn={getAccessToken() !== ""} /> : <Nav sidebarSpacing={false} loggedIn={getAccessToken() !== ""} />)}
 
 					{showSidebar && <DesktopSidebar hardEdge={full} />}
 
