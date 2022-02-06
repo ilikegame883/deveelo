@@ -28,7 +28,13 @@ const initServer = async () => {
 				if (whitelist.indexOf(origin!) !== -1 || process.env.NODE_ENV !== "production") {
 					callback(null, true);
 				} else {
-					callback(new Error("Not allowed by CORS"));
+					let ori: string = origin;
+					if (ori.startsWith("https://deveelo-") && ori.endsWith("-treixatek.vercel.app")) {
+						//these are vercel preview builds
+						callback(null, true);
+					} else {
+						callback(new Error("Not allowed by CORS"));
+					}
 				}
 			},
 			credentials: true,
@@ -39,6 +45,61 @@ const initServer = async () => {
 
 	//api routes
 	app.get("/", (_req, res) => res.send("hello"));
+
+	//searchbar
+	app.get("/search", async (req, res) => {
+		if (req.query.name) {
+			try {
+				const results = await User.aggregate([
+					{
+						$search: {
+							index: "s_allusers",
+							compound: {
+								must: [
+									{
+										text: {
+											query: req.query.name,
+											path: {
+												wildcard: "*",
+											},
+											fuzzy: {
+												maxEdits: 1,
+											},
+										},
+									},
+								],
+							},
+						},
+					},
+					{
+						$limit: 6,
+					},
+					{
+						$project: {
+							_id: 0,
+							"account.password": 0,
+							"account.email": 0,
+							"account.blockedIds": 0,
+							"account.tokenVersion": 0,
+							"account.pro": 0,
+							"account.short": 0,
+							profile: 0,
+							social: 0,
+							score: { $meta: "searchScore" },
+						},
+					},
+				]);
+
+				return res.send(results);
+			} catch (error) {
+				console.error(error);
+				res.send([]);
+			}
+		}
+		return res.send([]);
+	});
+
+	//gen new refresh tokens
 	app.post("/refresh_token", async (req, res) => {
 		//check if refresh token is correct & send new access token
 		const token = req.cookies.lid;
