@@ -110,6 +110,7 @@ const initServer = async () => {
             return res.send({ ok: false, accessToken: "" });
         }
         if (user.account.tokenVersion !== payload.tokenVersion) {
+            res.clearCookie("lid");
             return res.send({ ok: false, accessToken: "" });
         }
         auth_1.sendRefreshToken(res, auth_1.createRefreshToken(user));

@@ -126,6 +126,7 @@ const initServer = async () => {
 
 		//check if token version is the latest
 		if (user.account.tokenVersion !== payload.tokenVersion) {
+			res.clearCookie("lid");
 			return res.send({ ok: false, accessToken: "" });
 		}
 

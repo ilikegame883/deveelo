@@ -235,7 +235,7 @@ const userResolvers = {
 		},
 		async logout(_parent: any, _args: any, { res }: Context) {
 			//clear to cookie by resending it, but as empty
-			sendRefreshToken(res, "");
+			res.clearCookie("lid");
 
 			return true;
 		},

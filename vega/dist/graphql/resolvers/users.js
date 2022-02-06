@@ -191,7 +191,7 @@ const userResolvers = {
             };
         },
         async logout(_parent, _args, { res }) {
-            auth_1.sendRefreshToken(res, "");
+            res.clearCookie("lid");
             return true;
         },
     },
