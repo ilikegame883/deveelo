@@ -29,6 +29,8 @@ interface layoutProps {
 }
 
 const Layout = ({ children, route, showSidebar, showActivityBar, showNav, useWide }: layoutProps) => {
+	const [isLoggedIn, setIsLoggedIn] = useState(getAccessToken() !== "");
+
 	const storage = window.localStorage;
 	// Determins rounded or hard corners in Luna
 	if (storage.getItem("fullscreen") === null) {
@@ -85,7 +87,7 @@ const Layout = ({ children, route, showSidebar, showActivityBar, showNav, useWid
 		case "full":
 			content = (
 				<>
-					{showNav && (showSidebar ? <Nav sidebarSpacing={true} /> : <Nav sidebarSpacing={false} />)}
+					{/* {showNav && (showSidebar ? <Nav sidebarSpacing={true} /> : <Nav sidebarSpacing={false} />)} */}
 					{showSidebar && <DesktopSidebar hardEdge={full} />}
 
 					{showActivityBar ? <FullActivityBar hardEdge={full} /> : null}
@@ -98,15 +100,23 @@ const Layout = ({ children, route, showSidebar, showActivityBar, showNav, useWid
 							{getAccessToken() ? (
 								<button
 									onClick={async () => {
-										await logout();
-										console.log("logout done");
+										const { data } = await logout();
 
-										setAccessToken("");
-										console.log("token reset");
+										if (data) {
+											const ok = data.logout;
 
-										router.push("/");
-										await client!.resetStore();
-										console.log("store reset");
+											if (ok) {
+												//logout was successful
+												setAccessToken("");
+
+												//clear the cache
+												await client!.resetStore();
+												await client.clearStore();
+
+												//rerender page
+												router.push("/");
+											}
+										}
 									}}>
 									Logout
 								</button>

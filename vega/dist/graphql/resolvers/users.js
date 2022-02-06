@@ -89,7 +89,7 @@ const userResolvers = {
                     },
                 });
             }
-            await User_1.default.findByIdAndUpdate(user._id, { $set: { status: "online" } });
+            await User_1.default.findByIdAndUpdate(user._id, { $set: { status: "online" } }, { useFindAndModify: false });
             return {
                 accessToken: successfulLoginHandler(user, context),
                 user,
@@ -193,11 +193,17 @@ const userResolvers = {
         },
         async logout(_parent, _args, { res, payload }) {
             if (!payload) {
+                console.log(JSON.stringify(payload));
                 return false;
             }
-            await User_1.default.findByIdAndUpdate(payload.id, { $set: { status: "offline" } });
-            res.clearCookie("lid");
-            return true;
+            try {
+                await User_1.default.findByIdAndUpdate(payload.id, { $set: { status: "offline" } }, { useFindAndModify: false });
+                auth_1.sendRefreshToken(res, "");
+                return true;
+            }
+            catch (error) {
+                throw new Error(error);
+            }
         },
     },
 };
