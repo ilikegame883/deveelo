@@ -39,8 +39,6 @@ const Layout = ({ children, route, showSidebar, showActivityBar, showNav, useWid
 
 	const screenType: string = useScreenType();
 	const luna = isLuna();
-	const router = useRouter();
-	const [reloaded, setReloaded] = useState(false);
 	const [maxed, setmaxed] = useState(null);
 
 	let content: any = null;
@@ -48,32 +46,8 @@ const Layout = ({ children, route, showSidebar, showActivityBar, showNav, useWid
 	let popup: any = null;
 	let handledError: boolean = false;
 
-	//const { loading, error, data } = useMyAccountApsMinQuery({ fetchPolicy: "network-only" });
-
-	//console.log(data, error, loading);
-
 	text = "hi";
-	const error = false;
-	const loading = false;
 
-	// if (loading && !data) {
-	// 	text = "loading...";
-	// 	handledError = false;
-	// } else {
-	// 	text = JSON.stringify(data?.myAccount?.account?.username);
-	// 	//text = JSON.stringify(data.getPosts);
-	// 	if (error && !handledError) {
-	// 		handledError = true;
-	// 		const accessToken = getAccessToken();
-	// 		if (accessToken && accessToken !== "" && !reloaded) {
-	// 			setReloaded(true);
-	// 			router.reload();
-	// 		}
-
-	// 		popup = onConnectionError(error);
-	// 	}
-	// }
-	let titlebar: any = null;
 	let debugT = "";
 
 	if (luna) {
