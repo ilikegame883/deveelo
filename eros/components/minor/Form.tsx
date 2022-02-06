@@ -72,6 +72,7 @@ const Form = ({ type }: { type: string }) => {
 											_id: data.register.user._id,
 											account: {
 												username: data.register.user.account.username,
+												tag: data.register.user.account.tag,
 											},
 											profile: {
 												pictureUrl: data.register.user.profile.pictureUrl,
@@ -119,6 +120,7 @@ const Form = ({ type }: { type: string }) => {
 											_id: data.login.user._id,
 											account: {
 												username: data.login.user.account.username,
+												tag: data.login.user.account.tag,
 											},
 											profile: {
 												pictureUrl: data.login.user.profile.pictureUrl,

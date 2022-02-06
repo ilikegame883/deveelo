@@ -80,7 +80,22 @@ function createApolloClient() {
 				credentials: "include",
 			}),
 		]),
-		cache: new InMemoryCache(),
+		cache: new InMemoryCache({
+			typePolicies: {
+				User: {
+					merge(existing, incoming, { mergeObjects }) {
+						if (!incoming._id) {
+							return existing;
+						}
+						// Correct, thanks to invoking nested merge functions.
+						return mergeObjects(existing, incoming);
+					},
+				},
+				U_Account: {
+					keyFields: ["tag"],
+				},
+			},
+		}),
 	});
 }
 

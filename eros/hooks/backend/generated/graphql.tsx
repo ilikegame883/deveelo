@@ -144,7 +144,7 @@ export type MyAccountMinProfileQuery = { __typename?: 'Query', myAccount: { __ty
 export type MyNameAndPfpQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type MyNameAndPfpQuery = { __typename?: 'Query', myAccount: { __typename?: 'User', _id: string, account: { __typename?: 'U_Account', username: string }, profile: { __typename?: 'U_Profile', pictureUrl: string } } };
+export type MyNameAndPfpQuery = { __typename?: 'Query', myAccount: { __typename?: 'User', _id: string, account: { __typename?: 'U_Account', username: string, tag: string }, profile: { __typename?: 'U_Profile', pictureUrl: string } } };
 
 export type RandomMinProfileQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -355,6 +355,7 @@ export const MyNameAndPfpDocument = gql`
     _id
     account {
       username
+      tag
     }
     profile {
       pictureUrl

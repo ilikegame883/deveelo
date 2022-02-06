@@ -3,6 +3,7 @@ query myNameAndPfp {
 		_id
 		account {
 			username
+			tag
 		}
 		profile {
 			pictureUrl
