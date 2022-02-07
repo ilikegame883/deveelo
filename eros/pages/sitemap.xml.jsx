@@ -27,8 +27,6 @@ class Sitemap extends React.Component {
 		console.log("start of sitemap fetch from " + EXTERNAL_DATA_URL);
 		const request = await fetch(EXTERNAL_DATA_URL, {
 			method: "GET",
-			credentials: "include",
-			mode: "cors",
 		});
 		const users = await request.json();
 		console.log(users);
