@@ -1,7 +1,7 @@
 import React from "react";
 //https://vega-deployment.herokuapp.com/users
 // const EXTERNAL_DATA_URL = "http://localhost:4000/users";
-const EXTERNAL_DATA_URL = "http://localhost:4000/test";
+const EXTERNAL_DATA_URL = "https://vega-deployment.herokuapp.com/test";
 // const EXTERNAL_DATA_URL = "https://jsonplaceholder.typicode.com/posts";
 
 const createSitemap = (posts) => `<?xml version="1.0" encoding="UTF-8"?>
