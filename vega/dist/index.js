@@ -28,7 +28,7 @@ const initServer = async () => {
             }
             else {
                 let ori = origin;
-                if (ori.startsWith("https://deveelo-") && ori.endsWith("-treixatek.vercel.app")) {
+                if ((ori.startsWith("https://deveelo-") && ori.endsWith("-treixatek.vercel.app")) || (ori.startsWith("deveelo-") && ori.endsWith("-treixatek.vercel.app"))) {
                     callback(null, true);
                 }
                 else {
@@ -40,6 +40,22 @@ const initServer = async () => {
     }));
     app.use(cookie_parser_1.default());
     app.get("/", (_req, res) => res.send("hello"));
+    app.get("/test", async (_req, res) => {
+        res.send([
+            {
+                userId: 1,
+                id: 1,
+                title: "sunt aut facere repellat provident occaecati excepturi optio reprehenderit",
+                body: "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto",
+            },
+            {
+                userId: 1,
+                id: 2,
+                title: "qui est esse",
+                body: "est rerum tempore vitae\nsequi sint nihil reprehenderit dolor beatae ea dolores neque\nfugiat blanditiis voluptate porro vel nihil molestiae ut reiciendis\nqui aperiam non debitis possimus qui neque nisi nulla",
+            },
+        ]);
+    });
     app.get("/users", async (_req, res) => {
         try {
             const results = await User_1.default.aggregate([
