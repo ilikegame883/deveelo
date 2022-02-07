@@ -46,6 +46,35 @@ const initServer = async () => {
 	//api routes
 	app.get("/", (_req, res) => res.send("hello"));
 
+	app.get("/users", async (_req, res) => {
+		//find all public accounts
+		try {
+			const results = await User.aggregate([
+				{
+					$match: { "account.private": { $eq: false } },
+				},
+				{
+					$project: {
+						_id: 0,
+						"account.password": 0,
+						"account.email": 0,
+						"account.blockedIds": 0,
+						"account.tokenVersion": 0,
+						"account.pro": 0,
+						"account.short": 0,
+						profile: 0,
+						social: 0,
+					},
+				},
+			]);
+			return res.send(results);
+		} catch (error) {
+			console.error(error);
+			res.send([]);
+		}
+		return res.send([]);
+	});
+
 	//searchbar
 	app.get("/search", async (req, res) => {
 		if (req.query.name) {

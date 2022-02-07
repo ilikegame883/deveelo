@@ -40,6 +40,34 @@ const initServer = async () => {
     }));
     app.use(cookie_parser_1.default());
     app.get("/", (_req, res) => res.send("hello"));
+    app.get("/users", async (_req, res) => {
+        try {
+            const results = await User_1.default.aggregate([
+                {
+                    $match: { "account.private": { $eq: false } },
+                },
+                {
+                    $project: {
+                        _id: 0,
+                        "account.password": 0,
+                        "account.email": 0,
+                        "account.blockedIds": 0,
+                        "account.tokenVersion": 0,
+                        "account.pro": 0,
+                        "account.short": 0,
+                        profile: 0,
+                        social: 0,
+                    },
+                },
+            ]);
+            return res.send(results);
+        }
+        catch (error) {
+            console.error(error);
+            res.send([]);
+        }
+        return res.send([]);
+    });
     app.get("/search", async (req, res) => {
         if (req.query.name) {
             try {
