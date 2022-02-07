@@ -1,6 +1,6 @@
 import React from "react";
-
-const EXTERNAL_DATA_URL = "https://vega-deployment.herokuapp.com/users";
+//https://vega-deployment.herokuapp.com/users
+const EXTERNAL_DATA_URL = "https://vega-deployment.herokuapp.com:4000/users";
 
 const createSitemap = (users) => `<?xml version="1.0" encoding="UTF-8"?>
     <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
@@ -22,11 +22,14 @@ const createSitemap = (users) => `<?xml version="1.0" encoding="UTF-8"?>
 class Sitemap extends React.Component {
 	static async getInitialProps({ res }) {
 		//get users
+		console.log("start of sitemap");
 		const request = await fetch(EXTERNAL_DATA_URL, {
+			method: "GET",
 			credentials: "include",
 			mode: "cors",
 		});
 		const users = await request.json();
+		console.log(users);
 
 		res.setHeader("Content-Type", "text/xml");
 		res.write(createSitemap(users));
