@@ -1,18 +1,18 @@
 import React from "react";
 //https://vega-deployment.herokuapp.com/users
 // const EXTERNAL_DATA_URL = "http://localhost:4000/users";
-const EXTERNAL_DATA_URL = "https://vega-deployment.herokuapp.com/refresh_token";
+const EXTERNAL_DATA_URL = "https://jsonplaceholder.typicode.com/posts/1";
 
-const createSitemap = (users) => `<?xml version="1.0" encoding="UTF-8"?>
+const createSitemap = (posts) => `<?xml version="1.0" encoding="UTF-8"?>
     <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 		<url>
 			<loc>${`https://www.deveelo.com`}</loc>
 		</url>
-		${users
-			.map(({ account }) => {
+		${posts
+			.map(({ title }) => {
 				return `
                 <url>
-                    <loc>${`https://www.deveelo.com/${account.tag}`}</loc>
+                    <loc>${`https://www.deveelo.com/${title}`}</loc>
                 </url>
             `;
 			})
