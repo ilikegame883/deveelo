@@ -40,7 +40,7 @@ const initServer = async () => {
 					callback(null, true);
 				} else {
 					let ori: string = origin;
-					if ((ori.startsWith("https://deveelo-") && ori.endsWith("-treixatek.vercel.app")) || (ori.startsWith("deveelo-") && ori.endsWith("-treixatek.vercel.app"))) {
+					if (ori.startsWith("https://deveelo-") && ori.endsWith("-treixatek.vercel.app")) {
 						//these are vercel preview builds
 						//console.log("📜 Exception allowed for origin " + origin);
 

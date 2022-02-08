@@ -32,7 +32,7 @@ const initServer = async () => {
                 }
                 else {
                     let ori = origin;
-                    if ((ori.startsWith("https://deveelo-") && ori.endsWith("-treixatek.vercel.app")) || (ori.startsWith("deveelo-") && ori.endsWith("-treixatek.vercel.app"))) {
+                    if (ori.startsWith("https://deveelo-") && ori.endsWith("-treixatek.vercel.app")) {
                         callback(null, true);
                     }
                     else {
