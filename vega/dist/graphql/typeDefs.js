@@ -73,6 +73,7 @@ exports.typeDefs = graphql_tag_1.default `
 		myAccount: User
 		findUserByTag(tag: String!): User!
 		randomUser: User!
+		allUsers: [User]!
 	}
 
 	# note  Mutations (read/write/updates)

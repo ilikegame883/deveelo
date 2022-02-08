@@ -17,36 +17,66 @@ import { createAccessToken, createRefreshToken, sendRefreshToken } from "./util/
 // development  change mongodb user password & access
 const initServer = async () => {
 	const app = express();
-	app.set("trust proxy", process.env.NODE_ENV !== "production");
+	// app.set("trust proxy", process.env.NODE_ENV !== "production");
 
 	const whitelist = process.env.NODE_ENV === "production" ? ["https://www.deveelo.com", "https://next.deveelo.com", "https://deveelo.vercel.app"] : ["http://localhost:3000"];
 
-	app.use(
-		cors({
+	//used for protected routes
+	const corsDefault = function (_req: any, callback: any) {
+		var corsOptions = {
 			origin: function (origin: any, callback: any) {
+				//console.log("Attempt to connect w/ origin " + origin);
+				if (!origin) {
+					//console.log("😡 Blocked origin " + origin);
+
+					callback(new Error("Not allowed by CORS"));
+				}
+
 				//DO NOT EVER CHANGE
 				if (whitelist.indexOf(origin!) !== -1 || process.env.NODE_ENV !== "production") {
+					//|| process.env.NODE_ENV !== "production" - allows gql code gen
+					//console.log(`😃 origin "${origin}" in the whitelist`);
+
 					callback(null, true);
 				} else {
 					let ori: string = origin;
 					if (ori.startsWith("https://deveelo-") && ori.endsWith("-treixatek.vercel.app")) {
 						//these are vercel preview builds
+						//console.log("📜 Exception allowed for origin " + origin);
+
 						callback(null, true);
 					} else {
+						//console.log("😡 Blocked origin " + origin);
+
 						callback(new Error("Not allowed by CORS"));
 					}
 				}
 			},
 			credentials: true,
-		})
-	); // development  enable real cors options above
+		};
+
+		callback(null, corsOptions); // callback expects two parameters: error and options
+	};
+
+	//used for public data, allows viewing
+	const corsAllowUndefined = function (req: any, callback: any) {
+		var corsOptions;
+		if (req.header("Origin") === undefined) {
+			corsOptions = { origin: true };
+			//allow through
+		} else {
+			corsOptions = { origin: false };
+			//block
+		}
+		callback(null, corsOptions); // callback expects two parameters: error and options
+	};
 
 	app.use(cookieParser());
 
 	//api routes
-	app.get("/", (_req, res) => res.send("hello"));
+	app.get("/", cors(corsDefault), (_req, res) => res.send("hello"));
 
-	app.get("/users", async (_req, res) => {
+	app.get("/users", cors(corsAllowUndefined), async (_req, res) => {
 		//find all public accounts
 		try {
 			const results = await User.aggregate([
@@ -76,7 +106,7 @@ const initServer = async () => {
 	});
 
 	//searchbar
-	app.get("/search", async (req, res) => {
+	app.get("/search", cors(corsAllowUndefined), async (req, res) => {
 		if (req.query.name) {
 			try {
 				const results = await User.aggregate([
@@ -128,8 +158,10 @@ const initServer = async () => {
 		return res.send([]);
 	});
 
+	app.all("/graphql", cors(corsDefault));
+
 	//gen new refresh tokens
-	app.post("/refresh_token", async (req, res) => {
+	app.post("/refresh_token", cors(corsDefault), async (req, res) => {
 		//check if refresh token is correct & send new access token
 		const token = req.cookies.lid;
 		if (!token) {

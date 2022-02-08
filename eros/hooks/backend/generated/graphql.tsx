@@ -55,9 +55,10 @@ export type Post = {
 export type Query = {
   __typename?: 'Query';
   getPosts: Array<Maybe<Post>>;
-  myAccount: User;
+  myAccount?: Maybe<User>;
   findUserByTag: User;
   randomUser: User;
+  allUsers: Array<Maybe<User>>;
 };
 
 
@@ -122,6 +123,11 @@ export type GetPostsQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type GetPostsQuery = { __typename?: 'Query', getPosts: Array<Maybe<{ __typename?: 'Post', _id: string, body: string, createdAt: string, username: string }>> };
 
+export type AllTagsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type AllTagsQuery = { __typename?: 'Query', allUsers: Array<Maybe<{ __typename?: 'User', account: { __typename?: 'U_Account', tag: string } }>> };
+
 export type FindMinProfileByTagQueryVariables = Exact<{
   tagInput: Scalars['String'];
 }>;
@@ -145,12 +151,12 @@ export type LogoutMutation = { __typename?: 'Mutation', logout: boolean };
 export type MyAccountMinProfileQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type MyAccountMinProfileQuery = { __typename?: 'Query', myAccount: { __typename?: 'User', status: string, account: { __typename?: 'U_Account', username: string, tag: string, private: boolean }, profile: { __typename?: 'U_Profile', bannerUrl: string, pictureUrl: string, description: string, followingIds: Array<Maybe<string>>, followerIds: Array<Maybe<string>>, badges: Array<Maybe<string>>, linkedProfiles: Array<Maybe<string>> } } };
+export type MyAccountMinProfileQuery = { __typename?: 'Query', myAccount?: Maybe<{ __typename?: 'User', status: string, account: { __typename?: 'U_Account', username: string, tag: string, private: boolean }, profile: { __typename?: 'U_Profile', bannerUrl: string, pictureUrl: string, description: string, followingIds: Array<Maybe<string>>, followerIds: Array<Maybe<string>>, badges: Array<Maybe<string>>, linkedProfiles: Array<Maybe<string>> } }> };
 
 export type MyNameAndPfpQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type MyNameAndPfpQuery = { __typename?: 'Query', myAccount: { __typename?: 'User', _id: string, account: { __typename?: 'U_Account', username: string, tag: string }, profile: { __typename?: 'U_Profile', pictureUrl: string } } };
+export type MyNameAndPfpQuery = { __typename?: 'Query', myAccount?: Maybe<{ __typename?: 'User', _id: string, account: { __typename?: 'U_Account', username: string, tag: string }, profile: { __typename?: 'U_Profile', pictureUrl: string } }> };
 
 export type RandomMinProfileQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -203,6 +209,42 @@ export function useGetPostsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<G
 export type GetPostsQueryHookResult = ReturnType<typeof useGetPostsQuery>;
 export type GetPostsLazyQueryHookResult = ReturnType<typeof useGetPostsLazyQuery>;
 export type GetPostsQueryResult = Apollo.QueryResult<GetPostsQuery, GetPostsQueryVariables>;
+export const AllTagsDocument = gql`
+    query AllTags {
+  allUsers {
+    account {
+      tag
+    }
+  }
+}
+    `;
+
+/**
+ * __useAllTagsQuery__
+ *
+ * To run a query within a React component, call `useAllTagsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useAllTagsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useAllTagsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useAllTagsQuery(baseOptions?: Apollo.QueryHookOptions<AllTagsQuery, AllTagsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<AllTagsQuery, AllTagsQueryVariables>(AllTagsDocument, options);
+      }
+export function useAllTagsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<AllTagsQuery, AllTagsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<AllTagsQuery, AllTagsQueryVariables>(AllTagsDocument, options);
+        }
+export type AllTagsQueryHookResult = ReturnType<typeof useAllTagsQuery>;
+export type AllTagsLazyQueryHookResult = ReturnType<typeof useAllTagsLazyQuery>;
+export type AllTagsQueryResult = Apollo.QueryResult<AllTagsQuery, AllTagsQueryVariables>;
 export const FindMinProfileByTagDocument = gql`
     query findMinProfileByTag($tagInput: String!) {
   findUserByTag(tag: $tagInput) {

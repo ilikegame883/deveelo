@@ -68,6 +68,7 @@ export const typeDefs = gql`
 		myAccount: User
 		findUserByTag(tag: String!): User!
 		randomUser: User!
+		allUsers: [User]!
 	}
 
 	# note  Mutations (read/write/updates)
