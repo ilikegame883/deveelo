@@ -20,7 +20,7 @@ const auth_1 = require("./util/auth");
 const initServer = async () => {
     const app = express_1.default();
     const whitelist = process.env.NODE_ENV === "production" ? ["https://www.deveelo.com", "https://next.deveelo.com", "https://deveelo.vercel.app"] : ["http://localhost:3000"];
-    const corsDefault = function (callback) {
+    const corsDefault = function (_req, callback) {
         var corsOptions = {
             origin: function (origin, callback) {
                 console.log("Attempt to connect w/ origin " + origin);

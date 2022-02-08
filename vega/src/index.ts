@@ -22,7 +22,7 @@ const initServer = async () => {
 	const whitelist = process.env.NODE_ENV === "production" ? ["https://www.deveelo.com", "https://next.deveelo.com", "https://deveelo.vercel.app"] : ["http://localhost:3000"];
 
 	//used for protected routes
-	const corsDefault = function (callback: any) {
+	const corsDefault = function (_req: any, callback: any) {
 		var corsOptions = {
 			origin: function (origin: any, callback: any) {
 				console.log("Attempt to connect w/ origin " + origin);
