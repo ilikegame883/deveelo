@@ -23,7 +23,6 @@ const initServer = async () => {
     const corsDefault = function (_req, callback) {
         var corsOptions = {
             origin: function (origin, callback) {
-                console.log("Attempt to connect w/ origin " + origin);
                 if (!origin) {
                     callback(new Error("Not allowed by CORS"));
                 }

@@ -25,7 +25,7 @@ const initServer = async () => {
 	const corsDefault = function (_req: any, callback: any) {
 		var corsOptions = {
 			origin: function (origin: any, callback: any) {
-				console.log("Attempt to connect w/ origin " + origin);
+				//console.log("Attempt to connect w/ origin " + origin);
 				if (!origin) {
 					//console.log("😡 Blocked origin " + origin);
 
