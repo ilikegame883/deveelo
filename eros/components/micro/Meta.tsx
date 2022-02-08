@@ -29,7 +29,7 @@ const Meta = ({ title, keywords, description }) => {
 Meta.defaultProps = {
 	title: "Deveelo",
 	keywords: "game development, devlogs, beta testing, gamedev, beta, videogames, posting, communities, groups, art",
-	description: "Live betas, groups with likeminded game devleopers and their latest updates in realtime - it can all be found here on Deveelo, the social platform for game developers and artists",
+	description: "Explore posts, groups, devlogs, and more on Deveelo, the social platform for game developers and artists",
 };
 
 export default Meta;

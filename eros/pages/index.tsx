@@ -15,7 +15,9 @@ export default function Home() {
 
 	return (
 		<div>
-			<Meta title={title}></Meta>
+			<Meta
+				title={title}
+				description="Live betas, groups with likeminded game devleopers and their latest updates in realtime - it can all be found here on Deveelo, the social platform for game developers and artists"></Meta>
 		</div>
 	);
 }
