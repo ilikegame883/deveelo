@@ -23,6 +23,17 @@ const Sidebar = ({ hardEdge }: sidebarProps) => {
 	const storage = window.localStorage;
 	const uTag = storage.getItem("side_prof");
 
+	const loadingSidebar = (
+		<div className={hardEdge ? sidebarStyles.sidebar_full : sidebarStyles.sidebar}>
+			{/*Banner*/}
+			<div className={sidebarStyles.banner} />
+			{/*User Profile*/}
+			<div className={sidebarStyles.profileContainer}>
+				<div className="loading" />
+			</div>
+		</div>
+	);
+
 	let buttons: any = null;
 	if (uTag !== null && uTag !== "") {
 		const { data, loading, error } = useFindMinProfileByTagQuery({
@@ -32,7 +43,7 @@ const Sidebar = ({ hardEdge }: sidebarProps) => {
 		});
 
 		if (loading && !data) {
-			return <div>loading...</div>;
+			return loadingSidebar;
 		}
 		if (error) {
 			return (
@@ -65,7 +76,7 @@ const Sidebar = ({ hardEdge }: sidebarProps) => {
 	} else if (loggedIn) {
 		const { data, loading, error } = useMyAccountMinProfileQuery();
 		if (loading && !data) {
-			return <div>loading...</div>;
+			return loadingSidebar;
 		}
 		if (error) {
 			return <div>An error has occured</div>;
@@ -86,7 +97,7 @@ const Sidebar = ({ hardEdge }: sidebarProps) => {
 		const { data, loading, error } = useRandomMinProfileQuery();
 
 		if (loading && !data) {
-			return <div>loading...</div>;
+			return loadingSidebar;
 		}
 		if (error) {
 			return <div>An error has occured</div>;
