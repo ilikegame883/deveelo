@@ -27,7 +27,7 @@ const initServer = async () => {
 			origin: function (origin: any, callback: any) {
 				console.log("Attempt to connect w/ origin " + origin);
 				if (!origin) {
-					console.log("😡 Blocked origin " + origin);
+					//console.log("😡 Blocked origin " + origin);
 
 					callback(new Error("Not allowed by CORS"));
 				}
@@ -35,18 +35,18 @@ const initServer = async () => {
 				//DO NOT EVER CHANGE
 				if (whitelist.indexOf(origin!) !== -1 || process.env.NODE_ENV !== "production") {
 					//|| process.env.NODE_ENV !== "production" - allows gql code gen
-					console.log(`😃 origin "${origin}" in the whitelist`);
+					//console.log(`😃 origin "${origin}" in the whitelist`);
 
 					callback(null, true);
 				} else {
 					let ori: string = origin;
 					if ((ori.startsWith("https://deveelo-") && ori.endsWith("-treixatek.vercel.app")) || (ori.startsWith("deveelo-") && ori.endsWith("-treixatek.vercel.app"))) {
 						//these are vercel preview builds
-						console.log("📜 Exception allowed for origin " + origin);
+						//console.log("📜 Exception allowed for origin " + origin);
 
 						callback(null, true);
 					} else {
-						console.log("😡 Blocked origin " + origin);
+						//console.log("😡 Blocked origin " + origin);
 
 						callback(new Error("Not allowed by CORS"));
 					}
