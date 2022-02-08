@@ -19,44 +19,48 @@ const User_1 = __importDefault(require("./models/User"));
 const auth_1 = require("./util/auth");
 const initServer = async () => {
     const app = express_1.default();
-    app.set("trust proxy", process.env.NODE_ENV !== "production");
     const whitelist = process.env.NODE_ENV === "production" ? ["https://www.deveelo.com", "https://next.deveelo.com", "https://deveelo.vercel.app"] : ["http://localhost:3000"];
-    app.use(cors_1.default({
-        origin: function (origin, callback) {
-            if (whitelist.indexOf(origin) !== -1 || process.env.NODE_ENV !== "production") {
-                callback(null, true);
-            }
-            else {
-                let ori = origin;
-                if ((ori.startsWith("https://deveelo-") && ori.endsWith("-treixatek.vercel.app")) || (ori.startsWith("deveelo-") && ori.endsWith("-treixatek.vercel.app"))) {
+    const corsDefault = function (callback) {
+        var corsOptions = {
+            origin: function (origin, callback) {
+                console.log("Attempt to connect w/ origin " + origin);
+                if (!origin) {
+                    console.log("😡 Blocked origin " + origin);
+                    callback(new Error("Not allowed by CORS"));
+                }
+                if (whitelist.indexOf(origin) !== -1 || process.env.NODE_ENV !== "production") {
+                    console.log(`😃 origin "${origin}" in the whitelist`);
                     callback(null, true);
                 }
                 else {
-                    callback(new Error("Not allowed by CORS"));
+                    let ori = origin;
+                    if ((ori.startsWith("https://deveelo-") && ori.endsWith("-treixatek.vercel.app")) || (ori.startsWith("deveelo-") && ori.endsWith("-treixatek.vercel.app"))) {
+                        console.log("📜 Exception allowed for origin " + origin);
+                        callback(null, true);
+                    }
+                    else {
+                        console.log("😡 Blocked origin " + origin);
+                        callback(new Error("Not allowed by CORS"));
+                    }
                 }
-            }
-        },
-        credentials: true,
-    }));
+            },
+            credentials: true,
+        };
+        callback(null, corsOptions);
+    };
+    const corsAllowUndefined = function (req, callback) {
+        var corsOptions;
+        if (req.header("Origin") === undefined) {
+            corsOptions = { origin: true };
+        }
+        else {
+            corsOptions = { origin: false };
+        }
+        callback(null, corsOptions);
+    };
     app.use(cookie_parser_1.default());
-    app.get("/", (_req, res) => res.send("hello"));
-    app.get("/test", async (_req, res) => {
-        res.send([
-            {
-                userId: 1,
-                id: 1,
-                title: "sunt aut facere repellat provident occaecati excepturi optio reprehenderit",
-                body: "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto",
-            },
-            {
-                userId: 1,
-                id: 2,
-                title: "qui est esse",
-                body: "est rerum tempore vitae\nsequi sint nihil reprehenderit dolor beatae ea dolores neque\nfugiat blanditiis voluptate porro vel nihil molestiae ut reiciendis\nqui aperiam non debitis possimus qui neque nisi nulla",
-            },
-        ]);
-    });
-    app.get("/users", async (_req, res) => {
+    app.get("/", cors_1.default(corsDefault), (_req, res) => res.send("hello"));
+    app.get("/users", cors_1.default(corsAllowUndefined), async (_req, res) => {
         try {
             const results = await User_1.default.aggregate([
                 {
@@ -84,7 +88,7 @@ const initServer = async () => {
         }
         return res.send([]);
     });
-    app.get("/search", async (req, res) => {
+    app.get("/search", cors_1.default(corsAllowUndefined), async (req, res) => {
         if (req.query.name) {
             try {
                 const results = await User_1.default.aggregate([
@@ -135,7 +139,8 @@ const initServer = async () => {
         }
         return res.send([]);
     });
-    app.post("/refresh_token", async (req, res) => {
+    app.all("/graphql", cors_1.default(corsDefault));
+    app.post("/refresh_token", cors_1.default(corsDefault), async (req, res) => {
         const token = req.cookies.lid;
         if (!token) {
             return res.send({ ok: false, accessToken: "" });
