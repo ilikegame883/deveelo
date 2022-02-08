@@ -44,6 +44,31 @@ const userResolvers = {
 
 			return user as UserType;
 		},
+		async allUsers(_parent: any, _args: any, _context: Context): Promise<UserType[]> {
+			try {
+				const results = await User.aggregate([
+					{
+						$match: { "account.private": { $eq: false } },
+					},
+					{
+						$project: {
+							_id: 0,
+							"account.password": 0,
+							"account.email": 0,
+							"account.blockedIds": 0,
+							"account.tokenVersion": 0,
+							"account.pro": 0,
+							"account.short": 0,
+							profile: 0,
+							social: 0,
+						},
+					},
+				]);
+				return results;
+			} catch (error) {
+				throw new Error(error);
+			}
+		},
 	},
 	Mutation: {
 		async login(_: any, { input, password }: { input: string; password: string }, context: Context) {
