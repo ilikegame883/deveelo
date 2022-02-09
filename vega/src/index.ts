@@ -105,6 +105,40 @@ const initServer = async () => {
 		return res.send([]);
 	});
 
+	//find user fields for social share meta tags
+	app.get("/og", cors(corsAllowUndefined), async (req, res) => {
+		if (!req.query.tag) {
+			return res.send(null);
+		}
+
+		const tag = req.query.tag;
+		const user = await User.aggregate([
+			{
+				$match: { "account.tag": { $eq: tag } },
+			},
+			{
+				$project: {
+					_id: 0,
+					"account.password": 0,
+					"account.email": 0,
+					"account.blockedIds": 0,
+					"account.tokenVersion": 0,
+					"account.pro": 0,
+					"account.short": 0,
+					"profile.friendIds": 0,
+					"profile.friendRqIds": 0,
+					"profile.badges": 0,
+					"profile.linkedProfiles": 0,
+					"social.groupIds": 0,
+					"social.betaIds": 0,
+					"social.chatIds": 0,
+				},
+			},
+		]);
+
+		return res.send(user[0]);
+	});
+
 	//searchbar
 	app.get("/search", cors(corsAllowUndefined), async (req, res) => {
 		if (req.query.name) {

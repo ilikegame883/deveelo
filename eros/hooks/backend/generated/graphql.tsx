@@ -133,7 +133,7 @@ export type FindMinProfileByTagQueryVariables = Exact<{
 }>;
 
 
-export type FindMinProfileByTagQuery = { __typename?: 'Query', findUserByTag: { __typename?: 'User', _id: string, status: string, account: { __typename?: 'U_Account', username: string, tag: string, private: boolean }, profile: { __typename?: 'U_Profile', bannerUrl: string, pictureUrl: string, description: string, followingIds: Array<Maybe<string>>, followerIds: Array<Maybe<string>>, badges: Array<Maybe<string>>, linkedProfiles: Array<Maybe<string>> } } };
+export type FindMinProfileByTagQuery = { __typename?: 'Query', findUserByTag: { __typename?: 'User', _id: string, status: string, account: { __typename?: 'U_Account', username: string, tag: string, private: boolean }, profile: { __typename?: 'U_Profile', bannerUrl: string, pictureUrl: string, description: string, followingIds: Array<Maybe<string>>, followerIds: Array<Maybe<string>>, badges: Array<Maybe<string>>, linkedProfiles: Array<Maybe<string>> }, social: { __typename?: 'U_Social', postIds: Array<Maybe<string>>, blogIds: Array<Maybe<string>> } } };
 
 export type LoginMutationVariables = Exact<{
   loginInput: Scalars['String'];
@@ -262,6 +262,10 @@ export const FindMinProfileByTagDocument = gql`
       followerIds
       badges
       linkedProfiles
+    }
+    social {
+      postIds
+      blogIds
     }
     status
   }

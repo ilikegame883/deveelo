@@ -222,7 +222,6 @@ const Layout = ({ children, route, showSidebar, showActivityBar, showNav, useWid
 
 	return (
 		<>
-			<Meta />
 			{luna ? <TitlebarButtons /> : null}
 			<div>{content}</div>
 		</>

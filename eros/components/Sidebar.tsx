@@ -20,9 +20,6 @@ const Sidebar = ({ hardEdge }: sidebarProps) => {
 
 	let user: any = null;
 
-	const storage = window.localStorage;
-	const uTag = storage.getItem("side_prof");
-
 	const loadingSidebar = (
 		<div className={hardEdge ? sidebarStyles.sidebar_full : sidebarStyles.sidebar}>
 			{/*Banner*/}
@@ -33,6 +30,13 @@ const Sidebar = ({ hardEdge }: sidebarProps) => {
 			</div>
 		</div>
 	);
+
+	if (!window) {
+		return loadingSidebar;
+	}
+
+	const storage = window.localStorage;
+	const uTag = storage.getItem("side_prof");
 
 	let buttons: any = null;
 	if (uTag !== null && uTag !== "") {
