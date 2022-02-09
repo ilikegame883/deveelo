@@ -47,7 +47,12 @@ function MyApp({ Component, pageProps }: AppProps) {
 					<div className="loading"></div>
 					<h1 className="delayed">Deveelo</h1>
 				</div>
-				{dynamicRoutes.includes(currPage) ? null : <Component {...pageProps} />}
+
+				{dynamicRoutes.includes(currPage) ? null : (
+					<ApolloProvider client={apolloClient}>
+						<Component {...pageProps} />
+					</ApolloProvider>
+				)}
 			</>
 		);
 	}
