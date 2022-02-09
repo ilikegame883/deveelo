@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useRouter } from "next/router";
 import { setSideBarByTag } from "../hooks/setSidebar";
 import Meta from "../components/micro/Meta";
@@ -13,7 +13,9 @@ const ProfilePage = (props) => {
 	// 	},
 	// });
 
-	setSideBarByTag(tag as string);
+	useEffect(() => {
+		setSideBarByTag(tag as string);
+	}, []);
 
 	// if (loading && !data) {
 	// 	return null;
