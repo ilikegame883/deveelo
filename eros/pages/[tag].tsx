@@ -2,7 +2,6 @@ import React from "react";
 import { useRouter } from "next/router";
 import { setSideBarByTag } from "../hooks/setSidebar";
 import Meta from "../components/micro/Meta";
-import { useFindMinProfileByTagQuery } from "../hooks/backend/generated/graphql";
 
 const ProfilePage = (props) => {
 	const router = useRouter();
@@ -45,7 +44,7 @@ export async function getServerSideProps({ req, _res }) {
 	const tag = req.url.substring(1);
 
 	try {
-		const request = await fetch(`http://localhost:4000/og?tag=${tag}`, { mode: "cors" });
+		const request = await fetch(`https://vega-deployment.herokuapp.com/og?tag=${tag}`, { mode: "cors" });
 		const user = await request.json();
 
 		return {
