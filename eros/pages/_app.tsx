@@ -14,7 +14,7 @@ import isLuna from "../hooks/isLuna";
 
 const twoColRoutes = ["/login", "/register"];
 //use no queries or fetches
-const noDynamicRoutes = ["/"];
+const dynamicRoutes = ["/settings/account"];
 
 function MyApp({ Component, pageProps }: AppProps) {
 	const apolloClient = useApollo(pageProps.initialApolloState);
@@ -47,7 +47,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 					<div className="loading"></div>
 					<h1 className="delayed">Deveelo</h1>
 				</div>
-				{noDynamicRoutes.includes(currPage) ? <Component {...pageProps} /> : null}
+				{dynamicRoutes.includes(currPage) ? null : <Component {...pageProps} />}
 			</>
 		);
 	}
