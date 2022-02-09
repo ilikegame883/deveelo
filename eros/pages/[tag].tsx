@@ -17,7 +17,7 @@ const ProfilePage = () => {
 	setSideBarByTag(tag as string);
 
 	if (loading && !data) {
-		return <Meta title="" description="" />;
+		return null;
 	} else if (error) {
 		return null;
 	}
@@ -27,17 +27,12 @@ const ProfilePage = () => {
 	const followers = user.profile.followerIds.length;
 	const following = user.profile.followingIds.length;
 
-	//handle pfp
-	const rawUrl = user.profile.pictureUrl;
-	const local = rawUrl.startsWith("/");
-	const processedUrl = local ? `https://www.deveelo.com${rawUrl}` : rawUrl;
-
 	return (
 		<Meta
 			title={`${user.account.username} | @${user.account.tag} on Deveelo`}
 			description={`${data.findUserByTag.profile.description} — ${postCount} posts | ${blogCount} devlogs | ${followers} followers | ${following} following`}
 			url={`https://www.deveelo.com/${tag}`}
-			image={processedUrl}
+			image={user.profile.pictureUrl}
 		/>
 	);
 };
