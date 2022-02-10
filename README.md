@@ -100,7 +100,6 @@ This project follows the [Semantic Versioning 2.0](https://semver.org/) standard
 </details>
 
 ### 🛤️ Roadmap
-- [x] Loading user profile
 - [x] Desktop app
 - [x] Loading splashscreen
 - [x] Profile pages
@@ -109,6 +108,7 @@ This project follows the [Semantic Versioning 2.0](https://semver.org/) standard
 - [ ] Searchbar
 - [x] Handle token expiration & logouts
 - [ ] Auto Updater
+- [ ] Luna v1-alpha Release
 - [ ] Posting
 - [ ] Follow & friending
 <!-- - [ ] Populate Sidebar Discovery -->
