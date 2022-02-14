@@ -1,6 +1,6 @@
 import Head from "next/head";
 
-const Meta = ({ title, keywords, description, url, image, showBanner }) => {
+const Meta = ({ title, keywords, description, url, image, showBanner, color }) => {
 	return (
 		<Head>
 			<meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -21,7 +21,7 @@ const Meta = ({ title, keywords, description, url, image, showBanner }) => {
 			<meta property="og:title" content={title}></meta>
 			<meta property="og:url" content={url}></meta>
 			<meta property="og:description" content={description}></meta>
-			<meta content="#f54278" data-react-helmet="true" name="theme-color" />
+			<meta content={color} data-react-helmet="true" name="theme-color" />
 			{showBanner ? <meta name="twitter:card" content="summary_large_image" /> : null}
 		</Head>
 	);
@@ -34,6 +34,7 @@ Meta.defaultProps = {
 	url: "https://www.deveelo.com",
 	image: "/embedlogo.png",
 	showBanner: false,
+	color: "#f5ce42",
 };
 
 export default Meta;
