@@ -21,7 +21,7 @@ const Meta = ({ title, keywords, description, url, image, showBanner }) => {
 			<meta property="og:title" content={title}></meta>
 			<meta property="og:url" content={url}></meta>
 			<meta property="og:description" content={description}></meta>
-			<meta content="#f5ce42" data-react-helmet="true" name="theme-color" />
+			<meta content="#f54278" data-react-helmet="true" name="theme-color" />
 			{showBanner ? <meta name="twitter:card" content="summary_large_image" /> : null}
 		</Head>
 	);
