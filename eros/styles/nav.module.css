@@ -116,9 +116,9 @@
 
 .rightWrapper {
   display: flex;
-  justify-content: center;
-  align-items: flex-end;
-  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  flex-direction: row;
   width: 100%;
   height: inherit;
 
@@ -170,6 +170,11 @@
 
   width: 11rem;
   height: 3rem;
+}
+
+.iconsWrapper {
+  display: flex;
+  column-gap: 1.031em;
 }
 
 /* MENUBAR - LUNA ONLY */

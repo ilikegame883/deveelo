@@ -6,6 +6,7 @@ import TextButton from "./micro/TextButton";
 import navStyles from "../styles/nav.module.css";
 import isLuna from "../hooks/isLuna";
 import { useMyNameAndPfpQuery } from "../hooks/backend/generated/graphql";
+import IconButton from "./micro/IconButton";
 
 interface navProps {
 	sidebarSpacing: boolean;
@@ -41,6 +42,11 @@ const Nav = ({ sidebarSpacing, loggedIn }: navProps) => {
 		if (user) {
 			profile = (
 				<div className={navStyles.rightWrapper}>
+					{/* Theme & Notif Buttons */}
+					<div className={navStyles.iconsWrapper}>
+						<IconButton src="/resources/moon.svg" width="2.25em" height="2.25em" paddingTB={0.1875} paddingLR={0.1875} />
+						<IconButton src="/resources/bell.svg" width="2.25em" height="2.25em" paddingTB={0.1875} paddingLR={0.1875} />
+					</div>
 					<div className={navStyles.profile}>
 						<p className={navStyles.name}>{user.account.username}</p>
 						<div className={navStyles.pfpContainer}>
