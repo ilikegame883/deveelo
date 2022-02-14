@@ -63,11 +63,17 @@ const initServer = async () => {
 		var corsOptions;
 		if (req.header("Origin") === undefined) {
 			corsOptions = { origin: true };
+
 			//allow through
 		} else {
 			corsOptions = { origin: false };
 			//block
 		}
+		callback(null, corsOptions); // callback expects two parameters: error and options
+	};
+
+	const corsAllowAll = function (_req: any, callback: any) {
+		var corsOptions = { origin: true };
 		callback(null, corsOptions); // callback expects two parameters: error and options
 	};
 
@@ -140,7 +146,7 @@ const initServer = async () => {
 	});
 
 	//searchbar
-	app.get("/search", cors(corsAllowUndefined), async (req, res) => {
+	app.get("/search", cors(corsAllowAll), async (req, res) => {
 		if (req.query.name) {
 			try {
 				const results = await User.aggregate([

@@ -53,6 +53,10 @@ const initServer = async () => {
         }
         callback(null, corsOptions);
     };
+    const corsAllowAll = function (_req, callback) {
+        var corsOptions = { origin: true };
+        callback(null, corsOptions);
+    };
     app.use(cookie_parser_1.default());
     app.get("/", cors_1.default(corsDefault), (_req, res) => res.send("hello"));
     app.get("/users", cors_1.default(corsAllowUndefined), async (_req, res) => {
@@ -113,7 +117,7 @@ const initServer = async () => {
         ]);
         return res.send(user[0]);
     });
-    app.get("/search", cors_1.default(corsAllowUndefined), async (req, res) => {
+    app.get("/search", cors_1.default(corsAllowAll), async (req, res) => {
         if (req.query.name) {
             try {
                 const results = await User_1.default.aggregate([

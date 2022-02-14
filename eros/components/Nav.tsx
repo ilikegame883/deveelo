@@ -5,6 +5,7 @@ import navStyles from "../styles/nav.module.css";
 import isLuna from "../hooks/isLuna";
 import { useMyNameAndPfpQuery } from "../hooks/backend/generated/graphql";
 import sizeStyle from "../lib/sizeStyle";
+import Searchbar from "./minor/Searchbar";
 
 interface navProps {
 	sidebarSpacing: boolean;
@@ -41,6 +42,7 @@ const Nav = ({ sidebarSpacing, loggedIn }: navProps) => {
 			profile = (
 				<div className={navStyles.rightWrapper}>
 					{/* Theme & Notif Buttons */}
+					<Searchbar />
 					<div className={navStyles.iconsWrapper}>
 						<IconButton src="/resources/moon.svg" width="2.25em" height="2.25em" paddingTB={0.1875} paddingLR={0.1875} />
 						<IconButton src="/resources/bell.svg" width="2.25em" height="2.25em" paddingTB={0.1875} paddingLR={0.1875} />
