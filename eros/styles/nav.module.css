@@ -87,29 +87,17 @@
   width: fit-content;
 }
 
-/* LEFT: NAME TEXT AREA */
-
-.boldTitle {
-  font-weight: 700;
-  font-size: 2.34rem;
-  width: fit-content;
-  height: 2.3125rem;
-  display: flex;
-  align-items: center;
-  line-height: 2.3125rem;
-  margin-top: .2rem;
-}
+/* LEFT: LOGO AREA */
 
 .wrapper {
-  position: relative;
-  top: .3rem;
   display: flex;
   justify-content: center;
   flex-direction: column;
   
   height: 60%;
   width: fit-content;
-  margin-left: 3rem;
+  margin-top: 1px;
+  margin-left: 1.968rem;
 }
 
 /* RIGHT: MAIN CONTENT */
@@ -122,7 +110,7 @@
   width: 100%;
   height: inherit;
 
-  margin-left: 1.875rem;
+  margin-left: 3.75rem;
   padding-right: 2.141rem;
 
   /* border: 2px solid rgb(0, 140, 255); */

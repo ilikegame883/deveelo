@@ -1,12 +1,10 @@
-import Link from "next/link";
-
-import TitleMenu from "./minor/TitleMenu";
 import ProfilePicture from "./micro/ProfilePicture";
 import TextButton from "./micro/TextButton";
+import IconButton from "./micro/IconButton";
 import navStyles from "../styles/nav.module.css";
 import isLuna from "../hooks/isLuna";
 import { useMyNameAndPfpQuery } from "../hooks/backend/generated/graphql";
-import IconButton from "./micro/IconButton";
+import sizeStyle from "../lib/sizeStyle";
 
 interface navProps {
 	sidebarSpacing: boolean;
@@ -62,12 +60,9 @@ const Nav = ({ sidebarSpacing, loggedIn }: navProps) => {
 		<nav className={sidebarSpacing ? (isLuna() ? navStyles.nav : navStyles.nav_full) : isLuna() ? navStyles.navNoSpace : navStyles.navNoSpace_full}>
 			{/* the name & app version */}
 			<div className={navStyles.wrapper}>
-				{isLuna() ? <TitleMenu /> : null}
-				<ul>
-					<li className={navStyles.boldTitle}>
-						<Link href="/">Deveelo</Link>
-					</li>
-				</ul>
+				<a href="/">
+					<img style={sizeStyle(3.187, 3.187)} src="/resources/logo.svg" alt="Deveelo" />
+				</a>
 			</div>
 			{profile}
 		</nav>
