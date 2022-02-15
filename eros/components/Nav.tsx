@@ -19,6 +19,7 @@ const Nav = ({ sidebarSpacing, loggedIn }: navProps) => {
 		// handle logged out users
 		profile = (
 			<div className={navStyles.rightWrapper}>
+				<Searchbar />
 				<div className={navStyles.buttonWrapper}>
 					<TextButton colorKey="gold" text="Login" action="/login" />
 				</div>
