@@ -1,11 +1,11 @@
 import ProfilePicture from "./micro/ProfilePicture";
 import TextButton from "./micro/TextButton";
 import IconButton from "./micro/IconButton";
+import Searchbar from "./minor/Searchbar";
 import navStyles from "../styles/nav.module.css";
 import isLuna from "../hooks/isLuna";
 import { useMyNameAndPfpQuery } from "../hooks/backend/generated/graphql";
 import sizeStyle from "../lib/sizeStyle";
-import Searchbar from "./minor/Searchbar";
 
 interface navProps {
 	sidebarSpacing: boolean;

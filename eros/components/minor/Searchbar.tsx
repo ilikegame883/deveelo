@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
 import { useState } from "react";
 
+import searchStyles from "../../styles/minor/search.module.css";
 import { searchUsers } from "../../hooks/endpoints";
 
 const Searchbar = () => {
@@ -17,8 +18,8 @@ const Searchbar = () => {
 	};
 
 	return (
-		<div>
-			<input type="text" placeholder={placeholder} onChange={(e) => handleChange(e.target.value)} />
+		<div className={searchStyles.fillBar}>
+			<input className={searchStyles.fillBar} type="text" placeholder={placeholder} onChange={(e) => handleChange(e.target.value)} />
 		</div>
 	);
 };
