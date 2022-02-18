@@ -16,6 +16,16 @@
 .fillBar {
     width: inherit;
     height: inherit;
+    
+    /* Text Styling */
+    font-family: Heebo;
+    font-style: normal;
+    font-weight: normal;
+    display: flex;
+    align-items: center;
+    font-size: 1.406rem;
+    line-height: 2.063rem;
+    color: var(--textNormalCol);
 
     background-color: var(--searchGray);
     box-shadow: inset 4px 4px 20px -9px rgba(30, 50, 90, 0.04);
@@ -25,6 +35,10 @@
 
 .fillBar:focus {
     outline: none;
+}
+
+.fillBar::placeholder {
+    color: var(--midLightGray);
 }
 
 .icon {
