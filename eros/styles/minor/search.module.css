@@ -23,6 +23,10 @@
     border: 0;
 }
 
+.fillBar:focus {
+    outline: none;
+}
+
 .icon {
     width: 1.875rem;
     height: 1.875rem;
