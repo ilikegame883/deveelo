@@ -6,7 +6,8 @@
   --midFadeGray: #7688AB; /*profile tag*/
   --midLightGray: #99AAC3;
   --sidebarBackground: #F9F9F9; /*& main feed*/
-  --searchbarGray: #EDF1F8;
+  --searchbarGray: #EDF1F8; /* navbar */
+  --searchGray: #F8FAFC; /* background of searchbar */
 
   /*status indicators*/
   --online: #2ED9A6;

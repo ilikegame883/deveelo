@@ -18,7 +18,8 @@ const Searchbar = () => {
 	};
 
 	return (
-		<div className={searchStyles.fillBar}>
+		<div className={searchStyles.wrapperL}>
+			<img className={searchStyles.icon} src="/resources/mag.svg" alt="search" />
 			<input className={searchStyles.fillBar} type="text" placeholder={placeholder} onChange={(e) => handleChange(e.target.value)} />
 		</div>
 	);
