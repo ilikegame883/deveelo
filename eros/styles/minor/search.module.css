@@ -7,7 +7,7 @@
     align-items: center;
 
     background-color: var(--searchGray);
-    box-shadow: inset 4px 4px 20px -9px rgba(30, 50, 90, 0.04);
+    box-shadow: inset .375rem .375rem 1.875rem -.844rem rgba(30, 50, 90, 0.04);
 
     border: 0;
     border-radius: .94rem;
@@ -27,8 +27,7 @@
     line-height: 2.063rem;
     color: var(--textNormalCol);
 
-    background-color: var(--searchGray);
-    box-shadow: inset 4px 4px 20px -9px rgba(30, 50, 90, 0.04);
+    background-color: transparent;
 
     border: 0;
 }
