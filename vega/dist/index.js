@@ -155,7 +155,6 @@ const initServer = async () => {
                             "account.short": 0,
                             "profile.followingIds": 0,
                             "profile.followerIds": 0,
-                            "profile.badges": 0,
                             "profile.description": 0,
                             "profile.friendIds": 0,
                             "profile.friendRqIds": 0,
