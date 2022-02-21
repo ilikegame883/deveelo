@@ -1,6 +1,5 @@
 //the user data publicly availiable through server routes, no sensitive data
 export interface PublicUserType {
-	_id: string;
 	account: {
 		tag: string;
 		username: string;
@@ -12,7 +11,6 @@ export interface PublicUserType {
 }
 
 export interface SearchUserType {
-	_id: string;
 	account: {
 		tag: string;
 		username: string;
@@ -22,6 +20,7 @@ export interface SearchUserType {
 	};
 	profile: {
 		pictureUrl: string;
+		badges: string[];
 	};
 	status: "online" | "idle" | "dnd" | "offline";
 }
