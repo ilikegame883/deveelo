@@ -10,3 +10,18 @@ export interface PublicUserType {
 	};
 	status: "online" | "idle" | "dnd" | "offline";
 }
+
+export interface SearchUserType {
+	_id: string;
+	account: {
+		tag: string;
+		username: string;
+		createdAt: string;
+		lastOnline: string;
+		private: boolean;
+	};
+	profile: {
+		pictureUrl: string;
+	};
+	status: "online" | "idle" | "dnd" | "offline";
+}
