@@ -37,6 +37,13 @@ const userResolvers = {
             }
             return user;
         },
+        async randomUsers(_parent, { count }, _context) {
+            const users = await sampleUsers_1.getRandomUsers(count);
+            if (!users) {
+                throw new Error("Error sampling users");
+            }
+            return users;
+        },
         async allUsers(_parent, _args, _context) {
             try {
                 const results = await User_1.default.aggregate([

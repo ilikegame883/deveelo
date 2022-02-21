@@ -24,19 +24,15 @@ const initServer = async () => {
     const corsDefault = function (_req, callback) {
         var corsOptions = {
             origin: function (origin, callback) {
-                console.log(process.env.NODE_ENV);
                 if (!origin && process.env.NODE_ENV === "production") {
-                    console.log("😡 Blocked origin " + origin);
                     callback(new Error("Not allowed by CORS"));
                 }
                 if (whitelist.indexOf(origin) !== -1 || process.env.NODE_ENV !== "production") {
-                    console.log(`😃 origin "${origin}" in the whitelist`);
                     callback(null, true);
                 }
                 else {
                     let ori = origin;
                     if (ori.startsWith("https://deveelo-") && ori.endsWith("-treixatek.vercel.app")) {
-                        console.log("📜 Exception allowed for origin " + origin);
                         callback(null, true);
                     }
                     else {

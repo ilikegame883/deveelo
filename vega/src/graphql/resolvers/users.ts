@@ -7,7 +7,7 @@ import User, { UserType } from "../../models/User";
 import Context from "../../context";
 import { createAccessToken, createRefreshToken, sendRefreshToken } from "../../util/auth";
 import { Document } from "mongoose";
-import { getRandomUser } from "../../hooks/sampleUsers";
+import { getRandomUser, getRandomUsers } from "../../hooks/sampleUsers";
 
 const successfulLoginHandler = (user: UserType | Document<any, any, any>, { res }: Context): string => {
 	sendRefreshToken(res, createRefreshToken(user as UserType));
@@ -43,6 +43,15 @@ const userResolvers = {
 			}
 
 			return user as UserType;
+		},
+		async randomUsers(_parent: any, { count }: { count: number }, _context: Context): Promise<UserType[]> {
+			const users = await getRandomUsers(count);
+
+			if (!users) {
+				throw new Error("Error sampling users");
+			}
+
+			return users;
 		},
 		async allUsers(_parent: any, _args: any, _context: Context): Promise<UserType[]> {
 			try {
