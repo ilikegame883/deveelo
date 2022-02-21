@@ -14,6 +14,7 @@ const SearchResults = ({ users, devlogs, groups, betas }: ResultProps) => {
 	if (!users) return <div />;
 	if (users.length === 0) return <div />;
 
+	// in progress
 	return (
 		<div className={searchStyles.dropdown}>
 			<div className={searchStyles.row}>{showRes ? users.map((user) => <Result account={user.account} profile={user.profile} status={user.status} />) : null}</div>

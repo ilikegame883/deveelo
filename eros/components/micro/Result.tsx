@@ -4,12 +4,25 @@ import NameGroup from "./NameGroup";
 import ProfilePicture from "./ProfilePicture";
 
 const Result = ({ account, profile, status }: SearchUserType) => {
+	/*
+      ______ todo _______
+    /                    \
+     +  Structure & layout
+     +  Text styling
+     -  Header
+     -  Hover effect
+     -  Click -> profile
+    \____________________/
+    */
 	return (
-		<div>
+		<div className={searchStyles.personCard}>
 			<div className={searchStyles.resPic}>
 				<ProfilePicture size="w28" source={profile.pictureUrl} status={status} />
 			</div>
-			<NameGroup username={account.username} size={1} showBadges={true} badges={profile.badges} />
+			<div className={searchStyles.nameTagGroup}>
+				<NameGroup username={account.username} size={6} showBadges={true} badges={profile.badges} />
+				<p className={searchStyles.tag}>@{account.tag}</p>
+			</div>
 		</div>
 	);
 };

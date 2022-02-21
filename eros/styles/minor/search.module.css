@@ -75,3 +75,35 @@
     height: fit-content;
     margin-right: .563rem;
 }
+
+/* note  RESULT CARDS */
+.personCard {
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: .469rem .938rem;
+
+}
+
+.nameTagGroup {
+    width: fit-content;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: .188rem 0;
+}
+
+.tag {
+    display: flex;
+    align-items: center;
+
+    color: var(--midLightGray);
+    font-weight: normal;
+    font-size: .938rem;
+    line-height: 1.406rem;
+
+    margin: 0;
+}
