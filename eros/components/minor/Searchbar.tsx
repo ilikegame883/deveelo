@@ -10,18 +10,30 @@ const Searchbar = () => {
 	const placeholder = inGroup ? "Search <groupname>" : "Search for posts, people, or groups";
 
 	const [users, setUsers] = useState([]);
+	//const [entered, setEntered] = useState(false);
 
 	const handleChange = async (str: string) => {
 		const data = await searchUsers(str);
 		setUsers(data);
-		console.log(data);
 	};
 
 	return (
-		<div className={searchStyles.wrapperL}>
+		<form
+			className={searchStyles.wrapperL}
+			onSubmit={(e) => {
+				//stop automatic reload
+				e.preventDefault();
+
+				if (users.length > 0) {
+					const route = "/" + users[0].account.tag;
+					console.log(`route: "${route}"`);
+
+					window.location.assign(route);
+				}
+			}}>
 			<img className={searchStyles.icon} src="/resources/mag.svg" alt="search" />
 			<input className={searchStyles.fillBar} type="text" placeholder={placeholder} onChange={(e) => handleChange(e.target.value)} />
-		</div>
+		</form>
 	);
 };
 
