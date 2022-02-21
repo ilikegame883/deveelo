@@ -25,6 +25,12 @@ const NameGroup = ({ username, size, showBadges, badges }: nameGroupParams) => {
 			fontStyle = nameStyles.p_largeText;
 			badgeStyle = nameStyles.v_largeBadge;
 			break;
+		case 6:
+			//Search results
+			style = nameStyles.p_large;
+			fontStyle = nameStyles.p_searchText;
+			badgeStyle = nameStyles.v_largeBadge;
+			break;
 		default:
 			style = nameStyles;
 			fontStyle = nameStyles;
