@@ -125,13 +125,15 @@
 
   /* background-color: khaki; */
 
-  width: 16.984rem;
+  width: fit-content;
   height: 3.75rem;
 }
 
 .name {
   overflow: hidden;
-  width: 12.187rem;
+  width: fit-content;
+  min-width: 10.5rem;
+  max-width: 12rem;
   height: 2.344rem;
 
   font-family: Heebo;
