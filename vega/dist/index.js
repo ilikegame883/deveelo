@@ -19,22 +19,28 @@ const User_1 = __importDefault(require("./models/User"));
 const auth_1 = require("./util/auth");
 const initServer = async () => {
     const app = express_1.default();
+    app.set("trust proxy", process.env.NODE_ENV !== "production");
     const whitelist = process.env.NODE_ENV === "production" ? ["https://www.deveelo.com", "https://next.deveelo.com", "https://deveelo.vercel.app"] : ["http://localhost:3000"];
     const corsDefault = function (_req, callback) {
         var corsOptions = {
             origin: function (origin, callback) {
-                if (!origin) {
+                console.log(process.env.NODE_ENV);
+                if (!origin && process.env.NODE_ENV === "production") {
+                    console.log("😡 Blocked origin " + origin);
                     callback(new Error("Not allowed by CORS"));
                 }
                 if (whitelist.indexOf(origin) !== -1 || process.env.NODE_ENV !== "production") {
+                    console.log(`😃 origin "${origin}" in the whitelist`);
                     callback(null, true);
                 }
                 else {
                     let ori = origin;
                     if (ori.startsWith("https://deveelo-") && ori.endsWith("-treixatek.vercel.app")) {
+                        console.log("📜 Exception allowed for origin " + origin);
                         callback(null, true);
                     }
                     else {
+                        console.log("😡 Blocked origin " + origin);
                         callback(new Error("Not allowed by CORS"));
                     }
                 }

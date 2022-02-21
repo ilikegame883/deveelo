@@ -17,7 +17,7 @@ import { createAccessToken, createRefreshToken, sendRefreshToken } from "./util/
 // development  change mongodb user password & access
 const initServer = async () => {
 	const app = express();
-	// app.set("trust proxy", process.env.NODE_ENV !== "production");
+	app.set("trust proxy", process.env.NODE_ENV !== "production");
 
 	const whitelist = process.env.NODE_ENV === "production" ? ["https://www.deveelo.com", "https://next.deveelo.com", "https://deveelo.vercel.app"] : ["http://localhost:3000"];
 
@@ -26,8 +26,10 @@ const initServer = async () => {
 		var corsOptions = {
 			origin: function (origin: any, callback: any) {
 				//console.log("Attempt to connect w/ origin " + origin);
-				if (!origin) {
-					//console.log("😡 Blocked origin " + origin);
+				console.log(process.env.NODE_ENV);
+
+				if (!origin && process.env.NODE_ENV === "production") {
+					console.log("😡 Blocked origin " + origin);
 
 					callback(new Error("Not allowed by CORS"));
 				}
@@ -35,18 +37,18 @@ const initServer = async () => {
 				//DO NOT EVER CHANGE
 				if (whitelist.indexOf(origin!) !== -1 || process.env.NODE_ENV !== "production") {
 					//|| process.env.NODE_ENV !== "production" - allows gql code gen
-					//console.log(`😃 origin "${origin}" in the whitelist`);
+					console.log(`😃 origin "${origin}" in the whitelist`);
 
 					callback(null, true);
 				} else {
 					let ori: string = origin;
 					if (ori.startsWith("https://deveelo-") && ori.endsWith("-treixatek.vercel.app")) {
 						//these are vercel preview builds
-						//console.log("📜 Exception allowed for origin " + origin);
+						console.log("📜 Exception allowed for origin " + origin);
 
 						callback(null, true);
 					} else {
-						//console.log("😡 Blocked origin " + origin);
+						console.log("😡 Blocked origin " + origin);
 
 						callback(new Error("Not allowed by CORS"));
 					}
