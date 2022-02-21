@@ -51,7 +51,20 @@ button {
   transition: .2s ease;
 }
 
+/* SIMPLE CLASSES */
+.rows {
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+/* SIMPLE BUTTON */
+
 .simpleButton {
+  height: fit-content;
+  width: fit-content;
   background-color: transparent;
   padding: 0;
   margin: 0;
