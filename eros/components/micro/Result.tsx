@@ -20,7 +20,7 @@ const Result = ({ account, profile, status }: SearchUserType) => {
     \____________________/
     */
 	return (
-		<button className={searchStyles.personCard} onClick={() => router.push(`/${account.tag}`)}>
+		<button className={searchStyles.personCard} onClick={() => window.location.assign(`/${account.tag}`)}>
 			<div className={searchStyles.resPic}>
 				<ProfilePicture size="w28" source={profile.pictureUrl} status={status} />
 			</div>

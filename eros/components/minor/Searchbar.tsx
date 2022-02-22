@@ -34,14 +34,7 @@ const Searchbar = () => {
 					}
 				}}>
 				<img className={searchStyles.icon} src="/resources/mag.svg" alt="search" />
-				<input
-					className={searchStyles.fillBar}
-					type="text"
-					placeholder={placeholder}
-					onChange={(e) => handleChange(e.target.value)}
-					onFocus={() => setShowResults(true)}
-					onBlur={() => setShowResults(false)}
-				/>
+				<input className={searchStyles.fillBar} type="text" placeholder={placeholder} onChange={(e) => handleChange(e.target.value)} onFocus={() => setShowResults(true)} />
 			</form>
 			{showResults ? <SearchResults users={users} devlogs={[]} groups={[]} betas={[]} /> : null}
 		</div>
