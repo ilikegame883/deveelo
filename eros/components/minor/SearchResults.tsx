@@ -8,9 +8,10 @@ interface ResultProps {
 	devlogs: any[];
 	groups: any[];
 	betas: any[];
+	fadeout: boolean;
 }
 
-const SearchResults = ({ users, devlogs, groups, betas }: ResultProps) => {
+const SearchResults = ({ users, devlogs, groups, betas, fadeout }: ResultProps) => {
 	const showRes = users !== undefined;
 
 	let preview = !users;
@@ -42,12 +43,14 @@ const SearchResults = ({ users, devlogs, groups, betas }: ResultProps) => {
 
 	// in progress
 	return (
-		<div className={searchStyles.dropdown}>
-			<div className={searchStyles.row}>
-				<p className={searchStyles.header}>Users</p>
-				{showRes ? usersDis.map((user) => <Result account={user.account} profile={user.profile} status={user.status} />) : null}
+		<div className={fadeout ? searchStyles.out : searchStyles.in}>
+			<div className={searchStyles.dropdown}>
+				<div className={searchStyles.row}>
+					<p className={searchStyles.header}>Users</p>
+					{showRes ? usersDis.map((user) => <Result account={user.account} profile={user.profile} status={user.status} />) : null}
+				</div>
+				<div className={searchStyles.row}></div>
 			</div>
-			<div className={searchStyles.row}></div>
 		</div>
 	);
 };
