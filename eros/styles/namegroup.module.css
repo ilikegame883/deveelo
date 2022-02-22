@@ -1,11 +1,11 @@
-.p_large {
+.p_container {
     /*auto layout*/
     display: flex;
     flex-direction: row;
     align-items: center;
 
     width: fit-content;
-    height: 2.25em;
+    height: fit-content;
 
     flex: none;
     order: 1;
