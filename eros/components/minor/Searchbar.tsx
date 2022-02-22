@@ -6,75 +6,29 @@ const SearchResults = dynamic(() => import("./SearchResults"));
 import searchStyles from "../../styles/minor/search.module.css";
 import { searchUsers } from "../../hooks/endpoints";
 
-// function useDelayedUnmounting(time = 1000) {
-// 	const [state, setState] = useState("unmounted");
-// 	const show = () => {
-// 		console.log("show run");
-
-// 		if (state === "unmounting") {
-// 			return;
-// 		}
-// 		setState("mounting");
-// 	};
-// 	const hide = () => {
-// 		console.log("hide run");
-
-// 		if (state === "mounting") {
-// 			return;
-// 		}
-// 		setState("unmounting");
-// 	};
-
-// 	useEffect(() => {
-// 		console.log("effect ran");
-
-// 		let timeoutId: any;
-// 		if (state === "unmounting") {
-// 			timeoutId = setTimeout(() => {
-// 				setState("unmounted");
-// 			}, time);
-// 		} else if (state === "mounting") {
-// 			timeoutId = setTimeout(() => {
-// 				setState("mounted");
-// 			}, time);
-// 		}
-
-// 		return () => {
-// 			clearTimeout(timeoutId);
-// 		};
-// 	}, [state, time]);
-
-// 	return [state, show, hide];
-// }
-
 const Searchbar = () => {
 	const router = useRouter();
 	const inGroup = router.pathname.includes("/groups/");
 	const placeholder = inGroup ? "Search <groupname>" : "Search for posts, people, or groups";
 
 	const [users, setUsers] = useState([]);
-	//const [showResults, setShowResults] = useState(false);
 
 	const handleChange = async (str: string) => {
 		const data = await searchUsers(str);
 		setUsers(data);
 	};
 
-	//#region note  delayed un/mount state manager
+	//#region  note  delayed un/mount state manager
 	const [state, setState] = useState("unmounted");
 	const time = 500;
 
 	const show = () => {
-		console.log("show run");
-
 		if (state === "unmounting") {
 			return;
 		}
 		setState("mounting");
 	};
 	const hide = () => {
-		console.log("hide run");
-
 		if (state === "mounting") {
 			return;
 		}
@@ -82,8 +36,6 @@ const Searchbar = () => {
 	};
 
 	useEffect(() => {
-		console.log("effect ran");
-
 		let timeoutId: any;
 		if (state === "unmounting") {
 			timeoutId = setTimeout(() => {
@@ -110,9 +62,6 @@ const Searchbar = () => {
 			//see if the click was on the searchbar/results or their children
 			if (focus !== resElement && !resElement.contains(focus)) {
 				hide();
-				console.log("hidden");
-
-				//setShowResults(false);
 			}
 		});
 	}, []);
@@ -134,19 +83,9 @@ const Searchbar = () => {
 					}
 				}}>
 				<img className={searchStyles.icon} src="/resources/mag.svg" alt="search" />
-				<input
-					className={searchStyles.fillBar}
-					type="text"
-					placeholder={placeholder}
-					onChange={(e) => handleChange(e.target.value)}
-					onFocus={() => {
-						console.log("clicked");
-						show();
-					}}
-				/>
+				<input className={searchStyles.fillBar} type="text" placeholder={placeholder} onChange={(e) => handleChange(e.target.value)} onFocus={() => show()} />
 			</form>
 			{state !== "unmounted" && <SearchResults users={users} devlogs={[]} groups={[]} betas={[]} fadeout={state === "unmounting"} />}
-			{/* {!showResults && !timed ? null : } */}
 		</div>
 	);
 };

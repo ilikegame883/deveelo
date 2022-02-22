@@ -15,7 +15,7 @@ const Result = ({ account, profile, status }: SearchUserType) => {
      +  Text styling
      +  Header
      +  Hover effect
-     -  Click -> profile
+     +  Click -> profile
      -  Other sections
     \____________________/
     */
