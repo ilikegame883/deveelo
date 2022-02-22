@@ -158,8 +158,10 @@
 
 .buttonWrapper {
   display: flex;
+  margin-left: 5rem;
+  flex-shrink: 0;
 
-  width: 11rem;
+  width: 10rem;
   height: 3rem;
 }
 

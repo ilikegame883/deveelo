@@ -20,8 +20,14 @@ const Nav = ({ sidebarSpacing, loggedIn }: navProps) => {
 		profile = (
 			<div className={navStyles.rightWrapper}>
 				<Searchbar />
-				<div className={navStyles.buttonWrapper}>
-					<TextButton colorKey="gold" text="Login" action="/login" />
+				<div className={navStyles.iconsPlacer}>
+					<div className={navStyles.iconsWrapper}>
+						<IconButton src="/resources/moon.svg" width="2.25em" height="2.25em" paddingTB={0.1875} paddingLR={0.1875} />
+						<IconButton src="/resources/bell.svg" width="2.25em" height="2.25em" paddingTB={0.1875} paddingLR={0.1875} />
+					</div>
+					<div className={navStyles.buttonWrapper}>
+						<TextButton colorKey="gold" text="Login" action="/login" />
+					</div>
 				</div>
 			</div>
 		);
