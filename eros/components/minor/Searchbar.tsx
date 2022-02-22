@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 
 const SearchResults = dynamic(() => import("./SearchResults"));
@@ -19,8 +19,23 @@ const Searchbar = () => {
 		setUsers(data);
 	};
 
+	useEffect(() => {
+		document.querySelector("body").addEventListener("click", function () {
+			const focus = document.activeElement;
+			//the searchbar/results wrapper
+			let resElement = document.querySelector("#bar-resultsContainer");
+
+			//see if the click was on the searchbar/results or their children
+			if (focus !== resElement && !resElement.contains(focus)) {
+				setShowResults(false);
+			}
+		});
+	}, []);
+
 	return (
-		<div className="rows">
+		//tabindex allows div to recieve focus, used to detect if click was on element
+		//on or within the div by comparing the focus with the body
+		<div className="rows" id="bar-resultsContainer" tabIndex={-10}>
 			<form
 				className={searchStyles.wrapperL}
 				onSubmit={(e) => {
