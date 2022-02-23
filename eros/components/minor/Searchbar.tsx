@@ -20,7 +20,7 @@ const Searchbar = () => {
 
 	//#region  note  delayed un/mount state manager
 	const [state, setState] = useState("unmounted");
-	const time = 500;
+	const time = 400;
 
 	const show = () => {
 		if (state === "unmounting") {
@@ -29,10 +29,13 @@ const Searchbar = () => {
 		setState("mounting");
 	};
 	const hide = () => {
-		if (state === "mounting") {
-			return;
-		}
 		setState("unmounting");
+
+		//state gets stuck in mounting, so this check prevents dropdown
+		//from ever disappearing [see 2]
+		// if (state === "mounting" || state === "unmounted") {
+		// 	return;
+		// }
 	};
 
 	useEffect(() => {
@@ -58,10 +61,17 @@ const Searchbar = () => {
 			const focus = document.activeElement;
 			//the searchbar/results wrapper
 			let resElement = document.querySelector("#bar-resultsContainer");
+			let results = document.querySelector("#results");
 
 			//see if the click was on the searchbar/results or their children
-			if (focus !== resElement && !resElement.contains(focus)) {
-				hide();
+			if (focus !== resElement && !resElement?.contains(focus)) {
+				//[2] so as well, I check to see if the results element exists, only
+				//if it exists will I allow the fade animation
+				//* prevents randomly poping in and fadingout results when not even
+				//  clicking on anything related to searching
+				if (results) {
+					hide();
+				}
 			}
 		});
 	}, []);
