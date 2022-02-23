@@ -6,19 +6,6 @@ import NameGroup from "./NameGroup";
 import ProfilePicture from "./ProfilePicture";
 
 const Result = ({ account, profile, status }: SearchUserType) => {
-	const router = useRouter();
-
-	/*
-      ______ todo _______
-    /                    \
-     +  Structure & layout
-     +  Text styling
-     +  Header
-     +  Hover effect
-     +  Click -> profile
-     -  Other sections
-    \____________________/
-    */
 	return (
 		<button className={searchStyles.personCard} onClick={() => window.location.assign(`/${account.tag}`)}>
 			<div className={searchStyles.resPic}>
