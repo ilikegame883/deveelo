@@ -104,8 +104,8 @@ This project follows the [Semantic Versioning 2.0](https://semver.org/) standard
 - [x] Loading splashscreen
 - [x] Profile pages
 - [x] Attempt #2 w/ Tauri
-- [ ] Navigation
-- [ ] Searchbar
+- [x] Navigation
+- [x] Searchbar
 - [x] Handle token expiration & logouts
 - [ ] Auto Updater
 - [ ] Luna v1-alpha Release
