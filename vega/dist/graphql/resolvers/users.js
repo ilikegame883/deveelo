@@ -164,8 +164,8 @@ const userResolvers = {
                 return;
             };
             await CheckAndGenerateUsername(max, tag, false, 0);
-            const user = await User_1.default.findOne({ "account.email": email });
-            if (user) {
+            const muser = await User_1.default.findOne({ "account.email": email });
+            if (muser) {
                 throw new apollo_server_errors_1.UserInputError("email taken", {
                     errors: {
                         email: "An account is already registered with email",
@@ -202,7 +202,7 @@ const userResolvers = {
                     linkedProfiles: [],
                 },
                 status: "online",
-                Social: {
+                social: {
                     postIds: [],
                     blogIds: [],
                     groupIds: [],
@@ -219,9 +219,10 @@ const userResolvers = {
             catch (error) {
                 throw new Error("Unable to save user to database");
             }
+            const user = newUser;
             return {
                 accessToken: successfulLoginHandler(newUser, context),
-                newUser,
+                user,
             };
         },
         async logout(_parent, _args, { res, payload }) {

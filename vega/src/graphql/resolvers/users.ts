@@ -205,8 +205,8 @@ const userResolvers = {
 			await CheckAndGenerateUsername(max, tag, false, 0);
 
 			//check if user exists
-			const user: UserType = await User.findOne({ "account.email": email });
-			if (user) {
+			const muser: UserType = await User.findOne({ "account.email": email });
+			if (muser) {
 				throw new UserInputError("email taken", {
 					errors: {
 						email: "An account is already registered with email",
@@ -247,7 +247,7 @@ const userResolvers = {
 					linkedProfiles: [],
 				},
 				status: "online",
-				Social: {
+				social: {
 					postIds: [],
 					blogIds: [],
 					groupIds: [],
@@ -265,9 +265,11 @@ const userResolvers = {
 				throw new Error("Unable to save user to database");
 			}
 
+			const user: UserType = newUser as any;
+
 			return {
 				accessToken: successfulLoginHandler(newUser, context),
-				newUser,
+				user,
 			};
 		},
 		async logout(_parent: any, _args: any, { res, payload }: Context) {
