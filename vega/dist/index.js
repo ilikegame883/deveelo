@@ -135,7 +135,7 @@ const initServer = async () => {
                                                 wildcard: "*",
                                             },
                                             fuzzy: {
-                                                maxEdits: 1,
+                                                maxEdits: 2,
                                             },
                                         },
                                     },
