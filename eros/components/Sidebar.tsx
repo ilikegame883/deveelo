@@ -7,6 +7,7 @@ import jwt_decode, { JwtPayload } from "jwt-decode";
 
 import { useFindMinProfileByTagQuery, useMyAccountMinProfileQuery, useRandomMinProfileQuery } from "../hooks/backend/generated/graphql";
 import { getAccessToken } from "../accessToken";
+import SocialList from "./minor/SocialList";
 
 interface sidebarProps {
 	hardEdge?: boolean;
@@ -146,6 +147,9 @@ const Sidebar = ({ hardEdge }: sidebarProps) => {
 				<p className={sidebarStyles.p_description}>{user.profile.description}</p>
 
 				<div className={sidebarStyles.buttonContainer}>{buttons}</div>
+
+				{/* Following/Friend List */}
+				<SocialList />
 			</div>
 		</div>
 	);

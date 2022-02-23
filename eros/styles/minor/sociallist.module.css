@@ -1,0 +1,80 @@
+/* note  Follow / Friend list */
+.listContainer {
+    display: flex;
+    height: 18rem;
+    width: inherit;
+    flex-direction: column;
+    align-items: center;
+    padding: 3.187rem 1.218rem 0 1.218rem;
+
+    /* background-color: rgba(111, 111, 255, 0.164); */
+}
+
+.toggleContainer {
+    display: flex;
+    height: fit-content;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    
+    order: 0;
+    align-self: stretch;
+
+    /* background-color: rgba(255, 0, 0, 0.233); */
+}
+
+.on {
+    height: fit-content;
+    width: fit-content;
+    margin: 0;
+
+    font-family: Heebo;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 1.406rem;
+    line-height: 2.063rem;
+    /* identical to box height */
+
+    display: flex;
+    align-items: center;
+
+    color: #2E3A59;
+    cursor: pointer;
+}
+
+.off {
+    height: fit-content;
+    width: fit-content;
+    margin: 0;
+
+    font-family: Heebo;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 1.406rem;
+    line-height: 2.063rem;
+    /* identical to box height */
+
+    display: flex;
+    align-items: center;
+
+    color: var(--midLightGray);
+    cursor: pointer;
+}
+
+.divider {
+    height: fit-content;
+    width: fit-content;
+    margin: 0 1.125rem;
+
+    font-family: Heebo;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 1.406rem;
+    line-height: 2.063rem;
+    /* identical to box height */
+
+    display: flex;
+    align-items: center;
+    
+    color: #D7E0EF;
+}

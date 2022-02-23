@@ -61,6 +61,7 @@
 
     position: relative;
     top: -3.8437em;
+    bottom: 0;
     /* height: 21.09375em; */
     height: fit-content;
     width: inherit;
