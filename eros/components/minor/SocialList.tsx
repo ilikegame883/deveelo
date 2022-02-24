@@ -1,10 +1,11 @@
 import { useState } from "react";
 
 import socialStyles from "../../styles/minor/sociallist.module.css";
+import W40UserCard from "../micro/w40UserCard";
 
 interface SocialProps {
-	followingIds: String[];
-	friendIds: String[];
+	followingIds: string[];
+	friendIds: string[];
 }
 
 const SocialList = ({ followingIds, friendIds }: SocialProps) => {
@@ -35,6 +36,7 @@ const SocialList = ({ followingIds, friendIds }: SocialProps) => {
 					Friends
 				</p>
 			</div>
+			<W40UserCard ids={list} />
 			<div className={socialStyles.list}>{showEmpty ? empty : list.map((id) => console.log(id))}</div>
 		</div>
 	);

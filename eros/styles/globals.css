@@ -52,6 +52,41 @@ button {
 }
 
 /* SIMPLE CLASSES */
+.fillfit {
+  height: 100%;
+  width: fit-content;
+}
+
+.fitfill {
+  height: fit-content;
+  width: 100%;
+}
+
+.fillfill {
+  height: 100%;
+  width: 100%;
+}
+
+.fillfillcentercenter {
+  height: 100%;
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.fillfillcenterright {
+  height: 100%;
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+}
+
 .rows {
   width: 100%;
   height: fit-content;
