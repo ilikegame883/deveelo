@@ -72,6 +72,7 @@ exports.typeDefs = graphql_tag_1.default `
 		getPosts: [Post]!
 		myAccount: User
 		findUserByTag(tag: String!): User!
+		findUsersById(ids: [String!]!): [User]!
 		randomUser: User!
 		randomUsers(count: Int!): [User]!
 		allUsers: [User]!

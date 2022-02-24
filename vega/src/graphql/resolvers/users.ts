@@ -35,6 +35,27 @@ const userResolvers = {
 
 			return user;
 		},
+		async findUsersById(_parent: any, { ids }: { ids: string[] }, _context: Context): Promise<UserType[]> {
+			let users: UserType[] = [];
+
+			//for each id in the array [2]
+			for (let i = 0; i < ids.length; i++) {
+				const id = ids[i];
+				const user: UserType = await User.findById(new ObjectID(id));
+
+				if (user !== null) {
+					//[3] if that user exists, append to the end of return user array [4]
+					users.push(user);
+				}
+			}
+
+			if (users.length === 0) {
+				//[4] if nothing is added, id list was a flop
+				throw new Error("No users found w/ given id list");
+			}
+
+			return users;
+		},
 		async randomUser(_parent: any, _args: any, _context: Context): Promise<UserType> {
 			const user = await getRandomUser(false);
 
