@@ -2,12 +2,27 @@ import { useState } from "react";
 
 import socialStyles from "../../styles/minor/sociallist.module.css";
 
-const SocialList = () => {
+interface SocialProps {
+	followingIds: String[];
+	friendIds: String[];
+}
+
+const SocialList = ({ followingIds, friendIds }: SocialProps) => {
 	const [following, setfollowing] = useState(true);
+
+	const list = following ? followingIds : friendIds;
 
 	const toggle = (follow: boolean) => {
 		setfollowing(follow);
 	};
+
+	let showEmpty = list === undefined;
+	if (list) {
+		showEmpty = list.length === 0;
+	}
+
+	const empText = following ? "user is not following anyone" : "no friends D:";
+	const empty = <p className="textFade">{empText}</p>;
 
 	return (
 		<div className={socialStyles.listContainer}>
@@ -20,6 +35,7 @@ const SocialList = () => {
 					Friends
 				</p>
 			</div>
+			<div className={socialStyles.list}>{showEmpty ? empty : list.map((id) => console.log(id))}</div>
 		</div>
 	);
 };

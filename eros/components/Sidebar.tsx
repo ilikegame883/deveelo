@@ -149,7 +149,7 @@ const Sidebar = ({ hardEdge }: sidebarProps) => {
 				<div className={sidebarStyles.buttonContainer}>{buttons}</div>
 
 				{/* Following/Friend List */}
-				<SocialList />
+				<SocialList followingIds={user.social.followingIds} friendIds={user.social.friendIds} />
 			</div>
 		</div>
 	);

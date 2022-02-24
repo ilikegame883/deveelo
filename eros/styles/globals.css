@@ -87,6 +87,20 @@ button {
   background-color: rgba(0, 23, 78, 0.082);;
 }
 
+/* Text Standards */
+.textFade {
+  width: inherit;
+  height: 100%;
+  margin: 0 0 3rem 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  font-size: 1rem;
+  color: var(--midFadeGray);
+}
+
 @media screen and (max-width : 1600px) {
   html, body {
     padding: 0;
