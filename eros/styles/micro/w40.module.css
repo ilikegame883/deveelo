@@ -3,3 +3,15 @@
     width: 100%;
     margin-bottom: 1.031rem;
 }
+
+.nameWrapper {
+    margin-left: .563rem;
+}
+
+.namepicWrapper {
+    height: inherit;
+    width: fit-content;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}

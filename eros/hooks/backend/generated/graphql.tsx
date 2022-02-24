@@ -145,7 +145,7 @@ export type FindCardUsersByIdsQueryVariables = Exact<{
 }>;
 
 
-export type FindCardUsersByIdsQuery = { __typename?: 'Query', findUsersById: Array<Maybe<{ __typename?: 'User', status: string, account: { __typename?: 'U_Account', username: string }, profile: { __typename?: 'U_Profile', pictureUrl: string, badges: Array<Maybe<string>> } }>> };
+export type FindCardUsersByIdsQuery = { __typename?: 'Query', findUsersById: Array<Maybe<{ __typename?: 'User', status: string, account: { __typename?: 'U_Account', username: string, tag: string }, profile: { __typename?: 'U_Profile', pictureUrl: string, badges: Array<Maybe<string>> } }>> };
 
 export type FindMinProfileByTagQueryVariables = Exact<{
   tagInput: Scalars['String'];
@@ -276,6 +276,7 @@ export const FindCardUsersByIdsDocument = gql`
   findUsersById(ids: $idList) {
     account {
       username
+      tag
     }
     profile {
       pictureUrl

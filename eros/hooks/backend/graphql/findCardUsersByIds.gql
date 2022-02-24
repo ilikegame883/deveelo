@@ -2,6 +2,7 @@ query findCardUsersByIds($idList: [String!]!) {
 	findUsersById(ids: $idList) {
 		account {
 			username
+			tag
 		}
 		profile {
 			pictureUrl
