@@ -1,0 +1,12 @@
+query findCardUsersByIds($idList: [String!]!) {
+	findUsersById(ids: $idList) {
+		account {
+			username
+		}
+		profile {
+			pictureUrl
+			badges
+		}
+		status
+	}
+}
