@@ -11,10 +11,9 @@ import W40UserCard from "../micro/w40UserCard";
 interface SocialProps {
 	followingIds: string[];
 	friendIds: string[];
-	rerenderCallback: void;
 }
 
-const SocialList = ({ followingIds, friendIds, rerenderCallback }: SocialProps) => {
+const SocialList = ({ followingIds, friendIds }: SocialProps) => {
 	const [following, setfollowing] = useState(true);
 
 	//const list = following ? followingIds : friendIds;
@@ -65,8 +64,7 @@ const SocialList = ({ followingIds, friendIds, rerenderCallback }: SocialProps) 
 			</div>
 
 			<SimpleBar className={socialStyles.list}>
-				{display &&
-					(showEmpty ? empty : userList.map(({ account, profile, status }) => <W40UserCard account={account} profile={profile} status={status} rerenderCallback={rerenderCallback} />))}
+				{display && (showEmpty ? empty : userList.map(({ account, profile, status }) => <W40UserCard account={account} profile={profile} status={status} />))}
 			</SimpleBar>
 		</div>
 	);

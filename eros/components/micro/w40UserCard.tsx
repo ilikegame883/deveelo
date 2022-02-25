@@ -8,16 +8,9 @@ interface CardProps {
 	account: SearchAccountType;
 	profile: SearchProfileType;
 	status: "online" | "idle" | "dnd" | "offline";
-	rerenderCallback: void;
 }
 
-const W40UserCard = ({ account, profile, status, rerenderCallback }: CardProps) => {
-	/* todo 
-    -  make findbyid query
-    -  call query from here
-    -  use returned user to generate card
-    -  finish .map & test
-    */
+const W40UserCard = ({ account, profile, status }: CardProps) => {
 	const changeSidebar = (tag: string) => {
 		if (!tag) {
 			return;

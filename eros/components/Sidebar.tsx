@@ -17,12 +17,6 @@ interface sidebarProps {
 
 const Sidebar = ({ hardEdge }: sidebarProps) => {
 	hardEdge ??= true;
-	const [rerender, setRerender] = useState(0);
-	const rerenderSidebar = () => {
-		console.log("rerendering lets go!");
-
-		//setRerender(rerender + 1);
-	};
 
 	const token = getAccessToken();
 	const loggedIn: boolean = token !== "";
@@ -172,7 +166,7 @@ const Sidebar = ({ hardEdge }: sidebarProps) => {
 				<div className={sidebarStyles.buttonContainer}>{buttons}</div>
 
 				{/* Following/Friend List */}
-				<SocialList followingIds={user.profile.followingIds} friendIds={user.profile.friendIds} rerenderCallback={rerenderSidebar()} />
+				<SocialList followingIds={user.profile.followingIds} friendIds={user.profile.friendIds} />
 			</div>
 		</div>
 	);
