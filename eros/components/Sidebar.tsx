@@ -1,9 +1,11 @@
+import { useEffect, useState } from "react";
+import jwt_decode, { JwtPayload } from "jwt-decode";
+
 import sidebarStyles from "../styles/sidebar.module.css";
 import NameGroup from "./micro/NameGroup";
 import TextButton from "./micro/TextButton";
 import ProfilePicture from "./micro/ProfilePicture";
 import Image from "next/image";
-import jwt_decode, { JwtPayload } from "jwt-decode";
 
 import { useFindMinProfileByTagQuery, useMyAccountMinProfileQuery, useRandomMinProfileQuery } from "../hooks/backend/generated/graphql";
 import { getAccessToken } from "../accessToken";
@@ -15,10 +17,15 @@ interface sidebarProps {
 
 const Sidebar = ({ hardEdge }: sidebarProps) => {
 	hardEdge ??= true;
+	const [rerender, setRerender] = useState(0);
+	const rerenderSidebar = () => {
+		console.log("rerendering lets go!");
+
+		//setRerender(rerender + 1);
+	};
+
 	const token = getAccessToken();
-
 	const loggedIn: boolean = token !== "";
-
 	let user: any = null;
 
 	const loadingSidebar = (
@@ -38,6 +45,22 @@ const Sidebar = ({ hardEdge }: sidebarProps) => {
 
 	const storage = window.localStorage;
 	const uTag = storage.getItem("side_prof");
+	const [sideProf, setSideProf] = useState(uTag);
+
+	useEffect(() => {
+		setTimeout(() => {
+			const side = document.getElementById("sidebar");
+
+			if (side) {
+				console.log("binded");
+
+				side.addEventListener("updateSidebar", (e: CustomEvent) => {
+					console.log("change");
+					setSideProf(e.detail);
+				});
+			}
+		}, 1000);
+	}, []);
 
 	let buttons: any = null;
 	if (uTag !== null && uTag !== "") {
@@ -119,7 +142,7 @@ const Sidebar = ({ hardEdge }: sidebarProps) => {
 	}
 
 	return (
-		<div className={hardEdge ? sidebarStyles.sidebar_full : sidebarStyles.sidebar}>
+		<div id="sidebar" className={hardEdge ? sidebarStyles.sidebar_full : sidebarStyles.sidebar}>
 			{/*Banner*/}
 			<div className={sidebarStyles.banner}>
 				<Image className={sidebarStyles.bannerImage} alt="profile banner" src="/user_content/p_banners/pinkdunes.png" layout="fill" priority={true} objectFit="cover" />
@@ -149,7 +172,7 @@ const Sidebar = ({ hardEdge }: sidebarProps) => {
 				<div className={sidebarStyles.buttonContainer}>{buttons}</div>
 
 				{/* Following/Friend List */}
-				<SocialList followingIds={user.profile.followingIds} friendIds={user.profile.friendIds} />
+				<SocialList followingIds={user.profile.followingIds} friendIds={user.profile.friendIds} rerenderCallback={rerenderSidebar()} />
 			</div>
 		</div>
 	);
