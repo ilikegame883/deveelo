@@ -63,9 +63,9 @@ const SocialList = ({ followingIds, friendIds }: SocialProps) => {
 				</p>
 			</div>
 
-			<SimpleBar className={socialStyles.list}>
+			<div className={socialStyles.list}>
 				{display && (showEmpty ? empty : userList.map(({ account, profile, status }) => <W40UserCard account={account} profile={profile} status={status} />))}
-			</SimpleBar>
+			</div>
 		</div>
 	);
 };
