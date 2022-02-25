@@ -1,7 +1,15 @@
 .cardwrapper {
     height: fit-content;
     width: 100%;
-    margin-bottom: 1.031rem;
+    /* balances out with sociallist listcontainer padding */
+    padding: .4rem .6rem .4rem 1.2rem;
+    border-radius: 1rem;
+    background-color: transparent;
+    transition: .2s ease-out;
+}
+
+.cardwrapper:hover {
+    background-color: rgb(235, 240, 245);
 }
 
 .nameWrapper {

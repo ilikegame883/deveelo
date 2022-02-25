@@ -1,4 +1,7 @@
 import { useState } from "react";
+import SimpleBar from "simplebar-react";
+import "simplebar/dist/simplebar.min.css";
+
 import { useFindCardUsersByIdsQuery } from "../../hooks/backend/generated/graphql";
 import { SearchUserType } from "../../lib/userTypes";
 
@@ -60,9 +63,9 @@ const SocialList = ({ followingIds, friendIds }: SocialProps) => {
 				</p>
 			</div>
 
-			<div className={socialStyles.list}>
+			<SimpleBar className={socialStyles.list}>
 				{display && (showEmpty ? empty : userList.map(({ account, profile, status }) => <W40UserCard account={account} profile={profile} status={status} />))}
-			</div>
+			</SimpleBar>
 		</div>
 	);
 };

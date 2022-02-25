@@ -13,7 +13,7 @@ const W40UserCard = ({ account, profile, status }: SearchUserType) => {
     */
 	return (
 		<div className={w40styles.cardwrapper}>
-			<div className="fitfill">
+			<div className="fitfillcenter">
 				<div className={w40styles.namepicWrapper}>
 					<ProfilePicture size="w40" source={profile.pictureUrl} status={status} />
 					<div className={w40styles.nameWrapper}>
