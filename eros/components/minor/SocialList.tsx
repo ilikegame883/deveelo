@@ -16,8 +16,8 @@ interface SocialProps {
 const SocialList = ({ followingIds, friendIds }: SocialProps) => {
 	const [following, setfollowing] = useState(true);
 
-	//const list = following ? followingIds : friendIds;
-	const list = ["61ce80a545e0518338b75731", "61feb90240e092000442bf65", "62155723b23fea561c6a7cbf"];
+	const list = following ? followingIds : friendIds;
+	//const list = ["61ce80a545e0518338b75731", "61feb90240e092000442bf65", "62155723b23fea561c6a7cbf"];
 	let userList: SearchUserType[] = [];
 
 	const toggle = (follow: boolean) => {
