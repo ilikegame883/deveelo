@@ -24,3 +24,20 @@ export interface SearchUserType {
 	};
 	status: "online" | "idle" | "dnd" | "offline";
 }
+
+export interface SearchAccountType {
+	tag: string;
+	username: string;
+	createdAt: string;
+	lastOnline: string;
+	private: boolean;
+}
+
+export interface SearchProfileType {
+	pictureUrl: string;
+	badges: string[];
+}
+
+export interface SearchStatusType {
+	status: "online" | "idle" | "dnd" | "offline";
+}

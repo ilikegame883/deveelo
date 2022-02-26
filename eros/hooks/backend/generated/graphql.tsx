@@ -57,6 +57,7 @@ export type Query = {
   getPosts: Array<Maybe<Post>>;
   myAccount?: Maybe<User>;
   findUserByTag: User;
+  findUsersById: Array<Maybe<User>>;
   randomUser: User;
   randomUsers: Array<Maybe<User>>;
   allUsers: Array<Maybe<User>>;
@@ -65,6 +66,11 @@ export type Query = {
 
 export type QueryFindUserByTagArgs = {
   tag: Scalars['String'];
+};
+
+
+export type QueryFindUsersByIdArgs = {
+  ids: Array<Scalars['String']>;
 };
 
 
@@ -133,6 +139,13 @@ export type AllTagsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type AllTagsQuery = { __typename?: 'Query', allUsers: Array<Maybe<{ __typename?: 'User', account: { __typename?: 'U_Account', tag: string } }>> };
+
+export type FindCardUsersByIdsQueryVariables = Exact<{
+  idList: Array<Scalars['String']> | Scalars['String'];
+}>;
+
+
+export type FindCardUsersByIdsQuery = { __typename?: 'Query', findUsersById: Array<Maybe<{ __typename?: 'User', status: string, account: { __typename?: 'U_Account', username: string, tag: string }, profile: { __typename?: 'U_Profile', pictureUrl: string, badges: Array<Maybe<string>> } }>> };
 
 export type FindMinProfileByTagQueryVariables = Exact<{
   tagInput: Scalars['String'];
@@ -258,6 +271,49 @@ export function useAllTagsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Al
 export type AllTagsQueryHookResult = ReturnType<typeof useAllTagsQuery>;
 export type AllTagsLazyQueryHookResult = ReturnType<typeof useAllTagsLazyQuery>;
 export type AllTagsQueryResult = Apollo.QueryResult<AllTagsQuery, AllTagsQueryVariables>;
+export const FindCardUsersByIdsDocument = gql`
+    query findCardUsersByIds($idList: [String!]!) {
+  findUsersById(ids: $idList) {
+    account {
+      username
+      tag
+    }
+    profile {
+      pictureUrl
+      badges
+    }
+    status
+  }
+}
+    `;
+
+/**
+ * __useFindCardUsersByIdsQuery__
+ *
+ * To run a query within a React component, call `useFindCardUsersByIdsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindCardUsersByIdsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFindCardUsersByIdsQuery({
+ *   variables: {
+ *      idList: // value for 'idList'
+ *   },
+ * });
+ */
+export function useFindCardUsersByIdsQuery(baseOptions: Apollo.QueryHookOptions<FindCardUsersByIdsQuery, FindCardUsersByIdsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FindCardUsersByIdsQuery, FindCardUsersByIdsQueryVariables>(FindCardUsersByIdsDocument, options);
+      }
+export function useFindCardUsersByIdsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindCardUsersByIdsQuery, FindCardUsersByIdsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FindCardUsersByIdsQuery, FindCardUsersByIdsQueryVariables>(FindCardUsersByIdsDocument, options);
+        }
+export type FindCardUsersByIdsQueryHookResult = ReturnType<typeof useFindCardUsersByIdsQuery>;
+export type FindCardUsersByIdsLazyQueryHookResult = ReturnType<typeof useFindCardUsersByIdsLazyQuery>;
+export type FindCardUsersByIdsQueryResult = Apollo.QueryResult<FindCardUsersByIdsQuery, FindCardUsersByIdsQueryVariables>;
 export const FindMinProfileByTagDocument = gql`
     query findMinProfileByTag($tagInput: String!) {
   findUserByTag(tag: $tagInput) {

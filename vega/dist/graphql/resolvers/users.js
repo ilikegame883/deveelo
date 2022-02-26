@@ -30,6 +30,20 @@ const userResolvers = {
             }
             return user;
         },
+        async findUsersById(_parent, { ids }, _context) {
+            let users = [];
+            for (let i = 0; i < ids.length; i++) {
+                const id = ids[i];
+                const user = await User_1.default.findById(new mongodb_1.ObjectID(id));
+                if (user !== null) {
+                    users.push(user);
+                }
+            }
+            if (users.length === 0) {
+                throw new Error("No users found w/ given id list");
+            }
+            return users;
+        },
         async randomUser(_parent, _args, _context) {
             const user = await sampleUsers_1.getRandomUser(false);
             if (!user) {

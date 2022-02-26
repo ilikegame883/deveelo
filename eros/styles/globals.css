@@ -52,12 +52,93 @@ button {
 }
 
 /* SIMPLE CLASSES */
+.fillfit {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  width: fit-content;
+}
+
+.fitfill {
+  display: flex;
+  flex-direction: row;
+  height: fit-content;
+  width: 100%;
+}
+
+.purefitfill {
+  height: fit-content;
+  width: 100%;
+}
+
+.fitfillcol {
+  display: flex;
+  flex-direction: column;
+  height: fit-content;
+  width: 100%;
+}
+
+.fitfillcenter {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: fit-content;
+  width: 100%;
+}
+
+.fillfill {
+  height: 100%;
+  width: 100%;
+}
+
+.fitfit {
+  height: fit-content;
+  width: fit-content;
+}
+
+.fillfillcentercenter {
+  height: 100%;
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.fillfillcenterright {
+  height: inherit;
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+}
+
 .rows {
   width: 100%;
   height: fit-content;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+}
+
+/* Scrollbar */
+.simplebar-scrollbar::before, .simplebar-visible::before {
+  background-color: var(--midLightGray) !important;
+}
+
+.simplebar-hover::before {
+  background-color: var(--midFadeGray) !important;
+}
+
+.simplebar-content {
+  display: flex;
+  flex-direction: column;
+
+  height: fit-content;
+  width: 100%;
 }
 
 /* SIMPLE BUTTON */
@@ -85,6 +166,20 @@ button {
   width: 100%;
   border-radius: 20%;
   background-color: rgba(0, 23, 78, 0.082);;
+}
+
+/* Text Standards */
+.textFade {
+  width: inherit;
+  height: 3rem;
+  margin: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  font-size: 1rem;
+  color: var(--midFadeGray);
 }
 
 @media screen and (max-width : 1600px) {
