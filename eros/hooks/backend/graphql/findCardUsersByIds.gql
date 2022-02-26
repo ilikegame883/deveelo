@@ -1,5 +1,6 @@
 query findCardUsersByIds($idList: [String!]!) {
 	findUsersById(ids: $idList) {
+		_id
 		account {
 			username
 			tag

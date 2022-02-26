@@ -145,7 +145,7 @@ export type FindCardUsersByIdsQueryVariables = Exact<{
 }>;
 
 
-export type FindCardUsersByIdsQuery = { __typename?: 'Query', findUsersById: Array<Maybe<{ __typename?: 'User', status: string, account: { __typename?: 'U_Account', username: string, tag: string }, profile: { __typename?: 'U_Profile', pictureUrl: string, badges: Array<Maybe<string>> } }>> };
+export type FindCardUsersByIdsQuery = { __typename?: 'Query', findUsersById: Array<Maybe<{ __typename?: 'User', _id: string, status: string, account: { __typename?: 'U_Account', username: string, tag: string }, profile: { __typename?: 'U_Profile', pictureUrl: string, badges: Array<Maybe<string>> } }>> };
 
 export type FindMinProfileByTagQueryVariables = Exact<{
   tagInput: Scalars['String'];
@@ -180,7 +180,7 @@ export type MyNameAndPfpQuery = { __typename?: 'Query', myAccount?: Maybe<{ __ty
 export type RandomMinProfileQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type RandomMinProfileQuery = { __typename?: 'Query', randomUser: { __typename?: 'User', status: string, account: { __typename?: 'U_Account', username: string, tag: string, private: boolean }, profile: { __typename?: 'U_Profile', bannerUrl: string, pictureUrl: string, description: string, followingIds: Array<Maybe<string>>, followerIds: Array<Maybe<string>>, badges: Array<Maybe<string>>, linkedProfiles: Array<Maybe<string>> } } };
+export type RandomMinProfileQuery = { __typename?: 'Query', randomUser: { __typename?: 'User', _id: string, status: string, account: { __typename?: 'U_Account', username: string, tag: string, private: boolean }, profile: { __typename?: 'U_Profile', bannerUrl: string, pictureUrl: string, description: string, followingIds: Array<Maybe<string>>, followerIds: Array<Maybe<string>>, badges: Array<Maybe<string>>, linkedProfiles: Array<Maybe<string>> } } };
 
 export type RegisterMutationVariables = Exact<{
   registerEmail: Scalars['String'];
@@ -274,6 +274,7 @@ export type AllTagsQueryResult = Apollo.QueryResult<AllTagsQuery, AllTagsQueryVa
 export const FindCardUsersByIdsDocument = gql`
     query findCardUsersByIds($idList: [String!]!) {
   findUsersById(ids: $idList) {
+    _id
     account {
       username
       tag
@@ -544,6 +545,7 @@ export type MyNameAndPfpQueryResult = Apollo.QueryResult<MyNameAndPfpQuery, MyNa
 export const RandomMinProfileDocument = gql`
     query randomMinProfile {
   randomUser {
+    _id
     account {
       username
       tag

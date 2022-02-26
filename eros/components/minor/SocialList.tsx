@@ -3,7 +3,7 @@ import SimpleBar from "simplebar-react";
 import "simplebar/dist/simplebar.min.css";
 
 import { useFindCardUsersByIdsQuery } from "../../hooks/backend/generated/graphql";
-import { SearchUserType } from "../../lib/userTypes";
+import { SearchUserIdType } from "../../lib/userTypes";
 
 import socialStyles from "../../styles/minor/sociallist.module.css";
 import W40UserCard from "../micro/w40UserCard";
@@ -18,7 +18,7 @@ const SocialList = ({ followingIds, friendIds }: SocialProps) => {
 
 	const list = following ? followingIds : friendIds;
 	//const list = ["61ce80a545e0518338b75731", "61feb90240e092000442bf65", "62155723b23fea561c6a7cbf"];
-	let userList: SearchUserType[] = [];
+	let userList: SearchUserIdType[] = [];
 
 	const toggle = (follow: boolean) => {
 		setfollowing(follow);
@@ -45,7 +45,7 @@ const SocialList = ({ followingIds, friendIds }: SocialProps) => {
 				return <p>Error occurred in fetching...</p>;
 			}
 
-			userList = data.findUsersById as SearchUserType[];
+			userList = data.findUsersById as SearchUserIdType[];
 			//display the list after fetch has finished
 			display = true;
 		}
