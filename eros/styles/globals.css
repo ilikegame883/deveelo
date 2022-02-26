@@ -127,14 +127,10 @@ button {
 /* Scrollbar */
 .simplebar-scrollbar::before, .simplebar-visible::before {
   background-color: var(--midLightGray) !important;
-  min-height: 50px !important;
-  z-index: 1000 !important;
 }
 
 .simplebar-hover::before {
-  min-height: 50px !important;
   background-color: var(--midFadeGray) !important;
-  z-index: 1000 !important;
 }
 
 .simplebar-content {

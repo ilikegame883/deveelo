@@ -1,11 +1,11 @@
 /* note  Follow / Friend list */
 .listContainer {
     display: flex;
-    height: 18rem;
+    height: fit-content;
     width: inherit;
     flex-direction: column;
     align-items: center;
-    padding: 3.187rem 1.6rem 0 2rem;
+    padding: 3.187rem 1.6rem 1rem 2rem;
 }
 
 .toggleContainer {
@@ -86,5 +86,5 @@
     padding: 1.5rem 0px 0px;
 
     width: 100%;
-    height: 10.6rem;
+    height: fit-content;
 }
