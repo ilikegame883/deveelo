@@ -102,7 +102,7 @@ const Sidebar = ({ hardEdge }: sidebarProps) => {
 
 		buttons ??= (
 			<>
-				<TextButton colorKey="gold" text="Follow" />
+				<TextButton colorKey="red" text="Unfollow" />
 				<TextButton colorKey="green" text="Friend" />
 			</>
 		);
