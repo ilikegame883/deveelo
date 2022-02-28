@@ -1,0 +1,5 @@
+mutation ($targetId: String!) {
+	unfollow(id: $targetId) {
+		success
+	}
+}

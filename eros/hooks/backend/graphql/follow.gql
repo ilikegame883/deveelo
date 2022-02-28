@@ -1,0 +1,5 @@
+mutation ($targetId: String!) {
+	follow(id: $targetId) {
+		success
+	}
+}
