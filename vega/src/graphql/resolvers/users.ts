@@ -101,6 +101,40 @@ const userResolvers = {
 		},
 	},
 	Mutation: {
+		async follow(_parent: any, { id }: { id: string }, context: Context) {
+			const myID = context.payload!.id;
+
+			try {
+				//add them to our following list
+				await User.findByIdAndUpdate(new ObjectID(myID), { $push: { "profile.followingIds": id } });
+
+				//add our id to their follower list
+				await User.findByIdAndUpdate(new ObjectID(id), { $push: { "profile.followerIds": myID } });
+
+				return {
+					success: true,
+				};
+			} catch (error) {
+				throw new Error(error);
+			}
+		},
+		async unfollow(_parent: any, { id }: { id: string }, context: Context) {
+			const myID = context.payload!.id;
+
+			try {
+				//remove them from our following list
+				await User.findByIdAndUpdate(new ObjectID(myID), { $pull: { "profile.followingIds": id } });
+
+				//remove our id from their follower list
+				await User.findByIdAndUpdate(new ObjectID(id), { $pull: { "profile.followerIds": myID } });
+
+				return {
+					success: true,
+				};
+			} catch (error) {
+				throw new Error(error);
+			}
+		},
 		async login(_: any, { input, password }: { input: string; password: string }, context: Context) {
 			//check if email or username [tag]
 			const regEx = /^([0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+[a-zA-Z]{2,9})$/;
