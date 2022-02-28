@@ -9,7 +9,7 @@ import TextButton from "./micro/TextButton";
 import ProfilePicture from "./micro/ProfilePicture";
 import Image from "next/image";
 
-import { useFindMinProfileByTagQuery, useMyAccountMinProfileQuery, useRandomMinProfileQuery } from "../hooks/backend/generated/graphql";
+import { useFindMinProfileByTagQuery, useFollowMutation, useMyAccountMinProfileQuery, useRandomMinProfileQuery } from "../hooks/backend/generated/graphql";
 import { getAccessToken } from "../accessToken";
 import SocialList from "./minor/SocialList";
 
@@ -41,11 +41,18 @@ const Sidebar = ({ hardEdge }: sidebarProps) => {
 
 	const storage = window.localStorage;
 	const [uTag, setSideProf] = useState(storage.getItem("side_prof"));
+	const [rerender, setRerender] = useState(0);
 
 	//handle seting local store update on mount
 	useEffect(() => {
 		const handleUpdate = (e: CustomEvent) => {
-			setSideProf(e.detail);
+			if (e.detail === null) {
+				//no change in profile, update without change (i.e. follow user)
+				setRerender(rerender + 1);
+			} else {
+				//update to change the profile shown without link change
+				setSideProf(e.detail);
+			}
 		};
 		setTimeout(() => {
 			const side = document.getElementById("sidebar");
@@ -69,6 +76,7 @@ const Sidebar = ({ hardEdge }: sidebarProps) => {
 
 	let buttons: any = null;
 	if (uTag !== null && uTag !== "") {
+		//logged in, possibly showing other profile
 		const { data, loading, error } = useFindMinProfileByTagQuery({
 			variables: {
 				tagInput: uTag,
@@ -100,6 +108,7 @@ const Sidebar = ({ hardEdge }: sidebarProps) => {
 			}
 		}
 
+		//add the un/follow user acions, then make the resolver, and call it from socialhooks.ts
 		buttons ??= (
 			<>
 				<TextButton colorKey="red" text="Unfollow" />
@@ -107,6 +116,7 @@ const Sidebar = ({ hardEdge }: sidebarProps) => {
 			</>
 		);
 	} else if (loggedIn) {
+		//logged in, no selected so show self
 		const { data, loading, error } = useMyAccountMinProfileQuery();
 		if (loading && !data) {
 			return loadingSidebar;
@@ -118,15 +128,13 @@ const Sidebar = ({ hardEdge }: sidebarProps) => {
 		//after data fetch
 		user = data.myAccount;
 
-		// if(user.account.tag === mytag){
-
-		// }
 		buttons = (
 			<>
 				<TextButton colorKey="gold" text="Edit Profile" />
 			</>
 		);
 	} else {
+		//logged out, show random
 		const { data, loading, error } = useRandomMinProfileQuery();
 
 		if (loading && !data) {
