@@ -106,10 +106,10 @@ const userResolvers = {
 
 			try {
 				//add them to our following list
-				await User.findByIdAndUpdate(new ObjectID(myID), { $push: { "profile.followingIds": id } });
+				await User.findByIdAndUpdate(new ObjectID(myID), { $push: { "profile.followingIds": id } }, { useFindAndModify: false });
 
 				//add our id to their follower list
-				await User.findByIdAndUpdate(new ObjectID(id), { $push: { "profile.followerIds": myID } });
+				await User.findByIdAndUpdate(new ObjectID(id), { $push: { "profile.followerIds": myID } }, { useFindAndModify: false });
 
 				return {
 					success: true,
@@ -123,10 +123,10 @@ const userResolvers = {
 
 			try {
 				//remove them from our following list
-				await User.findByIdAndUpdate(new ObjectID(myID), { $pull: { "profile.followingIds": id } });
+				await User.findByIdAndUpdate(new ObjectID(myID), { $pull: { "profile.followingIds": id } }, { useFindAndModify: false });
 
 				//remove our id from their follower list
-				await User.findByIdAndUpdate(new ObjectID(id), { $pull: { "profile.followerIds": myID } });
+				await User.findByIdAndUpdate(new ObjectID(id), { $pull: { "profile.followerIds": myID } }, { useFindAndModify: false });
 
 				return {
 					success: true,
