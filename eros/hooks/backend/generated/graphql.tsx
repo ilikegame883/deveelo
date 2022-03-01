@@ -166,12 +166,12 @@ export type FindMinProfileByTagQueryVariables = Exact<{
 
 export type FindMinProfileByTagQuery = { __typename?: 'Query', findUserByTag: { __typename?: 'User', _id: string, status: string, account: { __typename?: 'U_Account', username: string, tag: string, private: boolean }, profile: { __typename?: 'U_Profile', bannerUrl: string, pictureUrl: string, description: string, followingIds: Array<Maybe<string>>, followerIds: Array<Maybe<string>>, badges: Array<Maybe<string>>, linkedProfiles: Array<Maybe<string>> }, social: { __typename?: 'U_Social', postIds: Array<Maybe<string>>, blogIds: Array<Maybe<string>> } } };
 
-export type Unnamed_1_MutationVariables = Exact<{
+export type FollowMutationVariables = Exact<{
   targetId: Scalars['String'];
 }>;
 
 
-export type Unnamed_1_Mutation = { __typename?: 'Mutation', follow?: Maybe<{ __typename?: 'BoolRes', success: boolean }> };
+export type FollowMutation = { __typename?: 'Mutation', follow?: Maybe<{ __typename?: 'BoolRes', success: boolean }> };
 
 export type LoginMutationVariables = Exact<{
   loginInput: Scalars['String'];
@@ -216,12 +216,12 @@ export type SampleUsersQueryVariables = Exact<{
 
 export type SampleUsersQuery = { __typename?: 'Query', randomUsers: Array<Maybe<{ __typename?: 'User', status: string, account: { __typename?: 'U_Account', username: string, tag: string }, profile: { __typename?: 'U_Profile', pictureUrl: string } }>> };
 
-export type Unnamed_2_MutationVariables = Exact<{
+export type UnfollowMutationVariables = Exact<{
   targetId: Scalars['String'];
 }>;
 
 
-export type Unnamed_2_Mutation = { __typename?: 'Mutation', unfollow?: Maybe<{ __typename?: 'BoolRes', success: boolean }> };
+export type UnfollowMutation = { __typename?: 'Mutation', unfollow?: Maybe<{ __typename?: 'BoolRes', success: boolean }> };
 
 
 export const GetPostsDocument = gql`
@@ -395,39 +395,39 @@ export function useFindMinProfileByTagLazyQuery(baseOptions?: Apollo.LazyQueryHo
 export type FindMinProfileByTagQueryHookResult = ReturnType<typeof useFindMinProfileByTagQuery>;
 export type FindMinProfileByTagLazyQueryHookResult = ReturnType<typeof useFindMinProfileByTagLazyQuery>;
 export type FindMinProfileByTagQueryResult = Apollo.QueryResult<FindMinProfileByTagQuery, FindMinProfileByTagQueryVariables>;
-export const Document = gql`
-    mutation ($targetId: String!) {
+export const FollowDocument = gql`
+    mutation follow($targetId: String!) {
   follow(id: $targetId) {
     success
   }
 }
     `;
-export type MutationFn = Apollo.MutationFunction<Mutation, MutationVariables>;
+export type FollowMutationFn = Apollo.MutationFunction<FollowMutation, FollowMutationVariables>;
 
 /**
- * __useMutation__
+ * __useFollowMutation__
  *
- * To run a mutation, you first call `useMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useMutation` returns a tuple that includes:
+ * To run a mutation, you first call `useFollowMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useFollowMutation` returns a tuple that includes:
  * - A mutate function that you can call at any time to execute the mutation
  * - An object with fields that represent the current status of the mutation's execution
  *
  * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
  *
  * @example
- * const [mutation, { data, loading, error }] = useMutation({
+ * const [followMutation, { data, loading, error }] = useFollowMutation({
  *   variables: {
  *      targetId: // value for 'targetId'
  *   },
  * });
  */
-export function useMutation(baseOptions?: Apollo.MutationHookOptions<Mutation, MutationVariables>) {
+export function useFollowMutation(baseOptions?: Apollo.MutationHookOptions<FollowMutation, FollowMutationVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<Mutation, MutationVariables>(Document, options);
+        return Apollo.useMutation<FollowMutation, FollowMutationVariables>(FollowDocument, options);
       }
-export type MutationHookResult = ReturnType<typeof useMutation>;
-export type MutationResult = Apollo.MutationResult<Mutation>;
-export type MutationOptions = Apollo.BaseMutationOptions<Mutation, MutationVariables>;
+export type FollowMutationHookResult = ReturnType<typeof useFollowMutation>;
+export type FollowMutationResult = Apollo.MutationResult<FollowMutation>;
+export type FollowMutationOptions = Apollo.BaseMutationOptions<FollowMutation, FollowMutationVariables>;
 export const LoginDocument = gql`
     mutation Login($loginInput: String!, $loginPassword: String!) {
   login(input: $loginInput, password: $loginPassword) {
@@ -746,36 +746,36 @@ export function useSampleUsersLazyQuery(baseOptions?: Apollo.LazyQueryHookOption
 export type SampleUsersQueryHookResult = ReturnType<typeof useSampleUsersQuery>;
 export type SampleUsersLazyQueryHookResult = ReturnType<typeof useSampleUsersLazyQuery>;
 export type SampleUsersQueryResult = Apollo.QueryResult<SampleUsersQuery, SampleUsersQueryVariables>;
-export const Document = gql`
-    mutation ($targetId: String!) {
+export const UnfollowDocument = gql`
+    mutation unfollow($targetId: String!) {
   unfollow(id: $targetId) {
     success
   }
 }
     `;
-export type MutationFn = Apollo.MutationFunction<Mutation, MutationVariables>;
+export type UnfollowMutationFn = Apollo.MutationFunction<UnfollowMutation, UnfollowMutationVariables>;
 
 /**
- * __useMutation__
+ * __useUnfollowMutation__
  *
- * To run a mutation, you first call `useMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useMutation` returns a tuple that includes:
+ * To run a mutation, you first call `useUnfollowMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUnfollowMutation` returns a tuple that includes:
  * - A mutate function that you can call at any time to execute the mutation
  * - An object with fields that represent the current status of the mutation's execution
  *
  * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
  *
  * @example
- * const [mutation, { data, loading, error }] = useMutation({
+ * const [unfollowMutation, { data, loading, error }] = useUnfollowMutation({
  *   variables: {
  *      targetId: // value for 'targetId'
  *   },
  * });
  */
-export function useMutation(baseOptions?: Apollo.MutationHookOptions<Mutation, MutationVariables>) {
+export function useUnfollowMutation(baseOptions?: Apollo.MutationHookOptions<UnfollowMutation, UnfollowMutationVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<Mutation, MutationVariables>(Document, options);
+        return Apollo.useMutation<UnfollowMutation, UnfollowMutationVariables>(UnfollowDocument, options);
       }
-export type MutationHookResult = ReturnType<typeof useMutation>;
-export type MutationResult = Apollo.MutationResult<Mutation>;
-export type MutationOptions = Apollo.BaseMutationOptions<Mutation, MutationVariables>;
+export type UnfollowMutationHookResult = ReturnType<typeof useUnfollowMutation>;
+export type UnfollowMutationResult = Apollo.MutationResult<UnfollowMutation>;
+export type UnfollowMutationOptions = Apollo.BaseMutationOptions<UnfollowMutation, UnfollowMutationVariables>;
