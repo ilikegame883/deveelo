@@ -1,4 +1,4 @@
-import { useFollowMutation } from "./backend/generated/graphql";
+import { useFollowMutation, useUnfollowMutation } from "./backend/generated/graphql";
 
 export const updateSidebar = (tag: string) => {
 	const side = document.getElementById("sidebar");
@@ -10,28 +10,60 @@ export const updateSidebar = (tag: string) => {
 	}
 };
 
-export const followUser = async (id: string, target: string) => {
-	const [followUser] = useFollowMutation();
+// export const followUser = async (id: string, target: string) => {
+// 	const [followUser] = useFollowMutation();
 
-	try {
-		const response = await followUser({
-			variables: {
-				targetId: id,
-			},
-		});
+// 	try {
+// 		console.log("ran");
 
-		if (response && response.data) {
-			if (response.data.follow.success === true) {
-				updateSidebar(null);
-			}
-		}
-	} catch (error) {
-		console.log(error);
-	}
+// 		const response = await followUser({
+// 			variables: {
+// 				targetId: id,
+// 			},
+// 		});
 
-	return;
-};
+// 		if (response && response.data) {
+// 			if (response.data.follow.success === true) {
+// 				switch (target) {
+// 					case "sidebar":
+// 						updateSidebar(null);
+// 						break;
+// 					default:
+// 						break;
+// 				}
+// 			}
+// 		}
+// 	} catch (error) {
+// 		console.log(error);
+// 	}
 
-export const unfollowUser = async (id: string) => {
-	return;
-};
+// 	return;
+// };
+
+// export const unfollowUser = async (id: string, target: string) => {
+// 	const [unfollowUser] = useUnfollowMutation();
+
+// 	try {
+// 		const response = await unfollowUser({
+// 			variables: {
+// 				targetId: id,
+// 			},
+// 		});
+
+// 		if (response && response.data) {
+// 			if (response.data.unfollow.success === true) {
+// 				switch (target) {
+// 					case "sidebar":
+// 						updateSidebar(null);
+// 						break;
+// 					default:
+// 						break;
+// 				}
+// 			}
+// 		}
+// 	} catch (error) {
+// 		console.log(error);
+// 	}
+
+// 	return;
+// };

@@ -12,12 +12,14 @@ import Image from "next/image";
 import { useFindMinProfileByTagQuery, useFollowMutation, useMyAccountMinProfileQuery, useRandomMinProfileQuery } from "../hooks/backend/generated/graphql";
 import { getAccessToken } from "../accessToken";
 import SocialList from "./minor/SocialList";
+import { updateSidebar } from "../hooks/socialhooks";
 
 interface sidebarProps {
 	hardEdge?: boolean;
 }
 
 const Sidebar = ({ hardEdge }: sidebarProps) => {
+	const [followUser] = useFollowMutation();
 	hardEdge ??= true;
 
 	const token = getAccessToken();
@@ -108,10 +110,38 @@ const Sidebar = ({ hardEdge }: sidebarProps) => {
 			}
 		}
 
+		const handleFollow = async (id: string, target: string) => {
+			try {
+				console.log("ran");
+
+				const response = await followUser({
+					variables: {
+						targetId: id,
+					},
+				});
+
+				if (response && response.data) {
+					if (response.data.follow.success === true) {
+						switch (target) {
+							case "sidebar":
+								updateSidebar(null);
+								break;
+							default:
+								break;
+						}
+					}
+				}
+			} catch (error) {
+				console.log(error);
+			}
+
+			return;
+		};
+
 		//add the un/follow user acions, then make the resolver, and call it from socialhooks.ts
 		buttons ??= (
 			<>
-				<TextButton colorKey="red" text="Unfollow" />
+				<TextButton colorKey="gold" text="Follow" action={() => handleFollow(user._id, "sidebar")} />
 				<TextButton colorKey="green" text="Friend" />
 			</>
 		);
