@@ -15,12 +15,12 @@ const TextButton = ({ colorKey, text, submit, action, disabled, large }: buttonP
 	let content: any = null;
 
 	const handlePress = () => {
-		if (action && !submit) {
+		if (action !== null && !submit) {
 			const type = typeof action;
 			if (type === "string") {
 				router.push(action);
-			} else if (type === "function") {
-				action;
+			} else {
+				action();
 			}
 		}
 	};
