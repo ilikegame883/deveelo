@@ -14,12 +14,17 @@ const TextButton = ({ colorKey, text, submit, action, disabled, large }: buttonP
 	const router = useRouter();
 	let content: any = null;
 
+	//perform the action entered to the action field of this component
 	const handlePress = () => {
+		//if the type is submit, it already has a form specific action
 		if (action !== null && !submit) {
+			//get the type of the input, and decide what to do with it
 			const type = typeof action;
 			if (type === "string") {
+				//string actions are assumed to be path to another page
 				router.push(action);
 			} else {
+				//we assume it is a function, so run it
 				action();
 			}
 		}
@@ -28,6 +33,7 @@ const TextButton = ({ colorKey, text, submit, action, disabled, large }: buttonP
 	switch (colorKey) {
 		case "gold":
 			if (large) {
+				//used for login/form submit buttons
 				content = (
 					<button className={buttonStyles.goldGradL} type={submit ? "submit" : undefined} onClick={(e) => handlePress()}>
 						{text}
