@@ -47,9 +47,6 @@ const Sidebar = ({ hardEdge }: sidebarProps) => {
 
 	//used to increase follow count and change button on new follow
 	const [justFollowed, setJustFollowed] = useState(false);
-	if (justFollowed) {
-		console.log("justFollowed is currently = " + justFollowed);
-	}
 
 	//handle seting local store update on mount
 	useEffect(() => {
@@ -73,12 +70,8 @@ const Sidebar = ({ hardEdge }: sidebarProps) => {
 				be handled automatically by the gql queries
 				*/
 
-				console.log(`Event recieved, justFollowed being set `);
-
 				setJustFollowed(true);
 			} else {
-				console.log("changing profile");
-
 				//update to change the profile shown without link change
 				setSideProf(e.detail);
 			}
@@ -90,8 +83,6 @@ const Sidebar = ({ hardEdge }: sidebarProps) => {
 			const side = document.getElementById("sidebar");
 
 			if (side) {
-				console.log("binded");
-
 				side.addEventListener("updateSidebar", handleUpdate);
 			}
 		}, 1000);
@@ -142,7 +133,6 @@ const Sidebar = ({ hardEdge }: sidebarProps) => {
 
 		const handleFollow = async (id: string) => {
 			try {
-				console.log("ran");
 				//updateSidebar("newfollow");
 				const response = await followUser({
 					variables: {
