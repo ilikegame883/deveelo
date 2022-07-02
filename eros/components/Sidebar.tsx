@@ -44,6 +44,7 @@ const Sidebar = ({ hardEdge }: sidebarProps) => {
 	const storage = window.localStorage;
 	const [uTag, setSideProf] = useState(storage.getItem("side_prof"));
 	const [rerender, setRerender] = useState(0);
+	const [justFollowed, setJustFollowed] = useState(false);
 	console.log("rerender is currently: " + rerender);
 
 	//handle seting local store update on mount
@@ -71,6 +72,9 @@ const Sidebar = ({ hardEdge }: sidebarProps) => {
 			}
 		};
 		setTimeout(() => {
+			//add event listener to the sidebar which
+			//listens for events telling to update sidebar
+			//the source of these dispatched events are socialhoots.ts
 			const side = document.getElementById("sidebar");
 
 			if (side) {
@@ -127,7 +131,7 @@ const Sidebar = ({ hardEdge }: sidebarProps) => {
 		const handleFollow = async (id: string) => {
 			try {
 				console.log("ran");
-				updateSidebar("followIncrement");
+				updateSidebar("newfollow");
 				// const response = await followUser({
 				// 	variables: {
 				// 		targetId: id,
@@ -138,7 +142,7 @@ const Sidebar = ({ hardEdge }: sidebarProps) => {
 				// 	//when user clicks the follow button, increase
 				// 	//the follower number of the current user bc it
 				// 	//will not realize the new follow until next reload
-				// 	updateSidebar("followIncrement");
+				// 	updateSidebar("newfollow");
 				// }
 			} catch (error) {
 				console.log(error);
