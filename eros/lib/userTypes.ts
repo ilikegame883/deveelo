@@ -78,5 +78,5 @@ export interface MinProfUserType {
 		postIds: string[];
 		blogIds: string[];
 	};
-	status: "online" | "idle" | "dnd" | "offline";
+	status: string;
 }
