@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import jwt_decode, { JwtPayload } from "jwt-decode";
 import SimpleBar from "simplebar-react";
@@ -7,11 +8,10 @@ import sidebarStyles from "../styles/sidebar.module.css";
 import NameGroup from "./micro/NameGroup";
 import TextButton from "./micro/TextButton";
 import ProfilePicture from "./micro/ProfilePicture";
-import Image from "next/image";
+import SocialList from "./minor/SocialList";
 
 import { useFindMinProfileByTagQuery, useFollowMutation, useMyAccountMinProfileQuery, useRandomMinProfileQuery } from "../hooks/backend/generated/graphql";
 import { getAccessToken } from "../accessToken";
-import SocialList from "./minor/SocialList";
 import { updateSidebar } from "../hooks/socialhooks";
 
 interface sidebarProps {
@@ -44,14 +44,28 @@ const Sidebar = ({ hardEdge }: sidebarProps) => {
 	const storage = window.localStorage;
 	const [uTag, setSideProf] = useState(storage.getItem("side_prof"));
 	const [rerender, setRerender] = useState(0);
+	console.log("rerender is currently: " + rerender);
 
 	//handle seting local store update on mount
 	useEffect(() => {
 		const handleUpdate = (e: CustomEvent) => {
 			if (e.detail === null) {
 				//no change in profile, update without change (i.e. follow user)
-				setRerender(rerender + 1);
+				const date = new Date();
+
+				/*
+				/+ This can be used to rerender the sidebar any number of times:
+				/+ uses the current second and millisecond to generate
+				/+ a new number to set that new state int value
+				let randomSeed = date.getSeconds() + date.getMilliseconds();
+				setRerender(randomSeed);
+				*/
+
+				setRerender(1);
+			} else if (e.detail === "follow") {
 			} else {
+				console.log("changing profile");
+
 				//update to change the profile shown without link change
 				setSideProf(e.detail);
 			}
@@ -110,27 +124,22 @@ const Sidebar = ({ hardEdge }: sidebarProps) => {
 			}
 		}
 
-		const handleFollow = async (id: string, target: string) => {
+		const handleFollow = async (id: string) => {
 			try {
 				console.log("ran");
+				updateSidebar("followIncrement");
+				// const response = await followUser({
+				// 	variables: {
+				// 		targetId: id,
+				// 	},
+				// });
 
-				const response = await followUser({
-					variables: {
-						targetId: id,
-					},
-				});
-
-				if (response && response.data) {
-					if (response.data.follow.success === true) {
-						switch (target) {
-							case "sidebar":
-								updateSidebar(null);
-								break;
-							default:
-								break;
-						}
-					}
-				}
+				// if (response && response.data) {
+				// 	//when user clicks the follow button, increase
+				// 	//the follower number of the current user bc it
+				// 	//will not realize the new follow until next reload
+				// 	updateSidebar("followIncrement");
+				// }
 			} catch (error) {
 				console.log(error);
 			}
@@ -141,7 +150,7 @@ const Sidebar = ({ hardEdge }: sidebarProps) => {
 		//add the un/follow user acions, then make the resolver, and call it from socialhooks.ts
 		buttons ??= (
 			<>
-				<TextButton colorKey="gold" text="Follow" action={() => handleFollow(user._id, "sidebar")} />
+				<TextButton colorKey="gold" text="Follow" action={() => handleFollow(user._id)} />
 				<TextButton colorKey="green" text="Friend" />
 			</>
 		);
@@ -202,7 +211,7 @@ const Sidebar = ({ hardEdge }: sidebarProps) => {
 							</div>
 							<ProfilePicture size="large" source={user.profile.pictureUrl} status={user.status} />
 							<div className={sidebarStyles.p_stats}>
-								<p className={sidebarStyles.p_stats_num}>{user.profile.followerIds.length}</p>
+								<p className={sidebarStyles.p_stats_num}>{user.profile.followerIds.length + rerender}</p>
 								<p className={sidebarStyles.p_stats_label}>Followers</p>
 							</div>
 						</div>
