@@ -9,7 +9,7 @@ import TextButton from "./micro/TextButton";
 import ProfilePicture from "./micro/ProfilePicture";
 import SocialList from "./minor/SocialList";
 
-import { useFindMinProfileByTagQuery, useFollowMutation, useMyAccountMinProfileQuery, useRandomMinProfileQuery } from "../hooks/backend/generated/graphql";
+import { useFindMinProfileByTagQuery, useFollowMutation, useMyAccountMinProfileQuery, useRandomMinProfileQuery, useUnfollowMutation } from "../hooks/backend/generated/graphql";
 import { getPayload } from "../accessToken";
 import { updateSidebar } from "../hooks/socialhooks";
 
@@ -27,6 +27,8 @@ interface sidebarProps {
 
 const Sidebar = ({ hardEdge }: sidebarProps) => {
 	const [followUser] = useFollowMutation();
+	const [unfollowUser] = useUnfollowMutation();
+
 	hardEdge ??= true;
 
 	//componentwide establishment of if we are logged in
@@ -58,7 +60,7 @@ const Sidebar = ({ hardEdge }: sidebarProps) => {
 	const [rerender, setRerender] = useState(0);
 
 	//used to increase follow count and change button on new follow
-	const [justFollowed, setJustFollowed] = useState(false);
+	const [followMod, setFollowMod] = useState(0);
 
 	//handle seting local store update on mount
 	useEffect(() => {
@@ -76,13 +78,19 @@ const Sidebar = ({ hardEdge }: sidebarProps) => {
 			} else if (e.detail === "newfollow") {
 				/*
 				> When the user clicks the follow button
-				set the new follow to true, this will be used to add a one to
+				set the followMod to 1, this will be used to add a 1 to
 				the follower count and also change the button to unfollow,
 				this has to be done manually the first time, then it will
 				be handled automatically by the gql queries
 				*/
-
-				setJustFollowed(true);
+				setFollowMod(1);
+			} else if (e.detail === "newunfollow") {
+				/*
+				> When the user clicks the unfollow button
+				set the followMod to -1, this will be used to subtract 1 from
+				the follower count and also change the button to follow
+				*/
+				setFollowMod(-1);
 			} else {
 				//update to change the profile shown without link change
 				setSideProf(e.detail);
@@ -144,7 +152,6 @@ const Sidebar = ({ hardEdge }: sidebarProps) => {
 
 		const handleFollow = async (id: string) => {
 			try {
-				//updateSidebar("newfollow");
 				const response = await followUser({
 					variables: {
 						targetId: id,
@@ -152,10 +159,37 @@ const Sidebar = ({ hardEdge }: sidebarProps) => {
 				});
 
 				if (response && response.data) {
-					//when user clicks the follow button, increase
-					//the follower number of the current user bc it
-					//will not realize the new follow until next reload
-					updateSidebar("newfollow");
+					//check if the operation went through w/o errors
+					if (response.data.follow.success) {
+						//when user clicks the follow button, increase
+						//the follower number of the current user bc it
+						//will not realize the new follow until next reload
+						updateSidebar("newfollow");
+					}
+				}
+			} catch (error) {
+				console.log(error);
+			}
+
+			return;
+		};
+
+		const handleUnfollow = async (id: string) => {
+			try {
+				const response = await unfollowUser({
+					variables: {
+						targetId: id,
+					},
+				});
+
+				if (response && response.data) {
+					//check if the operation went through w/o errors
+					if (response.data.unfollow.success) {
+						//when user clicks the follow button, increase
+						//the follower number of the current user bc it
+						//will not realize the new follow until next reload
+						updateSidebar("newunfollow");
+					}
 				}
 			} catch (error) {
 				console.log(error);
@@ -167,7 +201,6 @@ const Sidebar = ({ hardEdge }: sidebarProps) => {
 		//add the un/follow user acions, then make the resolver, and call it from socialhooks.ts
 		buttons ??= (
 			<>
-				{}
 				<TextButton colorKey="gold" text="Follow" action={() => handleFollow(user._id)} />
 				<TextButton colorKey="green" text="Friend" />
 			</>
@@ -232,7 +265,7 @@ const Sidebar = ({ hardEdge }: sidebarProps) => {
 							</div>
 							<ProfilePicture size="large" source={user.profile.pictureUrl} status={user.status} />
 							<div className={sidebarStyles.p_stats}>
-								<p className={sidebarStyles.p_stats_num}>{justFollowed ? userFollowerCount + 1 : userFollowerCount}</p>
+								<p className={sidebarStyles.p_stats_num}>{userFollowerCount + followMod}</p>
 								<p className={sidebarStyles.p_stats_label}>Followers</p>
 							</div>
 						</div>
