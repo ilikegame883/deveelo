@@ -11,7 +11,7 @@ import ProfilePicture from "./micro/ProfilePicture";
 import SocialList from "./minor/SocialList";
 
 import { useFindMinProfileByTagQuery, useFollowMutation, useMyAccountMinProfileQuery, useRandomMinProfileQuery } from "../hooks/backend/generated/graphql";
-import { getAccessToken } from "../accessToken";
+import { getAccessToken, getPayload } from "../accessToken";
 import { updateSidebar } from "../hooks/socialhooks";
 
 interface sidebarProps {
@@ -22,8 +22,13 @@ const Sidebar = ({ hardEdge }: sidebarProps) => {
 	const [followUser] = useFollowMutation();
 	hardEdge ??= true;
 
-	const token = getAccessToken();
-	const loggedIn: boolean = token !== "";
+	//componentwide establishment of if we are logged in
+	//and if we are, our user's id through the payload.id
+	//if we get a payload back, we know that we are logged in
+	let payload: any = getPayload();
+	const loggedIn = payload !== null;
+
+	//this is who's profile will be loaded into the sidebar
 	let user: any = null;
 
 	const loadingSidebar = (
@@ -97,6 +102,7 @@ const Sidebar = ({ hardEdge }: sidebarProps) => {
 		};
 	}, []);
 
+	//the following ifesle will determine buttons loaded
 	let buttons: any = null;
 	if (uTag !== null && uTag !== "") {
 		//logged in, possibly showing other profile
@@ -120,8 +126,6 @@ const Sidebar = ({ hardEdge }: sidebarProps) => {
 		user = data.findUserByTag;
 
 		if (loggedIn) {
-			const payload: any = jwt_decode<JwtPayload>(token);
-
 			if (user._id === payload.id) {
 				buttons = (
 					<>
@@ -156,6 +160,7 @@ const Sidebar = ({ hardEdge }: sidebarProps) => {
 		//add the un/follow user acions, then make the resolver, and call it from socialhooks.ts
 		buttons ??= (
 			<>
+				{}
 				<TextButton colorKey="gold" text="Follow" action={() => handleFollow(user._id)} />
 				<TextButton colorKey="green" text="Friend" />
 			</>
