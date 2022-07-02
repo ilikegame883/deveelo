@@ -57,3 +57,26 @@ export interface SearchProfileType {
 export interface SearchStatusType {
 	status: "online" | "idle" | "dnd" | "offline";
 }
+
+export interface MinProfUserType {
+	_id: string;
+	account: {
+		username: string;
+		tag: string;
+		private: boolean;
+	};
+	profile: {
+		bannerUrl: string;
+		pictureUrl: string;
+		description: string;
+		followingIds: string[];
+		followerIds: string[];
+		badges: string[];
+		linkedProfiles: string[];
+	};
+	social: {
+		postIds: string[];
+		blogIds: string[];
+	};
+	status: "online" | "idle" | "dnd" | "offline";
+}
