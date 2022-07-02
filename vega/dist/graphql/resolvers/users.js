@@ -89,8 +89,8 @@ const userResolvers = {
         async follow(_parent, { id }, context) {
             const myID = context.payload.id;
             try {
-                await User_1.default.findByIdAndUpdate(new mongodb_1.ObjectID(myID), { $push: { "profile.followingIds": id } }, { useFindAndModify: false });
-                await User_1.default.findByIdAndUpdate(new mongodb_1.ObjectID(id), { $push: { "profile.followerIds": myID } }, { useFindAndModify: false });
+                await User_1.default.findByIdAndUpdate(new mongodb_1.ObjectID(myID), { $addToSet: { "profile.followingIds": id } }, { useFindAndModify: false });
+                await User_1.default.findByIdAndUpdate(new mongodb_1.ObjectID(id), { $addToSet: { "profile.followerIds": myID } }, { useFindAndModify: false });
                 return {
                     success: true,
                 };
