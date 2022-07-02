@@ -1,6 +1,5 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import jwt_decode, { JwtPayload } from "jwt-decode";
 import SimpleBar from "simplebar-react";
 import "simplebar/dist/simplebar.min.css";
 
@@ -11,8 +10,16 @@ import ProfilePicture from "./micro/ProfilePicture";
 import SocialList from "./minor/SocialList";
 
 import { useFindMinProfileByTagQuery, useFollowMutation, useMyAccountMinProfileQuery, useRandomMinProfileQuery } from "../hooks/backend/generated/graphql";
-import { getAccessToken, getPayload } from "../accessToken";
+import { getPayload } from "../accessToken";
 import { updateSidebar } from "../hooks/socialhooks";
+
+/* todo 
+	-  Move follow logic back to hook
+	-  Switch to unfollow button
+	-  Persist unfollow button
+	-  Preview sidebar loading display
+	-  Content animate in
+*/
 
 interface sidebarProps {
 	hardEdge?: boolean;
