@@ -12,6 +12,7 @@ import SocialList from "./minor/SocialList";
 import { useFindMinProfileByTagQuery, useFollowMutation, useMyAccountMinProfileQuery, useRandomMinProfileQuery, useUnfollowMutation } from "../hooks/backend/generated/graphql";
 import { getPayload } from "../accessToken";
 import { updateSidebar } from "../hooks/socialhooks";
+import { MinProfUserType } from "../lib/userTypes";
 
 /* todo 
 	-  Move follow logic back to hook
@@ -141,7 +142,10 @@ const Sidebar = ({ hardEdge }: sidebarProps) => {
 		user = data.findUserByTag;
 
 		if (loggedIn) {
-			if (user._id === payload.id) {
+			//the id of the current logged in user
+			const myId = payload.id;
+
+			if (user._id === myId) {
 				buttons = (
 					<>
 						<TextButton colorKey="gold" text="Edit Profile" />
@@ -198,15 +202,42 @@ const Sidebar = ({ hardEdge }: sidebarProps) => {
 					return;
 				};
 
+				//transfer the user to one with the type def, so we
+				//get intellisense for this next operation.
+				const userWtypes: MinProfUserType = user;
+				const userFollowerList = userWtypes.profile.followerIds;
+
+				//use this to show the unfollow button instead of the follow
+				let showUnfollow: boolean;
+
+				switch (followMod) {
+					case 1:
+						//just clicked follow, change to unfollow button
+						showUnfollow = true;
+						break;
+					case -1:
+						//just unfollowed, change to follow button
+						showUnfollow = false;
+						break;
+					default:
+						//Following status has not changed, just persist the current status:
+						//Check if we follow the displayed user (if we are among their followers)
+						showUnfollow = userFollowerList.includes(myId);
+						break;
+				}
+
 				buttons ??= (
 					<>
-						<TextButton colorKey="gold" text="Follow" action={() => handleFollow(user._id)} />
+						{showUnfollow ? (
+							<TextButton colorKey="red" text="Unfollow" action={() => handleUnfollow(user._id)} />
+						) : (
+							<TextButton colorKey="gold" text="Follow" action={() => handleFollow(user._id)} />
+						)}
 						<TextButton colorKey="green" text="Friend" />
 					</>
 				);
 			}
 		} else {
-			//LOGGED IN
 			//we are not logged in, show buttons w/o actions
 			buttons ??= (
 				<>
@@ -216,7 +247,7 @@ const Sidebar = ({ hardEdge }: sidebarProps) => {
 			);
 		}
 	} else if (loggedIn) {
-		//logged in, no selected so show self
+		//logged in, no selected, so show self
 		const { data, loading, error } = useMyAccountMinProfileQuery();
 		if (loading && !data) {
 			return loadingSidebar;
