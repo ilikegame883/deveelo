@@ -44,26 +44,38 @@ const Sidebar = ({ hardEdge }: sidebarProps) => {
 	const storage = window.localStorage;
 	const [uTag, setSideProf] = useState(storage.getItem("side_prof"));
 	const [rerender, setRerender] = useState(0);
+
+	//used to increase follow count and change button on new follow
 	const [justFollowed, setJustFollowed] = useState(false);
-	console.log("rerender is currently: " + rerender);
+	if (justFollowed) {
+		console.log("justFollowed is currently = " + justFollowed);
+	}
 
 	//handle seting local store update on mount
 	useEffect(() => {
 		const handleUpdate = (e: CustomEvent) => {
 			if (e.detail === null) {
-				//no change in profile, update without change (i.e. follow user)
-				const date = new Date();
-
 				/*
-				/+ This can be used to rerender the sidebar any number of times:
-				/+ uses the current second and millisecond to generate
-				/+ a new number to set that new state int value
+				> Arbitrary reloading of the sidebar
+				This can be used to rerender the sidebar any number of times:
+				uses the current second and millisecond to generate
+				a new number to set that new state int value
+				*/
+				const date = new Date();
 				let randomSeed = date.getSeconds() + date.getMilliseconds();
 				setRerender(randomSeed);
+			} else if (e.detail === "newfollow") {
+				/*
+				> When the user clicks the follow button
+				set the new follow to true, this will be used to add a one to
+				the follower count and also change the button to unfollow,
+				this has to be done manually the first time, then it will
+				be handled automatically by the gql queries
 				*/
 
-				setRerender(1);
-			} else if (e.detail === "follow") {
+				console.log(`Event recieved, justFollowed being set `);
+
+				setJustFollowed(true);
 			} else {
 				console.log("changing profile");
 
@@ -131,19 +143,19 @@ const Sidebar = ({ hardEdge }: sidebarProps) => {
 		const handleFollow = async (id: string) => {
 			try {
 				console.log("ran");
-				updateSidebar("newfollow");
-				// const response = await followUser({
-				// 	variables: {
-				// 		targetId: id,
-				// 	},
-				// });
+				//updateSidebar("newfollow");
+				const response = await followUser({
+					variables: {
+						targetId: id,
+					},
+				});
 
-				// if (response && response.data) {
-				// 	//when user clicks the follow button, increase
-				// 	//the follower number of the current user bc it
-				// 	//will not realize the new follow until next reload
-				// 	updateSidebar("newfollow");
-				// }
+				if (response && response.data) {
+					//when user clicks the follow button, increase
+					//the follower number of the current user bc it
+					//will not realize the new follow until next reload
+					updateSidebar("newfollow");
+				}
 			} catch (error) {
 				console.log(error);
 			}
@@ -197,6 +209,9 @@ const Sidebar = ({ hardEdge }: sidebarProps) => {
 		);
 	}
 
+	//reduce to variable bc we will be using this a bit in the html
+	let userFollowerCount = user.profile.followerIds.length;
+
 	return (
 		<div id="sidebar" className={hardEdge ? sidebarStyles.sidebar_full : sidebarStyles.sidebar}>
 			<SimpleBar className="fillfill">
@@ -215,7 +230,7 @@ const Sidebar = ({ hardEdge }: sidebarProps) => {
 							</div>
 							<ProfilePicture size="large" source={user.profile.pictureUrl} status={user.status} />
 							<div className={sidebarStyles.p_stats}>
-								<p className={sidebarStyles.p_stats_num}>{user.profile.followerIds.length + rerender}</p>
+								<p className={sidebarStyles.p_stats_num}>{justFollowed ? userFollowerCount + 1 : userFollowerCount}</p>
 								<p className={sidebarStyles.p_stats_label}>Followers</p>
 							</div>
 						</div>
