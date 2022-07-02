@@ -120,7 +120,7 @@ const Sidebar = ({ hardEdge }: sidebarProps) => {
 	//the following ifesle will determine buttons loaded
 	let buttons: any = null;
 	if (uTag !== null && uTag !== "") {
-		//logged in, possibly showing other profile
+		//possibly logged in, possibly showing other profile
 		const { data, loading, error } = useFindMinProfileByTagQuery({
 			variables: {
 				tagInput: uTag,
@@ -147,64 +147,74 @@ const Sidebar = ({ hardEdge }: sidebarProps) => {
 						<TextButton colorKey="gold" text="Edit Profile" />
 					</>
 				);
+			} else {
+				//we are logged in but the profile is not ours, open following abilities
+				//these actions are called on click, and update the sidebar via socialhooks.ts
+				const handleFollow = async (id: string) => {
+					try {
+						const response = await followUser({
+							variables: {
+								targetId: id,
+							},
+						});
+
+						if (response && response.data) {
+							//check if the operation went through w/o errors
+							if (response.data.follow.success) {
+								//when user clicks the follow button, increase
+								//the follower number of the current user bc it
+								//will not realize the new follow until next reload
+								updateSidebar("newfollow");
+							}
+						}
+					} catch (error) {
+						console.log(error);
+					}
+
+					return;
+				};
+
+				const handleUnfollow = async (id: string) => {
+					try {
+						const response = await unfollowUser({
+							variables: {
+								targetId: id,
+							},
+						});
+
+						if (response && response.data) {
+							//check if the operation went through w/o errors
+							if (response.data.unfollow.success) {
+								//when user clicks the follow button, increase
+								//the follower number of the current user bc it
+								//will not realize the new follow until next reload
+								updateSidebar("newunfollow");
+							}
+						}
+					} catch (error) {
+						console.log(error);
+					}
+
+					return;
+				};
+
+				buttons ??= (
+					<>
+						<TextButton colorKey="gold" text="Follow" action={() => handleFollow(user._id)} />
+						<TextButton colorKey="green" text="Friend" />
+					</>
+				);
 			}
+		} else {
+			//LOGGED IN
+			//we are not logged in, show buttons w/o actions
+			buttons ??= (
+				<>
+					<TextButton colorKey="gold" text="Follow" />
+					<TextButton colorKey="green" text="Friend" />
+				</>
+			);
 		}
-
-		const handleFollow = async (id: string) => {
-			try {
-				const response = await followUser({
-					variables: {
-						targetId: id,
-					},
-				});
-
-				if (response && response.data) {
-					//check if the operation went through w/o errors
-					if (response.data.follow.success) {
-						//when user clicks the follow button, increase
-						//the follower number of the current user bc it
-						//will not realize the new follow until next reload
-						updateSidebar("newfollow");
-					}
-				}
-			} catch (error) {
-				console.log(error);
-			}
-
-			return;
-		};
-
-		const handleUnfollow = async (id: string) => {
-			try {
-				const response = await unfollowUser({
-					variables: {
-						targetId: id,
-					},
-				});
-
-				if (response && response.data) {
-					//check if the operation went through w/o errors
-					if (response.data.unfollow.success) {
-						//when user clicks the follow button, increase
-						//the follower number of the current user bc it
-						//will not realize the new follow until next reload
-						updateSidebar("newunfollow");
-					}
-				}
-			} catch (error) {
-				console.log(error);
-			}
-
-			return;
-		};
-
-		//add the un/follow user acions, then make the resolver, and call it from socialhooks.ts
-		buttons ??= (
-			<>
-				<TextButton colorKey="gold" text="Follow" action={() => handleFollow(user._id)} />
-				<TextButton colorKey="green" text="Friend" />
-			</>
-		);
 	} else if (loggedIn) {
 		//logged in, no selected so show self
 		const { data, loading, error } = useMyAccountMinProfileQuery();
