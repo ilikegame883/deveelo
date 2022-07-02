@@ -17,7 +17,7 @@ const TextButton = ({ colorKey, text, submit, action, disabled, large }: buttonP
 	//perform the action entered to the action field of this component
 	const handlePress = () => {
 		//if the type is submit, it already has a form specific action
-		if (action !== null && !submit) {
+		if (action !== null && action !== undefined && !submit) {
 			//get the type of the input, and decide what to do with it
 			const type = typeof action;
 			if (type === "string") {
