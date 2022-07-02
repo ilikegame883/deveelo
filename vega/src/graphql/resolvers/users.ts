@@ -106,10 +106,10 @@ const userResolvers = {
 
 			try {
 				//add them to our following list
-				await User.findByIdAndUpdate(new ObjectID(myID), { $push: { "profile.followingIds": id } }, { useFindAndModify: false });
+				await User.findByIdAndUpdate(new ObjectID(myID), { $addToSet: { "profile.followingIds": id } }, { useFindAndModify: false });
 
 				//add our id to their follower list
-				await User.findByIdAndUpdate(new ObjectID(id), { $push: { "profile.followerIds": myID } }, { useFindAndModify: false });
+				await User.findByIdAndUpdate(new ObjectID(id), { $addToSet: { "profile.followerIds": myID } }, { useFindAndModify: false });
 
 				return {
 					success: true,
