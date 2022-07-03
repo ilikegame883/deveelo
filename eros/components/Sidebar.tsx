@@ -65,7 +65,7 @@ const Sidebar = ({ hardEdge }: sidebarProps) => {
 	//handle seting local store update on mount
 	useEffect(() => {
 		const setLastFMod = (value: string) => {
-			storage.setItem("lastfmod", `${value}`);
+			storage.setItem("lastfmod", `${value}|${uTag}`);
 		};
 
 		const handleUpdate = (e: CustomEvent) => {
