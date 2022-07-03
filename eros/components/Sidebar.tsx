@@ -13,6 +13,7 @@ import { useFindMinProfileByTagQuery, useFollowMutation, useMyAccountMinProfileQ
 import { getPayload } from "../accessToken";
 import { updateSidebar } from "../hooks/socialhooks";
 import { MinProfUserType } from "../lib/userTypes";
+import { FmodFetch } from "../hooks/setSidebar";
 
 /* todo 
 	+  Switch to unfollow button
@@ -61,13 +62,31 @@ const Sidebar = ({ hardEdge }: sidebarProps) => {
 
 	//used to increase follow count and change button on new follow
 	const [followMod, setFollowMod] = useState(0);
+	const getLastFMod = (): FmodFetch => {
+		const raw = storage.getItem("lastfmod");
+		if (raw === "") {
+			return {
+				notset: true,
+				direction: null,
+				tag: null,
+			};
+		}
 
+		const split = raw.split("|");
+		console.log(split);
+
+		return {
+			notset: false,
+			direction: split[0],
+			tag: split[1],
+		};
+	};
+
+	const setLastFMod = (value: string) => {
+		storage.setItem("lastfmod", `${value}|${uTag}`);
+	};
 	//handle seting local store update on mount
 	useEffect(() => {
-		const setLastFMod = (value: string) => {
-			storage.setItem("lastfmod", `${value}|${uTag}`);
-		};
-
 		const handleUpdate = (e: CustomEvent) => {
 			if (e.detail === null) {
 				/*
@@ -87,7 +106,6 @@ const Sidebar = ({ hardEdge }: sidebarProps) => {
 				this has to be done manually the first time, then it will
 				be handled automatically by the gql queries
 				*/
-				setLastFMod("+");
 				setFollowMod(1);
 			} else if (e.detail === "newunfollow") {
 				/*
@@ -95,7 +113,6 @@ const Sidebar = ({ hardEdge }: sidebarProps) => {
 				set the followMod to -1, this will be used to subtract 1 from
 				the follower count and also change the button to follow
 				*/
-				setLastFMod("-");
 				setFollowMod(-1);
 			} else {
 				//reset fmod in local storage
@@ -298,6 +315,30 @@ const Sidebar = ({ hardEdge }: sidebarProps) => {
 
 	//reduce to variable bc we will be using this a bit in the html
 	let userFollowerCount = user.profile.followerIds.length;
+	//determin how much needs to actually be added taking into account the
+	//last modification, which could have been an adition or subtraction,
+	//so we change the number relative to that, not the original (would change by 2)
+	//By default, set to followMod, so it will in/decrease as expected when the
+	//original followers either included (so decrease) or excluded (so increase) us
+	let fcountAddition = followMod;
+	const lastmod = getLastFMod();
+	//check to see if their was a prior fmod, and if this was on the current user
+	if (lastmod.notset === false && lastmod.tag === uTag) {
+		//we just followed & unfollowed, go back to what the count was originally
+		//OR
+		//we unfollowed & followed, either way we have ultimately not changed the count
+		if (lastmod.direction === "+" || lastmod.direction === "-") {
+			fcountAddition = 0;
+		}
+	}
+
+	//set the lastfmod to the current, but after it is done being used in calcs,in next run this
+	//will be the lastfmod (essencially delays fmod rests above from taking place the 1st time)
+	if (followMod === 1) {
+		setLastFMod("+");
+	} else if (followMod === -1) {
+		setLastFMod("-");
+	}
 
 	return (
 		<div id="sidebar" className={hardEdge ? sidebarStyles.sidebar_full : sidebarStyles.sidebar}>
@@ -317,7 +358,7 @@ const Sidebar = ({ hardEdge }: sidebarProps) => {
 							</div>
 							<ProfilePicture size="large" source={user.profile.pictureUrl} status={user.status} />
 							<div className={sidebarStyles.p_stats}>
-								<p className={sidebarStyles.p_stats_num}>{userFollowerCount + followMod}</p>
+								<p className={sidebarStyles.p_stats_num}>{userFollowerCount + fcountAddition}</p>
 								<p className={sidebarStyles.p_stats_label}>Followers</p>
 							</div>
 						</div>
