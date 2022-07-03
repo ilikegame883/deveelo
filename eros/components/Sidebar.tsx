@@ -15,8 +15,7 @@ import { updateSidebar } from "../hooks/socialhooks";
 import { MinProfUserType } from "../lib/userTypes";
 
 /* todo 
-	-  Move follow logic back to hook
-	-  Switch to unfollow button
+	+  Switch to unfollow button
 	-  Persist unfollow button
 	-  Preview sidebar loading display
 	-  Content animate in
@@ -65,6 +64,10 @@ const Sidebar = ({ hardEdge }: sidebarProps) => {
 
 	//handle seting local store update on mount
 	useEffect(() => {
+		const setLastFMod = (value: string) => {
+			storage.setItem("lastfmod", `${value}`);
+		};
+
 		const handleUpdate = (e: CustomEvent) => {
 			if (e.detail === null) {
 				/*
@@ -84,6 +87,7 @@ const Sidebar = ({ hardEdge }: sidebarProps) => {
 				this has to be done manually the first time, then it will
 				be handled automatically by the gql queries
 				*/
+				setLastFMod("+");
 				setFollowMod(1);
 			} else if (e.detail === "newunfollow") {
 				/*
@@ -91,8 +95,11 @@ const Sidebar = ({ hardEdge }: sidebarProps) => {
 				set the followMod to -1, this will be used to subtract 1 from
 				the follower count and also change the button to follow
 				*/
+				setLastFMod("-");
 				setFollowMod(-1);
 			} else {
+				//reset fmod in local storage
+				setLastFMod("");
 				//update to change the profile shown without link change
 				setSideProf(e.detail);
 			}
@@ -155,6 +162,8 @@ const Sidebar = ({ hardEdge }: sidebarProps) => {
 				//we are logged in but the profile is not ours, open following abilities
 				//these actions are called on click, and update the sidebar via socialhooks.ts
 				const handleFollow = async (id: string) => {
+					updateSidebar("newfollow");
+					return;
 					try {
 						const response = await followUser({
 							variables: {
@@ -179,6 +188,8 @@ const Sidebar = ({ hardEdge }: sidebarProps) => {
 				};
 
 				const handleUnfollow = async (id: string) => {
+					updateSidebar("newunfollow");
+					return;
 					try {
 						const response = await unfollowUser({
 							variables: {
