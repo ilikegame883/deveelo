@@ -62,9 +62,20 @@ const Sidebar = ({ hardEdge }: sidebarProps) => {
 
 	//used to increase follow count and change button on new follow
 	const [followMod, setFollowMod] = useState(0);
+	const setLastFMod = (value: string) => {
+		if (value !== "") {
+			storage.setItem("lastfmod", `${value}|${uTag}`);
+		} else {
+			//RESET the fmod bc it has been either a + then a - or visa versa,
+			//and a + and a - = 0, so we are back to the beginning what fmod = ""
+			storage.setItem("lastfmod", "");
+		}
+	};
+
 	const getLastFMod = (): FmodFetch => {
 		const raw = storage.getItem("lastfmod");
-		if (raw === "") {
+		//raw will be null on first site visit (lastfm will not exist yet in localstorage)
+		if (raw === "" || raw === null) {
 			return {
 				notset: true,
 				direction: null,
@@ -82,9 +93,6 @@ const Sidebar = ({ hardEdge }: sidebarProps) => {
 		};
 	};
 
-	const setLastFMod = (value: string) => {
-		storage.setItem("lastfmod", `${value}|${uTag}`);
-	};
 	//handle seting local store update on mount
 	useEffect(() => {
 		const handleUpdate = (e: CustomEvent) => {
@@ -179,8 +187,6 @@ const Sidebar = ({ hardEdge }: sidebarProps) => {
 				//we are logged in but the profile is not ours, open following abilities
 				//these actions are called on click, and update the sidebar via socialhooks.ts
 				const handleFollow = async (id: string) => {
-					updateSidebar("newfollow");
-					return;
 					try {
 						const response = await followUser({
 							variables: {
@@ -205,8 +211,6 @@ const Sidebar = ({ hardEdge }: sidebarProps) => {
 				};
 
 				const handleUnfollow = async (id: string) => {
-					updateSidebar("newunfollow");
-					return;
 					try {
 						const response = await unfollowUser({
 							variables: {
@@ -335,9 +339,22 @@ const Sidebar = ({ hardEdge }: sidebarProps) => {
 	//set the lastfmod to the current, but after it is done being used in calcs,in next run this
 	//will be the lastfmod (essencially delays fmod rests above from taking place the 1st time)
 	if (followMod === 1) {
-		setLastFMod("+");
+		if (getLastFMod().direction === "-") {
+			//reset lastfmod after follow-unfollow cycle is complete
+			//if not, count will not increment upon next follow
+			setLastFMod("");
+		} else {
+			//we are still in that cycle, so do what the 2 lines above the if says
+			setLastFMod("+");
+		}
 	} else if (followMod === -1) {
-		setLastFMod("-");
+		if (getLastFMod().direction === "+") {
+			//reset lastfmod after follow-unfollow cycle is complete
+			//if not, count will not increment upon next follow
+			setLastFMod("");
+		} else {
+			setLastFMod("-");
+		}
 	}
 
 	return (
