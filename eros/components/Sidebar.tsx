@@ -317,43 +317,47 @@ const Sidebar = ({ hardEdge }: sidebarProps) => {
 		);
 	}
 
-	//reduce to variable bc we will be using this a bit in the html
-	let userFollowerCount = user.profile.followerIds.length;
-	//determin how much needs to actually be added taking into account the
-	//last modification, which could have been an adition or subtraction,
-	//so we change the number relative to that, not the original (would change by 2)
-	//By default, set to followMod, so it will in/decrease as expected when the
-	//original followers either included (so decrease) or excluded (so increase) us
-	let fcountAddition = followMod;
-	const lastmod = getLastFMod();
-	//check to see if their was a prior fmod, and if this was on the current user
-	if (lastmod.notset === false && lastmod.tag === uTag) {
-		//we just followed & unfollowed, go back to what the count was originally
-		//OR
-		//we unfollowed & followed, either way we have ultimately not changed the count
-		if (lastmod.direction === "+" || lastmod.direction === "-") {
-			fcountAddition = 0;
-		}
-	}
+	let fcountAddition = 0;
 
-	//set the lastfmod to the current, but after it is done being used in calcs,in next run this
-	//will be the lastfmod (essencially delays fmod rests above from taking place the 1st time)
-	if (followMod === 1) {
-		if (getLastFMod().direction === "-") {
-			//reset lastfmod after follow-unfollow cycle is complete
-			//if not, count will not increment upon next follow
-			setLastFMod("");
-		} else {
-			//we are still in that cycle, so do what the 2 lines above the if says
-			setLastFMod("+");
+	//wrap this in if logged in bc only logged in users have the ability to
+	//change follower counts so this logic does not apply to guests
+	if (loggedIn) {
+		//determine how much needs to actually be added taking into account the
+		//last modification, which could have been an adition or subtraction,
+		//so we change the number relative to that, not the original (would change by 2)
+		//By default, set to followMod, so it will in/decrease as expected when the
+		//original followers either included (so decrease) or excluded (so increase) us
+		fcountAddition = followMod;
+		const lastmod = getLastFMod();
+		//check to see if their was a prior fmod, and if this was on the current user
+		if (lastmod.notset === false && lastmod.tag === uTag) {
+			//we just followed & unfollowed, go back to what the count was originally
+			//OR
+			//we unfollowed & followed, either way we have ultimately not changed the count
+			if (lastmod.direction === "+" || lastmod.direction === "-") {
+				fcountAddition = 0;
+			}
 		}
-	} else if (followMod === -1) {
-		if (getLastFMod().direction === "+") {
-			//reset lastfmod after follow-unfollow cycle is complete
-			//if not, count will not increment upon next follow
-			setLastFMod("");
-		} else {
-			setLastFMod("-");
+
+		//set the lastfmod to the current, but after it is done being used in calcs,in next run this
+		//will be the lastfmod (essencially delays fmod rests above from taking place the 1st time)
+		if (followMod === 1) {
+			if (getLastFMod().direction === "-") {
+				//reset lastfmod after follow-unfollow cycle is complete
+				//if not, count will not increment upon next follow
+				setLastFMod("");
+			} else {
+				//we are still in that cycle, so do what the 2 lines above the if says
+				setLastFMod("+");
+			}
+		} else if (followMod === -1) {
+			if (getLastFMod().direction === "+") {
+				//reset lastfmod after follow-unfollow cycle is complete
+				//if not, count will not increment upon next follow
+				setLastFMod("");
+			} else {
+				setLastFMod("-");
+			}
 		}
 	}
 
@@ -374,8 +378,9 @@ const Sidebar = ({ hardEdge }: sidebarProps) => {
 								<p className={sidebarStyles.p_stats_label}>Following</p>
 							</div>
 							<ProfilePicture size="large" source={user.profile.pictureUrl} status={user.status} />
+							{/* FOLLOWER COUNT */}
 							<div className={sidebarStyles.p_stats}>
-								<p className={sidebarStyles.p_stats_num}>{userFollowerCount + fcountAddition}</p>
+								<p className={sidebarStyles.p_stats_num}>{user.profile.followerIds.length + fcountAddition}</p>
 								<p className={sidebarStyles.p_stats_label}>Followers</p>
 							</div>
 						</div>
