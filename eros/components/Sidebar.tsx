@@ -375,14 +375,19 @@ const Sidebar = ({ hardEdge }: sidebarProps) => {
 		);
 	}
 
+	//by default, we assume no modification to the follow count is needed
 	let fcountAddition = 0;
-	const fmod = getFMod();
-	if (fmod.set) {
-		fcountAddition = fmod.value;
-	}
-
 	//wrap this in if logged in bc only logged in users have the ability to
 	//change follower counts so this logic does not apply to guests
+	if (loggedIn) {
+		//get the current absolute change to the original follow count
+		const fmod = getFMod();
+		if (fmod.set) {
+			//if this value is not "" (therefore no change), we apply the change
+			fcountAddition = fmod.value;
+		}
+	}
+
 	// if (loggedIn) {
 	// 	//determine how much needs to actually be added taking into account the
 	// 	//last modification, which could have been an adition or subtraction,
