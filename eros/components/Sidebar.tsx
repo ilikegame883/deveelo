@@ -13,7 +13,7 @@ import { useFindMinProfileByTagQuery, useFollowMutation, useMyAccountMinProfileQ
 import { getPayload } from "../accessToken";
 import { updateSidebar } from "../hooks/socialhooks";
 import { MinProfUserType } from "../lib/userTypes";
-import { Fmod, FmodFetch } from "../hooks/setSidebar";
+import { Fmod } from "../hooks/setSidebar";
 
 /* todo 
 	+  Switch to unfollow button
@@ -89,37 +89,6 @@ const Sidebar = ({ hardEdge }: sidebarProps) => {
 		return {
 			set: true,
 			value: parseInt(split[0]),
-			tag: split[1],
-		};
-	};
-
-	const setLastFMod = (value: string) => {
-		if (value !== "") {
-			storage.setItem("lastfmod", `${value}|${uTag}`);
-		} else {
-			//RESET the fmod bc it has been either a + then a - or visa versa,
-			//and a + and a - = 0, so we are back to the beginning what fmod = ""
-			storage.setItem("lastfmod", "");
-		}
-	};
-
-	const getLastFMod = (): FmodFetch => {
-		const raw = storage.getItem("lastfmod");
-		//raw will be null on first site visit (lastfm will not exist yet in localstorage)
-		if (raw === "" || raw === null) {
-			return {
-				notset: true,
-				direction: null,
-				tag: null,
-			};
-		}
-
-		const split = raw.split("|");
-		console.log(split);
-
-		return {
-			notset: false,
-			direction: split[0],
 			tag: split[1],
 		};
 	};
@@ -391,46 +360,6 @@ const Sidebar = ({ hardEdge }: sidebarProps) => {
 			fcountAddition = fmod.value;
 		}
 	}
-
-	// if (loggedIn) {
-	// 	//determine how much needs to actually be added taking into account the
-	// 	//last modification, which could have been an adition or subtraction,
-	// 	//so we change the number relative to that, not the original (would change by 2)
-	// 	//By default, set to followMod, so it will in/decrease as expected when the
-	// 	//original followers either included (so decrease) or excluded (so increase) us
-	// 	fcountAddition = followMod;
-	// 	const lastmod = getLastFMod();
-	// 	//check to see if their was a prior fmod, and if this was on the current user
-	// 	if (lastmod.notset === false && lastmod.tag === uTag) {
-	// 		//we just followed & unfollowed, go back to what the count was originally
-	// 		//OR
-	// 		//we unfollowed & followed, either way we have ultimately not changed the count
-	// 		if (lastmod.direction === "+" || lastmod.direction === "-") {
-	// 			fcountAddition = 0;
-	// 		}
-	// 	}
-
-	// 	//set the lastfmod to the current, but after it is done being used in calcs,in next run this
-	// 	//will be the lastfmod (essencially delays fmod rests above from taking place the 1st time)
-	// 	if (followMod === 1) {
-	// 		if (getLastFMod().direction === "-") {
-	// 			//reset lastfmod after follow-unfollow cycle is complete
-	// 			//if not, count will not increment upon next follow
-	// 			setLastFMod("");
-	// 		} else {
-	// 			//we are still in that cycle, so do what the 2 lines above the if says
-	// 			setLastFMod("+");
-	// 		}
-	// 	} else if (followMod === -1) {
-	// 		if (getLastFMod().direction === "+") {
-	// 			//reset lastfmod after follow-unfollow cycle is complete
-	// 			//if not, count will not increment upon next follow
-	// 			setLastFMod("");
-	// 		} else {
-	// 			setLastFMod("-");
-	// 		}
-	// 	}
-	// }
 
 	return (
 		<div id="sidebar" className={hardEdge ? sidebarStyles.sidebar_full : sidebarStyles.sidebar}>
