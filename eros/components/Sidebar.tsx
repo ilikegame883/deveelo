@@ -60,7 +60,7 @@ const Sidebar = ({ hardEdge }: sidebarProps) => {
 	const [uTag, setSideProf] = useState(storage.getItem("side_prof"));
 	const [rerender, setRerender] = useState(0);
 
-	//used to increase follow count and change button on new follow
+	//used to increase change button on new follow
 	const [followMod, setFollowMod] = useState(0);
 	const setFMod = (value: string) => {
 		if (value !== "") {
@@ -124,7 +124,7 @@ const Sidebar = ({ hardEdge }: sidebarProps) => {
 		};
 	};
 
-	//handle seting local store update on mount
+	//handle seting local store update on mount & absFmod
 	useEffect(() => {
 		const handleUpdate = (e: CustomEvent) => {
 			if (e.detail === null) {
@@ -151,8 +151,9 @@ const Sidebar = ({ hardEdge }: sidebarProps) => {
 					dif = fmod.value;
 				}
 
-				//const ftarget =
+				//increase the absolute fmod by 1 bc we just added a follower
 				setFMod((dif + 1).toString());
+				//trigger rerender and change to unfollow button
 				setFollowMod(1);
 			} else if (e.detail === "newunfollow") {
 				/*
@@ -165,7 +166,10 @@ const Sidebar = ({ hardEdge }: sidebarProps) => {
 				if (fmod.set) {
 					dif = fmod.value;
 				}
+
+				//decrease the absolute fmod by 1 bc we just removed a follower
 				setFMod((dif - 1).toString());
+				//trigger a rerender and change to follow button
 				setFollowMod(-1);
 			} else {
 				//reset fmod in local storage
@@ -236,9 +240,9 @@ const Sidebar = ({ hardEdge }: sidebarProps) => {
 				//we are logged in but the profile is not ours, open following abilities
 				//these actions are called on click, and update the sidebar via socialhooks.ts
 				const handleFollow = async (id: string) => {
-					//when user clicks the follow button, increase
-					//the follower number of the current user bc it
-					//will not realize the new follow until next reload
+					//when user clicks the follow button, increase the
+					//follower number of the current user bc it will
+					//not realize the new follow until next page reload
 
 					try {
 						const response = await followUser({
@@ -264,9 +268,9 @@ const Sidebar = ({ hardEdge }: sidebarProps) => {
 				};
 
 				const handleUnfollow = async (id: string) => {
-					//when user clicks the follow button, increase
-					//the follower number of the current user bc it
-					//will not realize the new follow until next reload
+					//when user clicks the follow button, increase the
+					//follower number of the current user bc it will
+					//not realize the new follow until next page reload
 					//DO this first so bc the waiting for the mutation breaks lastfmod reset
 
 					try {
