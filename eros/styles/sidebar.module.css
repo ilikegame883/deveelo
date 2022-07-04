@@ -179,10 +179,20 @@
 
 .buttonContainer {
     width: 24.4687em;
-    height: 2.8125rem;
+    height: 2.8rem;
 
     display: flex;
     column-gap: 0.65625rem;
+}
+
+@media screen and (max-width : 1600px) {
+    .buttonContainer {
+        width: 24.4687em;
+        height: 3em;
+    
+        display: flex;
+        column-gap: 0.65625rem;
+    }
 }
 
 .buttonContainer>button {

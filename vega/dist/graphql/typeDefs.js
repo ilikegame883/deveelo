@@ -83,6 +83,8 @@ exports.typeDefs = graphql_tag_1.default `
 		register(email: String!, password: String!): LoginResponse!
 		login(input: String!, password: String!): LoginResponse!
 		logout: Boolean!
+		follow(id: String!): BoolRes
+		unfollow(id: String!): BoolRes
 	}
 `;
 //# sourceMappingURL=typeDefs.js.map

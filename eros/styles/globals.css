@@ -51,6 +51,39 @@ button {
   transition: .2s ease;
 }
 
+@media screen and (max-width : 1600px) {
+  html, body {
+    padding: 0;
+   margin: 0;
+   font-family: "Heebo";
+   font-style: normal;
+    font-size: 0.89rem;
+  }
+
+  button {
+    position: relative;
+    display: inline-block;
+    border: 0px solid;
+    display: flex;
+  
+    color: white;
+    text-align: center;
+    vertical-align: middle;
+  
+    font-family: "Heebo";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 1.13rem;
+    line-height: 1.69rem;
+    letter-spacing: 0.03em;
+  
+    align-items: center;
+    justify-content: center;
+  
+    cursor: pointer;
+    transition: .2s ease;
+  }
+}
 /* SIMPLE CLASSES */
 .fillfit {
   display: flex;
@@ -182,39 +215,6 @@ button {
   color: var(--midFadeGray);
 }
 
-@media screen and (max-width : 1600px) {
-  html, body {
-    padding: 0;
-   margin: 0;
-   font-family: "Heebo";
-   font-style: normal;
-    font-size: 0.89rem;
-  }
-
-  button {
-    position: relative;
-    display: inline-block;
-    border: 0px solid;
-    display: flex;
-  
-    color: white;
-    text-align: center;
-    vertical-align: middle;
-  
-    font-family: "Heebo";
-    font-style: normal;
-    font-weight: 500;
-    font-size: 1.13rem;
-    line-height: 1.69rem;
-    letter-spacing: 0.03em;
-  
-    align-items: center;
-    justify-content: center;
-  
-    cursor: pointer;
-    transition: .2s ease;
-  }
-}
 
 
 a {
@@ -378,5 +378,50 @@ input[type="password"]::-ms-clear {
   src: url("/fonts/Pacifico/Pacifico-Regular.ttf");
   font-style: normal;
   font-weight: 900;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "DM Sans";
+  src: url("/fonts/DM/DMSans-Regular.ttf");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "DM Sans";
+  src: url("/fonts/DM/DMSans-Italic.ttf");
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "DM Sans";
+  src: url("/fonts/DM/DMSans-Medium.ttf");
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+}
+@font-face {
+  font-family: "DM Sans";
+  src: url("/fonts/DM/DMSans-MediumItalic.ttf");
+  font-style: italic;
+  font-weight: 500;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "DM Sans";
+  src: url("/fonts/DM/DMSans-Bold.ttf");
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: "DM Sans";
+  src: url("/fonts/DM/DMSans-BoldItalic.ttf");
+  font-style: italic;
+  font-weight: 700;
   font-display: swap;
 }

@@ -6,6 +6,8 @@
     border-radius: 1rem;
     background-color: transparent;
     transition: .2s ease-out;
+
+    cursor: pointer;
 }
 
 .cardwrapper:hover {

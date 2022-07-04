@@ -1,3 +1,4 @@
+import { updateSidebar } from "../../hooks/socialhooks";
 import { SearchAccountType, SearchProfileType, SearchStatusType, SearchUserType } from "../../lib/userTypes";
 import w40styles from "../../styles/micro/w40.module.css";
 import IconButton from "./IconButton";
@@ -18,13 +19,7 @@ const W40UserCard = ({ account, profile, status }: CardProps) => {
 		const storage = window.localStorage;
 		storage.setItem("side_prof", tag);
 
-		const side = document.getElementById("sidebar");
-		if (side) {
-			const updateEvent = new CustomEvent("updateSidebar", { detail: tag });
-			console.log("dispatched");
-
-			side.dispatchEvent(updateEvent);
-		}
+		updateSidebar(tag);
 		// rerenderCallback;
 	};
 	return (

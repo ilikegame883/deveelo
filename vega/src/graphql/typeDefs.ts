@@ -78,5 +78,7 @@ export const typeDefs = gql`
 		register(email: String!, password: String!): LoginResponse!
 		login(input: String!, password: String!): LoginResponse!
 		logout: Boolean!
+		follow(id: String!): BoolRes
+		unfollow(id: String!): BoolRes
 	}
 `;
