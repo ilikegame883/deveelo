@@ -63,7 +63,7 @@ const Sidebar = ({ hardEdge }: sidebarProps) => {
 	//used to increase change button on new follow
 	const [followMod, setFollowMod] = useState(0);
 	const setFMod = (value: string) => {
-		if (value !== "") {
+		if (value !== "" && value !== "0") {
 			storage.setItem("fmod", `${value}|${uTag}`);
 		} else {
 			//RESET the fmod bc it has been either a + then a - or visa versa,
