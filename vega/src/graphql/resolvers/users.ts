@@ -150,7 +150,7 @@ const userResolvers = {
 			const newDes = description === null ? user.profile.description : description;
 
 			try {
-				User.findByIdAndUpdate(
+				await User.findByIdAndUpdate(
 					new ObjectID(context.payload!.id),
 					{
 						$set: {

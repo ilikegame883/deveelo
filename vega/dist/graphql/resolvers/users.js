@@ -121,7 +121,7 @@ const userResolvers = {
             const newTag = tag === null ? user.account.tag : tag;
             const newDes = description === null ? user.profile.description : description;
             try {
-                User_1.default.findByIdAndUpdate(new mongodb_1.ObjectID(context.payload.id), {
+                await User_1.default.findByIdAndUpdate(new mongodb_1.ObjectID(context.payload.id), {
                     $set: {
                         "account.username": newName,
                         "account.tag": newTag,
