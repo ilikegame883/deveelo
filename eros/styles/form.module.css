@@ -3,6 +3,8 @@
     --form-label-col: #BBC8DB;
     --form-border-col: #979FAA;
     --input-size: 1.3125rem;
+    --label-height: 1.40625rem;
+    --label-active-offset: -5rem;
 
     position: relative;
     width: inherit;
@@ -25,7 +27,7 @@
 }
 
 .label {
-    height: 1.40625rem;
+    height: var(--label-height);
     width: 100%;
 
     font-family: "Heebo";
@@ -55,7 +57,7 @@
 .input:not(:placeholder-shown) + .label {
     line-height: 1.40625rem;
     
-    transform: scale(0.714) translateY(-5rem);
+    transform: scale(0.714) translateY(var(--label-active-offset));
     color: var(--form-label-col);
 }
 
@@ -215,6 +217,8 @@
     --form-label-col: #a5b5cb;
     --form-border-col: #979FAA;
     --input-size: 1.15rem;
+    --label-height: 1.80625rem;
+    --label-active-offset: -5rem;
     
     position: relative;
     width: 24.4687em;
