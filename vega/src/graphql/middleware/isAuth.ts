@@ -39,5 +39,6 @@ export const isAuth = {
 		logout: loggedInOnlyAuth,
 		follow: loggedInOnlyAuth,
 		unfollow: loggedInOnlyAuth,
+		updateProfile: loggedInOnlyAuth,
 	},
 };

@@ -34,6 +34,7 @@ exports.isAuth = {
         logout: loggedInOnlyAuth,
         follow: loggedInOnlyAuth,
         unfollow: loggedInOnlyAuth,
+        updateProfile: loggedInOnlyAuth,
     },
 };
 //# sourceMappingURL=isAuth.js.map
