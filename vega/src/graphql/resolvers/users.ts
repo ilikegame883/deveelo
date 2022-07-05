@@ -139,6 +139,8 @@ const userResolvers = {
 		async updateProfile(_parent: any, { name, tag, description }: EditProfInput, context: Context) {
 			//get the user so we can set the defaults to what they currently are (no change)
 			const user: UserType = await User.findById(new ObjectID(context.payload!.id));
+			console.log(user);
+
 			//check n case this account has been deleted somehow... on another device maybe?
 			if (!user) {
 				throw new Error("account not found");

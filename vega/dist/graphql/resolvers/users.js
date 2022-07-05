@@ -114,6 +114,7 @@ const userResolvers = {
         },
         async updateProfile(_parent, { name, tag, description }, context) {
             const user = await User_1.default.findById(new mongodb_1.ObjectID(context.payload.id));
+            console.log(user);
             if (!user) {
                 throw new Error("account not found");
             }
