@@ -32,7 +32,7 @@ export type Mutation = {
   logout: Scalars['Boolean'];
   follow?: Maybe<BoolRes>;
   unfollow?: Maybe<BoolRes>;
-  updateProfile?: Maybe<BoolRes>;
+  updateProfile: PUser;
 };
 
 
@@ -62,6 +62,26 @@ export type MutationUpdateProfileArgs = {
   name?: Maybe<Scalars['String']>;
   tag?: Maybe<Scalars['String']>;
   description?: Maybe<Scalars['String']>;
+};
+
+export type PAccount = {
+  __typename?: 'PAccount';
+  username: Scalars['String'];
+  tag: Scalars['String'];
+};
+
+export type PProfile = {
+  __typename?: 'PProfile';
+  bannerUrl: Scalars['String'];
+  pictureUrl: Scalars['String'];
+  description: Scalars['String'];
+};
+
+export type PUser = {
+  __typename?: 'PUser';
+  _id: Scalars['ID'];
+  account: PAccount;
+  profile: PProfile;
 };
 
 export type Post = {
@@ -238,7 +258,7 @@ export type UpdateProfileMutationVariables = Exact<{
 }>;
 
 
-export type UpdateProfileMutation = { __typename?: 'Mutation', updateProfile?: Maybe<{ __typename?: 'BoolRes', success: boolean }> };
+export type UpdateProfileMutation = { __typename?: 'Mutation', updateProfile: { __typename?: 'PUser', _id: string, account: { __typename?: 'PAccount', username: string, tag: string }, profile: { __typename?: 'PProfile', description: string, bannerUrl: string, pictureUrl: string } } };
 
 
 export const GetPostsDocument = gql`
@@ -799,7 +819,16 @@ export type UnfollowMutationOptions = Apollo.BaseMutationOptions<UnfollowMutatio
 export const UpdateProfileDocument = gql`
     mutation updateProfile($newname: String, $newtag: String, $newdes: String) {
   updateProfile(name: $newname, tag: $newtag, description: $newdes) {
-    success
+    _id
+    account {
+      username
+      tag
+    }
+    profile {
+      description
+      bannerUrl
+      pictureUrl
+    }
   }
 }
     `;
