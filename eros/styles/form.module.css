@@ -206,3 +206,20 @@
 
     position: absolute;
 }
+
+/* NOTE  PROFILE EDIT FORM */
+
+.pFormContainer {
+    --form-text-col: #5d697b;
+    --form-label-col: #9aaac2;
+    --form-border-col: #979FAA;
+    
+    position: relative;
+    width: 24.4687em;
+    height: fit-content;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+}

@@ -26,13 +26,13 @@ const ProfileEditForm = ({ name, tag, description }: UserFormPresets) => {
 					className={formStyles.input}
 					value={newName}
 					type="text"
-					name="username"
+					name="editname"
 					placeholder=" "
 					onChange={(e) => {
 						setNewName(e.target.value);
 					}}
 				/>
-				<label htmlFor="username" className={formStyles.label}>
+				<label htmlFor="editname" className={formStyles.label}>
 					Username
 				</label>
 				{/* <p className={formStyles.error}>{emailErr}</p> */}
