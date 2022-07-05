@@ -14,12 +14,30 @@ const ProfileEditForm = ({ name, tag, description }: UserFormPresets) => {
 	const [newName, setNewName] = useState(name);
 	const [newTag, setNewTag] = useState(tag);
 	const [newDescription, setNewDescription] = useState(description);
+
 	return (
 		<form
 			className={formStyles.pFormContainer}
 			onSubmit={async (e) => {
 				e.preventDefault();
-			}}></form>
+			}}>
+			<div className={formStyles.field}>
+				<input
+					className={formStyles.input}
+					value={newName}
+					type="text"
+					name="username"
+					placeholder=" "
+					onChange={(e) => {
+						setNewName(e.target.value);
+					}}
+				/>
+				<label htmlFor="username" className={formStyles.label}>
+					Username
+				</label>
+				{/* <p className={formStyles.error}>{emailErr}</p> */}
+			</div>
+		</form>
 	);
 };
 
