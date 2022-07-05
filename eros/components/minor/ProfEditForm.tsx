@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 import formStyles from "../../styles/form.module.css";
+import sidebarStyles from "../../styles/sidebar.module.css";
 import TextButton from "../micro/TextButton";
 
 interface UserFormPresets {
@@ -68,6 +69,9 @@ const ProfileEditForm = ({ name, tag, description }: UserFormPresets) => {
 					Description
 				</label>
 				{/* <p className={formStyles.error}>{emailErr}</p> */}
+			</div>
+			<div className={sidebarStyles.buttonContainer}>
+				<TextButton colorKey="green" text="Update Profile" submit={true} large={false} />
 			</div>
 		</form>
 	);

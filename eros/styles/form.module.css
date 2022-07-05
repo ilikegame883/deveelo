@@ -234,7 +234,7 @@
 /* just a field without so much margin beneath (like the login fields) */
 .fieldThin {
     position: relative;
-    margin: 1.40625rem auto 1rem;
+    margin: .40625rem auto 2rem;
     width: 100%;
 
     border-bottom: solid 0.75px var(--form-border-col);
