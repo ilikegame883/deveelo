@@ -8,6 +8,7 @@ import NameGroup from "./micro/NameGroup";
 import TextButton from "./micro/TextButton";
 import ProfilePicture from "./micro/ProfilePicture";
 import SocialList from "./minor/SocialList";
+import ProfileEditForm from "./minor/ProfEditForm";
 
 import { useFindMinProfileByTagQuery, useFollowMutation, useMyAccountMinProfileQuery, useRandomMinProfileQuery, useUnfollowMutation } from "../hooks/backend/generated/graphql";
 import { getPayload } from "../accessToken";
@@ -387,13 +388,22 @@ const Sidebar = ({ hardEdge }: sidebarProps) => {
 							</div>
 						</div>
 						{/*name & badges*/}
-						<NameGroup username={user.account.username} size={1} showBadges={true} badges={user.profile.badges} />
-						<p className={sidebarStyles.p_tag}>@{user.account.tag}</p>
+						{showEditForm ? null : (
+							<>
+								<NameGroup username={user.account.username} size={1} showBadges={true} badges={user.profile.badges} />
+								<p className={sidebarStyles.p_tag}>@{user.account.tag}</p>
+							</>
+						)}
 					</div>
 
-					<p className={sidebarStyles.p_description}>{user.profile.description}</p>
-
-					<div className={sidebarStyles.buttonContainer}>{buttons}</div>
+					{showEditForm ? (
+						<ProfileEditForm name={user.account.username} tag={user.account.tag} description={user.profile.description} />
+					) : (
+						<>
+							<p className={sidebarStyles.p_description}>{user.profile.description}</p>
+							<div className={sidebarStyles.buttonContainer}>{buttons}</div>
+						</>
+					)}
 
 					{/* Following/Friend List */}
 					<SocialList followingIds={user.profile.followingIds} friendIds={user.profile.friendIds} />
