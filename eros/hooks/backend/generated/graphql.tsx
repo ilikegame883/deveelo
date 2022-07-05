@@ -32,6 +32,7 @@ export type Mutation = {
   logout: Scalars['Boolean'];
   follow?: Maybe<BoolRes>;
   unfollow?: Maybe<BoolRes>;
+  updateProfile?: Maybe<BoolRes>;
 };
 
 
@@ -54,6 +55,13 @@ export type MutationFollowArgs = {
 
 export type MutationUnfollowArgs = {
   id: Scalars['String'];
+};
+
+
+export type MutationUpdateProfileArgs = {
+  name?: Maybe<Scalars['String']>;
+  tag?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
 };
 
 export type Post = {
@@ -222,6 +230,15 @@ export type UnfollowMutationVariables = Exact<{
 
 
 export type UnfollowMutation = { __typename?: 'Mutation', unfollow?: Maybe<{ __typename?: 'BoolRes', success: boolean }> };
+
+export type UpdateProfileMutationVariables = Exact<{
+  newname?: Maybe<Scalars['String']>;
+  newtag?: Maybe<Scalars['String']>;
+  newdes?: Maybe<Scalars['String']>;
+}>;
+
+
+export type UpdateProfileMutation = { __typename?: 'Mutation', updateProfile?: Maybe<{ __typename?: 'BoolRes', success: boolean }> };
 
 
 export const GetPostsDocument = gql`
@@ -779,3 +796,38 @@ export function useUnfollowMutation(baseOptions?: Apollo.MutationHookOptions<Unf
 export type UnfollowMutationHookResult = ReturnType<typeof useUnfollowMutation>;
 export type UnfollowMutationResult = Apollo.MutationResult<UnfollowMutation>;
 export type UnfollowMutationOptions = Apollo.BaseMutationOptions<UnfollowMutation, UnfollowMutationVariables>;
+export const UpdateProfileDocument = gql`
+    mutation updateProfile($newname: String, $newtag: String, $newdes: String) {
+  updateProfile(name: $newname, tag: $newtag, description: $newdes) {
+    success
+  }
+}
+    `;
+export type UpdateProfileMutationFn = Apollo.MutationFunction<UpdateProfileMutation, UpdateProfileMutationVariables>;
+
+/**
+ * __useUpdateProfileMutation__
+ *
+ * To run a mutation, you first call `useUpdateProfileMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateProfileMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateProfileMutation, { data, loading, error }] = useUpdateProfileMutation({
+ *   variables: {
+ *      newname: // value for 'newname'
+ *      newtag: // value for 'newtag'
+ *      newdes: // value for 'newdes'
+ *   },
+ * });
+ */
+export function useUpdateProfileMutation(baseOptions?: Apollo.MutationHookOptions<UpdateProfileMutation, UpdateProfileMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateProfileMutation, UpdateProfileMutationVariables>(UpdateProfileDocument, options);
+      }
+export type UpdateProfileMutationHookResult = ReturnType<typeof useUpdateProfileMutation>;
+export type UpdateProfileMutationResult = Apollo.MutationResult<UpdateProfileMutation>;
+export type UpdateProfileMutationOptions = Apollo.BaseMutationOptions<UpdateProfileMutation, UpdateProfileMutationVariables>;
