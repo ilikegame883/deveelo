@@ -3,7 +3,7 @@ import { useState } from "react";
 import formStyles from "../../styles/form.module.css";
 import sidebarStyles from "../../styles/sidebar.module.css";
 import TextButton from "../micro/TextButton";
-import { useUpdateProfileMutation } from "../../hooks/backend/generated/graphql";
+import { useUpdateProfileMutation, MyNameAndPfpDocument, MyNameAndPfpQuery } from "../../hooks/backend/generated/graphql";
 
 interface UserFormPresets {
 	name: string;
@@ -18,7 +18,7 @@ const ProfileEditForm = ({ name, tag, description }: UserFormPresets) => {
 	const [newDescription, setNewDescription] = useState(description);
 
 	//api
-	const [UpdateProfile] = useUpdateProfileMutation;
+	const [UpdateProfile] = useUpdateProfileMutation();
 
 	return (
 		<form
@@ -27,6 +27,35 @@ const ProfileEditForm = ({ name, tag, description }: UserFormPresets) => {
 				e.preventDefault();
 
 				try {
+					const response = await UpdateProfile({
+						variables: {
+							newname: newName,
+							newtag: newTag,
+							newdes: newDescription,
+						},
+						update: (store, { data }) => {
+							if (!data) {
+								return null;
+							}
+							//update cache for name&pfp query
+
+							store.writeQuery<MyNameAndPfpQuery>({
+								query: MyNameAndPfpDocument,
+								data: {
+									myAccount: {
+										_id: data.updateProfile._id,
+										account: {
+											username: data.updateProfile.account.username,
+											tag: data.updateProfile.account.tag,
+										},
+										profile: {
+											pictureUrl: data.updateProfile.profile.pictureUrl,
+										},
+									},
+								},
+							});
+						},
+					});
 				} catch (error) {
 					if (error.graphQLErrors[0].extensions.errors) {
 						//errors with user input reported in backend check
