@@ -1,5 +1,14 @@
 mutation updateProfile($newname: String, $newtag: String, $newdes: String) {
 	updateProfile(name: $newname, tag: $newtag, description: $newdes) {
-		success
+		_id
+		account {
+			username
+			tag
+		}
+		profile {
+			description
+			bannerUrl
+			pictureUrl
+		}
 	}
 }
