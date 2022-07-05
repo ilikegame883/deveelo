@@ -85,6 +85,7 @@ exports.typeDefs = graphql_tag_1.default `
 		logout: Boolean!
 		follow(id: String!): BoolRes
 		unfollow(id: String!): BoolRes
+		updateProfile(name: String, tag: String, description: String): BoolRes
 	}
 `;
 //# sourceMappingURL=typeDefs.js.map
