@@ -21,7 +21,7 @@ const ProfileEditForm = ({ name, tag, description }: UserFormPresets) => {
 			onSubmit={async (e) => {
 				e.preventDefault();
 			}}>
-			<div className={formStyles.field}>
+			<div className={formStyles.fieldThin}>
 				<input
 					className={formStyles.input}
 					value={newName}

@@ -50,7 +50,7 @@
     transition: transform 400ms;
 }
 
-.field:focus-within .label,
+.field:focus-within .label, .fieldThin:focus-within .label,
 .input:not(:placeholder-shown) + .label {
     line-height: 1.40625rem;
     
@@ -66,7 +66,7 @@
     border-bottom: solid 0.75px var(--form-border-col);
 }
 
-.field::after {
+.field::after, .fieldThin::after {
     content: "";
     position: relative;
     display: block;
@@ -79,10 +79,10 @@
     transition: all 200ms ease-out;
     top: 1px;
   }
-  .field:focus-within {
+  .field:focus-within, .fieldThin:focus-within {
     border-color: transparent;
   }
-  .field:focus-within::after {
+  .field:focus-within::after, .fieldThin:focus-within::after {
     transform: scaleX(1);
     opacity: 1;
   }
@@ -217,9 +217,19 @@
     position: relative;
     width: 24.4687em;
     height: fit-content;
+    bottom: 2em;
 
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     padding: 0px;
+}
+
+/* just a field without so much margin beneath (like the login fields) */
+.fieldThin {
+    position: relative;
+    margin: 1.40625rem auto 0.75rem;
+    width: 100%;
+
+    border-bottom: solid 0.75px var(--form-border-col);
 }
