@@ -62,6 +62,8 @@ const Sidebar = ({ hardEdge }: sidebarProps) => {
 	const [rerender, setRerender] = useState(0);
 	//rerender to load in edit profile form
 	const [showEditForm, setShowEditForm] = useState(false);
+	console.log(showEditForm);
+
 	const toggleEditForm = () => {
 		setShowEditForm(!showEditForm);
 	};
@@ -146,6 +148,9 @@ const Sidebar = ({ hardEdge }: sidebarProps) => {
 				setFMod((dif - 1).toString());
 				//trigger a rerender and change to follow button
 				setFollowMod(-1);
+			} else if (e.detail === "edittoggle") {
+				//sent by the form submit button in the sidebar profile edit form
+				setShowEditForm(false);
 			} else {
 				//reset fmod in local storage
 				//setLastFMod("");

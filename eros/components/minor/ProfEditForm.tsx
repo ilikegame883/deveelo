@@ -1,9 +1,11 @@
 import { useState } from "react";
+import { useRouter } from "next/router";
 
 import formStyles from "../../styles/form.module.css";
 import sidebarStyles from "../../styles/sidebar.module.css";
 import TextButton from "../micro/TextButton";
 import { useUpdateProfileMutation, MyNameAndPfpDocument, MyNameAndPfpQuery } from "../../hooks/backend/generated/graphql";
+import { updateSidebar } from "../../hooks/socialhooks";
 
 interface UserFormPresets {
 	name: string;
@@ -12,6 +14,8 @@ interface UserFormPresets {
 }
 
 const ProfileEditForm = ({ name, tag, description }: UserFormPresets) => {
+	const router = useRouter();
+
 	//user input captures
 	const [newName, setNewName] = useState(name);
 	const [newTag, setNewTag] = useState(tag);
@@ -56,6 +60,15 @@ const ProfileEditForm = ({ name, tag, description }: UserFormPresets) => {
 							});
 						},
 					});
+
+					if (response && response.data) {
+						updateSidebar("edittoggle");
+						//go to the new user profile if tag change
+						const finalTag = response.data.updateProfile.account.tag;
+						if (finalTag !== tag) {
+							router.push(`/${finalTag}`);
+						}
+					}
 				} catch (error) {
 					if (error.graphQLErrors[0].extensions.errors) {
 						//errors with user input reported in backend check
