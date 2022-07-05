@@ -56,15 +56,20 @@ exports.typeDefs = graphql_tag_1.default `
 
 	# stripped for profile edit
 	type PUser {
-		account: {
-			username: String!
-			tag: String!
-		}
-		profile: {
-			bannerUrl: String!
-			pictureUrl: String!
-			description: String!
-		}
+		_id: ID!
+		account: PAccount!
+		profile: PProfile!
+	}
+
+	type PAccount {
+		username: String!
+		tag: String!
+	}
+
+	type PProfile {
+		bannerUrl: String!
+		pictureUrl: String!
+		description: String!
 	}
 
 	# all types
