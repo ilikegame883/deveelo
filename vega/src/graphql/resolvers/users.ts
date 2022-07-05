@@ -148,6 +148,9 @@ const userResolvers = {
 			const newName = name === null ? user.account.username : name;
 			const newTag = tag === null ? user.account.tag : tag;
 			const newDes = description === null ? user.profile.description : description;
+			// todo
+			const newBanner = user.profile.bannerUrl;
+			const newPfp = user.profile.pictureUrl;
 
 			try {
 				await User.findByIdAndUpdate(
@@ -163,7 +166,16 @@ const userResolvers = {
 				);
 
 				return {
-					success: true,
+					_id: user._id,
+					account: {
+						username: newName,
+						tag: newTag,
+					},
+					profile: {
+						bannerUrl: newBanner,
+						pictureUrl: newPfp,
+						description: newDes,
+					},
 				};
 			} catch (error) {
 				throw new Error(error);
