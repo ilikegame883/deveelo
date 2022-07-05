@@ -2,6 +2,7 @@
     --form-text-col: #808C9D;
     --form-label-col: #BBC8DB;
     --form-border-col: #979FAA;
+    --input-size: 1.3125rem;
 
     position: relative;
     width: inherit;
@@ -104,7 +105,7 @@
     color: var(--form-text-col);
     font-style: normal;
     font-weight: normal;
-    font-size: 1.3125rem;
+    font-size: var(--input-size);
     line-height: 1.96875rem;
 
     display: flex;
@@ -211,8 +212,9 @@
 
 .pFormContainer {
     --form-text-col: #5d697b;
-    --form-label-col: #9aaac2;
+    --form-label-col: #a5b5cb;
     --form-border-col: #979FAA;
+    --input-size: 1.15rem;
     
     position: relative;
     width: 24.4687em;
@@ -228,7 +230,7 @@
 /* just a field without so much margin beneath (like the login fields) */
 .fieldThin {
     position: relative;
-    margin: 1.40625rem auto 0.75rem;
+    margin: 1.40625rem auto 1rem;
     width: 100%;
 
     border-bottom: solid 0.75px var(--form-border-col);
