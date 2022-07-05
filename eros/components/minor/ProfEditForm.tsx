@@ -37,6 +37,38 @@ const ProfileEditForm = ({ name, tag, description }: UserFormPresets) => {
 				</label>
 				{/* <p className={formStyles.error}>{emailErr}</p> */}
 			</div>
+			<div className={formStyles.fieldThin}>
+				<input
+					className={formStyles.input}
+					value={newTag}
+					type="text"
+					name="edittag"
+					placeholder=" "
+					onChange={(e) => {
+						setNewTag(e.target.value);
+					}}
+				/>
+				<label htmlFor="edittag" className={formStyles.label}>
+					@ handle
+				</label>
+				{/* <p className={formStyles.error}>{emailErr}</p> */}
+			</div>
+			<div className={formStyles.fieldThin}>
+				<input
+					className={formStyles.input}
+					value={newDescription}
+					type="text"
+					name="editdes"
+					placeholder=" "
+					onChange={(e) => {
+						setNewDescription(e.target.value);
+					}}
+				/>
+				<label htmlFor="editdes" className={formStyles.label}>
+					Description
+				</label>
+				{/* <p className={formStyles.error}>{emailErr}</p> */}
+			</div>
 		</form>
 	);
 };
