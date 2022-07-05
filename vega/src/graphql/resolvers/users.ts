@@ -4,6 +4,7 @@ import { ObjectID } from "mongodb";
 
 import ValidateRegisterInput from "../../util/validators";
 import User, { UserType } from "../../models/User";
+import { EditProfInput } from "../resolverTypes";
 import Context from "../../context";
 import { createAccessToken, createRefreshToken, sendRefreshToken } from "../../util/auth";
 import { Document } from "mongoose";
@@ -131,6 +132,31 @@ const userResolvers = {
 				return {
 					success: true,
 				};
+			} catch (error) {
+				throw new Error(error);
+			}
+		},
+		async updateProfile(_parent: any, { name, tag, description }: EditProfInput, context: Context) {
+			const user: UserType = await User.findById(new ObjectID(context.payload!.id));
+
+			//if no input is given, default to the current, otherwise use the input
+			const newName = name === null ? user.account.username : name;
+			const newTag = tag === null ? user.account.tag : tag;
+			const newDes = description === null ? user.profile.description : description;
+
+			User.findByIdAndUpdate(
+				new ObjectID(context.payload!.id),
+				{
+					$set: {
+						"account.username": newName,
+						"account.tag": newTag,
+						"profile.description": newDes,
+					},
+				},
+				{ useFindAndModify: false }
+			);
+
+			try {
 			} catch (error) {
 				throw new Error(error);
 			}
