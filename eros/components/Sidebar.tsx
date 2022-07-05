@@ -59,6 +59,8 @@ const Sidebar = ({ hardEdge }: sidebarProps) => {
 	const storage = window.localStorage;
 	const [uTag, setSideProf] = useState(storage.getItem("side_prof"));
 	const [rerender, setRerender] = useState(0);
+	//rerender to load in edit profile form
+	const [showEditForm, setShowEditForm] = useState(false);
 
 	//used to increase change button on new follow
 	const [followMod, setFollowMod] = useState(0);
