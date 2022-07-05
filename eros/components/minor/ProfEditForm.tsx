@@ -3,6 +3,7 @@ import { useState } from "react";
 import formStyles from "../../styles/form.module.css";
 import sidebarStyles from "../../styles/sidebar.module.css";
 import TextButton from "../micro/TextButton";
+import { useUpdateProfileMutation } from "../../hooks/backend/generated/graphql";
 
 interface UserFormPresets {
 	name: string;
@@ -16,11 +17,25 @@ const ProfileEditForm = ({ name, tag, description }: UserFormPresets) => {
 	const [newTag, setNewTag] = useState(tag);
 	const [newDescription, setNewDescription] = useState(description);
 
+	//api
+	const [UpdateProfile] = useUpdateProfileMutation;
+
 	return (
 		<form
 			className={formStyles.pFormContainer}
 			onSubmit={async (e) => {
 				e.preventDefault();
+
+				try {
+				} catch (error) {
+					if (error.graphQLErrors[0].extensions.errors) {
+						//errors with user input reported in backend check
+						const inputErrs = error.graphQLErrors[0].extensions.errors;
+						console.log(inputErrs);
+
+						//handleSubmitErrors(inputErrs);
+					}
+				}
 			}}>
 			<div className={formStyles.fieldThin}>
 				<input
