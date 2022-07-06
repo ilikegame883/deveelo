@@ -98,6 +98,6 @@ export const typeDefs = gql`
 		logout: Boolean!
 		follow(id: String!): BoolRes
 		unfollow(id: String!): BoolRes
-		updateProfile(name: String, tag: String, description: String): PUser!
+		updateProfile(name: String, tag: String, description: String): User!
 	}
 `;
