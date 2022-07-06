@@ -4,11 +4,17 @@ mutation updateProfile($newname: String, $newtag: String, $newdes: String) {
 		account {
 			username
 			tag
+			private
 		}
 		profile {
-			description
 			bannerUrl
 			pictureUrl
+			description
+			followingIds
+			followerIds
+			badges
+			linkedProfiles
 		}
+		status
 	}
 }
