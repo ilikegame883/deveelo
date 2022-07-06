@@ -62,11 +62,6 @@ const Sidebar = ({ hardEdge }: sidebarProps) => {
 	const [rerender, setRerender] = useState(0);
 	//rerender to load in edit profile form
 	const [showEditForm, setShowEditForm] = useState(false);
-	console.log(showEditForm);
-
-	const toggleEditForm = () => {
-		setShowEditForm(!showEditForm);
-	};
 
 	//used to increase change button on new follow
 	const [followMod, setFollowMod] = useState(0);
@@ -322,7 +317,7 @@ const Sidebar = ({ hardEdge }: sidebarProps) => {
 
 		buttons = (
 			<>
-				<TextButton colorKey="gold" text="Edit Profile" action={() => toggleEditForm()} />
+				<TextButton colorKey="gold" text="Edit Profile" action={() => setShowEditForm(true)} />
 			</>
 		);
 	} else {
