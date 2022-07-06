@@ -185,8 +185,8 @@ const Sidebar = ({ hardEdge }: sidebarProps) => {
 
 	//the following ifesle will determine buttons loaded
 	let buttons: any = null;
-	if (uTag !== null && uTag !== "") {
-		//possibly logged in, possibly showing other profile
+	if (uTag !== null && uTag !== "" && uTag !== payload.tag) {
+		//possibly logged in, possibly showing other profile (100% not ours)
 		const { data, loading, error } = useFindMinProfileByTagQuery({
 			variables: {
 				tagInput: uTag,
@@ -207,110 +207,97 @@ const Sidebar = ({ hardEdge }: sidebarProps) => {
 		user = data.findUserByTag;
 
 		if (loggedIn) {
-			//the id of the current logged in user
-			const myId = payload.id;
+			const handleFollow = async (id: string) => {
+				//when user clicks the follow button, increase the
+				//follower number of the current user bc it will
+				//not realize the new follow until next page reload
 
-			if (user._id === myId) {
-				buttons = (
-					<>
-						<TextButton colorKey="gold" text="Edit Profile" action={() => toggleEditForm()} />
-					</>
-				);
-			} else {
-				//we are logged in but the profile is not ours, open following abilities
-				//these actions are called on click, and update the sidebar via socialhooks.ts
-				const handleFollow = async (id: string) => {
-					//when user clicks the follow button, increase the
-					//follower number of the current user bc it will
-					//not realize the new follow until next page reload
+				try {
+					const response = await followUser({
+						variables: {
+							targetId: id,
+						},
+					});
 
-					try {
-						const response = await followUser({
-							variables: {
-								targetId: id,
-							},
-						});
-
-						if (response && response.data) {
-							//check if the operation went through w/o errors
-							if (response.data.follow.success) {
-								//when user clicks the follow button, increase
-								//the follower number of the current user bc it
-								//will not realize the new follow until next reload
-								updateSidebar("newfollow");
-								return;
-							}
+					if (response && response.data) {
+						//check if the operation went through w/o errors
+						if (response.data.follow.success) {
+							//when user clicks the follow button, increase
+							//the follower number of the current user bc it
+							//will not realize the new follow until next reload
+							updateSidebar("newfollow");
+							return;
 						}
-					} catch (error) {
-						console.log(error);
 					}
-					return;
-				};
+				} catch (error) {
+					console.log(error);
+				}
+				return;
+			};
 
-				const handleUnfollow = async (id: string) => {
-					//when user clicks the follow button, increase the
-					//follower number of the current user bc it will
-					//not realize the new follow until next page reload
-					//DO this first so bc the waiting for the mutation breaks lastfmod reset
+			const handleUnfollow = async (id: string) => {
+				//when user clicks the follow button, increase the
+				//follower number of the current user bc it will
+				//not realize the new follow until next page reload
+				//DO this first so bc the waiting for the mutation breaks lastfmod reset
 
-					try {
-						const response = await unfollowUser({
-							variables: {
-								targetId: id,
-							},
-						});
+				try {
+					const response = await unfollowUser({
+						variables: {
+							targetId: id,
+						},
+					});
 
-						if (response && response.data) {
-							//check if the operation went through w/o errors
-							if (response.data.unfollow.success) {
-								//when user clicks the follow button, increase
-								//the follower number of the current user bc it
-								//will not realize the new follow until next reload
-								updateSidebar("newunfollow");
-							}
+					if (response && response.data) {
+						//check if the operation went through w/o errors
+						if (response.data.unfollow.success) {
+							//when user clicks the follow button, increase
+							//the follower number of the current user bc it
+							//will not realize the new follow until next reload
+							updateSidebar("newunfollow");
 						}
-					} catch (error) {
-						console.log(error);
 					}
-
-					return;
-				};
-
-				//transfer the user to one with the type def, so we
-				//get intellisense for this next operation.
-				const userWtypes: MinProfUserType = user;
-				const userFollowerList = userWtypes.profile.followerIds;
-
-				//use this to show the unfollow button instead of the follow
-				let showUnfollow: boolean;
-
-				switch (followMod) {
-					case 1:
-						//just clicked follow, change to unfollow button
-						showUnfollow = true;
-						break;
-					case -1:
-						//just unfollowed, change to follow button
-						showUnfollow = false;
-						break;
-					default:
-						//Following status has not changed, just persist the current status:
-						//Check if we follow the displayed user (if we are among their followers)
-						showUnfollow = userFollowerList.includes(myId);
-						break;
+				} catch (error) {
+					console.log(error);
 				}
 
-				buttons ??= (
-					<>
-						{showUnfollow ? (
-							<TextButton colorKey="red" text="Unfollow" action={() => handleUnfollow(user._id)} />
-						) : (
-							<TextButton colorKey="gold" text="Follow" action={() => handleFollow(user._id)} />
-						)}
-						<TextButton colorKey="green" text="Friend" />
-					</>
-				);
+				return;
+			};
+
+			//transfer the user to one with the type def, so we
+			//get intellisense for this next operation.
+			const userWtypes: MinProfUserType = user;
+			const userFollowerList = userWtypes.profile.followerIds;
+
+			//use this to show the unfollow button instead of the follow
+			let showUnfollow: boolean;
+
+			switch (followMod) {
+				case 1:
+					//just clicked follow, change to unfollow button
+					showUnfollow = true;
+					break;
+				case -1:
+					//just unfollowed, change to follow button
+					showUnfollow = false;
+					break;
+				default:
+					//Following status has not changed, just persist the current status:
+					//Check if we follow the displayed user (if we are among their followers)
+					showUnfollow = userFollowerList.includes(payload.id);
+					break;
 			}
+
+			buttons ??= (
+				<>
+					{showUnfollow ? (
+						<TextButton colorKey="red" text="Unfollow" action={() => handleUnfollow(user._id)} />
+					) : (
+						<TextButton colorKey="gold" text="Follow" action={() => handleFollow(user._id)} />
+					)}
+					<TextButton colorKey="green" text="Friend" />
+				</>
+			);
 		} else {
 			//we are not logged in, show buttons w/o actions
 			buttons ??= (
