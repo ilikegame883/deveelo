@@ -124,14 +124,16 @@ const userResolvers = {
             const newBanner = user.profile.bannerUrl;
             const newPfp = user.profile.pictureUrl;
             try {
-                const updatedUesr = await User_1.default.findByIdAndUpdate(new mongodb_1.ObjectID(context.payload.id), {
+                const updatedUser = await User_1.default.findByIdAndUpdate(new mongodb_1.ObjectID(context.payload.id), {
                     $set: {
                         "account.username": newName,
                         "account.tag": newTag,
                         "profile.description": newDes,
+                        "profile.bannerUrl": newBanner,
+                        "profile.pictureUrl": newPfp,
                     },
                 }, { useFindAndModify: false });
-                return updatedUesr;
+                return updatedUser;
             }
             catch (error) {
                 throw new Error(error);

@@ -155,19 +155,21 @@ const userResolvers = {
 			const newPfp = user.profile.pictureUrl;
 
 			try {
-				const updatedUesr: UserType = await User.findByIdAndUpdate(
+				const updatedUser: UserType = await User.findByIdAndUpdate(
 					new ObjectID(context.payload!.id),
 					{
 						$set: {
 							"account.username": newName,
 							"account.tag": newTag,
 							"profile.description": newDes,
+							"profile.bannerUrl": newBanner,
+							"profile.pictureUrl": newPfp,
 						},
 					},
 					{ useFindAndModify: false }
 				);
 
-				return updatedUesr;
+				return updatedUser;
 			} catch (error) {
 				throw new Error(error);
 			}
