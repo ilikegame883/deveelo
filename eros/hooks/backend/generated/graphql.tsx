@@ -32,7 +32,7 @@ export type Mutation = {
   logout: Scalars['Boolean'];
   follow?: Maybe<BoolRes>;
   unfollow?: Maybe<BoolRes>;
-  updateProfile: PUser;
+  updateProfile: User;
 };
 
 
@@ -258,7 +258,7 @@ export type UpdateProfileMutationVariables = Exact<{
 }>;
 
 
-export type UpdateProfileMutation = { __typename?: 'Mutation', updateProfile: { __typename?: 'PUser', _id: string, account: { __typename?: 'PAccount', username: string, tag: string }, profile: { __typename?: 'PProfile', description: string, bannerUrl: string, pictureUrl: string } } };
+export type UpdateProfileMutation = { __typename?: 'Mutation', updateProfile: { __typename?: 'User', _id: string, account: { __typename?: 'U_Account', username: string, tag: string }, profile: { __typename?: 'U_Profile', description: string, bannerUrl: string, pictureUrl: string } } };
 
 
 export const GetPostsDocument = gql`
