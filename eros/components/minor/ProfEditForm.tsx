@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import formStyles from "../../styles/form.module.css";
 import sidebarStyles from "../../styles/sidebar.module.css";
 import TextButton from "../micro/TextButton";
-import { useUpdateProfileMutation, MyNameAndPfpDocument, MyNameAndPfpQuery } from "../../hooks/backend/generated/graphql";
+import { useUpdateProfileMutation, MyNameAndPfpDocument, MyNameAndPfpQuery, MyAccountMinProfileQuery, MyAccountMinProfileDocument } from "../../hooks/backend/generated/graphql";
 import { updateSidebar } from "../../hooks/socialhooks";
 
 interface UserFormPresets {
@@ -42,7 +42,7 @@ const ProfileEditForm = ({ name, tag, description }: UserFormPresets) => {
 								return null;
 							}
 							//update cache for name&pfp query
-
+							//aka update navbar
 							store.writeQuery<MyNameAndPfpQuery>({
 								query: MyNameAndPfpDocument,
 								data: {
@@ -56,6 +56,13 @@ const ProfileEditForm = ({ name, tag, description }: UserFormPresets) => {
 											pictureUrl: data.updateProfile.profile.pictureUrl,
 										},
 									},
+								},
+							});
+							//update cache for minprofile query (update sidebar)
+							store.writeQuery<MyAccountMinProfileQuery>({
+								query: MyAccountMinProfileDocument,
+								data: {
+									myAccount: data.updateProfile,
 								},
 							});
 						},
@@ -111,11 +118,10 @@ const ProfileEditForm = ({ name, tag, description }: UserFormPresets) => {
 				</label>
 				{/* <p className={formStyles.error}>{emailErr}</p> */}
 			</div>
-			<div className={formStyles.fieldThin}>
-				<input
-					className={formStyles.input}
+			<div className={formStyles.fieldArea}>
+				<textarea
+					className={formStyles.inputarea}
 					value={newDescription}
-					type="text"
 					name="editdes"
 					placeholder=" "
 					onChange={(e) => {
