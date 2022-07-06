@@ -113,7 +113,7 @@ const userResolvers = {
             }
         },
         async updateProfile(_parent, { name, tag, description }, context) {
-            const user = await User_1.default.findById(new mongodb_1.ObjectID(context.payload.id));
+            let user = await User_1.default.findById(new mongodb_1.ObjectID(context.payload.id));
             console.log(user);
             if (!user) {
                 throw new Error("account not found");
@@ -124,7 +124,7 @@ const userResolvers = {
             const newBanner = user.profile.bannerUrl;
             const newPfp = user.profile.pictureUrl;
             try {
-                const updatedUser = await User_1.default.findByIdAndUpdate(new mongodb_1.ObjectID(context.payload.id), {
+                await User_1.default.findByIdAndUpdate(new mongodb_1.ObjectID(context.payload.id), {
                     $set: {
                         "account.username": newName,
                         "account.tag": newTag,
@@ -133,7 +133,12 @@ const userResolvers = {
                         "profile.pictureUrl": newPfp,
                     },
                 }, { useFindAndModify: false });
-                return updatedUser;
+                user.account.username = newName;
+                user.account.tag = newTag;
+                user.profile.description = newDes;
+                user.profile.bannerUrl = newBanner;
+                user.profile.pictureUrl = newPfp;
+                return user;
             }
             catch (error) {
                 throw new Error(error);

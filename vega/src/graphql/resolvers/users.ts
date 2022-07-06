@@ -138,7 +138,7 @@ const userResolvers = {
 		},
 		async updateProfile(_parent: any, { name, tag, description }: EditProfInput, context: Context) {
 			//get the user so we can set the defaults to what they currently are (no change)
-			const user: UserType = await User.findById(new ObjectID(context.payload!.id));
+			let user: UserType = await User.findById(new ObjectID(context.payload!.id));
 			console.log(user);
 
 			//check n case this account has been deleted somehow... on another device maybe?
@@ -155,7 +155,7 @@ const userResolvers = {
 			const newPfp = user.profile.pictureUrl;
 
 			try {
-				const updatedUser: UserType = await User.findByIdAndUpdate(
+				await User.findByIdAndUpdate(
 					new ObjectID(context.payload!.id),
 					{
 						$set: {
@@ -169,7 +169,15 @@ const userResolvers = {
 					{ useFindAndModify: false }
 				);
 
-				return updatedUser;
+				//manually update our local version, so we can return the new
+				//user without sending another req to the database
+				user.account.username = newName;
+				user.account.tag = newTag;
+				user.profile.description = newDes;
+				user.profile.bannerUrl = newBanner;
+				user.profile.pictureUrl = newPfp;
+
+				return user;
 			} catch (error) {
 				throw new Error(error);
 			}
