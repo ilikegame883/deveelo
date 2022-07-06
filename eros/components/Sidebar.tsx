@@ -303,7 +303,7 @@ const Sidebar = ({ hardEdge }: sidebarProps) => {
 			);
 		}
 	} else if (loggedIn) {
-		//logged in, no selected, so show self
+		//logged in, no selected, so show self ORwe searched for ourselves
 		const { data, loading, error } = useMyAccountMinProfileQuery();
 		if (loading && !data) {
 			return loadingSidebar;
