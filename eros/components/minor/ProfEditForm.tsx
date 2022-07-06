@@ -74,7 +74,7 @@ const ProfileEditForm = ({ name, tag, description }: UserFormPresets) => {
 						//reload if we didn't change tag, if we did,
 						//navigate to that new page
 						const finalTag = response.data.updateProfile.account.tag;
-						if (finalTag === newTag) {
+						if (finalTag === tag) {
 							router.reload();
 						} else {
 							router.push(`/${finalTag}`);
