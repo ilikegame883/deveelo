@@ -4,6 +4,7 @@ import { ObjectID } from "mongodb";
 
 import ValidateRegisterInput from "../../util/validators";
 import User, { UserType } from "../../models/User";
+import { EditProfInput } from "../resolverTypes";
 import Context from "../../context";
 import { createAccessToken, createRefreshToken, sendRefreshToken } from "../../util/auth";
 import { Document } from "mongoose";
@@ -131,6 +132,51 @@ const userResolvers = {
 				return {
 					success: true,
 				};
+			} catch (error) {
+				throw new Error(error);
+			}
+		},
+		async updateProfile(_parent: any, { name, tag, description }: EditProfInput, context: Context) {
+			//get the user so we can set the defaults to what they currently are (no change)
+			let user: UserType = await User.findById(new ObjectID(context.payload!.id));
+
+			//check n case this account has been deleted somehow... on another device maybe?
+			if (!user) {
+				throw new Error("account not found");
+			}
+
+			//if no input is given, default to the current, otherwise use the input
+			const newName = name === null ? user.account.username : name;
+			const newTag = tag === null ? user.account.tag : tag;
+			const newDes = description === null ? user.profile.description : description;
+			// todo
+			const newBanner = user.profile.bannerUrl;
+			const newPfp = user.profile.pictureUrl;
+
+			try {
+				await User.findByIdAndUpdate(
+					new ObjectID(context.payload!.id),
+					{
+						$set: {
+							"account.username": newName,
+							"account.tag": newTag,
+							"profile.description": newDes,
+							"profile.bannerUrl": newBanner,
+							"profile.pictureUrl": newPfp,
+						},
+					},
+					{ useFindAndModify: false }
+				);
+
+				//manually update our local version, so we can return the new
+				//user without sending another req to the database
+				user.account.username = newName;
+				user.account.tag = newTag;
+				user.profile.description = newDes;
+				user.profile.bannerUrl = newBanner;
+				user.profile.pictureUrl = newPfp;
+
+				return user;
 			} catch (error) {
 				throw new Error(error);
 			}

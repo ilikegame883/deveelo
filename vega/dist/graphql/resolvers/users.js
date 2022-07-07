@@ -112,6 +112,37 @@ const userResolvers = {
                 throw new Error(error);
             }
         },
+        async updateProfile(_parent, { name, tag, description }, context) {
+            let user = await User_1.default.findById(new mongodb_1.ObjectID(context.payload.id));
+            if (!user) {
+                throw new Error("account not found");
+            }
+            const newName = name === null ? user.account.username : name;
+            const newTag = tag === null ? user.account.tag : tag;
+            const newDes = description === null ? user.profile.description : description;
+            const newBanner = user.profile.bannerUrl;
+            const newPfp = user.profile.pictureUrl;
+            try {
+                await User_1.default.findByIdAndUpdate(new mongodb_1.ObjectID(context.payload.id), {
+                    $set: {
+                        "account.username": newName,
+                        "account.tag": newTag,
+                        "profile.description": newDes,
+                        "profile.bannerUrl": newBanner,
+                        "profile.pictureUrl": newPfp,
+                    },
+                }, { useFindAndModify: false });
+                user.account.username = newName;
+                user.account.tag = newTag;
+                user.profile.description = newDes;
+                user.profile.bannerUrl = newBanner;
+                user.profile.pictureUrl = newPfp;
+                return user;
+            }
+            catch (error) {
+                throw new Error(error);
+            }
+        },
         async login(_, { input, password }, context) {
             const regEx = /^([0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+[a-zA-Z]{2,9})$/;
             const isEmail = input.match(regEx);

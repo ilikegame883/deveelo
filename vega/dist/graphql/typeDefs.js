@@ -54,7 +54,25 @@ exports.typeDefs = graphql_tag_1.default `
 		joinedIds: [String]!
 	}
 
-	#all types
+	# stripped for profile edit
+	type PUser {
+		_id: ID!
+		account: PAccount!
+		profile: PProfile!
+	}
+
+	type PAccount {
+		username: String!
+		tag: String!
+	}
+
+	type PProfile {
+		bannerUrl: String!
+		pictureUrl: String!
+		description: String!
+	}
+
+	# all types
 	type User {
 		_id: ID!
 		account: U_Account!
@@ -85,6 +103,7 @@ exports.typeDefs = graphql_tag_1.default `
 		logout: Boolean!
 		follow(id: String!): BoolRes
 		unfollow(id: String!): BoolRes
+		updateProfile(name: String, tag: String, description: String): User!
 	}
 `;
 //# sourceMappingURL=typeDefs.js.map
