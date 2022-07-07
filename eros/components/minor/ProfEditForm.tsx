@@ -71,15 +71,10 @@ const ProfileEditForm = ({ name, tag, description }: UserFormPresets) => {
 					if (response && response.data) {
 						updateSidebar("edittoggle");
 
-						//reload if we didn't change tag, if we did,
-						//navigate to that new page
+						//reload so the info updates after the 1st change since reload (the
+						//1st time is covered by writing to the cache)
 						const finalTag = response.data.updateProfile.account.tag;
 						window.location.assign(`/${finalTag}`);
-						// if (finalTag === tag) {
-						// 	router.reload();
-						// } else {
-						// 	router.push(`/${finalTag}`);
-						// }
 					}
 				} catch (error) {
 					if (error.graphQLErrors[0].extensions.errors) {
