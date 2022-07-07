@@ -101,16 +101,13 @@ This project follows the [Semantic Versioning 2.0](https://semver.org/) standard
 
 ### 🛤️ Roadmap
 - [x] Desktop app
-- [x] Loading splashscreen
 - [x] Profile pages
-- [x] Attempt #2 w/ Tauri
-- [x] Navigation
 - [x] Searchbar
 - [x] Handle token expiration & logouts
-- [ ] Auto Updater
+- [x] Update profile information
 - [ ] Luna v1-alpha Release
 - [ ] Posting
-- [ ] Following
+- [x] Following
 - [ ] Notifications
 <!-- - [ ] Populate Sidebar Discovery -->
 <!-- - [ ] Friending -->
