@@ -191,6 +191,11 @@ const Sidebar = ({ hardEdge }: sidebarProps) => {
 		if (loading && !data) {
 			return loadingSidebar;
 		}
+		if (!data.findUserByTag) {
+			//fix site crashing bc above condition passes when the data is still ull
+			//we have to wait a little bit more so that a user is returned
+			return loadingSidebar;
+		}
 		if (error) {
 			return (
 				<div className={hardEdge ? sidebarStyles.sidebar_full : sidebarStyles.sidebar}>
