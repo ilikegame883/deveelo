@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useRouter } from "next/router";
 
 import formStyles from "../../styles/form.module.css";
 import sidebarStyles from "../../styles/sidebar.module.css";
@@ -14,8 +13,6 @@ interface UserFormPresets {
 }
 
 const ProfileEditForm = ({ name, tag, description }: UserFormPresets) => {
-	const router = useRouter();
-
 	//user input captures
 	const [newName, setNewName] = useState(name);
 	const [newTag, setNewTag] = useState(tag);
