@@ -1,5 +1,5 @@
 import argon2 from "argon2";
-import { UserInputError } from "apollo-server-errors";
+import { UserInputError } from "apollo-server-express";
 import { ObjectID } from "mongodb";
 
 import ValidateRegisterInput from "../../util/validators";
