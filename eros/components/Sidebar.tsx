@@ -180,7 +180,8 @@ const Sidebar = ({ hardEdge }: sidebarProps) => {
 
 	//the following ifesle will determine buttons loaded
 	let buttons: any = null;
-	if (uTag !== null && uTag !== "" && uTag !== payload.tag) {
+
+	if (uTag !== null && uTag !== "" && uTag !== payload?.tag) {
 		//possibly logged in, possibly showing other profile (100% not ours)
 		const { data, loading, error } = useFindMinProfileByTagQuery({
 			variables: {
