@@ -33,6 +33,7 @@
 		"@babel/node": "^7.14.7",
 		"@babel/preset-env": "^7.14.8",
 		"@types/cors": "^2.8.12",
+		"@types/graphql-upload": "^8.0.11",
 		"@types/jsonwebtoken": "^8.5.4",
 		"nodemon": "^2.0.12"
 	}
