@@ -2,6 +2,7 @@ import { GraphQLUpload } from "graphql-upload";
 
 import postsResolvers from "./posts";
 import userResolvers from "./users";
+import uploadsResolvers from "./uploads";
 
 const resolvers = {
 	// This maps the `Upload` scalar to the implementation provided
@@ -14,6 +15,7 @@ const resolvers = {
 	},
 	Mutation: {
 		...userResolvers.Mutation,
+		...uploadsResolvers.Mutation,
 	},
 };
 
