@@ -7,6 +7,7 @@ require("dotenv/config");
 const apollo_server_express_1 = require("apollo-server-express");
 const graphql_middleware_1 = require("graphql-middleware");
 const schema_1 = require("@graphql-tools/schema");
+const graphql_upload_1 = require("graphql-upload");
 const jsonwebtoken_1 = require("jsonwebtoken");
 const mongoose_1 = __importDefault(require("mongoose"));
 const express_1 = __importDefault(require("express"));
@@ -60,6 +61,7 @@ const initServer = async () => {
         callback(null, corsOptions);
     };
     app.use(cookie_parser_1.default());
+    app.use(graphql_upload_1.graphqlUploadExpress());
     app.get("/", cors_1.default(corsDefault), (_req, res) => res.send("hello"));
     app.get("/users", cors_1.default(corsAllowUndefined), async (_req, res) => {
         try {
