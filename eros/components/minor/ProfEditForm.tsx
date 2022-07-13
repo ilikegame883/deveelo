@@ -132,6 +132,7 @@ const ProfileEditForm = ({ name, tag, description }: UserFormPresets) => {
 			</div>
 			<div className={sidebarStyles.buttonContainer}>
 				<TextButton colorKey="green" text="Save" submit={true} large={false} />
+				<TextButton colorKey="red" text="Cancel" submit={false} large={false} action={() => updateSidebar("edittoggle")} />
 			</div>
 		</form>
 	);
