@@ -1,5 +1,4 @@
 import gql from "graphql-tag";
-import { GraphQLUpload, graphqlUploadExpress } from "graphql-upload";
 
 export const typeDefs = gql`
 	# The implementation for this scalar is provided by the
