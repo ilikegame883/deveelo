@@ -7,9 +7,8 @@ import jwtDecode, { JwtPayload } from "jwt-decode";
 
 import { getAccessToken, setAccessToken } from "../accessToken";
 
-/* File Upload Link */
+/* Vars */
 const serverUrl = process.env.NODE_ENV === "production" ? "https://vega-deployment.herokuapp.com/graphql" : "http://localhost:4000/graphql";
-const uploadLink = createUploadLink({ uri: serverUrl });
 
 /* Communication Links*/
 
@@ -80,10 +79,15 @@ function createApolloClient() {
 			}),
 			errorLink,
 			requestLink,
-			new HttpLink({
+			//@ts-ignore
+			createUploadLink({
 				uri: serverUrl,
 				credentials: "include",
 			}),
+			// new HttpLink({
+			// 	uri: serverUrl,
+			// 	credentials: "include",
+			// }),
 		]),
 		cache: new InMemoryCache({
 			typePolicies: {
