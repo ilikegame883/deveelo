@@ -80,7 +80,10 @@ const initServer = async () => {
 		callback(null, corsOptions); // callback expects two parameters: error and options
 	};
 
+	//apply miscellanious .use middleware
+	//allows for reading of browser cookie information, for auth
 	app.use(cookieParser());
+	//used to allow file uploads
 	app.use(graphqlUploadExpress());
 
 	//api routes
