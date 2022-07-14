@@ -47,7 +47,7 @@ const uploadsResolvers = {
 					throw new Error("No valid type --banner, pfp, etc-- passed in as a prop with this upload");
 			}
 
-			const { createReadStream, filename } = await file;
+			const { createReadStream, filename, mimetype, encoding } = await file;
 
 			//split the name at the . and take the file extention
 			const name = filename as string;
@@ -71,6 +71,12 @@ const uploadsResolvers = {
 				default:
 					throw new Error("Error when saving new file name to variable array storage of uploaded files");
 			}
+
+			return {
+				filename: saveName,
+				mimetype: mimetype,
+				encoding: encoding,
+			};
 		},
 	},
 };
