@@ -113,6 +113,6 @@ export const typeDefs = gql`
 		follow(id: String!): BoolRes
 		unfollow(id: String!): BoolRes
 		updateProfile(name: String, tag: String, description: String): User!
-		singleUpload(file: Upload!): File!
+		singleUpload(file: Upload!, type: String!): File!
 	}
 `;
