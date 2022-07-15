@@ -6,7 +6,8 @@
 	"scripts": {
 		"watch": "tsc -w",
 		"start": "nodemon dist/index.js",
-		"revoke": "node dist/hooks/revokeUserToken.js"
+		"revoke": "node dist/hooks/revokeUserToken.js",
+		"build": "echo 'build script executed'"
 	},
 	"keywords": [],
 	"author": "",
