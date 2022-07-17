@@ -131,7 +131,8 @@ const ProfileEditForm = ({ name, tag, description }: UserFormPresets) => {
 				{/* <p className={formStyles.error}>{emailErr}</p> */}
 			</div>
 			<div className={sidebarStyles.buttonContainer}>
-				<TextButton colorKey="green" text="Save" submit={true} large={false} />
+				<TextButton colorKey="green" text="Update" submit={true} large={false} />
+				<TextButton colorKey="red" text="Cancel" submit={false} large={false} action={() => updateSidebar("edittoggle")} />
 			</div>
 		</form>
 	);

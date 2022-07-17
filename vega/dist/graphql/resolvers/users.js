@@ -4,7 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const argon2_1 = __importDefault(require("argon2"));
-const apollo_server_errors_1 = require("apollo-server-errors");
+const apollo_server_express_1 = require("apollo-server-express");
 const mongodb_1 = require("mongodb");
 const validators_1 = __importDefault(require("../../util/validators"));
 const User_1 = __importDefault(require("../../models/User"));
@@ -149,18 +149,18 @@ const userResolvers = {
             if (isEmail) {
                 let { valid, errors } = validators_1.default(input, "email");
                 if (!valid) {
-                    throw new apollo_server_errors_1.UserInputError("Errors", { errors });
+                    throw new apollo_server_express_1.UserInputError("Errors", { errors });
                 }
             }
             else {
                 let { valid, errors } = validators_1.default(input, "username");
                 if (!valid) {
-                    throw new apollo_server_errors_1.UserInputError("Errors", { errors });
+                    throw new apollo_server_express_1.UserInputError("Errors", { errors });
                 }
             }
             let { valid, errors } = validators_1.default(password, "password");
             if (!valid) {
-                throw new apollo_server_errors_1.UserInputError("Errors", { errors });
+                throw new apollo_server_express_1.UserInputError("Errors", { errors });
             }
             let user;
             if (isEmail) {
@@ -171,14 +171,14 @@ const userResolvers = {
             }
             if (!user) {
                 if (isEmail) {
-                    throw new apollo_server_errors_1.UserInputError("User not found", {
+                    throw new apollo_server_express_1.UserInputError("User not found", {
                         errors: {
                             email: "no user is registered with this email",
                         },
                     });
                 }
                 else {
-                    throw new apollo_server_errors_1.UserInputError("User not found", {
+                    throw new apollo_server_express_1.UserInputError("User not found", {
                         errors: {
                             username: "no user is registered with this username",
                         },
@@ -187,7 +187,7 @@ const userResolvers = {
             }
             const match = await argon2_1.default.verify(user.account.password, password);
             if (!match) {
-                throw new apollo_server_errors_1.UserInputError("Wrong credentials", {
+                throw new apollo_server_express_1.UserInputError("Wrong credentials", {
                     errors: {
                         password: "incorrect password",
                     },
@@ -203,18 +203,18 @@ const userResolvers = {
             email = String(email).trim();
             let { valid, errors } = validators_1.default(email, "email");
             if (!valid) {
-                throw new apollo_server_errors_1.UserInputError("Errors", { errors });
+                throw new apollo_server_express_1.UserInputError("Errors", { errors });
             }
             let emailSplit = String(email).split("@");
             let username = String(emailSplit[0].trim()).replaceAll("@", "");
             ({ valid, errors } = validators_1.default(username, "username"));
             if (!valid) {
-                throw new apollo_server_errors_1.UserInputError("Errors", { errors });
+                throw new apollo_server_express_1.UserInputError("Errors", { errors });
             }
             let tag = username;
             ({ valid, errors } = validators_1.default(password, "password"));
             if (!valid) {
-                throw new apollo_server_errors_1.UserInputError("Errors", { errors });
+                throw new apollo_server_express_1.UserInputError("Errors", { errors });
             }
             let max = 9;
             const CheckAndGenerateUsername = async (length, testTag, repeat, cycleNum) => {
@@ -237,7 +237,7 @@ const userResolvers = {
             await CheckAndGenerateUsername(max, tag, false, 0);
             const muser = await User_1.default.findOne({ "account.email": email });
             if (muser) {
-                throw new apollo_server_errors_1.UserInputError("email taken", {
+                throw new apollo_server_express_1.UserInputError("email taken", {
                     errors: {
                         email: "An account is already registered with email",
                     },

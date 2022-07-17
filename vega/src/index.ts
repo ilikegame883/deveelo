@@ -2,6 +2,8 @@ import "dotenv/config";
 import { ApolloServer } from "apollo-server-express";
 import { applyMiddleware as applyGqlMiddle } from "graphql-middleware";
 import { makeExecutableSchema } from "@graphql-tools/schema";
+//@ts-ignore
+import graphqlUploadExpress from "graphql-upload/graphqlUploadExpress.js";
 import { verify } from "jsonwebtoken";
 import mongoose from "mongoose";
 import express from "express";
@@ -79,7 +81,11 @@ const initServer = async () => {
 		callback(null, corsOptions); // callback expects two parameters: error and options
 	};
 
+	//apply miscellanious .use middleware
+	//allows for reading of browser cookie information, for auth
 	app.use(cookieParser());
+	//used to allow file uploads
+	app.use(graphqlUploadExpress());
 
 	//api routes
 	app.get("/", cors(corsDefault), (_req, res) => res.send("hello"));

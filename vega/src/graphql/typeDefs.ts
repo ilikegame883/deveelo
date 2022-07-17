@@ -1,13 +1,27 @@
 import gql from "graphql-tag";
 
 export const typeDefs = gql`
-	# note  Types
+	# The implementation for this scalar is provided by the
+	# 'GraphQLUpload' export from the 'graphql-upload' package
+	# in the resolver map in users.ts
+	scalar Upload
+
+	#  note  Types
+	#file uploads
+	type File {
+		filename: String!
+		mimetype: String!
+		encoding: String!
+	}
+	#posting
 	type Post {
 		_id: ID!
 		body: String!
 		createdAt: String!
 		username: String!
 	}
+
+	#general
 	type LoginResponse {
 		accessToken: String!
 		user: User!
@@ -99,5 +113,6 @@ export const typeDefs = gql`
 		follow(id: String!): BoolRes
 		unfollow(id: String!): BoolRes
 		updateProfile(name: String, tag: String, description: String): User!
+		singleUpload(file: Upload!, type: String!): File!
 	}
 `;
