@@ -2,7 +2,8 @@ import "dotenv/config";
 import { ApolloServer } from "apollo-server-express";
 import { applyMiddleware as applyGqlMiddle } from "graphql-middleware";
 import { makeExecutableSchema } from "@graphql-tools/schema";
-import { graphqlUploadExpress } from "graphql-upload";
+//@ts-ignore
+import graphqlUploadExpress from "graphql-upload/graphqlUploadExpress.js";
 import { verify } from "jsonwebtoken";
 import mongoose from "mongoose";
 import express from "express";

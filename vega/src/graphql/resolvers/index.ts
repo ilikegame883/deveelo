@@ -1,4 +1,5 @@
-import { GraphQLUpload } from "graphql-upload";
+//@ts-ignore
+import GraphQLUpload from "graphql-upload/GraphQLUpload.js";
 
 import postsResolvers from "./posts";
 import userResolvers from "./users";
