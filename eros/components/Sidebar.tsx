@@ -155,6 +155,11 @@ const Sidebar = ({ hardEdge }: sidebarProps) => {
 				}
 				//update to change the profile shown without link change
 				setSideProf(e.detail);
+				//we just switched to showing a different user's profile,
+				//(possibly with our profile's edit form still open), so
+				//remove the edit form and show that user's data normally
+				setShowEditForm(false);
+				//*yes, the 2 above both rerender, but both are still run!
 			}
 		};
 		setTimeout(() => {
