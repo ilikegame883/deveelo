@@ -36,6 +36,6 @@
 		"@types/cors": "^2.8.12",
 		"@types/graphql-upload": "^8.0.11",
 		"@types/jsonwebtoken": "8.5.8",
-		"nodemon": "^2.0.12"
+		"nodemon": "2.0.19"
 	}
 }
