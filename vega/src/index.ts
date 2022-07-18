@@ -257,7 +257,9 @@ const initServer = async () => {
 		resolvers,
 	});
 
+	//combine all types of middleware for use in schema
 	const middleware = [...authMiddlewares];
+	//middle, the only place where the package is used, to add the middleware
 	const schemaWithMiddleware = applyGqlMiddle(schema, ...middleware);
 
 	const server = new ApolloServer({

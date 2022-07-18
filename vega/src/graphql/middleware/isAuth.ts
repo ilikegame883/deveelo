@@ -23,6 +23,7 @@ const loggedInOnlyAuth: NewIMiddlewareResolver = async (resolve, _parent, _args,
 			throw new Error("not authenticated [fail]");
 		}
 
+		//middle, swap resolve for next
 		const result = await resolve(_parent, _args, context, _info);
 
 		return result;
@@ -31,6 +32,7 @@ const loggedInOnlyAuth: NewIMiddlewareResolver = async (resolve, _parent, _args,
 	}
 };
 
+//middle, have to replace this with resolver composition mapping and export
 export const isAuth = {
 	Query: {
 		myAccount: loggedInOnlyAuth,
