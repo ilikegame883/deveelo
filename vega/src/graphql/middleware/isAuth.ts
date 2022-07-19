@@ -2,7 +2,7 @@ import { verify } from "jsonwebtoken";
 import { sendRefreshToken } from "../../util/auth";
 import { NewIMiddlewareResolver } from "src/util/middlewareType";
 
-const loggedInOnlyAuth: NewIMiddlewareResolver = async (resolve, _parent, _args, context, _info) => {
+export const loggedInOnlyAuth: NewIMiddlewareResolver = async (resolve, _parent, _args, context, _info) => {
 	try {
 		//header looks like: bearer 1234abcd...
 		const authorization = context.req.headers["authorization"];

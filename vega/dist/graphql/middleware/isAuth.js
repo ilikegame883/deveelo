@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.isAuth = void 0;
+exports.isAuth = exports.loggedInOnlyAuth = void 0;
 const jsonwebtoken_1 = require("jsonwebtoken");
 const auth_1 = require("../../util/auth");
 const loggedInOnlyAuth = async (resolve, _parent, _args, context, _info) => {
@@ -26,15 +26,16 @@ const loggedInOnlyAuth = async (resolve, _parent, _args, context, _info) => {
         return null;
     }
 };
+exports.loggedInOnlyAuth = loggedInOnlyAuth;
 exports.isAuth = {
     Query: {
-        myAccount: loggedInOnlyAuth,
+        myAccount: exports.loggedInOnlyAuth,
     },
     Mutation: {
-        logout: loggedInOnlyAuth,
-        follow: loggedInOnlyAuth,
-        unfollow: loggedInOnlyAuth,
-        updateProfile: loggedInOnlyAuth,
+        logout: exports.loggedInOnlyAuth,
+        follow: exports.loggedInOnlyAuth,
+        unfollow: exports.loggedInOnlyAuth,
+        updateProfile: exports.loggedInOnlyAuth,
     },
 };
 //# sourceMappingURL=isAuth.js.map
