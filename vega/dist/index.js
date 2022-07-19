@@ -5,7 +5,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 require("dotenv/config");
 const apollo_server_express_1 = require("apollo-server-express");
-const graphql_middleware_1 = require("graphql-middleware");
 const schema_1 = require("@graphql-tools/schema");
 const graphqlUploadExpress_js_1 = __importDefault(require("graphql-upload/graphqlUploadExpress.js"));
 const jsonwebtoken_1 = require("jsonwebtoken");
@@ -13,9 +12,8 @@ const mongoose_1 = __importDefault(require("mongoose"));
 const express_1 = __importDefault(require("express"));
 const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const cors_1 = __importDefault(require("cors"));
-const typeDefs_1 = require("./graphql/typeDefs");
 const resolvers_1 = __importDefault(require("./graphql/resolvers"));
-const middleware_1 = require("./graphql/middleware");
+const typeDefs_1 = require("./graphql/typeDefs");
 const User_1 = __importDefault(require("./models/User"));
 const auth_1 = require("./util/auth");
 const initServer = async () => {
@@ -208,10 +206,8 @@ const initServer = async () => {
         typeDefs: typeDefs_1.typeDefs,
         resolvers: resolvers_1.default,
     });
-    const middleware = [...middleware_1.authMiddlewares];
-    const schemaWithMiddleware = graphql_middleware_1.applyMiddleware(schema, ...middleware);
     const server = new apollo_server_express_1.ApolloServer({
-        schema: schemaWithMiddleware,
+        schema: schema,
         context: ({ req, res }) => ({ req, res }),
     });
     await server.start();
