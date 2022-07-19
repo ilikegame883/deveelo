@@ -28,7 +28,7 @@ fs_1.default.readdir(contentDir + "banners", (err, files) => {
 });
 const uploadsResolvers = {
     Mutation: {
-        async singleUpload(_parent, { file, type }, { payload }) {
+        singleUpload: async (_parent, { file, type }, { payload }) => {
             let existingUploads;
             let savePath;
             switch (type) {
