@@ -13,6 +13,7 @@
 	"author": "",
 	"license": "ISC",
 	"dependencies": {
+		"@graphql-tools/resolvers-composition": "^6.5.0",
 		"@types/cookie-parser": "^1.4.2",
 		"apollo-server": "^3.9.0",
 		"apollo-server-express": "^3.9.0",
