@@ -104,13 +104,13 @@ This project follows the [Semantic Versioning 2.0](https://semver.org/) standard
 - [x] Profile pages
 - [x] Searchbar
 - [x] Handle token expiration & logouts
-- [x] Update profile information
-- [ ] Luna v1-alpha Release
-- [ ] Posting
 - [x] Following
+- [ ] Friending (next)
+- [x] Update profile information (polishing)
+- [ ] Support file uploads (in progress)
+- [ ] Posting
 - [ ] Notifications
-<!-- - [ ] Populate Sidebar Discovery -->
-<!-- - [ ] Friending -->
+- [ ] Luna v1-alpha Release
 
 ### 📬 Contact
 - hello@deveelo.com for general inqueries, introducing yourself 😘 and everything else.
