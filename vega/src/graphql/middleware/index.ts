@@ -1,5 +1,4 @@
-import { ResolversComposition, ResolversComposerMapping } from "@graphql-tools/resolvers-composition";
-import resolvers from "../resolvers";
+import { ResolversComposerMapping } from "@graphql-tools/resolvers-composition";
 
 import { loggedInOnlyAuth } from "./isAuth";
 
@@ -28,3 +27,5 @@ const resolversComposition: ResolversComposerMapping<MiddlewareEnabledResolvers>
 		updateProfile: [loggedInOnlyAuth()],
 	},
 };
+
+//compose the resolver map, send to index.ts, use in schema
