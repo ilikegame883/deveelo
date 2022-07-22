@@ -1,9 +1,9 @@
 import { ResolversComposition, ResolversComposerMapping } from "@graphql-tools/resolvers-composition";
 import resolvers from "../resolvers";
 
-import { isAuth, loggedInOnlyAuth } from "./isAuth";
+import { loggedInOnlyAuth } from "./isAuth";
 
-export const authMiddlewares = [isAuth]; //middle, where auth middleware is compiled
+//where auth middleware is compiled
 
 interface MiddlewareEnabledResolvers {
 	Query: {
