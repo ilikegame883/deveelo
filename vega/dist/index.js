@@ -12,8 +12,8 @@ const mongoose_1 = __importDefault(require("mongoose"));
 const express_1 = __importDefault(require("express"));
 const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const cors_1 = __importDefault(require("cors"));
-const resolvers_1 = __importDefault(require("./graphql/resolvers"));
 const typeDefs_1 = require("./graphql/typeDefs");
+const middleware_1 = require("./graphql/middleware");
 const User_1 = __importDefault(require("./models/User"));
 const auth_1 = require("./util/auth");
 const initServer = async () => {
@@ -204,7 +204,7 @@ const initServer = async () => {
     });
     const schema = schema_1.makeExecutableSchema({
         typeDefs: typeDefs_1.typeDefs,
-        resolvers: resolvers_1.default,
+        resolvers: middleware_1.composedResolvers,
     });
     const server = new apollo_server_express_1.ApolloServer({
         schema: schema,

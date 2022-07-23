@@ -9,9 +9,8 @@ import express from "express";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 
-import resolvers from "./graphql/resolvers";
 import { typeDefs } from "./graphql/typeDefs";
-import { authMiddlewares } from "./graphql/middleware";
+import { composedResolvers } from "./graphql/middleware";
 import User, { UserType } from "./models/User";
 import { createAccessToken, createRefreshToken, sendRefreshToken } from "./util/auth";
 
@@ -253,14 +252,8 @@ const initServer = async () => {
 
 	const schema = makeExecutableSchema({
 		typeDefs,
-		resolvers,
+		resolvers: composedResolvers,
 	});
-
-	//combine all types of middleware for use in schema
-	//const middleware = [...authMiddlewares];
-	//middle, the only place where the package is used, to add the middleware,,
-	//these are going to be the composedResolvers of the function output
-	//const schemaWithMiddleware = applyGqlMiddle(schema, ...middleware);
 
 	const server = new ApolloServer({
 		schema: schema,
