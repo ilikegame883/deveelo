@@ -1,8 +1,17 @@
-import { ResolversComposerMapping } from "@graphql-tools/resolvers-composition";
+import { ResolversComposerMapping, composeResolvers } from "@graphql-tools/resolvers-composition";
 
+import resolvers from "../resolvers";
+import { MyResolversComposition } from "src/util/middlewareType";
 import { loggedInOnlyAuth } from "./isAuth";
 
 //where auth middleware is compiled
+
+//middleware that does nothing, put into compostion for resolvers w/o middleware
+const noMiddleware = (): MyResolversComposition => (next) => async (parent, args, context, info) => {
+	//eventually, this will become a universal metrics middleware for gauging total site activity
+	const result = await next(parent, args, context, info);
+	return result;
+};
 
 //list of resolvers which use middleware
 interface MiddlewareEnabledResolvers {
@@ -31,3 +40,4 @@ const resolversComposition: ResolversComposerMapping<MiddlewareEnabledResolvers>
 };
 
 //compose the resolver map, send to index.ts, use in schema
+const composedResolvers = composeResolvers(resolvers, resolversComposition);
