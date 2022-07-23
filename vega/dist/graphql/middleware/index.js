@@ -3,6 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.composedResolvers = void 0;
 const resolvers_composition_1 = require("@graphql-tools/resolvers-composition");
 const resolvers_1 = __importDefault(require("../resolvers"));
 const isAuth_1 = require("./isAuth");
@@ -25,5 +26,5 @@ const resolversComposition = {
     "Mutation.unfollow": [metrics(), isAuth_1.loggedInOnlyAuth()],
     "Mutation.updateProfile": [metrics(), isAuth_1.loggedInOnlyAuth()],
 };
-const composedResolvers = resolvers_composition_1.composeResolvers(resolvers_1.default, resolversComposition);
+exports.composedResolvers = resolvers_composition_1.composeResolvers(resolvers_1.default, resolversComposition);
 //# sourceMappingURL=index.js.map

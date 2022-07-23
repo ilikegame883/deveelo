@@ -34,4 +34,4 @@ const resolversComposition = {
 };
 
 //compose the resolver map, send to index.ts, use in schema
-const composedResolvers = composeResolvers(resolvers, resolversComposition);
+export const composedResolvers = composeResolvers(resolvers, resolversComposition);
