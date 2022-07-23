@@ -1,4 +1,4 @@
-import { ResolversComposerMapping, composeResolvers } from "@graphql-tools/resolvers-composition";
+import { composeResolvers } from "@graphql-tools/resolvers-composition";
 
 import resolvers from "../resolvers";
 import { MyResolversComposition } from "src/util/middlewareType";
