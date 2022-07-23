@@ -4,6 +4,7 @@ import { loggedInOnlyAuth } from "./isAuth";
 
 //where auth middleware is compiled
 
+//list of resolvers which use middleware
 interface MiddlewareEnabledResolvers {
 	Query: {
 		myAccount: any;
@@ -16,6 +17,7 @@ interface MiddlewareEnabledResolvers {
 	};
 }
 
+//based on that list, assign a number of specified middlewares to each resolver
 const resolversComposition: ResolversComposerMapping<MiddlewareEnabledResolvers> = {
 	Query: {
 		myAccount: [loggedInOnlyAuth()],
