@@ -6,20 +6,24 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const resolvers_composition_1 = require("@graphql-tools/resolvers-composition");
 const resolvers_1 = __importDefault(require("../resolvers"));
 const isAuth_1 = require("./isAuth");
-const noMiddleware = () => (next) => async (parent, args, context, info) => {
+const metrics = () => (next) => async (parent, args, context, info) => {
     const result = await next(parent, args, context, info);
     return result;
 };
 const resolversComposition = {
-    Query: {
-        myAccount: [isAuth_1.loggedInOnlyAuth()],
-    },
-    Mutation: {
-        logout: [isAuth_1.loggedInOnlyAuth()],
-        follow: [isAuth_1.loggedInOnlyAuth()],
-        unfollow: [isAuth_1.loggedInOnlyAuth()],
-        updateProfile: [isAuth_1.loggedInOnlyAuth()],
-    },
+    "Query.getPosts": metrics(),
+    "Query.myAccount": [metrics(), isAuth_1.loggedInOnlyAuth()],
+    "Query.findUserByTag": metrics(),
+    "Query.findUsersById": metrics(),
+    "Query.randomUser": metrics(),
+    "Query.randomUsers": metrics(),
+    "Query.allUsers": metrics(),
+    "Mutation.register": metrics(),
+    "Mutation.login": metrics(),
+    "Mutation.logout": [metrics(), isAuth_1.loggedInOnlyAuth()],
+    "Mutation.follow": [metrics(), isAuth_1.loggedInOnlyAuth()],
+    "Mutation.unfollow": [metrics(), isAuth_1.loggedInOnlyAuth()],
+    "Mutation.updateProfile": [metrics(), isAuth_1.loggedInOnlyAuth()],
 };
 const composedResolvers = resolvers_composition_1.composeResolvers(resolvers_1.default, resolversComposition);
 //# sourceMappingURL=index.js.map
