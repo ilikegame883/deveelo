@@ -14,6 +14,8 @@ fs.readdir(contentDir + "pfps/", (err, files) => {
 		console.log(`Error fetching all pfp file names from dir: ${contentDir} \n The error was: \n ${err}`);
 	} else {
 		uploadedPfps ??= files;
+		console.log("Uploaded pfps detected: \n" + uploadedPfps);
+
 		console.log("🦄 Profile picture filenames fetched and saved");
 	}
 });

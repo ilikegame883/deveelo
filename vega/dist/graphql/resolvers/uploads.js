@@ -14,6 +14,7 @@ fs_1.default.readdir(contentDir + "pfps/", (err, files) => {
     }
     else {
         uploadedPfps !== null && uploadedPfps !== void 0 ? uploadedPfps : (uploadedPfps = files);
+        console.log("Uploaded pfps detected: \n" + uploadedPfps);
         console.log("🦄 Profile picture filenames fetched and saved");
     }
 });
