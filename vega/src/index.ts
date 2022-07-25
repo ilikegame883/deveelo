@@ -1,6 +1,5 @@
 import "dotenv/config";
 import { ApolloServer } from "apollo-server-express";
-import { applyMiddleware as applyGqlMiddle } from "graphql-middleware";
 import { makeExecutableSchema } from "@graphql-tools/schema";
 //@ts-ignore
 import graphqlUploadExpress from "graphql-upload/graphqlUploadExpress.js";
@@ -11,8 +10,7 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 
 import { typeDefs } from "./graphql/typeDefs";
-import resolvers from "./graphql/resolvers";
-import { authMiddlewares } from "./graphql/middleware";
+import { composedResolvers } from "./graphql/middleware";
 import User, { UserType } from "./models/User";
 import { createAccessToken, createRefreshToken, sendRefreshToken } from "./util/auth";
 
@@ -254,16 +252,11 @@ const initServer = async () => {
 
 	const schema = makeExecutableSchema({
 		typeDefs,
-		resolvers,
+		resolvers: composedResolvers,
 	});
 
-	//combine all types of middleware for use in schema
-	const middleware = [...authMiddlewares];
-	//middle, the only place where the package is used, to add the middleware
-	const schemaWithMiddleware = applyGqlMiddle(schema, ...middleware);
-
 	const server = new ApolloServer({
-		schema: schemaWithMiddleware,
+		schema: schema,
 		context: ({ req, res }) => ({ req, res }),
 	});
 

@@ -16,21 +16,21 @@ const successfulLoginHandler = (user, { res }) => {
 };
 const userResolvers = {
     Query: {
-        async myAccount(_parent, _args, context) {
+        myAccount: async (_parent, _args, context) => {
             const user = await User_1.default.findById(new mongodb_1.ObjectID(context.payload.id));
             if (!user) {
                 throw new Error("user not found");
             }
             return user;
         },
-        async findUserByTag(_parent, { tag }, _context) {
+        findUserByTag: async (_parent, { tag }, _context) => {
             const user = await User_1.default.findOne({ "account.tag": tag });
             if (!user) {
                 throw new Error("user not found");
             }
             return user;
         },
-        async findUsersById(_parent, { ids }, _context) {
+        findUsersById: async (_parent, { ids }, _context) => {
             let users = [];
             for (let i = 0; i < ids.length; i++) {
                 const id = ids[i];
@@ -44,21 +44,21 @@ const userResolvers = {
             }
             return users;
         },
-        async randomUser(_parent, _args, _context) {
+        randomUser: async (_parent, _args, _context) => {
             const user = await sampleUsers_1.getRandomUser(false);
             if (!user) {
                 throw new Error("error finding random user");
             }
             return user;
         },
-        async randomUsers(_parent, { count }, _context) {
+        randomUsers: async (_parent, { count }, _context) => {
             const users = await sampleUsers_1.getRandomUsers(count);
             if (!users) {
                 throw new Error("Error sampling users");
             }
             return users;
         },
-        async allUsers(_parent, _args, _context) {
+        allUsers: async (_parent, _args, _context) => {
             try {
                 const results = await User_1.default.aggregate([
                     {
@@ -86,7 +86,7 @@ const userResolvers = {
         },
     },
     Mutation: {
-        async follow(_parent, { id }, context) {
+        follow: async (_parent, { id }, context) => {
             const myID = context.payload.id;
             try {
                 await User_1.default.findByIdAndUpdate(new mongodb_1.ObjectID(myID), { $addToSet: { "profile.followingIds": id } }, { useFindAndModify: false });
@@ -99,7 +99,7 @@ const userResolvers = {
                 throw new Error(error);
             }
         },
-        async unfollow(_parent, { id }, context) {
+        unfollow: async (_parent, { id }, context) => {
             const myID = context.payload.id;
             try {
                 await User_1.default.findByIdAndUpdate(new mongodb_1.ObjectID(myID), { $pull: { "profile.followingIds": id } }, { useFindAndModify: false });
@@ -112,7 +112,7 @@ const userResolvers = {
                 throw new Error(error);
             }
         },
-        async updateProfile(_parent, { name, tag, description }, context) {
+        updateProfile: async (_parent, { name, tag, description }, context) => {
             let user = await User_1.default.findById(new mongodb_1.ObjectID(context.payload.id));
             if (!user) {
                 throw new Error("account not found");
@@ -143,7 +143,7 @@ const userResolvers = {
                 throw new Error(error);
             }
         },
-        async login(_, { input, password }, context) {
+        login: async (_, { input, password }, context) => {
             const regEx = /^([0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+[a-zA-Z]{2,9})$/;
             const isEmail = input.match(regEx);
             if (isEmail) {
@@ -199,7 +199,7 @@ const userResolvers = {
                 user,
             };
         },
-        async register(_, { email, password }, context) {
+        register: async (_, { email, password }, context) => {
             email = String(email).trim();
             let { valid, errors } = validators_1.default(email, "email");
             if (!valid) {
@@ -296,7 +296,7 @@ const userResolvers = {
                 user,
             };
         },
-        async logout(_parent, _args, { res, payload }) {
+        logout: async (_parent, _args, { res, payload }) => {
             if (!payload) {
                 console.log(JSON.stringify(payload));
                 return false;

@@ -30,7 +30,7 @@ fs.readdir(contentDir + "banners", (err, files) => {
 
 const uploadsResolvers = {
 	Mutation: {
-		async singleUpload(_parent: any, { file, type }: { file: any; type: string }, { payload }: Context) {
+		singleUpload: async (_parent: any, { file, type }: { file: any; type: string }, { payload }: Context) => {
 			let existingUploads: string[];
 			let savePath: string;
 
