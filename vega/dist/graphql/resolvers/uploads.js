@@ -5,10 +5,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const fs_1 = __importDefault(require("fs"));
 const path_1 = __importDefault(require("path"));
-const contentDir = "../../../public/uploads/";
+const contentDir = "public/uploads/";
 let uploadedPfps;
 let uploadedBanners;
-fs_1.default.readdir(contentDir + "pfps", (err, files) => {
+fs_1.default.readdir(contentDir + "pfps/", (err, files) => {
     if (err) {
         console.log(`Error fetching all pfp file names from dir: ${contentDir} \n The error was: \n ${err}`);
     }
@@ -17,7 +17,7 @@ fs_1.default.readdir(contentDir + "pfps", (err, files) => {
         console.log("🦄 Profile picture filenames fetched and saved");
     }
 });
-fs_1.default.readdir(contentDir + "banners", (err, files) => {
+fs_1.default.readdir(contentDir + "banners/", (err, files) => {
     if (err) {
         console.log(`Error fetching all banner file names from dir: ${contentDir} \n The error was: \n ${err}`);
     }

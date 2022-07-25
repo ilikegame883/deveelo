@@ -3,12 +3,12 @@ import path from "path";
 
 import Context from "../../context";
 
-const contentDir = "../../../public/uploads/";
+const contentDir = "public/uploads/";
 let uploadedPfps: string[];
 let uploadedBanners: string[];
 
 //on server start, fetch the names of the uploaded files
-fs.readdir(contentDir + "pfps", (err, files) => {
+fs.readdir(contentDir + "pfps/", (err, files) => {
 	if (err) {
 		//log any error that occurs
 		console.log(`Error fetching all pfp file names from dir: ${contentDir} \n The error was: \n ${err}`);
@@ -18,7 +18,7 @@ fs.readdir(contentDir + "pfps", (err, files) => {
 	}
 });
 
-fs.readdir(contentDir + "banners", (err, files) => {
+fs.readdir(contentDir + "banners/", (err, files) => {
 	if (err) {
 		//log any error that occurs
 		console.log(`Error fetching all banner file names from dir: ${contentDir} \n The error was: \n ${err}`);
