@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.convertToWebpPfp = void 0;
+exports.convertToWebpClamped = exports.convertToWebpPfp = void 0;
 const sharp_1 = __importDefault(require("sharp"));
 exports.convertToWebpPfp = sharp_1.default()
     .resize({
@@ -12,4 +12,34 @@ exports.convertToWebpPfp = sharp_1.default()
     fit: "cover",
 })
     .webp({ quality: 75 });
+exports.convertToWebpClamped = sharp_1.default()
+    .metadata()
+    .then(function (metadata) {
+    if (metadata === undefined) {
+        return sharp_1.default()
+            .resize({
+            width: 1936,
+            height: 1090,
+            fit: "cover",
+        })
+            .webp({ quality: 75 });
+    }
+    else {
+        let newWidth = metadata.width;
+        let newHeight = metadata.height;
+        if (metadata.width > 1936) {
+            newWidth = 1936;
+        }
+        if (metadata.height > 1090) {
+            newHeight = 1090;
+        }
+        return sharp_1.default()
+            .resize({
+            width: newWidth,
+            height: newHeight,
+            fit: "cover",
+        })
+            .webp({ quality: 75 });
+    }
+});
 //# sourceMappingURL=imageOpts.js.map
