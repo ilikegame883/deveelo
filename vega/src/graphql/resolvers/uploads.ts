@@ -1,7 +1,9 @@
 import fs from "fs";
 import path from "path";
+//import sharp from "sharp";
 
 import Context from "../../context";
+import { convertToWebpPfp } from "../../util/imageOpts";
 
 const contentDir = "public/uploads/";
 let uploadedPfps: string[];
@@ -51,13 +53,14 @@ const uploadsResolvers = {
 			const { createReadStream, filename, mimetype, encoding } = await file;
 
 			//split the name at the . and take the file extention
-			const name = filename as string;
-			const extension = name.split(".")[1];
+			//const name = filename as string;
+			//const extension = name.split(".")[1];
 			//use the user id as the name
-			const saveName = `firstimageyay.${extension}`; // `${payload?.id}.${extension}`;
+			const saveName = `second.webp`; // `${payload?.id}.webp`;
 
 			await new Promise((res) =>
 				createReadStream()
+					.pipe(convertToWebpPfp)
 					.pipe(fs.createWriteStream(path.join(savePath, saveName)))
 					.on("close", res)
 			);
