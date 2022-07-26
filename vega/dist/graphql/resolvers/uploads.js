@@ -14,7 +14,6 @@ fs_1.default.readdir(contentDir + "pfps/", (err, files) => {
     }
     else {
         uploadedPfps !== null && uploadedPfps !== void 0 ? uploadedPfps : (uploadedPfps = files);
-        console.log("Uploaded pfps detected: \n" + uploadedPfps);
         console.log("🦄 Profile picture filenames fetched and saved");
     }
 });
@@ -47,9 +46,9 @@ const uploadsResolvers = {
             const { createReadStream, filename, mimetype, encoding } = await file;
             const name = filename;
             const extension = name.split(".")[1];
-            const saveName = `${payload === null || payload === void 0 ? void 0 : payload.id}.${extension}`;
+            const saveName = `firstimageyay.${extension}`;
             await new Promise((res) => createReadStream()
-                .pipe(fs_1.default.createWriteStream(path_1.default.join(__dirname, savePath, saveName)))
+                .pipe(fs_1.default.createWriteStream(path_1.default.join(savePath, saveName)))
                 .on("close", res));
             switch (type) {
                 case "pfp":

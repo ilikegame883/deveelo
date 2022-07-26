@@ -14,7 +14,6 @@ fs.readdir(contentDir + "pfps/", (err, files) => {
 		console.log(`Error fetching all pfp file names from dir: ${contentDir} \n The error was: \n ${err}`);
 	} else {
 		uploadedPfps ??= files;
-		console.log("Uploaded pfps detected: \n" + uploadedPfps);
 
 		console.log("🦄 Profile picture filenames fetched and saved");
 	}
@@ -55,11 +54,11 @@ const uploadsResolvers = {
 			const name = filename as string;
 			const extension = name.split(".")[1];
 			//use the user id as the name
-			const saveName = `${payload?.id}.${extension}`;
+			const saveName = `firstimageyay.${extension}`; // `${payload?.id}.${extension}`;
 
 			await new Promise((res) =>
 				createReadStream()
-					.pipe(fs.createWriteStream(path.join(__dirname, savePath, saveName)))
+					.pipe(fs.createWriteStream(path.join(savePath, saveName)))
 					.on("close", res)
 			);
 
