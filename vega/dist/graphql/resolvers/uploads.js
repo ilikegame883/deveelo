@@ -32,13 +32,16 @@ const uploadsResolvers = {
         singleUpload: async (_parent, { file, type }, { payload }) => {
             let existingUploads;
             let savePath;
+            let imageOptimization;
             switch (type) {
                 case "pfp":
                     existingUploads = uploadedPfps;
+                    imageOptimization = imageOpts_1.convertToWebpPfp;
                     savePath = contentDir + "pfps";
                     break;
                 case "banner":
                     existingUploads = uploadedBanners;
+                    imageOptimization = imageOpts_1.convertToWebpBanner;
                     savePath = contentDir + "banners";
                     break;
                 default:
@@ -47,7 +50,7 @@ const uploadsResolvers = {
             const { createReadStream, filename, mimetype, encoding } = await file;
             const saveName = `second.webp`;
             await new Promise((res) => createReadStream()
-                .pipe(imageOpts_1.convertToWebpPfp)
+                .pipe(imageOptimization)
                 .pipe(fs_1.default.createWriteStream(path_1.default.join(savePath, saveName)))
                 .on("close", res));
             switch (type) {

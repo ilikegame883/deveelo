@@ -3,7 +3,7 @@ import path from "path";
 //import sharp from "sharp";
 
 import Context from "../../context";
-import { convertToWebpPfp } from "../../util/imageOpts";
+import { convertToWebpBanner, convertToWebpPfp } from "../../util/imageOpts";
 
 const contentDir = "public/uploads/";
 let uploadedPfps: string[];
@@ -34,16 +34,20 @@ fs.readdir(contentDir + "banners/", (err, files) => {
 const uploadsResolvers = {
 	Mutation: {
 		singleUpload: async (_parent: any, { file, type }: { file: any; type: string }, { payload }: Context) => {
+			//variables which control the different behaviors of the types of uploads
 			let existingUploads: string[];
 			let savePath: string;
+			let imageOptimization: any;
 
 			switch (type) {
 				case "pfp":
 					existingUploads = uploadedPfps;
+					imageOptimization = convertToWebpPfp;
 					savePath = contentDir + "pfps";
 					break;
 				case "banner":
 					existingUploads = uploadedBanners;
+					imageOptimization = convertToWebpBanner;
 					savePath = contentDir + "banners";
 					break;
 				default:
@@ -60,7 +64,7 @@ const uploadsResolvers = {
 
 			await new Promise((res) =>
 				createReadStream()
-					.pipe(convertToWebpPfp)
+					.pipe(imageOptimization)
 					.pipe(fs.createWriteStream(path.join(savePath, saveName)))
 					.on("close", res)
 			);
