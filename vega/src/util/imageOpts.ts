@@ -9,6 +9,15 @@ export const convertToWebpPfp = sharp()
 	})
 	.webp({ quality: 75 });
 
+//495 by 343.5 but 2x is 990 x 687
+export const convertToWebpBanner = sharp()
+	.resize({
+		width: 990,
+		height: 687,
+		fit: "cover",
+	})
+	.webp({ quality: 75 });
+
 //for posts, which are 968px by 545px (save to 2x)
 //limit to 2x 1080p display value, so 1936 by 1090
 export const convertToWebpClamped = sharp()
