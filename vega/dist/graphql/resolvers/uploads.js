@@ -5,7 +5,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const fs_1 = __importDefault(require("fs"));
 const path_1 = __importDefault(require("path"));
+const validators_1 = require("../../util/validators");
 const imageOpts_1 = require("../../util/imageOpts");
+const apollo_server_express_1 = require("apollo-server-express");
 const contentDir = "public/uploads/";
 let uploadedPfps;
 let uploadedBanners;
@@ -45,7 +47,13 @@ const uploadsResolvers = {
                     throw new Error("No valid type --banner, pfp, etc-- passed in as a prop with this upload");
             }
             const { createReadStream, filename, mimetype, encoding } = await file;
-            const saveName = `boomie.webp`;
+            const name = filename;
+            const extension = name.split(".")[1];
+            const { errors, valid } = validators_1.validateFileExtensions(extension, ["png", "jpg", "jpeg", "webp", "jfif"]);
+            if (!valid) {
+                throw new apollo_server_express_1.UserInputError(errors.file);
+            }
+            const saveName = `boomie2.webp`;
             await new Promise((res) => createReadStream()
                 .pipe(imageOptimization)
                 .pipe(fs_1.default.createWriteStream(path_1.default.join(savePath, saveName)))

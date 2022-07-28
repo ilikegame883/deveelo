@@ -1,9 +1,11 @@
 import fs from "fs";
 import path from "path";
+import { validateFileExtensions } from "../../util/validators";
 //import sharp from "sharp";
 
 import Context from "../../context";
 import { convertToWebpBanner, convertToWebpPfp } from "../../util/imageOpts";
+import { UserInputError } from "apollo-server-express";
 
 const contentDir = "public/uploads/";
 let uploadedPfps: string[];
@@ -57,10 +59,18 @@ const uploadsResolvers = {
 			const { createReadStream, filename, mimetype, encoding } = await file;
 
 			//split the name at the . and take the file extention
-			//const name = filename as string;
-			//const extension = name.split(".")[1];
+			const name = filename as string;
+			const extension = name.split(".")[1];
+
+			//check if we recieved a supported image format, this is a secondary check
+			//since the frontend only allows these in the file exporter, but if a direct req is sent?
+			const { errors, valid } = validateFileExtensions(extension, ["png", "jpg", "jpeg", "webp", "jfif"]);
+			if (!valid) {
+				throw new UserInputError(errors.file);
+			}
+
 			//use the user id as the name
-			const saveName = `boomie.webp`; // `${payload?.id}.webp`;
+			const saveName = `boomie2.webp`; // `${payload?.id}.webp`;
 
 			await new Promise((res) =>
 				createReadStream()
