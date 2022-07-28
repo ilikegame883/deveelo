@@ -35,18 +35,18 @@ const uploadsResolvers = {
 	Mutation: {
 		singleUpload: async (_parent: any, { file, type }: { file: any; type: string }, { payload }: Context) => {
 			//variables which control the different behaviors of the types of uploads
-			let existingUploads: string[];
+			//let existingUploads: string[];
 			let savePath: string;
 			let imageOptimization: any;
 
 			switch (type) {
 				case "pfp":
-					existingUploads = uploadedPfps;
+					//existingUploads = uploadedPfps;
 					imageOptimization = convertToWebpPfp;
 					savePath = contentDir + "pfps";
 					break;
 				case "banner":
-					existingUploads = uploadedBanners;
+					//existingUploads = uploadedBanners;
 					imageOptimization = convertToWebpBanner;
 					savePath = contentDir + "banners";
 					break;
@@ -60,7 +60,7 @@ const uploadsResolvers = {
 			//const name = filename as string;
 			//const extension = name.split(".")[1];
 			//use the user id as the name
-			const saveName = `second.webp`; // `${payload?.id}.webp`;
+			const saveName = `boomie.webp`; // `${payload?.id}.webp`;
 
 			await new Promise((res) =>
 				createReadStream()

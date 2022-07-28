@@ -30,17 +30,14 @@ fs_1.default.readdir(contentDir + "banners/", (err, files) => {
 const uploadsResolvers = {
     Mutation: {
         singleUpload: async (_parent, { file, type }, { payload }) => {
-            let existingUploads;
             let savePath;
             let imageOptimization;
             switch (type) {
                 case "pfp":
-                    existingUploads = uploadedPfps;
                     imageOptimization = imageOpts_1.convertToWebpPfp;
                     savePath = contentDir + "pfps";
                     break;
                 case "banner":
-                    existingUploads = uploadedBanners;
                     imageOptimization = imageOpts_1.convertToWebpBanner;
                     savePath = contentDir + "banners";
                     break;
@@ -48,7 +45,7 @@ const uploadsResolvers = {
                     throw new Error("No valid type --banner, pfp, etc-- passed in as a prop with this upload");
             }
             const { createReadStream, filename, mimetype, encoding } = await file;
-            const saveName = `second.webp`;
+            const saveName = `boomie.webp`;
             await new Promise((res) => createReadStream()
                 .pipe(imageOptimization)
                 .pipe(fs_1.default.createWriteStream(path_1.default.join(savePath, saveName)))
