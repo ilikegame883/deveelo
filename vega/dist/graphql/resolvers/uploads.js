@@ -53,7 +53,7 @@ const uploadsResolvers = {
             if (!valid) {
                 throw new apollo_server_express_1.UserInputError(errors.file);
             }
-            const saveName = `boomie2.webp`;
+            const saveName = `${payload === null || payload === void 0 ? void 0 : payload.id}.webp`;
             await new Promise((res) => createReadStream()
                 .pipe(imageOptimization)
                 .pipe(fs_1.default.createWriteStream(path_1.default.join(savePath, saveName)))

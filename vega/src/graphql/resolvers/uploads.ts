@@ -70,7 +70,7 @@ const uploadsResolvers = {
 			}
 
 			//use the user id as the name
-			const saveName = `boomie2.webp`; // `${payload?.id}.webp`;
+			const saveName = `${payload?.id}.webp`;
 
 			await new Promise((res) =>
 				createReadStream()
