@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.convertToWebpClamped = exports.convertToWebpBanner = exports.convertToWebpPfp = void 0;
+exports.convertToWebpClamped = exports.serveSizeBanner = exports.convertToWebpBanner = exports.convertToWebpPfp = void 0;
 const sharp_1 = __importDefault(require("sharp"));
 exports.convertToWebpPfp = sharp_1.default()
     .resize({
@@ -19,6 +19,12 @@ exports.convertToWebpBanner = sharp_1.default()
     fit: "cover",
 })
     .webp({ quality: 75 });
+const serveSizeBanner = (file, w, h) => sharp_1.default(file).resize({
+    width: w,
+    height: h,
+    fit: "cover",
+});
+exports.serveSizeBanner = serveSizeBanner;
 exports.convertToWebpClamped = sharp_1.default()
     .metadata()
     .then(function (metadata) {

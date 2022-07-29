@@ -18,6 +18,13 @@ export const convertToWebpBanner = sharp()
 	})
 	.webp({ quality: 75 });
 
+export const serveSizeBanner = (file: string, w: number, h: number) =>
+	sharp(file).resize({
+		width: w,
+		height: h,
+		fit: "cover",
+	});
+
 //for posts, which are 968px by 545px (save to 2x)
 //limit to 2x 1080p display value, so 1936 by 1090
 export const convertToWebpClamped = sharp()
