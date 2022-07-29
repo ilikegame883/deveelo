@@ -64,7 +64,7 @@ const uploadsResolvers = {
 
 			//check if we recieved a supported image format, this is a secondary check
 			//since the frontend only allows these in the file exporter, but if a direct req is sent?
-			const { errors, valid } = validateFileExtensions(extension, ["png", "jpg", "jpeg", "webp", "jfif"]);
+			const { errors, valid } = validateFileExtensions(extension, ["png", "jpg", "jpeg", "webp", "jfif", "avif"]);
 			if (!valid) {
 				throw new UserInputError(errors.file);
 			}

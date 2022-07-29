@@ -49,7 +49,7 @@ const uploadsResolvers = {
             const { createReadStream, filename, mimetype, encoding } = await file;
             const name = filename;
             const extension = name.split(".")[1];
-            const { errors, valid } = validators_1.validateFileExtensions(extension, ["png", "jpg", "jpeg", "webp", "jfif"]);
+            const { errors, valid } = validators_1.validateFileExtensions(extension, ["png", "jpg", "jpeg", "webp", "jfif", "avif"]);
             if (!valid) {
                 throw new apollo_server_express_1.UserInputError(errors.file);
             }
