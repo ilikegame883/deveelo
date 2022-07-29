@@ -16,6 +16,8 @@ steps:
   displayName: 'Install Node.js'
 
 - script: |
-    npm install
-    npm run build
+    npm install --prefix ./eros
+    npm run build --prefix ./eros
+    npm install --prefix ./vega
+    npm run build --prefix ./vega
   displayName: 'npm install and build'
