@@ -1,11 +1,12 @@
 import fs from "fs";
 import path from "path";
-import { validateFileExtensions } from "../../util/validators";
-//import sharp from "sharp";
 
 import Context from "../../context";
 import { convertToWebpBanner, convertToWebpPfp } from "../../util/imageOpts";
+import { validateFileExtensions } from "../../util/validators";
+import { getServerUrl } from "../../util/links";
 import { UserInputError } from "apollo-server-express";
+import User from "../../models/User";
 
 const contentDir = "public/uploads/";
 let uploadedPfps: string[];
@@ -72,6 +73,20 @@ const uploadsResolvers = {
 			//use the user id as the name
 			const saveName = `${payload?.id}.webp`;
 
+			//change the user's profile data if pfp or banner
+			try {
+				if (type === "pfp") {
+					//update the user's pfp url to the current vega baseurl/uploads/banners/blahblah.webp
+					await User.findByIdAndUpdate(payload!.id, { $set: { "profile.pictureUrl": getServerUrl(`uploads/pfps/${saveName}`) } }, { useFindAndModify: false });
+				} else if (type === "banner") {
+					//update the user's banner url to the new
+					await User.findByIdAndUpdate(payload!.id, { $set: { "profile.bannerUrl": getServerUrl(`uploads/banners/${saveName}`) } }, { useFindAndModify: false });
+				}
+			} catch (err) {
+				throw new Error("Error finding and updating user's pfp or banner image on new upload");
+			}
+
+			//upload the file
 			await new Promise((res) =>
 				createReadStream()
 					.pipe(imageOptimization)
@@ -79,12 +94,21 @@ const uploadsResolvers = {
 					.on("close", res)
 			);
 
+			//store the filename in the array of uploads
 			switch (type) {
 				case "pfp":
-					uploadedPfps.push(saveName);
+					if (!uploadedPfps.includes(saveName)) {
+						//we only need to replace the old file name, but since
+						//filenames are = for a single user, we just do nothing
+						//but, add the name if this is the first upload and one
+						//does not exist already.
+						uploadedPfps.push(saveName);
+					}
 					break;
 				case "banner":
-					uploadedBanners.push(saveName);
+					if (!uploadedBanners.includes(saveName)) {
+						uploadedBanners.push(saveName);
+					}
 					break;
 				default:
 					throw new Error("Error when saving new file name to variable array storage of uploaded files");
