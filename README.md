@@ -35,8 +35,8 @@
 ### 📚 Structure
 | Branches             |      Description      |
 | :------------------- | :------------------- |
-| [Dev](https://github.com/Treixatek/deveelo/tree/dev)       |      New and untested features or fixes, new commits go here       |
-| [Staging](https://github.com/Treixatek/deveelo/tree/staging) |     This is where completed features from the __dev branch__ are tested before entering __prod branch__      |
+| feat/fix      |      New and untested features or fixes, will be merged into staging upon completion       |
+| [Staging](https://github.com/Treixatek/deveelo/tree/staging) |     This is where completed features from the __dev branch__ are tested before entering __prod__      |
 | [Prod](https://github.com/Treixatek/deveelo/tree/prod) |     This is what is running in production, only tested versions of staging should be merged here      |
 
 | Folders             |      Description      |
