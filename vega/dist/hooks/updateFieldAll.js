@@ -8,9 +8,15 @@ require("dotenv/config");
 const mongoose_1 = __importDefault(require("mongoose"));
 const User_1 = __importDefault(require("../models/User"));
 const updateField = async () => {
+    console.log("🍿 Command Started");
+    const users = await User_1.default.find({});
+    console.log("🐲 All Users Retrieved");
     try {
-        await User_1.default.updateMany({}, { $set: { "profile.bannerUrl": `/banners/image_${Math.floor(Math.random() * 4)}.webp` } });
-        console.log(`📁 - Successfully changed field for all users`);
+        users.forEach(async (user) => {
+            await User_1.default.findByIdAndUpdate(user._id, { $set: { "profile.bannerUrl": `/banners/image_${Math.floor(Math.random() * 4)}.webp` } }, { useFindAndModify: false });
+            console.log(`😎 Field Updated for: ${user.account.tag}`);
+        });
+        console.log(`✅ - Successfully changed field for ${users.length} users`);
         return;
     }
     catch (error) {
