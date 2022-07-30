@@ -7,7 +7,6 @@ const fs_1 = __importDefault(require("fs"));
 const path_1 = __importDefault(require("path"));
 const imageOpts_1 = require("../../util/imageOpts");
 const validators_1 = require("../../util/validators");
-const links_1 = require("../../util/links");
 const apollo_server_express_1 = require("apollo-server-express");
 const User_1 = __importDefault(require("../../models/User"));
 const contentDir = "public/uploads/";
@@ -58,10 +57,10 @@ const uploadsResolvers = {
             const saveName = `${payload === null || payload === void 0 ? void 0 : payload.id}.webp`;
             try {
                 if (type === "pfp") {
-                    await User_1.default.findByIdAndUpdate(payload.id, { $set: { "profile.pictureUrl": links_1.getServerUrl(`uploads/pfps/${saveName}`) } }, { useFindAndModify: false });
+                    await User_1.default.findByIdAndUpdate(payload.id, { $set: { "profile.pictureUrl": `/pfps/${saveName}` } }, { useFindAndModify: false });
                 }
                 else if (type === "banner") {
-                    await User_1.default.findByIdAndUpdate(payload.id, { $set: { "profile.bannerUrl": links_1.getServerUrl(`uploads/banners/${saveName}`) } }, { useFindAndModify: false });
+                    await User_1.default.findByIdAndUpdate(payload.id, { $set: { "profile.bannerUrl": `/banners/${saveName}` } }, { useFindAndModify: false });
                 }
             }
             catch (err) {

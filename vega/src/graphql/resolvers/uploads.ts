@@ -4,7 +4,6 @@ import path from "path";
 import Context from "../../context";
 import { convertToWebpBanner, convertToWebpPfp } from "../../util/imageOpts";
 import { validateFileExtensions } from "../../util/validators";
-import { getServerUrl } from "../../util/links";
 import { UserInputError } from "apollo-server-express";
 import User from "../../models/User";
 
@@ -76,11 +75,11 @@ const uploadsResolvers = {
 			//change the user's profile data if pfp or banner
 			try {
 				if (type === "pfp") {
-					//update the user's pfp url to the current vega baseurl/uploads/banners/blahblah.webp
-					await User.findByIdAndUpdate(payload!.id, { $set: { "profile.pictureUrl": getServerUrl(`uploads/pfps/${saveName}`) } }, { useFindAndModify: false });
+					//update the user's pfp url to the current relative: i.e. /banners/blahblah.webp (frontend handles baseUrl)
+					await User.findByIdAndUpdate(payload!.id, { $set: { "profile.pictureUrl": `/pfps/${saveName}` } }, { useFindAndModify: false });
 				} else if (type === "banner") {
 					//update the user's banner url to the new
-					await User.findByIdAndUpdate(payload!.id, { $set: { "profile.bannerUrl": getServerUrl(`uploads/banners/${saveName}`) } }, { useFindAndModify: false });
+					await User.findByIdAndUpdate(payload!.id, { $set: { "profile.bannerUrl": `/banners/${saveName}` } }, { useFindAndModify: false });
 				}
 			} catch (err) {
 				throw new Error("Error finding and updating user's pfp or banner image on new upload");
