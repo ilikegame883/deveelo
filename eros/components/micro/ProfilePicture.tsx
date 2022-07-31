@@ -36,12 +36,6 @@ const ProfilePicture = ({ size, source, status, editing }: profilePicParams) => 
 	switch (size) {
 		case "large":
 			content = (
-				// <div className={pictureStyles.wrapper}>
-				// 	{status ? <div className={statusStyles.large}>{circle}</div> : null}
-				// 	<div className={pictureStyles.w70}>
-				// 		<Image loader={bannerLoader} className={pictureStyles.p_picture} alt="profile picture" src={source} layout="fill" objectFit="cover" />
-				// 	</div>
-				// </div>
 				<div className={pictureStyles.w70}>
 					{editing ? <FileSelectArea type="pfp" /> : null}
 					<Image loader={bannerLoader} className={pictureStyles.p_picture} alt="profile picture" src={source} layout="fill" objectFit="cover" />
