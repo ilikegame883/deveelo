@@ -41,8 +41,15 @@
     width: inherit;
     height: inherit;
     background: #EEF0F4;
+    /*image-rendering: -webkit-optimize-contrast; stops blur*/
+}
+
+.bannerImageEdit {
+    width: inherit;
+    height: inherit;
+    background: #EEF0F4;
     
-    opacity: .5;
+    opacity: .31;
     /*image-rendering: -webkit-optimize-contrast; stops blur*/
     /* Click through to upload panel */
     pointer-events: none;

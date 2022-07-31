@@ -16,6 +16,7 @@ import { updateSidebar } from "../hooks/socialhooks";
 import { MinProfUserType } from "../lib/userTypes";
 import { Fmod } from "../hooks/setSidebar";
 import { bannerLoader } from "../hooks/loaders";
+import { FileSelectArea } from "./micro/FileSelect";
 
 /* todo 
 	+  Switch to unfollow button
@@ -371,7 +372,15 @@ const Sidebar = ({ hardEdge }: sidebarProps) => {
 			<SimpleBar className="fillfill">
 				{/*Banner*/}
 				<div className={sidebarStyles.banner}>
-					<Image loader={bannerLoader} className={sidebarStyles.bannerImage} alt="profile banner" src={user.profile.bannerUrl} layout="fill" priority={true} objectFit="cover" />
+					{showEditForm ? <FileSelectArea /> : null}
+					<Image
+						loader={bannerLoader}
+						className={showEditForm ? sidebarStyles.bannerImageEdit : sidebarStyles.bannerImage}
+						alt="profile banner"
+						src={user.profile.bannerUrl}
+						layout="fill"
+						priority={true}
+						objectFit="cover"></Image>
 				</div>
 				{/*User Profile*/}
 				<div className={sidebarStyles.profileContainer}>
