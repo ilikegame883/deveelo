@@ -380,7 +380,8 @@ const Sidebar = ({ hardEdge }: sidebarProps) => {
 						src={user.profile.bannerUrl}
 						layout="fill"
 						priority={true}
-						objectFit="cover"></Image>
+						objectFit="cover"
+					/>
 				</div>
 				{/*User Profile*/}
 				<div className={sidebarStyles.profileContainer}>
