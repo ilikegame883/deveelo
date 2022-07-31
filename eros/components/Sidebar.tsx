@@ -392,7 +392,7 @@ const Sidebar = ({ hardEdge }: sidebarProps) => {
 								<p className={sidebarStyles.p_stats_num}>{user.profile.followingIds.length}</p>
 								<p className={sidebarStyles.p_stats_label}>Following</p>
 							</div>
-							<ProfilePicture size="large" source={user.profile.pictureUrl} status={user.status} />
+							<ProfilePicture size="large" source={user.profile.pictureUrl} status={user.status} editing={showEditForm} />
 							{/* FOLLOWER COUNT */}
 							<div className={sidebarStyles.p_stats}>
 								<p className={sidebarStyles.p_stats_num}>{user.profile.followerIds.length + fcountAddition}</p>
