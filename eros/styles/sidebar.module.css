@@ -44,6 +44,12 @@
     
     opacity: .5;
     /*image-rendering: -webkit-optimize-contrast; stops blur*/
+    /* Click through to upload panel */
+    pointer-events: none;
+}
+
+.banner span {
+    pointer-events: none;
 }
 
 .linkedProfiles {
