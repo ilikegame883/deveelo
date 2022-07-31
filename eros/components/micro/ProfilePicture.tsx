@@ -2,6 +2,8 @@ import pictureStyles from "../../styles/profilepicture.module.css";
 import statusStyles from "../../styles/status.module.css";
 import Image from "next/image";
 
+import { bannerLoader } from "../../hooks/loaders";
+
 interface profilePicParams {
 	size: string;
 	source: string;
@@ -33,7 +35,7 @@ const ProfilePicture = ({ size, source, status }: profilePicParams) => {
 		case "large":
 			content = (
 				<div className={pictureStyles.w70}>
-					<Image className={pictureStyles.p_picture} alt="profile picture" src={source} layout="fill" objectFit="cover" />
+					<Image loader={bannerLoader} className={pictureStyles.p_picture} alt="profile picture" src={source} layout="fill" objectFit="cover" />
 					{status ? <div className={statusStyles.large}>{circle}</div> : null}
 				</div>
 			);
@@ -41,7 +43,7 @@ const ProfilePicture = ({ size, source, status }: profilePicParams) => {
 		case "w50":
 			content = (
 				<div className={pictureStyles.w50}>
-					<Image className={pictureStyles.p_picture} alt="profile picture" src={source} layout="fill" objectFit="cover" />
+					<Image loader={bannerLoader} className={pictureStyles.p_picture} alt="profile picture" src={source} layout="fill" objectFit="cover" />
 					{status ? <div className={statusStyles.large}>{circle}</div> : null}
 				</div>
 			);
@@ -49,7 +51,7 @@ const ProfilePicture = ({ size, source, status }: profilePicParams) => {
 		case "w40":
 			content = (
 				<div className={pictureStyles.w40}>
-					<Image className={pictureStyles.p_picture} alt="profile picture" src={source} layout="fill" objectFit="cover" />
+					<Image loader={bannerLoader} className={pictureStyles.p_picture} alt="profile picture" src={source} layout="fill" objectFit="cover" />
 					{status ? <div className={statusStyles.w40}>{circle}</div> : null}
 				</div>
 			);
@@ -57,7 +59,7 @@ const ProfilePicture = ({ size, source, status }: profilePicParams) => {
 		case "w36":
 			content = (
 				<div className={pictureStyles.w36}>
-					<Image className={pictureStyles.p_picture} alt="profile picture" src={source} layout="fill" objectFit="cover" />
+					<Image loader={bannerLoader} className={pictureStyles.p_picture} alt="profile picture" src={source} layout="fill" objectFit="cover" />
 					{status ? <div className={statusStyles.large}>{circle}</div> : null}
 				</div>
 			);
@@ -65,7 +67,7 @@ const ProfilePicture = ({ size, source, status }: profilePicParams) => {
 		case "w32":
 			content = (
 				<div className={pictureStyles.w32}>
-					<Image className={pictureStyles.p_picture} alt="profile picture" src={source} layout="fill" objectFit="cover" />
+					<Image loader={bannerLoader} className={pictureStyles.p_picture} alt="profile picture" src={source} layout="fill" objectFit="cover" />
 					{status ? <div className={statusStyles.large}>{circle}</div> : null}
 				</div>
 			);
@@ -73,7 +75,7 @@ const ProfilePicture = ({ size, source, status }: profilePicParams) => {
 		case "w28":
 			content = (
 				<div className={pictureStyles.w28}>
-					<Image className={pictureStyles.p_picture} alt="profile picture" src={source} layout="fill" objectFit="cover" />
+					<Image loader={bannerLoader} className={pictureStyles.p_picture} alt="profile picture" src={source} layout="fill" objectFit="cover" />
 					{status ? <div className={statusStyles.w28}>{circle}</div> : null}
 				</div>
 			);
