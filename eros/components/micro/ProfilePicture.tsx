@@ -3,14 +3,16 @@ import statusStyles from "../../styles/status.module.css";
 import Image from "next/image";
 
 import { bannerLoader } from "../../hooks/loaders";
+import { FileSelectArea } from "./FileSelect";
 
 interface profilePicParams {
 	size: string;
 	source: string;
 	status?: string;
+	editing?: boolean;
 }
 
-const ProfilePicture = ({ size, source, status }: profilePicParams) => {
+const ProfilePicture = ({ size, source, status, editing }: profilePicParams) => {
 	let content = null;
 	let circle = null;
 
@@ -34,9 +36,16 @@ const ProfilePicture = ({ size, source, status }: profilePicParams) => {
 	switch (size) {
 		case "large":
 			content = (
+				// <div className={pictureStyles.wrapper}>
+				// 	{status ? <div className={statusStyles.large}>{circle}</div> : null}
+				// 	<div className={pictureStyles.w70}>
+				// 		<Image loader={bannerLoader} className={pictureStyles.p_picture} alt="profile picture" src={source} layout="fill" objectFit="cover" />
+				// 	</div>
+				// </div>
 				<div className={pictureStyles.w70}>
+					{editing ? <FileSelectArea type="pfp" /> : null}
 					<Image loader={bannerLoader} className={pictureStyles.p_picture} alt="profile picture" src={source} layout="fill" objectFit="cover" />
-					{status ? <div className={statusStyles.large}>{circle}</div> : null}
+					{status && !editing ? <div className={statusStyles.large}>{circle}</div> : null}
 				</div>
 			);
 			break;
