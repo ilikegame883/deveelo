@@ -15,5 +15,18 @@
     justify-content: center;
     align-items: center;
 
+    padding-left: ;
+
     z-index: 1;
+}
+
+.imageOffsetWrapper {
+    height: fit-content;
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    padding-left: .375rem;
 }
