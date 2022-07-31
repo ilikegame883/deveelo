@@ -36,9 +36,10 @@ const ProfilePicture = ({ size, source, status, editing }: profilePicParams) => 
 	switch (size) {
 		case "large":
 			content = (
-				<div className={pictureStyles.w70}>
+				//if editting, we clip it so that the darken overlay is a circle (status is hidden when editting so no conflicts)
+				<div className={editing ? pictureStyles.w70Clip : pictureStyles.w70}>
 					{editing ? <FileSelectArea type="pfp" /> : null}
-					<Image loader={bannerLoader} className={pictureStyles.p_picture} alt="profile picture" src={source} layout="fill" objectFit="cover" />
+					<Image loader={bannerLoader} className={editing ? pictureStyles.p_pictureEdit : pictureStyles.p_picture} alt="profile picture" src={source} layout="fill" objectFit="cover" />
 					{status && !editing ? <div className={statusStyles.large}>{circle}</div> : null}
 				</div>
 			);
