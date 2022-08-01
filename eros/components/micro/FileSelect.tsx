@@ -3,9 +3,16 @@ import { useUploadSingleMutation, MyAccountMinProfileDocument, MyNameAndPfpDocum
 
 import uploadStyles from "../../styles/micro/fileupload.module.css";
 
+const refetchTypes = ["pfp", "banner"];
+
 export const FileSelectArea = ({ type, text }: { type: string; text?: string }) => {
 	//after changing the pictures, we will refetch the queries which use them
-	const [uploadSingle] = useUploadSingleMutation({ refetchQueries: [{ query: MyAccountMinProfileDocument }, { query: MyNameAndPfpDocument }] });
+
+	const refetch = refetchTypes.includes(type);
+	const options = {
+		refetchQueries: [{ query: MyAccountMinProfileDocument }, { query: MyNameAndPfpDocument }],
+	};
+	const [uploadSingle] = useUploadSingleMutation(refetch ? options : null);
 
 	const fileInput = useRef<HTMLInputElement>();
 
