@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useUploadSingleMutation, MyAccountMinProfileDocument, MyNameAndPfpDocument } from "../../hooks/backend/generated/graphql";
 
 import uploadStyles from "../../styles/micro/fileupload.module.css";
@@ -6,6 +6,9 @@ import uploadStyles from "../../styles/micro/fileupload.module.css";
 const refetchTypes = ["pfp", "banner"];
 
 export const FileSelectArea = ({ type, text }: { type: string; text?: string }) => {
+	const [newFile, setNewFile] = useState<File>();
+	console.log(newFile);
+
 	//limit refetch to pfp and banner queries
 	const refetch = refetchTypes.includes(type);
 	const options = {
@@ -24,10 +27,20 @@ export const FileSelectArea = ({ type, text }: { type: string; text?: string }) 
 	};
 
 	const showText: boolean = text !== undefined;
+	if (newFile) {
+		text = newFile.name;
+	}
 
 	return (
 		<button className={uploadStyles.fillOverlay} onClick={selectFile}>
-			<input type="file" id={`${type}file`} style={{ display: "none" }} ref={fileInput} accept="image/png, image/jpeg, image/jfif, image/webp, image/avif" />
+			<input
+				type="file"
+				id={`${type}file`}
+				style={{ display: "none" }}
+				ref={fileInput}
+				accept="image/png, image/jpeg, image/jfif, image/webp, image/avif"
+				onChange={(e) => setNewFile(e.target.files[0])}
+			/>
 			<div className={uploadStyles.content}>
 				{/* handles compensating for the uncentered icon + sign pushes it left) */}
 				<div className={uploadStyles.imageOffsetWrapper}>
