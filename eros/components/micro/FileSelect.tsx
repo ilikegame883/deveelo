@@ -1,8 +1,12 @@
 import { useRef } from "react";
+import { useUploadSingleMutation, MyAccountMinProfileDocument, MyNameAndPfpDocument } from "../../hooks/backend/generated/graphql";
 
 import uploadStyles from "../../styles/micro/fileupload.module.css";
 
 export const FileSelectArea = ({ type, text }: { type: string; text?: string }) => {
+	//after changing the pictures, we will refetch the queries which use them
+	const [uploadSingle] = useUploadSingleMutation({ refetchQueries: [{ query: MyAccountMinProfileDocument }, { query: MyNameAndPfpDocument }] });
+
 	const fileInput = useRef<HTMLInputElement>();
 
 	const selectFile = () => {
