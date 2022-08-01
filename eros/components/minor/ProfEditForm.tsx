@@ -19,7 +19,7 @@ const ProfileEditForm = ({ name, tag, description }: UserFormPresets) => {
 	const [newDescription, setNewDescription] = useState(description);
 
 	//api
-	const [UpdateProfile] = useUpdateProfileMutation();
+	const [UpdateProfile] = useUpdateProfileMutation({ refetchQueries: [{ query: MyAccountMinProfileDocument }] });
 
 	return (
 		<form
@@ -71,7 +71,7 @@ const ProfileEditForm = ({ name, tag, description }: UserFormPresets) => {
 						//reload so the info updates after the 1st change since reload (the
 						//1st time is covered by writing to the cache)
 						const finalTag = response.data.updateProfile.account.tag;
-						window.location.assign(`/${finalTag}`);
+						//window.location.assign(`/${finalTag}`);
 					}
 				} catch (error) {
 					if (error.graphQLErrors[0].extensions.errors) {
