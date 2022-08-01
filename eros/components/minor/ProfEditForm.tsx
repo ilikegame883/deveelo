@@ -5,6 +5,7 @@ import sidebarStyles from "../../styles/sidebar.module.css";
 import TextButton from "../micro/TextButton";
 import { useUpdateProfileMutation, MyNameAndPfpDocument, MyNameAndPfpQuery, MyAccountMinProfileQuery, MyAccountMinProfileDocument } from "../../hooks/backend/generated/graphql";
 import { updateSidebar } from "../../hooks/socialhooks";
+import { removeSpaces } from "../../hooks/inputUtils";
 
 interface UserFormPresets {
 	name: string;
@@ -19,6 +20,7 @@ const ProfileEditForm = ({ name, tag, description }: UserFormPresets) => {
 	const [newDescription, setNewDescription] = useState(description);
 
 	//api
+	//by refetching these queries upon changing the data, we do not need to reload page :D
 	const [UpdateProfile] = useUpdateProfileMutation({ refetchQueries: [{ query: MyAccountMinProfileDocument }, { query: MyNameAndPfpDocument }] });
 
 	return (
@@ -31,7 +33,7 @@ const ProfileEditForm = ({ name, tag, description }: UserFormPresets) => {
 					const response = await UpdateProfile({
 						variables: {
 							newname: newName,
-							newtag: newTag,
+							newtag: removeSpaces(newTag),
 							newdes: newDescription,
 						},
 						update: (store, { data }) => {
@@ -68,10 +70,12 @@ const ProfileEditForm = ({ name, tag, description }: UserFormPresets) => {
 					if (response && response.data) {
 						updateSidebar("edittoggle");
 
-						//reload so the info updates after the 1st change since reload (the
-						//1st time is covered by writing to the cache)
+						//if the original tag != save tag (if tag was changed) we
+						//navigate to the new profile page url
 						const finalTag = response.data.updateProfile.account.tag;
-						//window.location.assign(`/${finalTag}`);
+						if (tag !== finalTag) {
+							window.location.assign(`/${finalTag}`);
+						}
 					}
 				} catch (error) {
 					if (error.graphQLErrors[0].extensions.errors) {
