@@ -19,7 +19,7 @@ const ProfileEditForm = ({ name, tag, description }: UserFormPresets) => {
 	const [newDescription, setNewDescription] = useState(description);
 
 	//api
-	const [UpdateProfile] = useUpdateProfileMutation({ refetchQueries: [{ query: MyAccountMinProfileDocument }] });
+	const [UpdateProfile] = useUpdateProfileMutation({ refetchQueries: [{ query: MyAccountMinProfileDocument }, { query: MyNameAndPfpDocument }] });
 
 	return (
 		<form
