@@ -3,10 +3,11 @@ import { UserInputError } from "apollo-server-express";
 import { ObjectID } from "mongodb";
 
 import ValidateRegisterInput from "../../util/validators";
+import { createAccessToken, createRefreshToken, sendRefreshToken } from "../../util/auth";
+import { removeSpaces } from "../../util/input";
 import User, { UserType } from "../../models/User";
 import { EditProfInput } from "../resolverTypes";
 import Context from "../../context";
-import { createAccessToken, createRefreshToken, sendRefreshToken } from "../../util/auth";
 import { Document } from "mongoose";
 import { getRandomUser, getRandomUsers } from "../../hooks/sampleUsers";
 
@@ -159,7 +160,7 @@ const userResolvers = {
 					{
 						$set: {
 							"account.username": newName,
-							"account.tag": newTag,
+							"account.tag": removeSpaces(newTag),
 							"profile.description": newDes,
 							"profile.bannerUrl": newBanner,
 							"profile.pictureUrl": newPfp,
