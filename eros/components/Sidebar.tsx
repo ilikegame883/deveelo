@@ -108,6 +108,8 @@ const Sidebar = ({ hardEdge }: sidebarProps) => {
 				uses the current second and millisecond to generate
 				a new number to set that new state int value
 				*/
+				console.log("rerendering");
+
 				const date = new Date();
 				let randomSeed = date.getSeconds() + date.getMilliseconds();
 				setRerender(randomSeed);
@@ -372,7 +374,7 @@ const Sidebar = ({ hardEdge }: sidebarProps) => {
 			<SimpleBar className="fillfill">
 				{/*Banner*/}
 				<div className={sidebarStyles.banner}>
-					{showEditForm ? <FileSelectArea type="banner" maxSize="2mb" text="Upload a new banner" /> : null}
+					{showEditForm ? <FileSelectArea type="banner" maxSize="5mb" text="Upload a new banner" /> : null}
 					<Image
 						loader={bannerLoader}
 						className={showEditForm ? sidebarStyles.bannerImageEdit : sidebarStyles.bannerImage}
@@ -392,7 +394,7 @@ const Sidebar = ({ hardEdge }: sidebarProps) => {
 								<p className={sidebarStyles.p_stats_num}>{user.profile.followingIds.length}</p>
 								<p className={sidebarStyles.p_stats_label}>Following</p>
 							</div>
-							<ProfilePicture size="large" source={user.profile.pictureUrl} status={user.status} editing={showEditForm} />
+							<ProfilePicture size="large" source={user.profile.pictureUrl} status={user.status} editing={showEditForm} renderSeed={rerender} />
 							{/* FOLLOWER COUNT */}
 							<div className={sidebarStyles.p_stats}>
 								<p className={sidebarStyles.p_stats_num}>{user.profile.followerIds.length + fcountAddition}</p>
