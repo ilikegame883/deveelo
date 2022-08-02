@@ -1,5 +1,6 @@
 import fs from "fs";
 import path from "path";
+import sharp from "sharp";
 
 import Context from "../../context";
 import { convertToWebpBanner, convertToWebpPfp } from "../../util/imageOpts";
@@ -44,13 +45,26 @@ const uploadsResolvers = {
 			switch (type) {
 				case "pfp":
 					//existingUploads = uploadedPfps;
-					imageOptimization = convertToWebpPfp;
+					//copy of image opts convertToWebpPfp;
 					savePath = contentDir + "pfps";
+					imageOptimization = sharp()
+						.resize({
+							width: 400,
+							height: 400,
+							fit: "cover",
+						})
+						.webp({ quality: 75 });
 					break;
 				case "banner":
 					//existingUploads = uploadedBanners;
-					imageOptimization = convertToWebpBanner;
 					savePath = contentDir + "banners";
+					imageOptimization = sharp()
+						.resize({
+							width: 990,
+							height: 687,
+							fit: "cover",
+						})
+						.webp({ quality: 75 });
 					break;
 				default:
 					throw new Error("No valid type --banner, pfp, etc-- passed in as a prop with this upload");

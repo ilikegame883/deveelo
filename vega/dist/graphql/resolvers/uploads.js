@@ -5,7 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const fs_1 = __importDefault(require("fs"));
 const path_1 = __importDefault(require("path"));
-const imageOpts_1 = require("../../util/imageOpts");
+const sharp_1 = __importDefault(require("sharp"));
 const validators_1 = require("../../util/validators");
 const apollo_server_express_1 = require("apollo-server-express");
 const User_1 = __importDefault(require("../../models/User"));
@@ -37,12 +37,24 @@ const uploadsResolvers = {
             let imageOptimization;
             switch (type) {
                 case "pfp":
-                    imageOptimization = imageOpts_1.convertToWebpPfp;
                     savePath = contentDir + "pfps";
+                    imageOptimization = sharp_1.default()
+                        .resize({
+                        width: 400,
+                        height: 400,
+                        fit: "cover",
+                    })
+                        .webp({ quality: 75 });
                     break;
                 case "banner":
-                    imageOptimization = imageOpts_1.convertToWebpBanner;
                     savePath = contentDir + "banners";
+                    imageOptimization = sharp_1.default()
+                        .resize({
+                        width: 990,
+                        height: 687,
+                        fit: "cover",
+                    })
+                        .webp({ quality: 75 });
                     break;
                 default:
                     throw new Error("No valid type --banner, pfp, etc-- passed in as a prop with this upload");
