@@ -14,6 +14,7 @@ interface FileAreaInput {
 
 export const FileSelectArea = ({ type, text, maxSize }: FileAreaInput) => {
 	const storage = window.localStorage;
+	//prevents sending multiple requests (happens automatically ¯\_(ツ)_/¯)
 	if (storage.getItem(`${type}file`) === undefined) {
 		storage.setItem(`${type}file`, "");
 	}
