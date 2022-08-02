@@ -84,10 +84,11 @@ export const FileSelectArea = ({ type, text, maxSize }: FileAreaInput) => {
 		});
 
 		if (response && response.data) {
-			setTimeout(() => {
+			if (refetch) {
+				//rerender the sidebar and fetch the image again (which will return the new image)
+				//*thanks to our cache breaker in the custom next image loader
 				updateSidebar(null);
-				console.log("successful upload");
-			}, 1000);
+			}
 		}
 	};
 	//route click on overlay to invisible file upload button
