@@ -3,7 +3,6 @@ import path from "path";
 import sharp from "sharp";
 
 import Context from "../../context";
-import { convertToWebpBanner, convertToWebpPfp } from "../../util/imageOpts";
 import { validateFileExtensions } from "../../util/validators";
 import { UserInputError } from "apollo-server-express";
 import User from "../../models/User";
