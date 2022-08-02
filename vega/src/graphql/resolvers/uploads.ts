@@ -1,11 +1,12 @@
 import fs from "fs";
 import path from "path";
 import sharp from "sharp";
+import { ObjectID } from "mongodb";
 
 import Context from "../../context";
 import { validateFileExtensions } from "../../util/validators";
 import { UserInputError } from "apollo-server-express";
-import User from "../../models/User";
+import User, { UserType } from "../../models/User";
 
 const contentDir = "public/uploads/";
 let uploadedPfps: string[];
@@ -36,6 +37,11 @@ fs.readdir(contentDir + "banners/", (err, files) => {
 const uploadsResolvers = {
 	Mutation: {
 		singleUpload: async (_parent: any, { file, type }: { file: any; type: string }, { payload }: Context) => {
+			const user: UserType = await User.findById(new ObjectID(payload!.id));
+			if (!user) {
+				throw new Error("account not found");
+			}
+
 			//variables which control the different behaviors of the types of uploads
 			//let existingUploads: string[];
 			let savePath: string;
@@ -127,9 +133,12 @@ const uploadsResolvers = {
 			}
 
 			return {
-				filename: saveName,
-				mimetype: mimetype,
-				encoding: encoding,
+				user: user,
+				file: {
+					filename: saveName,
+					mimetype: mimetype,
+					encoding: encoding,
+				},
 			};
 		},
 	},

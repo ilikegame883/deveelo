@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const fs_1 = __importDefault(require("fs"));
 const path_1 = __importDefault(require("path"));
 const sharp_1 = __importDefault(require("sharp"));
+const mongodb_1 = require("mongodb");
 const validators_1 = require("../../util/validators");
 const apollo_server_express_1 = require("apollo-server-express");
 const User_1 = __importDefault(require("../../models/User"));
@@ -33,6 +34,10 @@ fs_1.default.readdir(contentDir + "banners/", (err, files) => {
 const uploadsResolvers = {
     Mutation: {
         singleUpload: async (_parent, { file, type }, { payload }) => {
+            const user = await User_1.default.findById(new mongodb_1.ObjectID(payload.id));
+            if (!user) {
+                throw new Error("account not found");
+            }
             let savePath;
             let imageOptimization;
             switch (type) {
@@ -97,9 +102,12 @@ const uploadsResolvers = {
                     throw new Error("Error when saving new file name to variable array storage of uploaded files");
             }
             return {
-                filename: saveName,
-                mimetype: mimetype,
-                encoding: encoding,
+                user: user,
+                file: {
+                    filename: saveName,
+                    mimetype: mimetype,
+                    encoding: encoding,
+                },
             };
         },
     },
