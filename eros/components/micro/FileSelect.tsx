@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { useUploadSingleMutation, MyAccountMinProfileDocument, MyNameAndPfpDocument } from "../../hooks/backend/generated/graphql";
+import { useUploadSingleMutation, MyAccountMinProfileDocument, MyNameAndPfpDocument, MyNameAndPfpQuery } from "../../hooks/backend/generated/graphql";
 import { checkFileSize } from "../../hooks/inputUtils";
 
 import uploadStyles from "../../styles/micro/fileupload.module.css";
@@ -13,21 +13,71 @@ interface FileAreaInput {
 }
 
 export const FileSelectArea = ({ type, text, maxSize }: FileAreaInput) => {
+	const storage = window.localStorage;
+	if (storage.getItem(`${type}file`) === undefined) {
+		storage.setItem(`${type}file`, "");
+	}
 	const [newFile, setNewFile] = useState<File>();
 	const [error, setError] = useState("");
-
-	if (newFile) {
-		console.log(newFile.size);
-	}
+	const isError = error !== "";
 
 	//limit refetch to pfp and banner queries
 	const refetch = refetchTypes.includes(type);
 	const options = {
 		refetchQueries: [{ query: MyAccountMinProfileDocument }, { query: MyNameAndPfpDocument }],
 	};
+
 	//after changing the pictures, we will refetch the queries which use them
 	const [uploadSingle] = useUploadSingleMutation(refetch ? options : null);
 
+	const handleNewUpload = async () => {
+		if (!newFile || isError) {
+			return;
+		}
+
+		const lastFileName = storage.getItem(`${type}file`);
+		if (newFile.name === lastFileName) {
+			return;
+		}
+		//set last file name to this one now
+		storage.setItem(`${type}file`, newFile.name);
+
+		const response = await uploadSingle({
+			variables: {
+				file: newFile,
+				type: type,
+			},
+			// update: (store, { data }) => {
+			// 	if (!data || !refetch) {
+			// 		return null;
+			// 	}
+
+			// 	//remember, the filename is: <payload.id>.webp
+			// 	const saveName = data.singleUpload.filename;
+			// 	const userID = saveName.split('.')[0];
+
+			// 	store.writeQuery<MyNameAndPfpQuery>({
+			// 		query: MyNameAndPfpDocument,
+			// 		data: {
+			// 			myAccount: {
+			// 				_id: userID,
+			// 				account: {
+			// 					username: data.updateProfile.account.username,
+			// 					tag: data.updateProfile.account.tag,
+			// 				},
+			// 				profile: {
+			// 					pictureUrl: data.updateProfile.profile.pictureUrl,
+			// 				},
+			// 			},
+			// 		},
+			// 	});
+			// }
+		});
+
+		if (response && response.data) {
+			console.log("successful upload");
+		}
+	};
 	//route click on overlay to invisible file upload button
 	const fileInput = useRef<HTMLInputElement>();
 
@@ -40,9 +90,11 @@ export const FileSelectArea = ({ type, text, maxSize }: FileAreaInput) => {
 	const showText: boolean = text !== undefined;
 	if (newFile) {
 		text = newFile.name;
+
+		//we can also assume that the use has successfully uploaded a new image so upload it:
+		handleNewUpload();
 	}
 
-	const isError = error !== "";
 	if (isError) {
 		text = error;
 	}
