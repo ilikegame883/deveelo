@@ -1,7 +1,8 @@
 import { useRef, useState } from "react";
+
 import { useUploadSingleMutation, MyAccountMinProfileDocument, MyNameAndPfpDocument, MyNameAndPfpQuery, MyAccountMinProfileQuery } from "../../hooks/backend/generated/graphql";
 import { checkFileSize } from "../../hooks/inputUtils";
-
+import { updateSidebar } from "../../hooks/socialhooks";
 import uploadStyles from "../../styles/micro/fileupload.module.css";
 
 const refetchTypes = ["pfp", "banner"];
@@ -50,29 +51,27 @@ export const FileSelectArea = ({ type, text, maxSize }: FileAreaInput) => {
 			},
 			update: (store, { data }) => {
 				if (!data || !refetch) {
-					console.log("update cache cancelled");
-
 					return null;
 				}
 
 				//remember, the filename is: <payload.id>.webp
 				const saveName = data.singleUpload.file.filename;
 
-				store.writeQuery<MyNameAndPfpQuery>({
-					query: MyNameAndPfpDocument,
-					data: {
-						myAccount: {
-							_id: data.singleUpload.user._id,
-							account: {
-								username: data.singleUpload.user.account.username,
-								tag: data.singleUpload.user.account.tag,
-							},
-							profile: {
-								pictureUrl: data.singleUpload.user.profile.pictureUrl,
-							},
-						},
-					},
-				});
+				// store.writeQuery<MyNameAndPfpQuery>({
+				// 	query: MyNameAndPfpDocument,
+				// 	data: {
+				// 		myAccount: {
+				// 			_id: data.singleUpload.user._id,
+				// 			account: {
+				// 				username: data.singleUpload.user.account.username,
+				// 				tag: data.singleUpload.user.account.tag,
+				// 			},
+				// 			profile: {
+				// 				pictureUrl: data.singleUpload.user.profile.pictureUrl,
+				// 			},
+				// 		},
+				// 	},
+				// });
 				//update cache for minprofile query (update sidebar)
 				store.writeQuery<MyAccountMinProfileQuery>({
 					query: MyAccountMinProfileDocument,
@@ -85,7 +84,10 @@ export const FileSelectArea = ({ type, text, maxSize }: FileAreaInput) => {
 		});
 
 		if (response && response.data) {
-			console.log("successful upload");
+			setTimeout(() => {
+				updateSidebar(null);
+				console.log("successful upload");
+			}, 1000);
 		}
 	};
 	//route click on overlay to invisible file upload button
