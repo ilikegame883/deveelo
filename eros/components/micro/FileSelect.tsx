@@ -1,13 +1,23 @@
 import { useRef, useState } from "react";
 import { useUploadSingleMutation, MyAccountMinProfileDocument, MyNameAndPfpDocument } from "../../hooks/backend/generated/graphql";
+import { checkFileSize } from "../../hooks/inputUtils";
 
 import uploadStyles from "../../styles/micro/fileupload.module.css";
 
 const refetchTypes = ["pfp", "banner"];
 
-export const FileSelectArea = ({ type, text }: { type: string; text?: string }) => {
+interface FileAreaInput {
+	type: string;
+	text?: string;
+	maxSize: "2mb" | "5mb";
+}
+
+export const FileSelectArea = ({ type, text, maxSize }: FileAreaInput) => {
 	const [newFile, setNewFile] = useState<File>();
-	console.log(newFile);
+
+	if (newFile) {
+		console.log(newFile.size);
+	}
 
 	//limit refetch to pfp and banner queries
 	const refetch = refetchTypes.includes(type);
@@ -39,7 +49,14 @@ export const FileSelectArea = ({ type, text }: { type: string; text?: string }) 
 				style={{ display: "none" }}
 				ref={fileInput}
 				accept="image/png, image/jpeg, image/jfif, image/webp, image/avif"
-				onChange={(e) => setNewFile(e.target.files[0])}
+				onChange={(e) => {
+					const file = e.target.files[0];
+
+					const pass = checkFileSize(file.size, maxSize);
+					if (pass) {
+						setNewFile(file);
+					}
+				}}
 			/>
 			<div className={uploadStyles.content}>
 				{/* handles compensating for the uncentered icon + sign pushes it left) */}
