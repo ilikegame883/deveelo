@@ -39,7 +39,7 @@ export type Mutation = {
   login: LoginResponse;
   logout: Scalars['Boolean'];
   register: LoginResponse;
-  singleUpload: File;
+  singleUpload: UploadResult;
   unfollow?: Maybe<BoolRes>;
   updateProfile: User;
 };
@@ -177,6 +177,12 @@ export type U_Social = {
 };
 
 
+export type UploadResult = {
+  __typename?: 'UploadResult';
+  file: File;
+  user: User;
+};
+
 export type User = {
   __typename?: 'User';
   _id: Scalars['ID'];
@@ -282,7 +288,7 @@ export type UploadSingleMutationVariables = Exact<{
 }>;
 
 
-export type UploadSingleMutation = { __typename?: 'Mutation', singleUpload: { __typename?: 'File', filename: string } };
+export type UploadSingleMutation = { __typename?: 'Mutation', singleUpload: { __typename?: 'UploadResult', user: { __typename?: 'User', _id: string, status: string, account: { __typename?: 'U_Account', username: string, tag: string, private: boolean }, profile: { __typename?: 'U_Profile', bannerUrl: string, pictureUrl: string, description: string, followingIds: Array<Maybe<string>>, followerIds: Array<Maybe<string>>, badges: Array<Maybe<string>>, linkedProfiles: Array<Maybe<string>> } }, file: { __typename?: 'File', filename: string } } };
 
 
 export const GetPostsDocument = gql`
@@ -894,7 +900,27 @@ export type UpdateProfileMutationOptions = Apollo.BaseMutationOptions<UpdateProf
 export const UploadSingleDocument = gql`
     mutation uploadSingle($file: Upload!, $type: String!) {
   singleUpload(file: $file, type: $type) {
-    filename
+    user {
+      _id
+      account {
+        username
+        tag
+        private
+      }
+      profile {
+        bannerUrl
+        pictureUrl
+        description
+        followingIds
+        followerIds
+        badges
+        linkedProfiles
+      }
+      status
+    }
+    file {
+      filename
+    }
   }
 }
     `;

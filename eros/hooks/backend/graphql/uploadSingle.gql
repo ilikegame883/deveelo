@@ -1,5 +1,25 @@
 mutation uploadSingle($file: Upload!, $type: String!) {
 	singleUpload(file: $file, type: $type) {
-		filename
+		user {
+			_id
+			account {
+				username
+				tag
+				private
+			}
+			profile {
+				bannerUrl
+				pictureUrl
+				description
+				followingIds
+				followerIds
+				badges
+				linkedProfiles
+			}
+			status
+		}
+		file {
+			filename
+		}
 	}
 }
