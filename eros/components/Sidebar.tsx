@@ -372,7 +372,7 @@ const Sidebar = ({ hardEdge }: sidebarProps) => {
 			<SimpleBar className="fillfill">
 				{/*Banner*/}
 				<div className={sidebarStyles.banner}>
-					{showEditForm ? <FileSelectArea type="banner" text="Upload a new banner" /> : null}
+					{showEditForm ? <FileSelectArea type="banner" maxSize="2mb" text="Upload a new banner" /> : null}
 					<Image
 						loader={bannerLoader}
 						className={showEditForm ? sidebarStyles.bannerImageEdit : sidebarStyles.bannerImage}
