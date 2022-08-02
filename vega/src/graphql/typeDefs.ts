@@ -13,6 +13,11 @@ export const typeDefs = gql`
 		mimetype: String!
 		encoding: String!
 	}
+	type UploadResult {
+		user: User!
+		file: File!
+	}
+
 	#posting
 	type Post {
 		_id: ID!
@@ -113,6 +118,6 @@ export const typeDefs = gql`
 		follow(id: String!): BoolRes
 		unfollow(id: String!): BoolRes
 		updateProfile(name: String, tag: String, description: String): User!
-		singleUpload(file: Upload!, type: String!): File!
+		singleUpload(file: Upload!, type: String!): UploadResult!
 	}
 `;
