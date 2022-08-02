@@ -57,21 +57,21 @@ export const FileSelectArea = ({ type, text, maxSize }: FileAreaInput) => {
 				//remember, the filename is: <payload.id>.webp
 				const saveName = data.singleUpload.file.filename;
 
-				// store.writeQuery<MyNameAndPfpQuery>({
-				// 	query: MyNameAndPfpDocument,
-				// 	data: {
-				// 		myAccount: {
-				// 			_id: data.singleUpload.user._id,
-				// 			account: {
-				// 				username: data.singleUpload.user.account.username,
-				// 				tag: data.singleUpload.user.account.tag,
-				// 			},
-				// 			profile: {
-				// 				pictureUrl: data.singleUpload.user.profile.pictureUrl,
-				// 			},
-				// 		},
-				// 	},
-				// });
+				store.writeQuery<MyNameAndPfpQuery>({
+					query: MyNameAndPfpDocument,
+					data: {
+						myAccount: {
+							_id: data.singleUpload.user._id,
+							account: {
+								username: data.singleUpload.user.account.username,
+								tag: data.singleUpload.user.account.tag,
+							},
+							profile: {
+								pictureUrl: data.singleUpload.user.profile.pictureUrl,
+							},
+						},
+					},
+				});
 				//update cache for minprofile query (update sidebar)
 				store.writeQuery<MyAccountMinProfileQuery>({
 					query: MyAccountMinProfileDocument,
