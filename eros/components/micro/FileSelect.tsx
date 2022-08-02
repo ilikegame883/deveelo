@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { useUploadSingleMutation, MyAccountMinProfileDocument, MyNameAndPfpDocument, MyNameAndPfpQuery } from "../../hooks/backend/generated/graphql";
+import { useUploadSingleMutation, MyAccountMinProfileDocument, MyNameAndPfpDocument, MyNameAndPfpQuery, MyAccountMinProfileQuery } from "../../hooks/backend/generated/graphql";
 import { checkFileSize } from "../../hooks/inputUtils";
 
 import uploadStyles from "../../styles/micro/fileupload.module.css";
@@ -48,31 +48,40 @@ export const FileSelectArea = ({ type, text, maxSize }: FileAreaInput) => {
 				file: newFile,
 				type: type,
 			},
-			// update: (store, { data }) => {
-			// 	if (!data || !refetch) {
-			// 		return null;
-			// 	}
+			update: (store, { data }) => {
+				if (!data || !refetch) {
+					console.log("update cache cancelled");
 
-			// 	//remember, the filename is: <payload.id>.webp
-			// 	const saveName = data.singleUpload.filename;
-			// 	const userID = saveName.split('.')[0];
+					return null;
+				}
 
-			// 	store.writeQuery<MyNameAndPfpQuery>({
-			// 		query: MyNameAndPfpDocument,
-			// 		data: {
-			// 			myAccount: {
-			// 				_id: userID,
-			// 				account: {
-			// 					username: data.updateProfile.account.username,
-			// 					tag: data.updateProfile.account.tag,
-			// 				},
-			// 				profile: {
-			// 					pictureUrl: data.updateProfile.profile.pictureUrl,
-			// 				},
-			// 			},
-			// 		},
-			// 	});
-			// }
+				//remember, the filename is: <payload.id>.webp
+				const saveName = data.singleUpload.file.filename;
+
+				store.writeQuery<MyNameAndPfpQuery>({
+					query: MyNameAndPfpDocument,
+					data: {
+						myAccount: {
+							_id: data.singleUpload.user._id,
+							account: {
+								username: data.singleUpload.user.account.username,
+								tag: data.singleUpload.user.account.tag,
+							},
+							profile: {
+								pictureUrl: data.singleUpload.user.profile.pictureUrl,
+							},
+						},
+					},
+				});
+				//update cache for minprofile query (update sidebar)
+				store.writeQuery<MyAccountMinProfileQuery>({
+					query: MyAccountMinProfileDocument,
+					data: {
+						myAccount: data.singleUpload.user,
+					},
+				});
+				console.log("cache updated with user: \n" + JSON.stringify(data.singleUpload.user));
+			},
 		});
 
 		if (response && response.data) {
