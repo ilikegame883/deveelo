@@ -1,5 +1,9 @@
 import sharp from "sharp";
 
+/* THESE CANNOT BE EXPORTED FOR STREAMS -- must be copied and created locally, or else */
+/* the stream will never close as the opt will never be killed, need to recreate every time */
+/* before use, or corrupted files will result from previous data and incominh being merged*/
+
 //good default quality is 75
 export const convertToWebpPfp = sharp()
 	.resize({
