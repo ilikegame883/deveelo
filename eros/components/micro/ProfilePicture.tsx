@@ -10,9 +10,10 @@ interface profilePicParams {
 	source: string;
 	status?: string;
 	editing?: boolean;
+	renderSeed?: number; //used to pas rerender events from sidebar down to pfp
 }
 
-const ProfilePicture = ({ size, source, status, editing }: profilePicParams) => {
+const ProfilePicture = ({ size, source, status, editing, renderSeed }: profilePicParams) => {
 	let content = null;
 	let circle = null;
 
