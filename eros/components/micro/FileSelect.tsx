@@ -9,7 +9,7 @@ const refetchTypes = ["pfp", "banner"];
 interface FileAreaInput {
 	type: string;
 	text?: string;
-	maxSize: "2mb" | "5mb";
+	maxSize: "1mb" | "2mb" | "5mb";
 }
 
 export const FileSelectArea = ({ type, text, maxSize }: FileAreaInput) => {
@@ -42,7 +42,8 @@ export const FileSelectArea = ({ type, text, maxSize }: FileAreaInput) => {
 		text = newFile.name;
 	}
 
-	if (error !== "") {
+	const isError = error !== "";
+	if (isError) {
 		text = error;
 	}
 
@@ -69,9 +70,9 @@ export const FileSelectArea = ({ type, text, maxSize }: FileAreaInput) => {
 			<div className={uploadStyles.content}>
 				{/* handles compensating for the uncentered icon + sign pushes it left) */}
 				<div className={uploadStyles.imageOffsetWrapper}>
-					<img src="resources/uploadAreaIcon.svg" style={{ width: "2.53rem", height: "2.53rem" }} />
+					<img src="resources/uploadAreaIcon.svg" className={isError ? uploadStyles.errorIcon : uploadStyles.icon} />
 				</div>
-				{showText ? <p className={uploadStyles.subtitle}>{text}</p> : null}
+				{showText ? <p className={isError ? uploadStyles.error : uploadStyles.subtitle}>{text}</p> : null}
 			</div>
 		</button>
 	);
