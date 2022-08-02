@@ -14,6 +14,7 @@ interface FileAreaInput {
 
 export const FileSelectArea = ({ type, text, maxSize }: FileAreaInput) => {
 	const [newFile, setNewFile] = useState<File>();
+	const [error, setError] = useState("");
 
 	if (newFile) {
 		console.log(newFile.size);
@@ -41,6 +42,10 @@ export const FileSelectArea = ({ type, text, maxSize }: FileAreaInput) => {
 		text = newFile.name;
 	}
 
+	if (error !== "") {
+		text = error;
+	}
+
 	return (
 		<button className={uploadStyles.fillOverlay} onClick={selectFile}>
 			<input
@@ -55,6 +60,9 @@ export const FileSelectArea = ({ type, text, maxSize }: FileAreaInput) => {
 					const pass = checkFileSize(file.size, maxSize);
 					if (pass) {
 						setNewFile(file);
+						setError("");
+					} else {
+						setError("Over the 2mb upload limit");
 					}
 				}}
 			/>
