@@ -4,7 +4,8 @@ export const removeSpaces = (input: string): string => {
 
 export const checkFileSize = (inputSize: number, limit: string): boolean => {
 	const presets = new Map<string, number>();
-	presets.set("2mb", 2000000); //2 million bytes
+	presets.set("1mb", 1000000); //very small things
+	presets.set("2mb", 2000000); //2 million bytes - max for images
 	presets.set("5mb", 5000000); //for gifs - usually 2.6 to 3.7
 
 	if (presets.has(limit)) {
