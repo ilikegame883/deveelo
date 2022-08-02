@@ -37,11 +37,6 @@ fs.readdir(contentDir + "banners/", (err, files) => {
 const uploadsResolvers = {
 	Mutation: {
 		singleUpload: async (_parent: any, { file, type }: { file: any; type: string }, { payload }: Context) => {
-			const user: UserType = await User.findById(new ObjectID(payload!.id));
-			if (!user) {
-				throw new Error("account not found");
-			}
-
 			//variables which control the different behaviors of the types of uploads
 			//let existingUploads: string[];
 			let savePath: string;
@@ -130,6 +125,12 @@ const uploadsResolvers = {
 					break;
 				default:
 					throw new Error("Error when saving new file name to variable array storage of uploaded files");
+			}
+
+			//fetch the user AFTER we have changed their pfp or banner, nor before
+			const user: UserType = await User.findById(new ObjectID(payload!.id));
+			if (!user) {
+				throw new Error("account not found");
 			}
 
 			return {

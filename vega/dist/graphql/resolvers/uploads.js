@@ -34,10 +34,6 @@ fs_1.default.readdir(contentDir + "banners/", (err, files) => {
 const uploadsResolvers = {
     Mutation: {
         singleUpload: async (_parent, { file, type }, { payload }) => {
-            const user = await User_1.default.findById(new mongodb_1.ObjectID(payload.id));
-            if (!user) {
-                throw new Error("account not found");
-            }
             let savePath;
             let imageOptimization;
             switch (type) {
@@ -100,6 +96,10 @@ const uploadsResolvers = {
                     break;
                 default:
                     throw new Error("Error when saving new file name to variable array storage of uploaded files");
+            }
+            const user = await User_1.default.findById(new mongodb_1.ObjectID(payload.id));
+            if (!user) {
+                throw new Error("account not found");
             }
             return {
                 user: user,
