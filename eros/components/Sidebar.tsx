@@ -205,11 +205,29 @@ const Sidebar = ({ hardEdge }: sidebarProps) => {
 			//we cant check the findUserByTag if data does not exist, this causes site to
 			//flicker as it constantly reloads and crashes, user has most likely changed their
 			//tag in this situation, but the sideprof localstore contains old one
+			setTimeout(() => {
+				storage.setItem("side_prof", "");
+				setSideProf("");
+			}, 5000);
+
 			return (
 				<div className={hardEdge ? sidebarStyles.sidebar_full : sidebarStyles.sidebar}>
 					<p
 						className="fillfillcentercenter"
-						style={{ padding: "0 2em 0 2em", textAlign: "center" }}>{`User @${uTag} has not been found, they have most likely changed their account name`}</p>
+						style={{
+							padding: "0 2em 0 2em",
+							textAlign: "center",
+							margin: "1em 0 1em 0",
+						}}>{`User @${uTag} has not been found, they have most likely changed their account name.`}</p>
+					<p
+						className="fillfillcentercenter"
+						style={{
+							padding: "0 2em 0 2em",
+							textAlign: "center",
+							margin: "0 0 0 0",
+						}}>
+						Switching display in 5 seconds...
+					</p>
 				</div>
 			);
 		}
