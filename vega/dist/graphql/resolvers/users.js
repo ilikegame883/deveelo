@@ -7,8 +7,9 @@ const argon2_1 = __importDefault(require("argon2"));
 const apollo_server_express_1 = require("apollo-server-express");
 const mongodb_1 = require("mongodb");
 const validators_1 = __importDefault(require("../../util/validators"));
-const User_1 = __importDefault(require("../../models/User"));
 const auth_1 = require("../../util/auth");
+const input_1 = require("../../util/input");
+const User_1 = __importDefault(require("../../models/User"));
 const sampleUsers_1 = require("../../hooks/sampleUsers");
 const successfulLoginHandler = (user, { res }) => {
     auth_1.sendRefreshToken(res, auth_1.createRefreshToken(user));
@@ -126,7 +127,7 @@ const userResolvers = {
                 await User_1.default.findByIdAndUpdate(new mongodb_1.ObjectID(context.payload.id), {
                     $set: {
                         "account.username": newName,
-                        "account.tag": newTag,
+                        "account.tag": input_1.removeSpaces(newTag),
                         "profile.description": newDes,
                         "profile.bannerUrl": newBanner,
                         "profile.pictureUrl": newPfp,
@@ -262,7 +263,7 @@ const userResolvers = {
                     pro: false,
                 },
                 profile: {
-                    bannerUrl: "default",
+                    bannerUrl: `/banners/image_${Math.floor(Math.random() * 4)}.webp`,
                     pictureUrl: `/user_content/p_pictures/cup${Math.floor(Math.random() * 18)}.jpg`,
                     description: "I'm new to Deveelo!",
                     followingIds: [],

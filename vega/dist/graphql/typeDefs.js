@@ -8,7 +8,7 @@ const graphql_tag_1 = __importDefault(require("graphql-tag"));
 exports.typeDefs = graphql_tag_1.default `
 	# The implementation for this scalar is provided by the
 	# 'GraphQLUpload' export from the 'graphql-upload' package
-	# in the resolver map in users.ts
+	# in the resolver map in resolvers/index.ts
 	scalar Upload
 
 	#  note  Types
@@ -18,6 +18,11 @@ exports.typeDefs = graphql_tag_1.default `
 		mimetype: String!
 		encoding: String!
 	}
+	type UploadResult {
+		user: User!
+		file: File!
+	}
+
 	#posting
 	type Post {
 		_id: ID!
@@ -118,7 +123,7 @@ exports.typeDefs = graphql_tag_1.default `
 		follow(id: String!): BoolRes
 		unfollow(id: String!): BoolRes
 		updateProfile(name: String, tag: String, description: String): User!
-		singleUpload(file: Upload!, type: String!): File!
+		singleUpload(file: Upload!, type: String!): UploadResult!
 	}
 `;
 //# sourceMappingURL=typeDefs.js.map

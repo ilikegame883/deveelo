@@ -3,10 +3,11 @@ import { UserInputError } from "apollo-server-express";
 import { ObjectID } from "mongodb";
 
 import ValidateRegisterInput from "../../util/validators";
+import { createAccessToken, createRefreshToken, sendRefreshToken } from "../../util/auth";
+import { removeSpaces } from "../../util/input";
 import User, { UserType } from "../../models/User";
 import { EditProfInput } from "../resolverTypes";
 import Context from "../../context";
-import { createAccessToken, createRefreshToken, sendRefreshToken } from "../../util/auth";
 import { Document } from "mongoose";
 import { getRandomUser, getRandomUsers } from "../../hooks/sampleUsers";
 
@@ -159,7 +160,7 @@ const userResolvers = {
 					{
 						$set: {
 							"account.username": newName,
-							"account.tag": newTag,
+							"account.tag": removeSpaces(newTag),
 							"profile.description": newDes,
 							"profile.bannerUrl": newBanner,
 							"profile.pictureUrl": newPfp,
@@ -337,7 +338,7 @@ const userResolvers = {
 					pro: false,
 				},
 				profile: {
-					bannerUrl: "default",
+					bannerUrl: `/banners/image_${Math.floor(Math.random() * 4)}.webp`, //0-3
 					pictureUrl: `/user_content/p_pictures/cup${Math.floor(Math.random() * 18)}.jpg`, //0-17
 					description: "I'm new to Deveelo!",
 					followingIds: [],

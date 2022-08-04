@@ -15,6 +15,8 @@ import { getPayload } from "../accessToken";
 import { updateSidebar } from "../hooks/socialhooks";
 import { MinProfUserType } from "../lib/userTypes";
 import { Fmod } from "../hooks/setSidebar";
+import { bannerLoader } from "../hooks/loaders";
+import { FileSelectArea } from "./micro/FileSelect";
 
 /* todo 
 	+  Switch to unfollow button
@@ -106,6 +108,8 @@ const Sidebar = ({ hardEdge }: sidebarProps) => {
 				uses the current second and millisecond to generate
 				a new number to set that new state int value
 				*/
+				console.log("rerendering");
+
 				const date = new Date();
 				let randomSeed = date.getSeconds() + date.getMilliseconds();
 				setRerender(randomSeed);
@@ -196,6 +200,36 @@ const Sidebar = ({ hardEdge }: sidebarProps) => {
 
 		if (loading && !data) {
 			return loadingSidebar;
+		}
+		if (!data) {
+			//we cant check the findUserByTag if data does not exist, this causes site to
+			//flicker as it constantly reloads and crashes, user has most likely changed their
+			//tag in this situation, but the sideprof localstore contains old one
+			setTimeout(() => {
+				storage.setItem("side_prof", "");
+				setSideProf("");
+			}, 5000);
+
+			return (
+				<div className={hardEdge ? sidebarStyles.sidebar_full : sidebarStyles.sidebar}>
+					<p
+						className="fillfillcentercenter"
+						style={{
+							padding: "0 2em 0 2em",
+							textAlign: "center",
+							margin: "1em 0 1em 0",
+						}}>{`User @${uTag} has not been found, they have most likely changed their account name.`}</p>
+					<p
+						className="fillfillcentercenter"
+						style={{
+							padding: "0 2em 0 2em",
+							textAlign: "center",
+							margin: "0 0 0 0",
+						}}>
+						Switching display in 5 seconds...
+					</p>
+				</div>
+			);
 		}
 		if (!data.findUserByTag) {
 			//fix site crashing bc above condition passes when the data is still ull
@@ -370,7 +404,16 @@ const Sidebar = ({ hardEdge }: sidebarProps) => {
 			<SimpleBar className="fillfill">
 				{/*Banner*/}
 				<div className={sidebarStyles.banner}>
-					<Image className={sidebarStyles.bannerImage} alt="profile banner" src="/user_content/p_banners/pinkdunes.png" layout="fill" priority={true} objectFit="cover" />
+					{showEditForm ? <FileSelectArea type="banner" maxSize="5mb" text="Upload a new banner" /> : null}
+					<Image
+						loader={bannerLoader}
+						className={showEditForm ? sidebarStyles.bannerImageEdit : sidebarStyles.bannerImage}
+						alt="profile banner"
+						src={user.profile.bannerUrl}
+						layout="fill"
+						priority={true}
+						objectFit="cover"
+					/>
 				</div>
 				{/*User Profile*/}
 				<div className={sidebarStyles.profileContainer}>
@@ -381,7 +424,7 @@ const Sidebar = ({ hardEdge }: sidebarProps) => {
 								<p className={sidebarStyles.p_stats_num}>{user.profile.followingIds.length}</p>
 								<p className={sidebarStyles.p_stats_label}>Following</p>
 							</div>
-							<ProfilePicture size="large" source={user.profile.pictureUrl} status={user.status} />
+							<ProfilePicture size="large" source={user.profile.pictureUrl} status={user.status} editing={showEditForm} renderSeed={rerender} />
 							{/* FOLLOWER COUNT */}
 							<div className={sidebarStyles.p_stats}>
 								<p className={sidebarStyles.p_stats_num}>{user.profile.followerIds.length + fcountAddition}</p>
