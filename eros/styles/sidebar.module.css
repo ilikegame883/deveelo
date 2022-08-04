@@ -164,16 +164,18 @@
 
 .p_tag {
     width: fit-content;
-    height: 1.19rem;
+    height: 1.593rem;
 
+    font-family: 'DM Sans';
     color: var(--midFadeGray);
-    font-size: 1.22rem;
+    font-size: 1.219em;
     font-weight: normal;
-    line-height: 1.19rem;
+    line-height: 1.593rem;
+    letter-spacing: -0.02em;
 
     flex: none;
     flex-grow: none;
-    margin-top: 0.31rem;
+    margin: 0;
 }
 
 .p_description {
