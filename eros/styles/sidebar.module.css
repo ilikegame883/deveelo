@@ -177,7 +177,7 @@
 }
 
 .p_description {
-    width: 24.66rem;
+    width: inherit;
     height: fit-content;
 
     color: var(--textNormalCol);
@@ -189,6 +189,7 @@
     /* auto layout item*/
     flex: none;
     flex-grow: 0;
+    padding: 0 3rem;
     margin: 1.6875em 0;
 }
 
