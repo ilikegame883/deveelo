@@ -5,7 +5,7 @@
     height: 6.5625em;
     border-radius: 50%;
     
-    box-shadow: 0 0 0 0.8em var(--sidebarBackground);
+    box-shadow: 0 0 0 0.78rem var(--sidebarBackground);
 
     flex: none;
     flex-grow: 0;
@@ -85,7 +85,7 @@
     overflow: hidden;
     border-radius: 50%;
     
-    box-shadow: 0 0 0 0.8em var(--sidebarBackground);
+    box-shadow: 0 0 0 0.78rem var(--sidebarBackground);
 
     flex: none;
     flex-grow: 0;
