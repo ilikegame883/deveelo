@@ -198,24 +198,42 @@
 }
 
 .buttonContainer {
-    width: 24.4687em;
+    width: inherit;
     height: 2.8rem;
 
+    font-weight: bold;
+
+    padding: 0 3.562rem;
     display: flex;
     column-gap: 0.65625rem;
-}
-
-@media screen and (max-width : 1600px) {
-    .buttonContainer {
-        width: 24.4687em;
-        height: 3em;
-    
-        display: flex;
-        column-gap: 0.65625rem;
-    }
 }
 
 .buttonContainer>button {
     flex: 1;
     flex-direction: row;
+
+    font-weight: bold;
+}
+
+@media screen and (max-width : 1600px) {
+    .buttonContainer {
+        /* width: 24.4687rem; */
+        width: inherit;
+        height: 3em;
+
+        font-weight: 500;
+        
+        padding: 0 3.562rem;
+        display: flex;
+        column-gap: 0.65625rem;
+    }
+
+    /* fix button looking awkwardly sized + offcentered text  by */
+    /* overriding the button (the children) to change these values on smaller screens */
+    .buttonContainer>button {
+        flex: 1;
+        flex-direction: row;
+
+        border-radius: 0.85em;
+    }
 }
