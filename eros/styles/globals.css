@@ -37,12 +37,12 @@ button {
   text-align: center;
   vertical-align: middle;
 
-  font-family: "Heebo";
+  font-family: "DM Sans";
   font-style: normal;
   font-weight: 500;
-  font-size: 1.13rem;
-  line-height: 1.69rem;
-  letter-spacing: 0.03em;
+  font-size: 1.125rem;
+  line-height: 1.5rem;
+  letter-spacing: -0.02em;
 
   align-items: center;
   justify-content: center;
@@ -70,12 +70,12 @@ button {
     text-align: center;
     vertical-align: middle;
   
-    font-family: "Heebo";
+    font-family: "DM Sans";
     font-style: normal;
     font-weight: 500;
-    font-size: 1.13rem;
-    line-height: 1.69rem;
-    letter-spacing: 0.03em;
+    font-size: 1.125rem;
+    line-height: 1.5rem;
+    letter-spacing: -0.02em;
   
     align-items: center;
     justify-content: center;
