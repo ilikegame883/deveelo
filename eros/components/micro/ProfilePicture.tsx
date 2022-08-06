@@ -73,7 +73,7 @@ const ProfilePicture = ({ size, source, status, editing, renderSeed }: profilePi
 			content = (
 				<div className={pictureStyles.w32}>
 					<Image loader={bannerLoader} className={pictureStyles.p_picture} alt="profile picture" src={source} layout="fill" objectFit="cover" />
-					{status ? <div className={statusStyles.large}>{circle}</div> : null}
+					{status ? <div className={statusStyles.w32}>{circle}</div> : null}
 				</div>
 			);
 			break;
