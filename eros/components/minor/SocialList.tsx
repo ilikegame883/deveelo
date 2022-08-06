@@ -2,11 +2,7 @@ import { useState } from "react";
 import SimpleBar from "simplebar-react";
 import "simplebar/dist/simplebar.min.css";
 
-import { useFindCardUsersByIdsQuery } from "../../hooks/backend/generated/graphql";
-import { SearchUserIdType } from "../../lib/userTypes";
-
 import socialStyles from "../../styles/minor/sociallist.module.css";
-import W40UserCard from "../micro/w40UserCard";
 import CardList from "./CardList";
 
 interface SocialProps {

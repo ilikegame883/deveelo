@@ -26,7 +26,7 @@ const W40UserCard = ({ account, profile, status }: CardProps) => {
 		<div className={w40styles.cardwrapper} onClick={() => changeSidebar(account.tag)}>
 			<div className="fitfillcenter">
 				<div className={w40styles.namepicWrapper}>
-					<ProfilePicture size="w40" source={profile.pictureUrl} status={status} />
+					<ProfilePicture size="w32" source={profile.pictureUrl} status={status} />
 					<div className={w40styles.nameWrapper}>
 						<NameGroup username={account.username} size={4} badges={profile.badges} showBadges={true} />
 					</div>
