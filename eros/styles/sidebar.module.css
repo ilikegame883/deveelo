@@ -215,6 +215,10 @@
     font-weight: bold;
 }
 
+form>.buttonContainer {
+    padding: 0;
+}
+
 @media screen and (max-width : 1600px) {
     .buttonContainer {
         /* width: 24.4687rem; */
