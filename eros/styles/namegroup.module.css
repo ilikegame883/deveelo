@@ -45,6 +45,7 @@
     display: flex;
     align-items: center;
 
+    /* stops names with spaces becoming multiline */
     white-space: nowrap;
     margin: 0 0;
 }
