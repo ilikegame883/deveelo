@@ -16,6 +16,7 @@ const ProfileStats = ({ following, followers, posts }: StatsProps) => {
 				<p className={statStyles.statistic}>{posts ? posts : 0}</p>
 				<p className={statStyles.label}>Posts</p>
 			</div>
+			<div className={statStyles.divider} />
 		</div>
 	);
 };

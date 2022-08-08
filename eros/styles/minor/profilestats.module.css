@@ -1,6 +1,7 @@
 .largeWrapper {
     width: inherit;
     height: fit-content;
+    margin-top: 1.687em;
 
     display: flex;
     flex-direction: row;
@@ -56,4 +57,10 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.divider {
+    width: 0.046875em;
+    height: 1.968em;
+    background: #99AAC4;
 }
