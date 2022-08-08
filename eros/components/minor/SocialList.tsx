@@ -11,7 +11,6 @@ interface SocialProps {
 }
 
 const SocialList = ({ followingIds, friendIds }: SocialProps) => {
-	const [following, setfollowing] = useState(true);
 	const [tab, setTab] = useState(1);
 
 	//will be entered as a prop, by passing in the 8 latest post objects and extracting the
@@ -25,10 +24,6 @@ const SocialList = ({ followingIds, friendIds }: SocialProps) => {
 	const emptyData = ["💔 user has not friended anyone", "😿 user is not following anyone", "🦄 user has not made any posts yet, but stay tuned!"];
 	const list = tabData[tab];
 
-	const toggle = (follow: boolean) => {
-		setfollowing(follow);
-	};
-
 	let showEmpty = list === undefined;
 	if (list) {
 		showEmpty = list.length === 0;
@@ -39,11 +34,11 @@ const SocialList = ({ followingIds, friendIds }: SocialProps) => {
 	return (
 		<div className={socialStyles.listContainer}>
 			<div className={socialStyles.toggleContainer}>
-				<p className={following ? socialStyles.off : socialStyles.on} onClick={() => setTab(0)}>
+				<p className={tab === 0 ? socialStyles.on : socialStyles.off} onClick={() => setTab(0)}>
 					Friends
 				</p>
 				<p className={socialStyles.divider}>·</p>
-				<p className={following ? socialStyles.on : socialStyles.off} onClick={() => setTab(1)}>
+				<p className={tab === 1 ? socialStyles.on : socialStyles.off} onClick={() => setTab(1)}>
 					Following
 				</p>
 			</div>
