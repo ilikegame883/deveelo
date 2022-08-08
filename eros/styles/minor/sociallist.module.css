@@ -24,38 +24,38 @@
 }
 
 .on {
-    height: fit-content;
+    height: 1.593rem;
     width: fit-content;
     margin: 0;
 
-    font-family: Heebo;
+    font-family: "DM Sans";
     font-style: normal;
     font-weight: 500;
-    font-size: 1.406rem;
-    line-height: 2.063rem;
-    /* identical to box height */
+    font-size: 1.219em;
+    line-height: 1.593rem;
 
     display: flex;
     align-items: center;
+    letter-spacing: -0.02em;
 
     color: #2E3A59;
     cursor: pointer;
 }
 
 .off {
-    height: fit-content;
+    height: 1.593rem;
     width: fit-content;
     margin: 0;
 
-    font-family: Heebo;
+    font-family: "DM Sans";
     font-style: normal;
     font-weight: 500;
-    font-size: 1.406rem;
-    line-height: 2.063rem;
-    /* identical to box height */
+    font-size: 1.219em;
+    line-height: 1.593rem;
 
     display: flex;
     align-items: center;
+    letter-spacing: -0.02em;
 
     color: var(--midLightGray);
     cursor: pointer;
