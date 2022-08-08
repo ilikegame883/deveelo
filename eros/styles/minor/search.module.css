@@ -19,13 +19,13 @@
     height: inherit;
     
     /* Text Styling */
-    font-family: Heebo;
+    font-family: "DM Sans";
     font-style: normal;
     font-weight: normal;
     display: flex;
     align-items: center;
-    font-size: 1.406rem;
-    line-height: 2.063rem;
+    font-size: 1.125em;
+    line-height: 1.5em;
     color: var(--textNormalCol);
 
     background-color: transparent;
