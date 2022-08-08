@@ -59,7 +59,7 @@ const Nav = ({ sidebarSpacing, loggedIn }: navProps) => {
 					<div className={navStyles.profile}>
 						<p className={navStyles.name}>{user.account.username}</p>
 						<div className={navStyles.pfpContainer}>
-							<ProfilePicture size="w40" source={user.profile.pictureUrl} />
+							<ProfilePicture size="w24" source={user.profile.pictureUrl} />
 						</div>
 					</div>
 				</div>
