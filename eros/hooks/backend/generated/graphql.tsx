@@ -239,7 +239,7 @@ export type LogoutMutation = { __typename?: 'Mutation', logout: boolean };
 export type MyAccountMinProfileQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type MyAccountMinProfileQuery = { __typename?: 'Query', myAccount?: Maybe<{ __typename?: 'User', _id: string, status: string, account: { __typename?: 'U_Account', username: string, tag: string, private: boolean }, profile: { __typename?: 'U_Profile', bannerUrl: string, pictureUrl: string, description: string, followingIds: Array<Maybe<string>>, followerIds: Array<Maybe<string>>, badges: Array<Maybe<string>>, linkedProfiles: Array<Maybe<string>> } }> };
+export type MyAccountMinProfileQuery = { __typename?: 'Query', myAccount?: Maybe<{ __typename?: 'User', _id: string, status: string, account: { __typename?: 'U_Account', username: string, tag: string, private: boolean }, profile: { __typename?: 'U_Profile', bannerUrl: string, pictureUrl: string, description: string, followingIds: Array<Maybe<string>>, followerIds: Array<Maybe<string>>, badges: Array<Maybe<string>>, linkedProfiles: Array<Maybe<string>> }, social: { __typename?: 'U_Social', postIds: Array<Maybe<string>>, blogIds: Array<Maybe<string>> } }> };
 
 export type MyNameAndPfpQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -249,7 +249,7 @@ export type MyNameAndPfpQuery = { __typename?: 'Query', myAccount?: Maybe<{ __ty
 export type RandomMinProfileQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type RandomMinProfileQuery = { __typename?: 'Query', randomUser: { __typename?: 'User', _id: string, status: string, account: { __typename?: 'U_Account', username: string, tag: string, private: boolean }, profile: { __typename?: 'U_Profile', bannerUrl: string, pictureUrl: string, description: string, followingIds: Array<Maybe<string>>, followerIds: Array<Maybe<string>>, badges: Array<Maybe<string>>, linkedProfiles: Array<Maybe<string>> } } };
+export type RandomMinProfileQuery = { __typename?: 'Query', randomUser: { __typename?: 'User', _id: string, status: string, account: { __typename?: 'U_Account', username: string, tag: string, private: boolean }, profile: { __typename?: 'U_Profile', bannerUrl: string, pictureUrl: string, description: string, followingIds: Array<Maybe<string>>, followerIds: Array<Maybe<string>>, badges: Array<Maybe<string>>, linkedProfiles: Array<Maybe<string>> }, social: { __typename?: 'U_Social', postIds: Array<Maybe<string>>, blogIds: Array<Maybe<string>> } } };
 
 export type RegisterMutationVariables = Exact<{
   registerEmail: Scalars['String'];
@@ -597,6 +597,10 @@ export const MyAccountMinProfileDocument = gql`
       badges
       linkedProfiles
     }
+    social {
+      postIds
+      blogIds
+    }
     status
   }
 }
@@ -686,6 +690,10 @@ export const RandomMinProfileDocument = gql`
       followerIds
       badges
       linkedProfiles
+    }
+    social {
+      postIds
+      blogIds
     }
     status
   }
