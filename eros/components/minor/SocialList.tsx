@@ -31,12 +31,12 @@ const SocialList = ({ followingIds, friendIds }: SocialProps) => {
 	return (
 		<div className={socialStyles.listContainer}>
 			<div className={socialStyles.toggleContainer}>
-				<p className={following ? socialStyles.on : socialStyles.off} onClick={() => toggle(true)}>
-					Following
-				</p>
-				<p className={socialStyles.divider}>·</p>
 				<p className={following ? socialStyles.off : socialStyles.on} onClick={() => toggle(false)}>
 					Friends
+				</p>
+				<p className={socialStyles.divider}>·</p>
+				<p className={following ? socialStyles.on : socialStyles.off} onClick={() => toggle(true)}>
+					Following
 				</p>
 			</div>
 
