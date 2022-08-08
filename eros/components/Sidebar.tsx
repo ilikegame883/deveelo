@@ -9,6 +9,7 @@ import TextButton from "./micro/TextButton";
 import ProfilePicture from "./micro/ProfilePicture";
 import SocialList from "./minor/SocialList";
 import ProfileEditForm from "./minor/ProfEditForm";
+import ProfileStats from "./minor/profileStats";
 
 import { useFindMinProfileByTagQuery, useFollowMutation, useMyAccountMinProfileQuery, useRandomMinProfileQuery, useUnfollowMutation } from "../hooks/backend/generated/graphql";
 import { getPayload } from "../accessToken";
@@ -431,7 +432,7 @@ const Sidebar = ({ hardEdge }: sidebarProps) => {
 								<p className={sidebarStyles.p_stats_label}>Followers</p>
 							</div>
 						</div>
-						{/*name & badges*/}
+						{/*name, badges, tag & description*/}
 						{showEditForm ? null : (
 							<>
 								<NameGroup username={user.account.username} size={1} showBadges={true} badges={user.profile.badges} />
@@ -448,6 +449,13 @@ const Sidebar = ({ hardEdge }: sidebarProps) => {
 							<div className={sidebarStyles.buttonContainer}>{buttons}</div>
 						</>
 					)}
+
+					{/* Profile Stats */}
+					<ProfileStats
+						following={user.profile.followingIds.length}
+						followers={user.profile.followerIds.length + fcountAddition}
+						posts={user.social.postIds.length + user.social.blogIds.length}
+					/>
 
 					{/* Following/Friend List */}
 					<SocialList followingIds={user.profile.followingIds} friendIds={user.profile.friendIds} />
