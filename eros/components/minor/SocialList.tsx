@@ -21,7 +21,7 @@ const SocialList = ({ followingIds, friendIds }: SocialProps) => {
 	// content by arranging that content in a corresponding array
 	const tabData = [friendIds, followingIds, mediaUrls];
 	//do the same for the no data messages:
-	const emptyData = ["💔 user has not friended anyone", "😿 user is not following anyone", "🦄 user has not made any posts yet, but stay tuned!"];
+	const emptyData = ["💔 user has not friended anyone", "😿 user is not following anyone", "🥲 user made no posts... yet"];
 	const list = tabData[tab];
 
 	let showEmpty = list === undefined;
