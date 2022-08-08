@@ -85,6 +85,14 @@ const ProfilePicture = ({ size, source, status, editing, renderSeed }: profilePi
 				</div>
 			);
 			break;
+		case "w24":
+			//this is only for the navbar profile picture, so no status support
+			content = (
+				<div className={pictureStyles.w24}>
+					<Image loader={bannerLoader} className={pictureStyles.p_picture} alt="profile picture" src={source} layout="fill" objectFit="cover" />
+				</div>
+			);
+			break;
 	}
 
 	return content;
