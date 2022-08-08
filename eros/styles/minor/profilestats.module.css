@@ -61,6 +61,7 @@
 
 .divider {
     width: 0.046875em;
+    min-width: 1px;
     height: 1.968em;
     background: #99AAC4;
 }
