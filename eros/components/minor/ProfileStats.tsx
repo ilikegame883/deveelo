@@ -12,11 +12,22 @@ const ProfileStats = ({ following, followers, posts }: StatsProps) => {
 	return (
 		<div className={statStyles.largeWrapper}>
 			<div className={statStyles.item}>
-				{/* sometimes postsids is undefined */}
-				<p className={statStyles.statistic}>{posts ? posts : 0}</p>
+				{/* POSTS */}
+				<p className={statStyles.statistic}>{posts}</p>
 				<p className={statStyles.label}>Posts</p>
 			</div>
 			<div className={statStyles.divider} />
+			<div className={statStyles.item}>
+				{/* FOLLOWERS */}
+				<p className={statStyles.statistic}>{followers}</p>
+				<p className={statStyles.label}>Followers</p>
+			</div>
+			<div className={statStyles.divider} />
+			<div className={statStyles.item}>
+				{/* FOLLOWING */}
+				<p className={statStyles.statistic}>{following}</p>
+				<p className={statStyles.label}>Following</p>
+			</div>
 		</div>
 	);
 };
