@@ -52,8 +52,8 @@ const Nav = ({ sidebarSpacing, loggedIn }: navProps) => {
 					<Searchbar />
 					<div className={navStyles.iconsPlacer}>
 						<div className={navStyles.iconsWrapper}>
-							<IconButton src="/resources/moon.svg" width="2.25em" height="2.25em" paddingTB={0.1875} paddingLR={0.1875} />
-							<IconButton src="/resources/bell.svg" width="2.25em" height="2.25em" paddingTB={0.1875} paddingLR={0.1875} />
+							<IconButton src="/resources/moon.svg" width="1.875em" height="1.875em" paddingTB={0.1875} paddingLR={0.1875} />
+							<IconButton src="/resources/bell.svg" width="1.875em" height="1.875em" paddingTB={0.1875} paddingLR={0.1875} />
 						</div>
 					</div>
 					<div className={navStyles.profile}>
