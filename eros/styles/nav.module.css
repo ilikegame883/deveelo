@@ -140,8 +140,11 @@
   font-family: "DM Sans";
   font-style: normal;
   font-weight: 500;
-  font-size: 1.312rem;
-  line-height: 1.968rem;
+  font-size: 1.031em;
+  line-height: 1.313em;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+
   display: flex;
   align-items: center;
   justify-content: flex-end;
