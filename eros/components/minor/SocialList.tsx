@@ -40,6 +40,9 @@ const SocialList = ({ followingIds, friendIds }: SocialProps) => {
 				<p className={tab === 1 ? socialStyles.on : socialStyles.off} onClick={() => setTab(1)}>
 					Following
 				</p>
+				<p className={tab === 2 ? socialStyles.on : socialStyles.off} onClick={() => setTab(2)}>
+					Media
+				</p>
 			</div>
 
 			<div className={socialStyles.list}>{showEmpty ? empty : <CardList size="w40" list={list} />}</div>
