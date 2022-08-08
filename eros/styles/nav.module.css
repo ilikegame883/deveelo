@@ -3,7 +3,7 @@
   position: absolute;
   padding-left: 30.9375em;
   width: 100vw;
-  height: 7.125em;
+  height: 5.063em;
   color: #1E325A;
   display: flex;
   align-items: center;
@@ -23,7 +23,7 @@
   position: absolute;
   padding-left: 30.9375em;
   width: 100vw;
-  height: 7.125em;
+  height: 5.063em;
   color: #1E325A;
   display: flex;
   align-items: center;
@@ -42,7 +42,7 @@
 
 .navNoSpace {
   width: 100vw;
-  height: 7.125em;
+  height: 5.063em;
   color: #1E325A;
   display: flex;
   align-items: center;
@@ -59,7 +59,7 @@
 }
 .navNoSpace_full {
   width: 100vw;
-  height: 7.125em;
+  height: 5.063em;
   color: #1E325A;
   display: flex;
   align-items: center;
