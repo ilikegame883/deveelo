@@ -72,7 +72,7 @@ const Nav = ({ sidebarSpacing, loggedIn }: navProps) => {
 			{/* the name & app version */}
 			<div className={navStyles.wrapper}>
 				<a href="/">
-					<img style={sizeStyle(3.187, 3.187)} src="/resources/greylogo.svg" alt="Deveelo" />
+					<img style={sizeStyle(2.813, 2.813)} src="/resources/greylogo.svg" alt="Deveelo" />
 				</a>
 			</div>
 			{profile}
