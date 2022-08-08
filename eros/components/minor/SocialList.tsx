@@ -37,7 +37,6 @@ const SocialList = ({ followingIds, friendIds }: SocialProps) => {
 				<p className={tab === 0 ? socialStyles.on : socialStyles.off} onClick={() => setTab(0)}>
 					Friends
 				</p>
-				<p className={socialStyles.divider}>·</p>
 				<p className={tab === 1 ? socialStyles.on : socialStyles.off} onClick={() => setTab(1)}>
 					Following
 				</p>
