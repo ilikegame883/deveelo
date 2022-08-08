@@ -133,11 +133,11 @@
 .name {
   overflow: hidden;
   width: fit-content;
-  min-width: 10.5rem;
-  max-width: 12rem;
-  height: 2.344rem;
+  min-width: 1.875em;
+  max-width: 17.9em;
+  height: 1.313em;
 
-  font-family: Heebo;
+  font-family: "DM Sans";
   font-style: normal;
   font-weight: 500;
   font-size: 1.312rem;
