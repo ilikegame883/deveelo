@@ -420,18 +420,7 @@ const Sidebar = ({ hardEdge }: sidebarProps) => {
 				<div className={sidebarStyles.profileContainer}>
 					<div className={sidebarStyles.p_cvlayoutzero}>
 						{/*layout group with pfp & followers/ing*/}
-						<div className={sidebarStyles.p_chlayout15}>
-							<div className={sidebarStyles.p_stats}>
-								<p className={sidebarStyles.p_stats_num}>{user.profile.followingIds.length}</p>
-								<p className={sidebarStyles.p_stats_label}>Following</p>
-							</div>
-							<ProfilePicture size="large" source={user.profile.pictureUrl} status={user.status} editing={showEditForm} renderSeed={rerender} />
-							{/* FOLLOWER COUNT */}
-							<div className={sidebarStyles.p_stats}>
-								<p className={sidebarStyles.p_stats_num}>{user.profile.followerIds.length + fcountAddition}</p>
-								<p className={sidebarStyles.p_stats_label}>Followers</p>
-							</div>
-						</div>
+						<ProfilePicture size="large" source={user.profile.pictureUrl} status={user.status} editing={showEditForm} renderSeed={rerender} />
 						{/*name, badges, tag & description*/}
 						{showEditForm ? null : (
 							<>
