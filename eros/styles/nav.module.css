@@ -161,11 +161,12 @@
 
 .buttonWrapper {
   display: flex;
-  margin-left: 3.8rem;
+  margin-left: .8rem;
   flex-shrink: 0;
 
-  width: 8em;
-  height: 3.2em;
+  width: 7em;
+  min-width: 1px;
+  height: 3em;
 }
 
 /* outerbounds of icon hover effect & button */
