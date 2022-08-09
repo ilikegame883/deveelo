@@ -112,9 +112,17 @@
 
   margin-left: 3.75rem;
   padding-right: 2.141rem;
+}
 
-  /* border: 2px solid rgb(0, 140, 255); */
-  border-radius: 8px;
+.profWrapper {
+  display: flex;
+  flex-shrink: 0;
+  flex-grow: 0;
+  align-items: center;
+  justify-content: flex-end;
+
+  height: inherit;
+  width: 16.6em;
 }
 
 .profile {
