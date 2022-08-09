@@ -9,7 +9,8 @@ import TextButton from "./micro/TextButton";
 import ProfilePicture from "./micro/ProfilePicture";
 import SocialList from "./minor/SocialList";
 import ProfileEditForm from "./minor/ProfEditForm";
-import ProfileStats from "./minor/profileStats";
+//@ts-ignore
+import ProfileStats from "./minor/ProfileStats";
 
 import { useFindMinProfileByTagQuery, useFollowMutation, useMyAccountMinProfileQuery, useRandomMinProfileQuery, useUnfollowMutation } from "../hooks/backend/generated/graphql";
 import { getPayload } from "../accessToken";
