@@ -10,7 +10,7 @@ const Result = ({ account, profile, status }: SearchUserType) => {
 				<ProfilePicture size="w28" source={profile.pictureUrl} status={status} />
 			</div>
 			<div className={searchStyles.nameTagGroup}>
-				<NameGroup username={account.username} size={6} showBadges={true} badges={profile.badges} />
+				<NameGroup username={account.username} size={6} disableSpacer={true} showBadges={true} badges={profile.badges} />
 				<p className={searchStyles.tag}>@{account.tag}</p>
 			</div>
 		</button>

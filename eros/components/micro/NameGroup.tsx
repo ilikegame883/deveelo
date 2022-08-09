@@ -5,10 +5,14 @@ interface nameGroupParams {
 	username: string;
 	size: number;
 	showBadges: boolean;
+	// this is a space infront of the name to counter the offset of the badges, but
+	//if we do not want the name centered or we don't want a space infront (like in
+	//the search results), then we disable this auto balancing.
+	disableSpacer?: boolean;
 	badges?: string[];
 }
 
-const NameGroup = ({ username, size, showBadges, badges }: nameGroupParams) => {
+const NameGroup = ({ username, size, showBadges, disableSpacer, badges }: nameGroupParams) => {
 	let style = null;
 	let fontStyle = null;
 	let badgeStyle = null;
@@ -43,7 +47,7 @@ const NameGroup = ({ username, size, showBadges, badges }: nameGroupParams) => {
 	let content = (
 		<>
 			<div className={nameStyles.p_container}>
-				{showBadges && badges.length > 0 ? <div className={nameStyles.largeSpacer}></div> : null}
+				{showBadges && badges.length > 0 && !disableSpacer ? <div className={nameStyles.largeSpacer}></div> : null}
 
 				<p className={fontStyle}>{username}</p>
 
