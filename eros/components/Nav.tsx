@@ -28,6 +28,9 @@ const Nav = ({ sidebarSpacing, loggedIn }: navProps) => {
 					<div className={navStyles.buttonWrapper}>
 						<TextButton colorKey="gold" text="Login" action="/login" large={true} />
 					</div>
+					<div className={navStyles.buttonWrapper}>
+						<TextButton colorKey="gold" text="Signup" action="/register" large={true} />
+					</div>
 				</div>
 			</div>
 		);
