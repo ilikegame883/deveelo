@@ -23,7 +23,6 @@ const Nav = ({ sidebarSpacing, loggedIn }: navProps) => {
 				<div className={navStyles.iconsPlacer}>
 					<div className={navStyles.iconsWrapper}>
 						<IconButton src="/resources/moon.svg" width="1.875em" height="1.875em" paddingTB={0.1875} paddingLR={0.1875} />
-						<IconButton src="/resources/bellout.svg" width="1.875em" height="1.875em" paddingTB={0.1875} paddingLR={0.1875} />
 					</div>
 					<div className={navStyles.profWrapper}>
 						<div className={navStyles.buttonWrapper}>
