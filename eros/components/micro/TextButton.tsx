@@ -8,9 +8,10 @@ interface buttonParams {
 	action?: any;
 	disabled?: boolean;
 	large?: boolean;
+	outline?: boolean;
 }
 
-const TextButton = ({ colorKey, text, submit, action, disabled, large }: buttonParams) => {
+const TextButton = ({ colorKey, text, submit, action, disabled, large, outline }: buttonParams) => {
 	const router = useRouter();
 	let content: any = null;
 
@@ -35,7 +36,7 @@ const TextButton = ({ colorKey, text, submit, action, disabled, large }: buttonP
 			if (large) {
 				//used for login/form submit buttons
 				content = (
-					<button className={buttonStyles.goldGradL} type={submit ? "submit" : undefined} onClick={(e) => handlePress()}>
+					<button className={outline ? buttonStyles.goldGradLOut : buttonStyles.goldGradL} type={submit ? "submit" : undefined} onClick={(e) => handlePress()}>
 						{text}
 					</button>
 				);
