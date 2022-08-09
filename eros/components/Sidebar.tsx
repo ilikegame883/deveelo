@@ -9,7 +9,7 @@ import TextButton from "./micro/TextButton";
 import ProfilePicture from "./micro/ProfilePicture";
 import SocialList from "./minor/SocialList";
 import ProfileEditForm from "./minor/ProfEditForm";
-//@ts-ignore
+//@ts-ignore ts wants to have this lowercase but it breaks vercel
 import ProfileStats from "./minor/ProfileStats";
 
 import { useFindMinProfileByTagQuery, useFollowMutation, useMyAccountMinProfileQuery, useRandomMinProfileQuery, useUnfollowMutation } from "../hooks/backend/generated/graphql";
