@@ -22,6 +22,7 @@
     width: 100%;
 
     color: var(--textBlack);
+    font-style: normal;
     font-weight: 500;
     font-size: 1.219em;
     line-height: 1.594em;
