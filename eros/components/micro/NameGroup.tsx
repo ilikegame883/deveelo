@@ -10,9 +10,10 @@ interface nameGroupParams {
 	//the search results), then we disable this auto balancing.
 	disableSpacer?: boolean;
 	badges?: string[];
+	outline?: boolean;
 }
 
-const NameGroup = ({ username, size, showBadges, disableSpacer, badges }: nameGroupParams) => {
+const NameGroup = ({ username, size, showBadges, disableSpacer, badges, outline }: nameGroupParams) => {
 	let style = null;
 	let fontStyle = null;
 	let badgeStyle = null;
@@ -53,7 +54,7 @@ const NameGroup = ({ username, size, showBadges, disableSpacer, badges }: nameGr
 
 				{
 					//load badges from keys if key list contains keys
-					showBadges && badges.length > 0 ? <Badge keys={badges} /> : null
+					showBadges && badges.length > 0 ? <Badge keys={badges} outline={outline} /> : null
 				}
 			</div>
 		</>
