@@ -87,7 +87,7 @@ const Layout = ({ children, route, showSidebar, showActivityBar, showNav, useWid
 					{showNav && (showSidebar ? <Nav sidebarSpacing={true} loggedIn={getAccessToken() !== ""} /> : <Nav sidebarSpacing={false} loggedIn={getAccessToken() !== ""} />)}
 					{showSidebar && <DesktopSidebar hardEdge={full} />}
 
-					{showActivityBar ? <FullActivityBar hardEdge={full} /> : null}
+					{showActivityBar ? <FullActivityBar hardEdge={full} widgetKeys={["people"]} /> : null}
 
 					{useWide && <SideImage route={route} hardEdge={full} />}
 					<div className={useWide ? (full ? styles.containerWide_full : styles.containerWide) : styles.container}>
@@ -133,7 +133,7 @@ const Layout = ({ children, route, showSidebar, showActivityBar, showNav, useWid
 
 					{showSidebar && <DesktopSidebar hardEdge={full} />}
 
-					{showActivityBar ? <FullActivityBar hardEdge={full} /> : null}
+					{showActivityBar ? <FullActivityBar hardEdge={full} widgetKeys={["people"]} /> : null}
 
 					{useWide && <SideImage route={route} hardEdge={full} />}
 
@@ -177,7 +177,7 @@ const Layout = ({ children, route, showSidebar, showActivityBar, showNav, useWid
 
 					{showSidebar && <DesktopSidebar hardEdge={full} />}
 
-					{showActivityBar ? <FullActivityBar hardEdge={full} /> : null}
+					{showActivityBar ? <FullActivityBar hardEdge={full} widgetKeys={["people"]} /> : null}
 
 					{useWide && <SideImage route={route} hardEdge={full} />}
 					<div className={useWide ? (full ? styles.containerWide_full : styles.containerWide) : styles.container}>
@@ -220,7 +220,7 @@ const Layout = ({ children, route, showSidebar, showActivityBar, showNav, useWid
 
 					{showSidebar && <DesktopSidebar hardEdge={full} />}
 
-					{showActivityBar ? <FullActivityBar hardEdge={full} /> : null}
+					{showActivityBar ? <FullActivityBar hardEdge={full} widgetKeys={["people"]} /> : null}
 
 					{useWide && <SideImage route={route} hardEdge={full} />}
 					<div className={useWide ? (full ? styles.containerWide_full : styles.containerWide) : styles.container}>
