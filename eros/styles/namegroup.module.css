@@ -80,10 +80,9 @@
 }
 
 .checkmarkout {
-    margin-top: .14em;
     margin-right: 0.0625em;
-    width: 80%;
-    height: 80%;
+    width: 100%;
+    height: 100%;
 
     background-image: url('../public/resources/verifiedout.svg');
     background-position: center;
@@ -117,10 +116,9 @@
 }
 
 .shieldout {
-    margin-top: .14em;
     margin-right: 0.0625em;
-    width: 80%;
-    height: 80%;
+    width: 100%;
+    height: 100%;
 
     background-image: url('../public/resources/staffout.svg');
     background-position: center;
