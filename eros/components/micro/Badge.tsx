@@ -6,8 +6,8 @@ const Badge = ({ keys, outline }: { keys?: string[]; outline?: boolean }) => {
 	for (let i = 0; i < keys.length; i++) {
 		if (keys[i] == "verified") {
 			items.push(
-				<div className={nameStyles.v_largeBadge}>
-					<div className={nameStyles.checkmark} />
+				<div className={outline ? nameStyles.colorlesslargeBadge : nameStyles.v_largeBadge}>
+					<div className={outline ? nameStyles.checkmarkout : nameStyles.checkmark} />
 				</div>
 			);
 		} else if (keys[i] == "staff") {
