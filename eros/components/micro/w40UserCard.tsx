@@ -28,7 +28,7 @@ const W40UserCard = ({ account, profile, status }: CardProps) => {
 				<div className={w40styles.namepicWrapper}>
 					<ProfilePicture size="w32" source={profile.pictureUrl} status={status} />
 					<div className={w40styles.nameWrapper}>
-						<NameGroup username={account.username} size={4} badges={profile.badges} showBadges={true} />
+						<NameGroup username={account.username} size={4} badges={profile.badges} disableSpacer={true} showBadges={true} />
 					</div>
 				</div>
 				<div className="fillfillcenterright">
