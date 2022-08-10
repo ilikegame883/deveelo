@@ -1,6 +1,6 @@
 import nameStyles from "../../styles/namegroup.module.css";
 
-const Badge = ({ keys }: { keys?: string[] }) => {
+const Badge = ({ keys, outline }: { keys?: string[]; outline?: boolean }) => {
 	let items: any = [];
 
 	for (let i = 0; i < keys.length; i++) {
@@ -12,8 +12,8 @@ const Badge = ({ keys }: { keys?: string[] }) => {
 			);
 		} else if (keys[i] == "staff") {
 			items.push(
-				<div className={nameStyles.s_largeBadge}>
-					<div className={nameStyles.shield} />
+				<div className={outline ? nameStyles.colorlesslargeBadge : nameStyles.s_largeBadge}>
+					<div className={outline ? nameStyles.shieldout : nameStyles.shield} />
 				</div>
 			);
 		}
