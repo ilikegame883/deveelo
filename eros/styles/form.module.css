@@ -19,11 +19,20 @@
 }
 
 .largeContainerOffset {
-    position: absolute;
-    left: 5.25em;
-    bottom: 1.96875em;
+    padding-top: 10em;
     width: 38.625em;
     height: fit-content;
+}
+
+.formPositoner {
+    height: inherit;
+    width: 100%;
+    padding-left: 5.625em;
+  
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
 }
 
 .label {
