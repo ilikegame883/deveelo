@@ -9,11 +9,14 @@
 }
 
 .icon {
-    /* 13.33px */
-    width: 1.25em;
-    height: 1.25em;
+    width: 1.875em;
+    height: 1.875em;
     /* 3.33px */
     padding: 0.312em;
+    border-radius: 50%;
+    /* stop horizontal squashing of icon */
+    flex-shrink: 0;
+    flex-grow: 0;
 }
 
 /* header text for the widgets */
