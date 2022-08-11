@@ -27,8 +27,8 @@ const CardList = ({ size, list }: CardListProps) => {
 		case "w40":
 			content = (
 				<>
-					{userList.map(({ account, profile, status }) => (
-						<W40UserCard account={account} profile={profile} status={status} />
+					{userList.map((user) => (
+						<W40UserCard key={userList.indexOf(user).toString()} account={user.account} profile={user.profile} status={user.status} />
 					))}
 				</>
 			);

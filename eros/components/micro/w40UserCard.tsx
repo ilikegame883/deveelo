@@ -6,12 +6,13 @@ import NameGroup from "./NameGroup";
 import ProfilePicture from "./ProfilePicture";
 
 interface CardProps {
+	key: string;
 	account: SearchAccountType;
 	profile: SearchProfileType;
 	status: "online" | "idle" | "dnd" | "offline";
 }
 
-const W40UserCard = ({ account, profile, status }: CardProps) => {
+const W40UserCard = ({ key, account, profile, status }: CardProps) => {
 	const changeSidebar = (tag: string) => {
 		if (!tag) {
 			return;
