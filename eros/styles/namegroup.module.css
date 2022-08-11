@@ -50,6 +50,22 @@
     margin: 0 0;
 }
 
+.p_widgetText {
+    height: 1.3125em;
+    width: fit-content;
+    max-width: 10.687em;
+
+    color: var(--textNormalCol);
+    font-weight: 500;
+    font-size: 11px;
+    line-height: 14px;
+    display: flex;
+    align-items: center;
+    letter-spacing: -0.02em;
+
+    margin: 0 0 0 0.656em;
+}
+
 .p_searchText {
     height: inherit;
     width: fit-content;
