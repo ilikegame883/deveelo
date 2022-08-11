@@ -23,7 +23,9 @@
 
 .buttonContainer {
     height: inherit;
-    width: 5.719em;
+    width: 5.719rem;
+
+    flex-shrink: 0;
 }
 
 .detail {
