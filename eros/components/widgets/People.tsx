@@ -27,13 +27,23 @@ const PeopleWidget = ({ key, count }: { key: string; count: number }) => {
 
 	//fetch who we are following, so we don't show the follow button
 	const followingList = myData.myAccount.profile.followingIds;
+	//same idea for followers, for the follows you
+	const followerList = myData.myAccount.profile.followerIds;
 
 	return (
 		<div className={widgetStyles.peoplewidget}>
 			<IconHeader type="widget" src="/resources/person.svg" color="purple" text="People" />
 			<div className={widgetStyles.list}>
 				{sortedUsers.map((user) => (
-					<UserCard key={users.indexOf(user).toString()} id={user._id} account={user.account} profile={user.profile} status={user.status} following={followingList} />
+					<UserCard
+						key={users.indexOf(user).toString()}
+						id={user._id}
+						account={user.account}
+						profile={user.profile}
+						status={user.status}
+						following={followingList}
+						followers={followerList}
+					/>
 				))}
 			</div>
 		</div>

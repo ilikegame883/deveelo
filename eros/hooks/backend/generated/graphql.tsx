@@ -244,7 +244,7 @@ export type MyAccountMinProfileQuery = { __typename?: 'Query', myAccount?: Maybe
 export type MyFollowingQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type MyFollowingQuery = { __typename?: 'Query', myAccount?: Maybe<{ __typename?: 'User', _id: string, profile: { __typename?: 'U_Profile', followingIds: Array<Maybe<string>> } }> };
+export type MyFollowingQuery = { __typename?: 'Query', myAccount?: Maybe<{ __typename?: 'User', _id: string, profile: { __typename?: 'U_Profile', followerIds: Array<Maybe<string>>, followingIds: Array<Maybe<string>> } }> };
 
 export type MyNameAndPfpQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -646,6 +646,7 @@ export const MyFollowingDocument = gql`
   myAccount {
     _id
     profile {
+      followerIds
       followingIds
     }
   }

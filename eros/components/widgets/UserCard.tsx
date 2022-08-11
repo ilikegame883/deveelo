@@ -11,17 +11,21 @@ interface UserCardProps {
 	profile: any;
 	status: string;
 	following: string[];
+	followers: string[];
 }
 
-const UserCard = ({ key, id, account, profile, status, following }: UserCardProps) => {
+const UserCard = ({ key, id, account, profile, status, following, followers }: UserCardProps) => {
+	//check if we follow this person
 	const disable = following.includes(id);
+
+	const followsYou = followers.includes(id);
 
 	return (
 		<div className={cardStyles.card}>
 			<ProfilePicture size="w28" source={profile.pictureUrl} status={status} isActivitybar={true} />
 			<div className={cardStyles.textgroup}>
 				<NameGroup username={account.username} size={5} badges={profile.badges} showBadges={true} outline={true} disableSpacer={true} />
-				<CardDetailText text="Follows you" />
+				{followsYou ? <CardDetailText text="Follows you" /> : null}
 			</div>
 			<div className="fillfillcenterright">
 				<div className={cardStyles.buttonContainer}>
