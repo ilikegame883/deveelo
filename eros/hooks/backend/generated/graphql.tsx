@@ -264,7 +264,7 @@ export type SampleUsersQueryVariables = Exact<{
 }>;
 
 
-export type SampleUsersQuery = { __typename?: 'Query', randomUsers: Array<Maybe<{ __typename?: 'User', status: string, account: { __typename?: 'U_Account', username: string, tag: string }, profile: { __typename?: 'U_Profile', pictureUrl: string, badges: Array<Maybe<string>> } }>> };
+export type SampleUsersQuery = { __typename?: 'Query', randomUsers: Array<Maybe<{ __typename?: 'User', _id: string, status: string, account: { __typename?: 'U_Account', username: string, tag: string }, profile: { __typename?: 'U_Profile', pictureUrl: string, badges: Array<Maybe<string>> } }>> };
 
 export type UnfollowMutationVariables = Exact<{
   targetId: Scalars['String'];
@@ -791,6 +791,7 @@ export type RegisterMutationOptions = Apollo.BaseMutationOptions<RegisterMutatio
 export const SampleUsersDocument = gql`
     query sampleUsers($amount: Int!) {
   randomUsers(count: $amount) {
+    _id
     account {
       username
       tag
