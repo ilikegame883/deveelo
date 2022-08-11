@@ -8,6 +8,19 @@
     margin: 0.563em 0;
 }
 
+.textgroup {
+    height: fit-content;
+    width: 35em;
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: .1em;
+
+    padding: 0 0 0.1875em 0.656em;
+}
+
 .buttonContainer {
     height: inherit;
     width: 5.719em;
