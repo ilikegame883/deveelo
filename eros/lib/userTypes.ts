@@ -80,3 +80,13 @@ export interface MinProfUserType {
 	};
 	status: string;
 }
+
+//we just need the status for most sorting, but within each status...
+//we might choose to sort by id (for consistency) or more likely: badges
+export interface SortUserType {
+	_id: string;
+	profile: {
+		badges: string[];
+	};
+	status: "online" | "idle" | "dnd" | "offline";
+}
