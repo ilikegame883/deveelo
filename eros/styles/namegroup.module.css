@@ -63,6 +63,7 @@
     align-items: center;
     letter-spacing: -0.02em;
 
+    white-space: nowrap;
     margin: 0 0 0 0.656em;
 }
 
