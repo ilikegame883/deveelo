@@ -35,7 +35,7 @@ const NameGroup = ({ username, size, showBadges, disableSpacer, badges, outline 
 			badgeStyle = nameStyles.v_largeBadge;
 			break;
 		case 5:
-			//sidebar follow/friend list
+			//activitybar widgets
 			fontStyle = nameStyles.p_widgetText;
 			badgeStyle = nameStyles.v_largeBadge;
 			break;
@@ -59,7 +59,7 @@ const NameGroup = ({ username, size, showBadges, disableSpacer, badges, outline 
 
 				{
 					//load badges from keys if key list contains keys
-					showBadges && badges.length > 0 ? <Badge keys={badges} outline={outline} /> : null
+					showBadges && badges.length > 0 ? <Badge keys={badges} outline={outline} size={size} /> : null
 				}
 			</div>
 		</>

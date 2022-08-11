@@ -64,7 +64,8 @@
     letter-spacing: -0.02em;
 
     white-space: nowrap;
-    margin: 0 0 0 0.656em;
+
+    margin: 0;
 }
 
 .p_searchText {
@@ -167,4 +168,16 @@
 .largeSpacer {
     width: 1.5em;
     height: 1.5em;
+}
+
+/* BADGE SIZES */
+.smallBadge {
+    display: flex;
+    justify-content: center;
+
+    width: 1.3125em;
+    height: 1.3125em;
+    
+    border-radius: 100%;
+    margin-left: 0.5625em;
 }
