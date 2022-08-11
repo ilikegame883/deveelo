@@ -32,6 +32,8 @@
     border-radius: 0.563em;
     flex-grow: 0;
     flex-shrink: 0;
+
+    pointer-events: none;
 }
 
 .text {
