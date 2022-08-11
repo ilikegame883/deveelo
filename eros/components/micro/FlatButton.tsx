@@ -3,16 +3,17 @@ import buttonStyles from "../../styles/micro/flatbutton.module.css";
 
 interface ButtonProps {
 	color: string;
+	shadow: string;
 	text: string;
 	submit?: boolean;
 	action?: any;
 }
 
-const FlatButton = ({ color, text, submit, action }: ButtonProps) => {
+const FlatButton = ({ color, shadow, text, submit, action }: ButtonProps) => {
 	const router = useRouter();
 
 	// dynamic styling we use to control the button's color (using hex or rgba)
-	let style = { background: color };
+	let style = { background: color, boxShadow: shadow };
 
 	//execute the action input, identical to that in TextButton (grad buttons)
 	const handlePress = () => {
