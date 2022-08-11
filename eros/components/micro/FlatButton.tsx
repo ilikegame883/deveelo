@@ -1,0 +1,40 @@
+import { useRouter } from "next/router";
+import buttonStyles from "../../styles/micro/flatbutton.module.css";
+
+interface ButtonProps {
+	color: string;
+	text: string;
+	submit?: boolean;
+	action?: any;
+}
+
+const FlatButton = ({ color, text, submit, action }: ButtonProps) => {
+	const router = useRouter();
+
+	// dynamic styling we use to control the button's color (using hex or rgba)
+	let style = { background: color };
+
+	//execute the action input, identical to that in TextButton (grad buttons)
+	const handlePress = () => {
+		//if the type is submit, it already has a form specific action
+		if (action !== null && action !== undefined && !submit) {
+			//get the type of the input, and decide what to do with it
+			const type = typeof action;
+			if (type === "string") {
+				//string actions are assumed to be path to another page
+				router.push(action);
+			} else {
+				//we assume it is a function, so run it
+				action();
+			}
+		}
+	};
+
+	return (
+		<button className={buttonStyles.staticWrapper} style={style} type={submit ? "submit" : undefined} onClick={(e) => handlePress()}>
+			<p className={buttonStyles.text}>{text}</p>
+		</button>
+	);
+};
+
+export default FlatButton;
