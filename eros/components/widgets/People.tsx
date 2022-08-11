@@ -4,7 +4,7 @@ import { useSampleUsersQuery } from "../../hooks/backend/generated/graphql";
 import { SearchUserIdType } from "../../lib/userTypes";
 import UserCard from "./UserCard";
 
-const PeopleWidget = ({ count }: { count: number }) => {
+const PeopleWidget = ({ key, count }: { key: string; count: number }) => {
 	const { data, loading, error } = useSampleUsersQuery({
 		variables: {
 			amount: 4,
