@@ -57,8 +57,8 @@
 
     color: var(--textNormalCol);
     font-weight: 500;
-    font-size: 11px;
-    line-height: 14px;
+    font-size: 1.031em;
+    line-height: 1.3125em;
     display: flex;
     align-items: center;
     letter-spacing: -0.02em;
