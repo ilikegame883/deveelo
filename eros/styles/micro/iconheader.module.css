@@ -6,6 +6,8 @@
     align-items: center;
 
     margin-bottom: 0.563em;
+    flex-shrink: 0;
+    flex-grow: 0;
 }
 
 .icon {
