@@ -10,9 +10,12 @@ interface UserCardProps {
 	account: any;
 	profile: any;
 	status: string;
+	following: string[];
 }
 
-const UserCard = ({ key, id, account, profile, status }: UserCardProps) => {
+const UserCard = ({ key, id, account, profile, status, following }: UserCardProps) => {
+	const disable = following.includes(id);
+
 	return (
 		<div className={cardStyles.card}>
 			<ProfilePicture size="w28" source={profile.pictureUrl} status={status} isActivitybar={true} />
@@ -22,7 +25,7 @@ const UserCard = ({ key, id, account, profile, status }: UserCardProps) => {
 			</div>
 			<div className="fillfillcenterright">
 				<div className={cardStyles.buttonContainer}>
-					<FlatButton text="Follow" color="#6360EC" shadow="0px 0.375em 1.875em rgba(99, 96, 236, 0.2)" />
+					<FlatButton disabled={disable} text="Follow" disabledText="Following" color="#6360EC" shadow="0px 0.375em 1.875em rgba(99, 96, 236, 0.2)" />
 				</div>
 			</div>
 		</div>
