@@ -7,10 +7,22 @@ interface ButtonProps {
 	text: string;
 	submit?: boolean;
 	action?: any;
+	disabled?: boolean;
+	disabledText?: string;
 }
 
-const FlatButton = ({ color, shadow, text, submit, action }: ButtonProps) => {
+const FlatButton = ({ color, shadow, text, submit, action, disabled, disabledText }: ButtonProps) => {
 	const router = useRouter();
+
+	if (disabled) {
+		return (
+			<button className={buttonStyles.disabledWrapper}>
+				<p className={buttonStyles.text} style={{ color: "var(--textNormalCol)" }}>
+					{disabledText}
+				</p>
+			</button>
+		);
+	}
 
 	// dynamic styling we use to control the button's color (using hex or rgba)
 	let style = { background: color, boxShadow: shadow };

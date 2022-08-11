@@ -17,6 +17,23 @@
     transform: translateY(-.2em);
 }
 
+.disabledWrapper {
+    height: fit-content;
+    width: inherit;
+    padding: 0.469em 0;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    background: transparent;
+
+    border: 0.046875em solid #BBC8DB;
+    border-radius: 0.563em;
+    flex-grow: 0;
+    flex-shrink: 0;
+}
+
 .text {
     height: 1.125em;
     width: fit-content;
