@@ -13,6 +13,10 @@
     flex-shrink: 0;
 }
 
+.staticWrapper:hover {
+    transform: translateY(-.2em);
+}
+
 .text {
     height: 1.125em;
     width: fit-content;
