@@ -41,7 +41,7 @@ const ProfilePage = (props: propsType) => {
 			title={`${user.account.username} | @${user.account.tag} on Deveelo`}
 			description={`${user.profile.description} — ${postCount} posts | ${blogCount} devlogs | ${followers} followers | ${following} following`}
 			url={`https://www.deveelo.com/${tag}`}
-			image={metaLoader(user.profile.pictureUrl)}
+			image={metaLoader(user.profile.pictureUrl, "uploads")}
 		/>
 	);
 };
