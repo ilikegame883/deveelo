@@ -1,6 +1,6 @@
 .staticWrapper {
     height: fit-content;
-    width: 5.719em;
+    width: inherit;
     padding: 0.469em 0;
 
     display: flex;
