@@ -1,8 +1,9 @@
 import widgetStyles from "../../styles/minor/widget.module.css";
 import IconHeader from "./IconHeader";
+import UserCard from "./UserCard";
 import { useSampleUsersQuery } from "../../hooks/backend/generated/graphql";
 import { SearchUserIdType } from "../../lib/userTypes";
-import UserCard from "./UserCard";
+import { sortByStatus } from "../../hooks/sortUsers";
 
 const PeopleWidget = ({ key, count }: { key: string; count: number }) => {
 	const { data, loading, error } = useSampleUsersQuery({
@@ -21,11 +22,13 @@ const PeopleWidget = ({ key, count }: { key: string; count: number }) => {
 
 	const users = data.randomUsers as SearchUserIdType[];
 
+	const sortedUsers = sortByStatus(users);
+
 	return (
 		<div className={widgetStyles.peoplewidget}>
 			<IconHeader type="widget" src="/resources/person.svg" color="purple" text="People" />
 			<div className={widgetStyles.list}>
-				{users.map((user) => (
+				{sortedUsers.map((user) => (
 					<UserCard key={users.indexOf(user).toString()} id={user._id} account={user.account} profile={user.profile} status={user.status} />
 				))}
 			</div>
