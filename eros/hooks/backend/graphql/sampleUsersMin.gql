@@ -6,6 +6,7 @@ query sampleUsers($amount: Int!) {
 		}
 		profile {
 			pictureUrl
+			badges
 		}
 		status
 	}
