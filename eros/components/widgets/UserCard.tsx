@@ -3,12 +3,14 @@ import NameGroup from "../micro/NameGroup";
 import ProfilePicture from "../micro/ProfilePicture";
 
 interface UserCardProps {
+	key: string;
+	id: string;
 	account: any;
 	profile: any;
 	status: string;
 }
 
-const UserCard = ({ account, profile, status }: UserCardProps) => {
+const UserCard = ({ key, id, account, profile, status }: UserCardProps) => {
 	return (
 		<div className={cardStyles.card}>
 			<ProfilePicture size="w28" source={profile.pictureUrl} status={status} isActivitybar={true} />

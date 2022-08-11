@@ -1,7 +1,7 @@
 import widgetStyles from "../../styles/minor/widget.module.css";
 import IconHeader from "./IconHeader";
 import { useSampleUsersQuery } from "../../hooks/backend/generated/graphql";
-import { SearchUserType } from "../../lib/userTypes";
+import { SearchUserIdType } from "../../lib/userTypes";
 import UserCard from "./UserCard";
 
 const PeopleWidget = ({ count }: { count: number }) => {
@@ -19,14 +19,14 @@ const PeopleWidget = ({ count }: { count: number }) => {
 		return <div>Error occurred</div>;
 	}
 
-	const users = data.randomUsers as SearchUserType[];
+	const users = data.randomUsers as SearchUserIdType[];
 
 	return (
 		<div className={widgetStyles.peoplewidget}>
 			<IconHeader type="widget" src="/resources/person.svg" color="purple" text="People" />
 			<div className={widgetStyles.list}>
-				{users.map(({ account, profile, status }) => (
-					<UserCard account={account} profile={profile} status={status} />
+				{users.map((user) => (
+					<UserCard key={users.indexOf(user).toString()} id={user._id} account={user.account} profile={user.profile} status={user.status} />
 				))}
 			</div>
 		</div>
