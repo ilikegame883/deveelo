@@ -11,7 +11,7 @@ interface UserCardProps {
 const UserCard = ({ account, profile, status }: UserCardProps) => {
 	return (
 		<div className={cardStyles.card}>
-			<ProfilePicture size="w28" source={profile.pictureUrl} status={status} />
+			<ProfilePicture size="w28" source={profile.pictureUrl} status={status} isActivitybar={true} />
 			<NameGroup username={account.username} size={5} badges={profile.badges} showBadges={true} outline={true} disableSpacer={true} />
 		</div>
 	);
