@@ -1,9 +1,9 @@
-import { SearchUserType } from "../../lib/userTypes";
+import { SearchPureType } from "../../lib/userTypes";
 import searchStyles from "../../styles/minor/search.module.css";
 import NameGroup from "./NameGroup";
 import ProfilePicture from "./ProfilePicture";
 
-const Result = ({ account, profile, status }: SearchUserType) => {
+const Result = ({ account, profile, status }: SearchPureType) => {
 	return (
 		<button className={searchStyles.personCard} onClick={() => window.location.assign(`/${account.tag}`)}>
 			<div className={searchStyles.resPic}>
