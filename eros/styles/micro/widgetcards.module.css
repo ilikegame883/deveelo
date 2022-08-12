@@ -5,7 +5,9 @@
     display: flex;
     flex-direction: row;
     align-items: center;
+    
     margin: 0.563em 0;
+    cursor: pointer;
 }
 
 .textgroup {

@@ -21,7 +21,6 @@ const W40UserCard = ({ key, account, profile, status }: CardProps) => {
 		storage.setItem("side_prof", tag);
 
 		updateSidebar(tag);
-		// rerenderCallback;
 	};
 	return (
 		<div className={w40styles.cardwrapper} onClick={() => changeSidebar(account.tag)}>

@@ -33,7 +33,7 @@
     flex-grow: 0;
     flex-shrink: 0;
 
-    pointer-events: none;
+    cursor: default;
 }
 
 .text {
