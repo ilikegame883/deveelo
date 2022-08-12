@@ -5,6 +5,7 @@ import ProfilePicture from "../micro/ProfilePicture";
 import cardStyles from "../../styles/micro/widgetcards.module.css";
 import { updateSidebar } from "../../hooks/socialhooks";
 import { isLoggedIn } from "../../hooks/userChecks";
+import { MyFollowingDocument, useFollowMutation } from "../../hooks/backend/generated/graphql";
 
 interface UserCardProps {
 	key: string;
@@ -18,6 +19,9 @@ interface UserCardProps {
 
 const UserCard = ({ key, id, account, profile, status, following, followers }: UserCardProps) => {
 	const loggedIn = isLoggedIn();
+	//for following functionality
+	const [followUser] = useFollowMutation({ refetchQueries: [{ query: MyFollowingDocument }] });
+
 	const changeSidebar = (tag: string) => {
 		if (!tag) {
 			return;
@@ -26,6 +30,36 @@ const UserCard = ({ key, id, account, profile, status, following, followers }: U
 		storage.setItem("side_prof", tag);
 
 		updateSidebar(tag);
+	};
+
+	const handleFollow = async (id: string) => {
+		//when user clicks the follow button, increase the
+		//follower number of the current user bc it will
+		//not realize the new follow until next page reload
+
+		try {
+			const response = await followUser({
+				variables: {
+					targetId: id,
+				},
+			});
+
+			if (response && response.data) {
+				//check if the operation went through w/o errors
+				if (response.data.follow.success) {
+					//when user clicks the follow button, increase
+					//the follower number of the current user bc it
+					//will not realize the new follow until next reload
+					//updateSidebar("newfollow");
+					console.log("success");
+
+					return;
+				}
+			}
+		} catch (error) {
+			console.log(error);
+		}
+		return;
 	};
 
 	//check if we follow this person
@@ -43,7 +77,7 @@ const UserCard = ({ key, id, account, profile, status, following, followers }: U
 				</div>
 			</div>
 			<div className={cardStyles.buttonContainer}>
-				<FlatButton disabled={disable} text="Follow" disabledText="Following" color="#6360EC" shadow="0px 0.375em 1.875em rgba(99, 96, 236, 0.2)" />
+				<FlatButton disabled={disable} text="Follow" disabledText="Following" color="#6360EC" shadow="0px 0.375em 1.875em rgba(99, 96, 236, 0.2)" action={() => handleFollow(id)} />
 			</div>
 		</div>
 	);

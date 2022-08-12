@@ -1,15 +1,13 @@
 import widgetStyles from "../../styles/minor/widget.module.css";
 import IconHeader from "./IconHeader";
 import UserCard from "./UserCard";
-import { useSampleUsersQuery, useMyFollowingQuery, useFollowMutation } from "../../hooks/backend/generated/graphql";
+import { useSampleUsersQuery, useMyFollowingQuery, useFollowMutation, MyFollowingDocument } from "../../hooks/backend/generated/graphql";
 import { SearchUserIdType } from "../../lib/userTypes";
 import { sortByStatus } from "../../hooks/sortUsers";
 import { isLoggedIn } from "../../hooks/userChecks";
 
 const PeopleWidget = ({ key, count }: { key: string; count: number }) => {
 	const loggedIn = isLoggedIn();
-	//for following functionality
-	const [followUser] = useFollowMutation();
 
 	//fetch our follower & following id lists + a sample of users
 	const { data: myData, loading: myLoading, error: myError } = isLoggedIn ? useMyFollowingQuery() : undefined;
