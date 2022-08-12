@@ -1,28 +1,29 @@
 .card {
     width: 100%;
-    height: 2.625em;
+    height: fit-content;
     
     display: flex;
     flex-direction: row;
     align-items: center;
 
-    margin: 0.563em 0;
+    padding: 0.563em 0 0.563em 0.656em;
+    border-radius: 1.2em;
+    transition: .5s;
+}
+
+.card:hover {
+    background-color: var(--activitybarhover);
 }
 
 .linkgroup {
     height: inherit;
-    width: fit-content;
+    width: 100%;
+    overflow: hidden;
     
     display: flex;
     flex-direction: row;
     align-items: center;
     cursor: pointer;
-}
-
-.middlearea {
-    height: inherit;
-    width: 100%;
-    overflow: hidden;
 }
 
 .textgroup {

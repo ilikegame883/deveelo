@@ -16,7 +16,6 @@
 .list {
     width: inherit;
     height: 100%;
-    padding-left: 0.656em;
 
     display: flex;
     flex-direction: column;
