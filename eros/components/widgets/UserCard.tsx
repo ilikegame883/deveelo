@@ -32,16 +32,18 @@ const UserCard = ({ key, id, account, profile, status, following, followers }: U
 	const followsYou = followers.includes(id);
 
 	return (
-		<div className={cardStyles.card} onClick={() => changeSidebar(account.tag)}>
-			<ProfilePicture size="w28" source={profile.pictureUrl} status={status} isActivitybar={true} />
-			<div className={cardStyles.textgroup}>
-				<NameGroup username={account.username} size={5} badges={profile.badges} showBadges={true} outline={true} disableSpacer={true} />
-				{followsYou ? <CardDetailText text="Follows you" /> : null}
-			</div>
-			<div className="fillfillcenterright">
-				<div className={cardStyles.buttonContainer}>
-					<FlatButton disabled={disable} text="Follow" disabledText="Following" color="#6360EC" shadow="0px 0.375em 1.875em rgba(99, 96, 236, 0.2)" />
+		<div className={cardStyles.card}>
+			<div className={cardStyles.middlearea}>
+				<div className={cardStyles.linkgroup} onClick={() => changeSidebar(account.tag)}>
+					<ProfilePicture size="w28" source={profile.pictureUrl} status={status} isActivitybar={true} />
+					<div className={cardStyles.textgroup}>
+						<NameGroup username={account.username} size={5} badges={profile.badges} showBadges={true} outline={true} disableSpacer={true} />
+						{followsYou ? <CardDetailText text="Follows you" /> : null}
+					</div>
 				</div>
+			</div>
+			<div className={cardStyles.buttonContainer}>
+				<FlatButton disabled={disable} text="Follow" disabledText="Following" color="#6360EC" shadow="0px 0.375em 1.875em rgba(99, 96, 236, 0.2)" />
 			</div>
 		</div>
 	);
