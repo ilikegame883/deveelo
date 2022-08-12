@@ -1,5 +1,5 @@
 import { updateSidebar } from "../../hooks/socialhooks";
-import { SearchAccountType, SearchProfileType, SearchStatusType, SearchUserType } from "../../lib/userTypes";
+import { SearchAccountType, SearchProfileType } from "../../lib/userTypes";
 import w40styles from "../../styles/micro/w40.module.css";
 import IconButton from "./IconButton";
 import NameGroup from "./NameGroup";

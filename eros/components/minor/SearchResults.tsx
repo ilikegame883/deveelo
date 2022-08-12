@@ -1,5 +1,5 @@
 import searchStyles from "../../styles/minor/search.module.css";
-import { SearchPureType, SearchUserType } from "../../lib/userTypes";
+import { SearchPureType } from "../../lib/userTypes";
 import Result from "../micro/Result";
 import { useSampleUsersQuery } from "../../hooks/backend/generated/graphql";
 
