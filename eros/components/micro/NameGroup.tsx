@@ -15,9 +15,7 @@ interface nameGroupParams {
 }
 
 const NameGroup = ({ username, size, showBadges, disableSpacer, badges, outline, useh1 }: nameGroupParams) => {
-	let style = null;
 	let fontStyle = null;
-	let badgeStyle = null;
 
 	if (badges == undefined) {
 		badges = [];
@@ -28,26 +26,21 @@ const NameGroup = ({ username, size, showBadges, disableSpacer, badges, outline,
 		case 1:
 			//Profile name on sidebar
 			fontStyle = nameStyles.p_largeText;
-			badgeStyle = nameStyles.v_largeBadge;
 			break;
 		case 4:
 			//sidebar follow/friend list
 			fontStyle = nameStyles.p_sociallistText;
-			badgeStyle = nameStyles.v_largeBadge;
 			break;
 		case 5:
 			//activitybar widgets
 			fontStyle = nameStyles.p_widgetText;
-			badgeStyle = nameStyles.v_largeBadge;
 			break;
 		case 6:
 			//Search results
 			fontStyle = nameStyles.p_searchText;
-			badgeStyle = nameStyles.v_largeBadge;
 			break;
 		default:
 			fontStyle = nameStyles;
-			badgeStyle = nameStyles.v_largeBadge;
 			break;
 	}
 
