@@ -11,9 +11,10 @@ interface nameGroupParams {
 	disableSpacer?: boolean;
 	badges?: string[];
 	outline?: boolean;
+	useh1?: boolean;
 }
 
-const NameGroup = ({ username, size, showBadges, disableSpacer, badges, outline }: nameGroupParams) => {
+const NameGroup = ({ username, size, showBadges, disableSpacer, badges, outline, useh1 }: nameGroupParams) => {
 	let style = null;
 	let fontStyle = null;
 	let badgeStyle = null;
@@ -55,7 +56,7 @@ const NameGroup = ({ username, size, showBadges, disableSpacer, badges, outline 
 			<div className={nameStyles.p_container}>
 				{showBadges && badges.length > 0 && !disableSpacer ? <div className={nameStyles.largeSpacer}></div> : null}
 
-				<p className={fontStyle}>{username}</p>
+				{useh1 ? <h1 className={fontStyle}>{username}</h1> : <p className={fontStyle}>{username}</p>}
 
 				{
 					//load badges from keys if key list contains keys
