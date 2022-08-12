@@ -17,6 +17,10 @@
     transform: translateY(-.2em);
 }
 
+.staticWrapper:active {
+    transform: translateY(.05em);
+}
+
 .disabledWrapper {
     height: fit-content;
     width: inherit;
