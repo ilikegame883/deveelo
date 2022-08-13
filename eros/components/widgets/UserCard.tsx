@@ -77,7 +77,19 @@ const UserCard = ({ key, id, account, profile, status, following, followers }: U
 				</div>
 			</div>
 			<div className={cardStyles.buttonContainer}>
-				<FlatButton disabled={disable} text="Follow" disabledText="Following" color="#6360EC" shadow="0px 0.375em 1.875em rgba(99, 96, 236, 0.2)" action={() => handleFollow(id)} />
+				<FlatButton
+					disabled={disable}
+					text="Follow"
+					disabledText="Following"
+					color="#6360EC"
+					shadow="0px 0.375em 1.875em rgba(99, 96, 236, 0.2)"
+					action={{
+						function: () => handleFollow(id),
+						options: {
+							disableAfter: true,
+						},
+					}}
+				/>
 			</div>
 		</div>
 	);

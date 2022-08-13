@@ -1,4 +1,6 @@
 import { useRouter } from "next/router";
+import { useState } from "react";
+
 import buttonStyles from "../../styles/micro/flatbutton.module.css";
 
 interface ButtonProps {
@@ -6,7 +8,12 @@ interface ButtonProps {
 	shadow: string;
 	text: string;
 	submit?: boolean;
-	action?: any;
+	action?: {
+		function: any;
+		options?: {
+			disableAfter?: boolean;
+		};
+	};
 	disabled?: boolean;
 	disabledText?: string;
 }
@@ -14,7 +21,9 @@ interface ButtonProps {
 const FlatButton = ({ color, shadow, text, submit, action, disabled, disabledText }: ButtonProps) => {
 	const router = useRouter();
 
-	if (disabled) {
+	const [off, setOff] = useState(disabled);
+
+	if (off) {
 		return (
 			<button className={buttonStyles.disabledWrapper}>
 				<p className={buttonStyles.text} style={{ color: "var(--textNormalCol)" }}>
@@ -32,13 +41,17 @@ const FlatButton = ({ color, shadow, text, submit, action, disabled, disabledTex
 		//if the type is submit, it already has a form specific action
 		if (action !== null && action !== undefined && !submit) {
 			//get the type of the input, and decide what to do with it
-			const type = typeof action;
+			const type = typeof action.function;
 			if (type === "string") {
 				//string actions are assumed to be path to another page
-				router.push(action);
+				router.push(action.function);
 			} else {
 				//we assume it is a function, so run it
-				action();
+				action.function();
+				if (!action.options) return;
+				if (!action.options.disableAfter) return;
+
+				setOff(true);
 			}
 		}
 	};
