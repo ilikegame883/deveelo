@@ -52,8 +52,14 @@ const userResolvers = {
             }
             return user;
         },
-        randomUsers: async (_parent, { count }, _context) => {
-            const users = await sampleUsers_1.getRandomUsers(count);
+        randomUsers: async (_parent, { count }, { payload }) => {
+            let users;
+            if (payload) {
+                users = await sampleUsers_1.getRandomUsersBut(count, payload.id);
+            }
+            else {
+                users = await sampleUsers_1.getRandomUsers(count);
+            }
             if (!users) {
                 throw new Error("Error sampling users");
             }
