@@ -89,6 +89,9 @@ const userResolvers = {
     Mutation: {
         follow: async (_parent, { id }, context) => {
             const myID = context.payload.id;
+            if (id === myID) {
+                throw new Error("You cannot follow yourself...");
+            }
             try {
                 await User_1.default.findByIdAndUpdate(new mongodb_1.ObjectID(myID), { $addToSet: { "profile.followingIds": id } }, { useFindAndModify: false });
                 await User_1.default.findByIdAndUpdate(new mongodb_1.ObjectID(id), { $addToSet: { "profile.followerIds": myID } }, { useFindAndModify: false });
@@ -102,6 +105,9 @@ const userResolvers = {
         },
         unfollow: async (_parent, { id }, context) => {
             const myID = context.payload.id;
+            if (id === myID) {
+                throw new Error("You cannot unfollow yourself...");
+            }
             try {
                 await User_1.default.findByIdAndUpdate(new mongodb_1.ObjectID(myID), { $pull: { "profile.followingIds": id } }, { useFindAndModify: false });
                 await User_1.default.findByIdAndUpdate(new mongodb_1.ObjectID(id), { $pull: { "profile.followerIds": myID } }, { useFindAndModify: false });

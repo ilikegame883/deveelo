@@ -106,6 +106,10 @@ const userResolvers = {
 		follow: async (_parent: any, { id }: { id: string }, context: Context) => {
 			const myID = context.payload!.id;
 
+			if (id === myID) {
+				throw new Error("You cannot follow yourself...");
+			}
+
 			try {
 				//add them to our following list
 				await User.findByIdAndUpdate(new ObjectID(myID), { $addToSet: { "profile.followingIds": id } }, { useFindAndModify: false });
@@ -122,6 +126,10 @@ const userResolvers = {
 		},
 		unfollow: async (_parent: any, { id }: { id: string }, context: Context) => {
 			const myID = context.payload!.id;
+
+			if (id === myID) {
+				throw new Error("You cannot unfollow yourself...");
+			}
 
 			try {
 				//remove them from our following list
