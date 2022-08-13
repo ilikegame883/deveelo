@@ -86,7 +86,7 @@ const UserCard = ({ key, id, account, profile, status, following, followers }: U
 					action={{
 						function: () => handleFollow(id),
 						options: {
-							disableAfter: true,
+							disableAfter: loggedIn,
 						},
 					}}
 				/>
