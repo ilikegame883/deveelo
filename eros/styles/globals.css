@@ -11,6 +11,9 @@
   --searchbarGray: #EDF1F8; /* navbar */
   --searchGray: #F8FAFC; /* background of searchbar */
 
+  /* theme colors */
+  --midtone: #FFC14A;
+
   /*status indicators*/
   --online: #2ED9A6;
   --idle: #FFB129;
