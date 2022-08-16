@@ -1,22 +1,26 @@
-import React from "react";
+import router from "next/router";
+import React, { useState } from "react";
 
 interface IB_Props {
 	src: string;
+	activesrc?: string;
 	//top-bottom & left-right padding
 	width: string;
 	height: string;
 	paddingTB?: number;
 	paddingLR?: number;
-	preset?: string;
 	action?: {
-		function: any;
+		activeAction: any;
+		inactiveAction: any;
 		options?: {
-			toggleIcon: boolean;
+			toggleActive?: boolean;
 		};
 	};
+	startActive?: boolean;
 }
 
-const IconButton = ({ src, width, height, paddingTB, paddingLR, preset, action }: IB_Props) => {
+const IconButton = ({ src, activesrc, width, height, paddingTB, paddingLR, action, startActive }: IB_Props) => {
+	const [active, setActive] = useState(startActive);
 	const tb = paddingTB ? paddingTB : 0;
 	const lr = paddingLR ? paddingLR : 0;
 
@@ -26,9 +30,30 @@ const IconButton = ({ src, width, height, paddingTB, paddingLR, preset, action }
 		padding: `${tb}em ${lr}em`,
 	});
 
+	const currentAction = active ? action.activeAction : action.inactiveAction;
+
+	const handlePress = () => {
+		//if the type is submit, it already has a form specific action
+		if (action !== null && action !== undefined) {
+			//get the type of the input, and decide what to do with it
+			const type = typeof currentAction;
+			if (type === "string") {
+				//string actions are assumed to be path to another page
+				router.push(currentAction);
+			} else {
+				//we assume it is a function, so run it
+				currentAction();
+				if (!action.options) return;
+				if (!action.options.toggleActive) return;
+
+				setActive(true);
+			}
+		}
+	};
+
 	return (
 		<button className="simpleButton">
-			<img style={buttonStyle()} src={src}></img>
+			<img style={buttonStyle()} src={active ? activesrc : src}></img>
 		</button>
 	);
 };
