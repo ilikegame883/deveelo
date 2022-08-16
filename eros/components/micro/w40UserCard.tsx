@@ -16,9 +16,11 @@ interface CardProps {
 	account: SearchAccountType;
 	profile: SearchProfileType;
 	status: "online" | "idle" | "dnd" | "offline";
+	following: string[];
+	followers: string[];
 }
 
-const W40UserCard = ({ key, myId, userId, account, profile, status }: CardProps) => {
+const W40UserCard = ({ key, myId, userId, account, profile, status, following, followers }: CardProps) => {
 	const [followUser] = useFollowMutation({ refetchQueries: [{ query: MyFollowingDocument }] });
 	const [unfollowUser] = useUnfollowMutation({ refetchQueries: [{ query: MyFollowingDocument }] });
 
@@ -75,6 +77,11 @@ const W40UserCard = ({ key, myId, userId, account, profile, status }: CardProps)
 		return;
 	};
 
+	//check if we follow this person
+	const alreadyFollow = loggedIn ? following.includes(userId) : false;
+
+	const followsYou = loggedIn ? followers.includes(userId) : false;
+
 	return (
 		<div className={w40styles.cardwrapper}>
 			<div className="fitfillcenter">
@@ -95,7 +102,7 @@ const W40UserCard = ({ key, myId, userId, account, profile, status }: CardProps)
 							height="2rem"
 							paddingLR={0.375}
 							paddingTB={0.375}
-							startActive={false}
+							startActive={alreadyFollow}
 							action={{
 								activeAction: () => handleUnfollow(userId),
 								inactiveAction: () => handleFollow(userId),
