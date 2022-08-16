@@ -32,7 +32,7 @@ const W40UserCard = ({ key, account, profile, status }: CardProps) => {
 					</div>
 				</div>
 				<div className="fillfillcenterright">
-					<IconButton src="/resources/followbell.svg" width="2rem" height="2rem" paddingLR={0.375} paddingTB={0.375} />
+					<IconButton src="/resources/followbell.svg" activesrc="/resources/onbell.svg" width="2rem" height="2rem" paddingLR={0.375} paddingTB={0.375} />
 				</div>
 			</div>
 		</div>
