@@ -1,6 +1,7 @@
-import widgetStyles from "../../styles/minor/widget.module.css";
 import IconHeader from "./IconHeader";
 import UserCard from "./UserCard";
+import widgetStyles from "../../styles/minor/widget.module.css";
+
 import { useSampleUsersQuery, useMyFollowingQuery, useFollowMutation, MyFollowingDocument } from "../../hooks/backend/generated/graphql";
 import { SearchUserIdType } from "../../lib/userTypes";
 import { sortByStatus } from "../../hooks/sortUsers";

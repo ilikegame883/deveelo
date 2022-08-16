@@ -8,9 +8,15 @@ interface IB_Props {
 	paddingTB?: number;
 	paddingLR?: number;
 	preset?: string;
+	action?: {
+		function: any;
+		options?: {
+			toggleIcon: boolean;
+		};
+	};
 }
 
-const IconButton = ({ src, width, height, paddingTB, paddingLR, preset }: IB_Props) => {
+const IconButton = ({ src, width, height, paddingTB, paddingLR, preset, action }: IB_Props) => {
 	const tb = paddingTB ? paddingTB : 0;
 	const lr = paddingLR ? paddingLR : 0;
 
