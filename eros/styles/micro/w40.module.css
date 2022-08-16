@@ -31,3 +31,10 @@
 .linkgroup {
 
 }
+
+.buttonContainer {
+    height: 100%;
+    width: fit-content;
+
+    flex-shrink: 0;
+}
