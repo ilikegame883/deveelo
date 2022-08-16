@@ -59,14 +59,14 @@ const IconButton = ({ src, activesrc, width, height, paddingTB, paddingLR, actio
 				if (!action.options) return;
 				if (!action.options.toggleActive) return;
 
-				setActive(true);
+				setActive(!active);
 			}
 		}
 	};
 
 	return (
-		<button className={useRed ? buttonStyles.simpleWarn : buttonStyles.simpleButton} type={submit ? "submit" : undefined} onClick={() => handlePress()}>
-			<img style={buttonStyle()} className={useRed ? buttonStyles.warnColor : undefined} src={active ? activesrc : src} />
+		<button className={useRed && active ? buttonStyles.simpleWarn : buttonStyles.simpleButton} type={submit ? "submit" : undefined} onClick={() => handlePress()}>
+			<img style={buttonStyle()} className={useRed && active ? buttonStyles.warnColor : undefined} src={active ? activesrc : src} />
 		</button>
 	);
 };
