@@ -1,6 +1,8 @@
+import W40UserCard from "../micro/w40UserCard";
+
 import { useFindCardUsersByIdsQuery } from "../../hooks/backend/generated/graphql";
 import { SearchUserIdType } from "../../lib/userTypes";
-import W40UserCard from "../micro/w40UserCard";
+import { getPayload } from "../../accessToken";
 
 interface CardListProps {
 	size: "w40";
@@ -9,6 +11,10 @@ interface CardListProps {
 const CardList = ({ size, list }: CardListProps) => {
 	let content: any;
 	let userList: SearchUserIdType[] = [];
+
+	//my data (used to hide follow button on our own card)
+	//if not .tag, payload will be null
+	const payload: any = getPayload();
 
 	//fetch follow/friend user data to display
 	const { data, loading, error } = useFindCardUsersByIdsQuery({ variables: { idList: list } });
@@ -28,7 +34,7 @@ const CardList = ({ size, list }: CardListProps) => {
 			content = (
 				<>
 					{userList.map((user) => (
-						<W40UserCard key={userList.indexOf(user).toString()} account={user.account} profile={user.profile} status={user.status} />
+						<W40UserCard key={userList.indexOf(user).toString()} myId={payload?.id} userId={user._id} account={user.account} profile={user.profile} status={user.status} />
 					))}
 				</>
 			);
