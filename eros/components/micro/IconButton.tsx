@@ -17,7 +17,7 @@ interface IB_Props {
 		};
 	};
 	startActive?: boolean;
-	submit?;
+	submit?: boolean;
 }
 
 const IconButton = ({ src, activesrc, width, height, paddingTB, paddingLR, action, startActive, submit }: IB_Props) => {
