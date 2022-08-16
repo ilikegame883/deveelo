@@ -8,6 +8,7 @@ import { MyFollowingDocument, useFollowMutation, useUnfollowMutation } from "../
 import { updateSidebar } from "../../hooks/socialhooks";
 import { SearchAccountType, SearchProfileType } from "../../lib/userTypes";
 import { isLoggedIn } from "../../hooks/userChecks";
+import CardDetailText from "./CardDetailText";
 
 interface CardProps {
 	key: string;
@@ -90,6 +91,7 @@ const W40UserCard = ({ key, myId, userId, account, profile, status, following, f
 						<ProfilePicture size="w32" source={profile.pictureUrl} status={status} />
 						<div className={w40styles.nameWrapper}>
 							<NameGroup username={account.username} size={4} badges={profile.badges} disableSpacer={true} showBadges={true} outline={true} />
+							{followsYou && <CardDetailText text="Follows you" larger={true} />}
 						</div>
 					</div>
 				</div>

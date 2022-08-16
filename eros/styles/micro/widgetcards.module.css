@@ -61,3 +61,19 @@
 
     margin: 0;
 }
+
+.detailLarge {
+    width: fit-content;
+    height: 0.9375em;
+
+    color: #7D8CA9;
+    font-weight: 400;
+    font-size: 0.85em;
+    line-height: 0.9375em;
+    display: flex;
+    align-items: center;
+    letter-spacing: -0.02em;
+    white-space: nowrap;
+
+    margin: 0;
+}
