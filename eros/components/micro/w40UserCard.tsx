@@ -36,7 +36,16 @@ const W40UserCard = ({ key, account, profile, status }: CardProps) => {
 					</div>
 				</div>
 				<div className={w40styles.buttonContainer}>
-					<IconButton src="/resources/followbell.svg" activesrc="/resources/onbell.svg" width="2rem" height="2rem" paddingLR={0.375} paddingTB={0.375} />
+					<IconButton
+						src="/resources/followbell.svg"
+						activesrc="/resources/onbell.svg"
+						width="2rem"
+						height="2rem"
+						paddingLR={0.375}
+						paddingTB={0.375}
+						startActive={true}
+						action={{ activeAction: () => console.log("active action press"), inactiveAction: () => console.log("inactive"), options: { dangerous: true, toggleActive: true } }}
+					/>
 				</div>
 			</div>
 		</div>

@@ -1,5 +1,6 @@
 import router from "next/router";
 import React, { useState } from "react";
+import buttonStyles from "../../styles/micro/iconbutton.module.css";
 
 interface IB_Props {
 	src: string;
@@ -14,6 +15,7 @@ interface IB_Props {
 		inactiveAction: any;
 		options?: {
 			toggleActive?: boolean;
+			dangerous?: boolean;
 		};
 	};
 	startActive?: boolean;
@@ -22,8 +24,18 @@ interface IB_Props {
 
 const IconButton = ({ src, activesrc, width, height, paddingTB, paddingLR, action, startActive, submit }: IB_Props) => {
 	const [active, setActive] = useState(startActive);
+
 	const tb = paddingTB ? paddingTB : 0;
 	const lr = paddingLR ? paddingLR : 0;
+	let useRed: boolean;
+
+	if (action) {
+		if (action.options) {
+			if (action.options.dangerous !== undefined) {
+				useRed = action.options.dangerous;
+			}
+		}
+	}
 
 	const buttonStyle = () => ({
 		width: width,
@@ -31,7 +43,7 @@ const IconButton = ({ src, activesrc, width, height, paddingTB, paddingLR, actio
 		padding: `${tb}em ${lr}em`,
 	});
 
-	const currentAction = active ? action.activeAction : action.inactiveAction;
+	const currentAction = active ? action?.activeAction : action?.inactiveAction;
 
 	const handlePress = () => {
 		//if the type is submit, it already has a form specific action
@@ -53,8 +65,8 @@ const IconButton = ({ src, activesrc, width, height, paddingTB, paddingLR, actio
 	};
 
 	return (
-		<button className="simpleButton" type={submit ? "submit" : undefined}>
-			<img style={buttonStyle()} src={active ? activesrc : src}></img>
+		<button className={useRed ? buttonStyles.simpleWarn : buttonStyles.simpleButton} type={submit ? "submit" : undefined} onClick={() => handlePress()}>
+			<img style={buttonStyle()} className={useRed ? buttonStyles.warnColor : undefined} src={active ? activesrc : src} />
 		</button>
 	);
 };
