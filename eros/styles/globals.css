@@ -179,33 +179,6 @@ button {
   width: 100%;
 }
 
-/* SIMPLE BUTTON */
-
-.simpleButton {
-  height: fit-content;
-  width: fit-content;
-  background-color: transparent;
-  padding: 0;
-  margin: 0;
-}
-
-.simpleButton::before {
-  content: "";
-  position: absolute;
-  height: 150%;
-  width: 150%;
-  background-color: rgba(4, 18, 51, 0);
-  border-radius: 50%;
-  transition: .25s ease-in-out;
-}
-
-.simpleButton:hover::before {
-  height: 100%;
-  width: 100%;
-  border-radius: 20%;
-  background-color: rgba(0, 23, 78, 0.082);;
-}
-
 /* Text Standards */
 .textFade {
   width: inherit;
