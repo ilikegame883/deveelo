@@ -44,18 +44,12 @@ const UserCard = ({ key, id, account, profile, status, following, followers }: U
 				},
 			});
 
-			if (response && response.data) {
-				//check if the operation went through w/o errors
-				if (response.data.follow.success) {
-					//when user clicks the follow button, increase
-					//the follower number of the current user bc it
-					//will not realize the new follow until next reload
-					//updateSidebar("newfollow");
-					console.log("success");
-
-					return;
-				}
-			}
+			// if (response && response.data) {
+			// 	//check if the operation went through w/o errors
+			// 	if (response.data.follow.success) {
+			// 		//not needed in this instance
+			// 	}
+			// }
 		} catch (error) {
 			console.log(error);
 		}
