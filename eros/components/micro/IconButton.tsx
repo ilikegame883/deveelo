@@ -17,9 +17,10 @@ interface IB_Props {
 		};
 	};
 	startActive?: boolean;
+	submit?;
 }
 
-const IconButton = ({ src, activesrc, width, height, paddingTB, paddingLR, action, startActive }: IB_Props) => {
+const IconButton = ({ src, activesrc, width, height, paddingTB, paddingLR, action, startActive, submit }: IB_Props) => {
 	const [active, setActive] = useState(startActive);
 	const tb = paddingTB ? paddingTB : 0;
 	const lr = paddingLR ? paddingLR : 0;
@@ -34,7 +35,7 @@ const IconButton = ({ src, activesrc, width, height, paddingTB, paddingLR, actio
 
 	const handlePress = () => {
 		//if the type is submit, it already has a form specific action
-		if (action !== null && action !== undefined) {
+		if (action !== null && action !== undefined && !submit) {
 			//get the type of the input, and decide what to do with it
 			const type = typeof currentAction;
 			if (type === "string") {
@@ -52,7 +53,7 @@ const IconButton = ({ src, activesrc, width, height, paddingTB, paddingLR, actio
 	};
 
 	return (
-		<button className="simpleButton">
+		<button className="simpleButton" type={submit ? "submit" : undefined}>
 			<img style={buttonStyle()} src={active ? activesrc : src}></img>
 		</button>
 	);
