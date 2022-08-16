@@ -4,6 +4,7 @@ import ProfilePicture from "./ProfilePicture";
 import w40styles from "../../styles/micro/w40.module.css";
 import cardStyles from "../../styles/micro/widgetcards.module.css";
 
+import { MyFollowingDocument, useFollowMutation, useUnfollowMutation } from "../../hooks/backend/generated/graphql";
 import { updateSidebar } from "../../hooks/socialhooks";
 import { SearchAccountType, SearchProfileType } from "../../lib/userTypes";
 import { isLoggedIn } from "../../hooks/userChecks";
@@ -18,6 +19,9 @@ interface CardProps {
 }
 
 const W40UserCard = ({ key, myId, userId, account, profile, status }: CardProps) => {
+	const [followUser] = useFollowMutation({ refetchQueries: [{ query: MyFollowingDocument }] });
+	const [unfollowUser] = useUnfollowMutation({ refetchQueries: [{ query: MyFollowingDocument }] });
+
 	const loggedIn = isLoggedIn();
 
 	const changeSidebar = (tag: string) => {
@@ -28,6 +32,47 @@ const W40UserCard = ({ key, myId, userId, account, profile, status }: CardProps)
 		storage.setItem("side_prof", tag);
 
 		updateSidebar(tag);
+	};
+
+	const handleFollow = async (id: string) => {
+		try {
+			const response = await followUser({
+				variables: {
+					targetId: id,
+				},
+			});
+
+			// if (response && response.data) {
+			// 	//check if the operation went through w/o errors
+			// 	if (response.data.follow.success) {
+			// 		//not needed in this instance
+			// 	}
+			// }
+		} catch (error) {
+			console.log(error);
+		}
+		return;
+	};
+
+	const handleUnfollow = async (id: string) => {
+		try {
+			const response = await unfollowUser({
+				variables: {
+					targetId: id,
+				},
+			});
+
+			// if (response && response.data) {
+			// 	//check if the operation went through w/o errors
+			// 	if (response.data.unfollow.success) {
+			// 		//not needed
+			// 	}
+			// }
+		} catch (error) {
+			console.log(error);
+		}
+
+		return;
 	};
 
 	return (
@@ -52,8 +97,8 @@ const W40UserCard = ({ key, myId, userId, account, profile, status }: CardProps)
 							paddingTB={0.375}
 							startActive={false}
 							action={{
-								activeAction: () => console.log("active action press"),
-								inactiveAction: () => console.log("inactive"),
+								activeAction: () => handleUnfollow(userId),
+								inactiveAction: () => handleFollow(userId),
 								options: {
 									dangerous: true,
 									toggleActive: true,

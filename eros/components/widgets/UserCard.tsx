@@ -33,10 +33,6 @@ const UserCard = ({ key, id, account, profile, status, following, followers }: U
 	};
 
 	const handleFollow = async (id: string) => {
-		//when user clicks the follow button, increase the
-		//follower number of the current user bc it will
-		//not realize the new follow until next page reload
-
 		try {
 			const response = await followUser({
 				variables: {
