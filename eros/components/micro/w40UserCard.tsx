@@ -6,6 +6,7 @@ import cardStyles from "../../styles/micro/widgetcards.module.css";
 
 import { updateSidebar } from "../../hooks/socialhooks";
 import { SearchAccountType, SearchProfileType } from "../../lib/userTypes";
+import { isLoggedIn } from "../../hooks/userChecks";
 
 interface CardProps {
 	key: string;
@@ -15,6 +16,8 @@ interface CardProps {
 }
 
 const W40UserCard = ({ key, account, profile, status }: CardProps) => {
+	const loggedIn = isLoggedIn();
+
 	const changeSidebar = (tag: string) => {
 		if (!tag) {
 			return;
@@ -24,6 +27,7 @@ const W40UserCard = ({ key, account, profile, status }: CardProps) => {
 
 		updateSidebar(tag);
 	};
+
 	return (
 		<div className={w40styles.cardwrapper}>
 			<div className="fitfillcenter">
@@ -44,7 +48,15 @@ const W40UserCard = ({ key, account, profile, status }: CardProps) => {
 						paddingLR={0.375}
 						paddingTB={0.375}
 						startActive={false}
-						action={{ activeAction: () => console.log("active action press"), inactiveAction: () => console.log("inactive"), options: { dangerous: true, toggleActive: true } }}
+						action={{
+							activeAction: () => console.log("active action press"),
+							inactiveAction: () => console.log("inactive"),
+							options: {
+								dangerous: true,
+								toggleActive: true,
+							},
+						}}
+						disabled={!loggedIn}
 					/>
 				</div>
 			</div>

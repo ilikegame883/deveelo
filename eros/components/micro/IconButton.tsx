@@ -20,13 +20,29 @@ interface IB_Props {
 	};
 	startActive?: boolean;
 	submit?: boolean;
+	disabled?: boolean;
 }
 
-const IconButton = ({ src, activesrc, width, height, paddingTB, paddingLR, action, startActive, submit }: IB_Props) => {
-	const [active, setActive] = useState(startActive);
-
+const IconButton = ({ src, activesrc, width, height, paddingTB, paddingLR, action, startActive, submit, disabled }: IB_Props) => {
 	const tb = paddingTB ? paddingTB : 0;
 	const lr = paddingLR ? paddingLR : 0;
+
+	const buttonStyle = () => ({
+		width: width,
+		height: height,
+		padding: `${tb}em ${lr}em`,
+	});
+
+	// we are not logged in
+	if (disabled) {
+		return (
+			<button className={buttonStyles.simpleButton}>
+				<img style={buttonStyle()} src={src} />
+			</button>
+		);
+	}
+
+	const [active, setActive] = useState(startActive);
 	let useRed: boolean;
 
 	if (action) {
@@ -36,12 +52,6 @@ const IconButton = ({ src, activesrc, width, height, paddingTB, paddingLR, actio
 			}
 		}
 	}
-
-	const buttonStyle = () => ({
-		width: width,
-		height: height,
-		padding: `${tb}em ${lr}em`,
-	});
 
 	const currentAction = active ? action?.activeAction : action?.inactiveAction;
 
