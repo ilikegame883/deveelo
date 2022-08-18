@@ -12,7 +12,9 @@ const SubnavButton = ({ key, src, path, color }: SNB_Props) => {
 	const router = useRouter();
 
 	//use color for this button if its click path matches the current (we are on its page)
-	const active = router.pathname.substring(0, 4) === path.substring(0, 4);
+	const validUrls = ["/", "/devlogs", "/groups", "/home"];
+	const active = router.pathname.substring(0, 4) === path.substring(0, 4) && validUrls.includes(router.pathname.substring(0, path.length));
+	// if (validUrls.includes(router.pathname.substring(0, path.length)))
 
 	const iconStyle = () => ({
 		width: "100%",
