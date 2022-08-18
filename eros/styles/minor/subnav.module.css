@@ -5,8 +5,7 @@
     height: 9.656em;
     padding: 0 23.344em 2.156em 30.9375em;
 
-    background-color: rgba(130, 238, 168, 0.342);
-    /* background: linear-gradient(180deg, #F9F9F9 9.69%, rgba(249, 249, 249, 0) 100%); */
+    background: linear-gradient(180deg, #F9F9F9 9.69%, rgba(249, 249, 249, 0) 100%);
     display: flex;
     flex-direction: row;
     justify-content: center;
