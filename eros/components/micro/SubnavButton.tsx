@@ -6,21 +6,18 @@ interface SNB_Props {
 	src: string;
 	path: string;
 	color: string; //when active
-	width: string;
-	height: string;
-	padding: number;
 }
 
-const SubnavButton = ({ key, src, path, color, width, height, padding }: SNB_Props) => {
+const SubnavButton = ({ key, src, path, color }: SNB_Props) => {
 	const router = useRouter();
 
 	//use color for this button if its click path matches the current (we are on its page)
 	const active = router.pathname === path;
 
 	const iconStyle = () => ({
-		width: width,
-		height: height,
-		padding: `${padding}em`,
+		width: "100%",
+		height: "100%",
+		// padding: `${padding}rem`,
 	});
 
 	return (
