@@ -13,9 +13,9 @@ interface SNB_Props {
 
 const SubnavButton = ({ key, src, path, color, width, height, padding }: SNB_Props) => {
 	const router = useRouter();
-	console.log(router.pathname);
 
-	const active = true;
+	//use color for this button if its click path matches the current (we are on its page)
+	const active = router.pathname === path;
 
 	const iconStyle = () => ({
 		width: width,
