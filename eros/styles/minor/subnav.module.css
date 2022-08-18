@@ -42,7 +42,9 @@
 
 /* BUTTONS */
 .button {
-    height: fit-content;
-    width: fit-content;
+    font-size: inherit;
+    height: 4.218em;
+    width: 4.218em;
     border-radius: 1.313em;
+    padding: 0.8em;
 }
