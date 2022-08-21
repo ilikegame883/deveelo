@@ -1,0 +1,14 @@
+.wrapper {
+    width: 100%;
+    height: fit-content;
+
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 0.469em 0px 1.406em;
+    margin-bottom: 0.9375em;
+    gap: 0.9375em;
+
+    flex: none;
+    flex-grow: 0;
+}
