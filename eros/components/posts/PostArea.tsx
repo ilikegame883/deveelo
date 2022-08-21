@@ -1,12 +1,13 @@
 import postStyles from "../../styles/posts/postarea.module.css";
 import ProfilePicture from "../micro/ProfilePicture";
 
-import { useMyNameAndPfpQuery } from "../../hooks/backend/generated/graphql";
+import { useMyPfpAndStatusQuery } from "../../hooks/backend/generated/graphql";
 import { isLoggedIn } from "../../hooks/userChecks";
 
 const PostArea = () => {
+	//extra checks even though this component is only loaded if logged in
 	const loggedIn = isLoggedIn();
-	const { data, loading, error } = loggedIn ? useMyNameAndPfpQuery() : { data: undefined, loading: undefined, error: undefined };
+	const { data, loading, error } = loggedIn ? useMyPfpAndStatusQuery() : { data: undefined, loading: undefined, error: undefined };
 
 	if ((loading && !data) || !loggedIn) {
 		return <div></div>;
@@ -19,7 +20,7 @@ const PostArea = () => {
 	const user = data.myAccount;
 	return (
 		<div className={postStyles.wrapper}>
-			<ProfilePicture size="w32" source={user.profile.pictureUrl} />
+			<ProfilePicture size="w32" source={user.profile.pictureUrl} status={user.status} />
 		</div>
 	);
 };
