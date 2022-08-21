@@ -16,6 +16,7 @@ import { getAccessToken, setAccessToken } from "../accessToken";
 import { useEffect, useState } from "react";
 import isLuna from "../hooks/isLuna";
 import SubNav from "./minor/SubNav";
+import PostArea from "./posts/PostArea";
 
 interface layoutProps {
 	children?: any;
@@ -94,6 +95,7 @@ const Layout = ({ children, route, showSidebar, showActivityBar, showNav, useWid
 					{useWide && <SideImage route={route} hardEdge={full} />}
 					<div className={useWide ? (full ? styles.containerWide_full : styles.containerWide) : styles.container}>
 						<main className={styles.main}>
+							{isLoggedIn && <PostArea />}
 							{getAccessToken() && !useWide ? (
 								<button
 									onClick={async () => {
@@ -141,6 +143,7 @@ const Layout = ({ children, route, showSidebar, showActivityBar, showNav, useWid
 
 					<div className={useWide ? (full ? styles.containerWide_full : styles.containerWide) : styles.container}>
 						<main className={styles.main}>
+							{isLoggedIn && <PostArea />}
 							{getAccessToken() && !useWide ? (
 								<button
 									onClick={async () => {
@@ -184,6 +187,8 @@ const Layout = ({ children, route, showSidebar, showActivityBar, showNav, useWid
 					{useWide && <SideImage route={route} hardEdge={full} />}
 					<div className={useWide ? (full ? styles.containerWide_full : styles.containerWide) : styles.container}>
 						<main className={styles.main}>
+							{isLoggedIn && <PostArea />}
+
 							{getAccessToken() && !useWide ? (
 								<button
 									onClick={async () => {
