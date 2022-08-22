@@ -10,7 +10,10 @@ const PostArea = () => {
 	//state management
 	const [postText, setPostText] = useState("");
 
+	//automatically expand the size of the text area upon new lines
+	//instead of wrapping & hiding old lines
 	useEffect(() => {
+		//fetch the text area by id
 		const textarea = document.querySelector("#postarea");
 		textarea?.addEventListener("input", autoResize, false);
 
@@ -20,7 +23,9 @@ const PostArea = () => {
 		}
 
 		return () => {
-			// second
+			//remove the event lisner on unmound
+			const textarea = document.querySelector("#postarea");
+			textarea.removeEventListener("input", autoResize, false);
 		};
 	}, [postText]);
 
