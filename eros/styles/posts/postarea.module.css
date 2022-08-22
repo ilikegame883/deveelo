@@ -28,6 +28,7 @@
 
 .textbox {
     height: fit-content;
+    min-height: 3em;
     width: 31.031em;
     
     display: flex;
@@ -40,9 +41,7 @@
 }
 
 .input {
-    min-height: 3em;
     height: fit-content;
-    overflow: visible;
     width: 100%;
 
     color: #7D8CA9;

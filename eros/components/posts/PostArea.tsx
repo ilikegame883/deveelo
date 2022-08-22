@@ -25,13 +25,12 @@ const PostArea = () => {
 		return () => {
 			//remove the event lisner on unmound
 			const textarea = document.querySelector("#postarea");
-			textarea.removeEventListener("input", autoResize, false);
+			textarea?.removeEventListener("input", autoResize, false);
 		};
 	}, [postText]);
 
-	//extra checks even though this component is only loaded if logged in
+	const { data, loading, error } = useMyPfpAndStatusQuery();
 	const loggedIn = isLoggedIn();
-	const { data, loading, error } = loggedIn ? useMyPfpAndStatusQuery() : { data: undefined, loading: undefined, error: undefined };
 
 	if ((loading && !data) || !loggedIn) {
 		return <div></div>;
