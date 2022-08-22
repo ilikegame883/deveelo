@@ -7,8 +7,34 @@
     align-items: flex-start;
     padding: 0.469em 0px 1.406em;
     margin-bottom: 0.9375em;
+
+    flex: none;
+    flex-grow: 0;
+}
+
+.form {
+    width: 100%;
+    height: 3em;
+
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    margin-left: 0.9375em;
     gap: 0.9375em;
 
     flex: none;
     flex-grow: 0;
+}
+
+.textbox {
+    height: inherit;
+    width: 31.031em;
+    
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0px 0.75em 0px 1.3125em;
+
+    border: 0.09375em solid #D7E0EF;
+    border-radius:1.781em;
 }

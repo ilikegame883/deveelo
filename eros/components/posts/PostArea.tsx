@@ -21,6 +21,9 @@ const PostArea = () => {
 	return (
 		<div className={postStyles.wrapper}>
 			<ProfilePicture size="w32" source={user.profile.pictureUrl} status={user.status} />
+			<form className={postStyles.form} action="">
+				<div className={postStyles.textbox}></div>
+			</form>
 		</div>
 	);
 };
