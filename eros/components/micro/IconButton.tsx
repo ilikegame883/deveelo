@@ -19,11 +19,12 @@ interface IB_Props {
 		};
 	};
 	startActive?: boolean;
+	hoverFxOff?: boolean;
 	submit?: boolean;
 	disabled?: boolean;
 }
 
-const IconButton = ({ src, activesrc, width, height, paddingTB, paddingLR, action, startActive, submit, disabled }: IB_Props) => {
+const IconButton = ({ src, activesrc, width, height, paddingTB, paddingLR, action, startActive, submit, disabled, hoverFxOff }: IB_Props) => {
 	const tb = paddingTB ? paddingTB : 0;
 	const lr = paddingLR ? paddingLR : 0;
 
@@ -33,10 +34,12 @@ const IconButton = ({ src, activesrc, width, height, paddingTB, paddingLR, actio
 		padding: `${tb}em ${lr}em`,
 	});
 
+	const regularStyle = hoverFxOff ? buttonStyles.hoverlessButton : buttonStyles.simpleButton;
+
 	// we are not logged in
 	if (disabled) {
 		return (
-			<button className={buttonStyles.simpleButton}>
+			<button className={regularStyle}>
 				<img style={buttonStyle()} src={src} />
 			</button>
 		);
@@ -75,7 +78,7 @@ const IconButton = ({ src, activesrc, width, height, paddingTB, paddingLR, actio
 	};
 
 	return (
-		<button className={useRed && active ? buttonStyles.simpleWarn : buttonStyles.simpleButton} type={submit ? "submit" : undefined} onClick={() => handlePress()}>
+		<button className={useRed && active ? buttonStyles.simpleWarn : regularStyle} type={submit ? "submit" : undefined} onClick={() => handlePress()}>
 			<img style={buttonStyle()} className={useRed && active ? buttonStyles.warnColor : undefined} src={active ? activesrc : src} />
 		</button>
 	);
