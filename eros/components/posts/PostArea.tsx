@@ -19,7 +19,7 @@ const PostArea = () => {
 
 		function autoResize() {
 			this.style.height = "auto";
-			this.style.height = this.scrollHeight + "px";
+			this.style.height = this.scrollHeight - 5 + "px";
 		}
 
 		return () => {
@@ -32,7 +32,7 @@ const PostArea = () => {
 	const { data, loading, error } = useMyPfpAndStatusQuery();
 	const loggedIn = isLoggedIn();
 
-	if ((loading && !data) || !loggedIn) {
+	if ((loading && !data) || !loggedIn || !data.myAccount) {
 		return <div></div>;
 	}
 	if (error) {
@@ -41,6 +41,11 @@ const PostArea = () => {
 	}
 
 	const user = data.myAccount;
+	if (!user) {
+		console.log("user pfp not retrieved for post area");
+
+		return <div></div>;
+	}
 
 	return (
 		<div className={postStyles.wrapper}>

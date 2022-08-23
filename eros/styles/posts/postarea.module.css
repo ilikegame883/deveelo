@@ -34,14 +34,14 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    padding: 0px 0.75em 0px 1.3125em;
+    padding: 0.5em 0.75em 0.5em 1.3125em;
 
     border: 0.09375em solid #D7E0EF;
     border-radius:1.781em;
 }
 
 .input {
-    height: fit-content;
+    height: 2.1em;
     width: 100%;
 
     color: #7D8CA9;
@@ -50,6 +50,8 @@
     font-weight: 400;
     font-size: 0.844em;
     line-height: 1.125em;
+
+    /* padding-top: 0.9375em; */
 
     display: flex;
     align-items: center;
