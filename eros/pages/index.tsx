@@ -1,5 +1,6 @@
 import Meta from "../components/micro/Meta";
 import PostArea from "../components/posts/PostArea";
+import { isLoggedIn } from "../hooks/userChecks";
 
 let notifEmojis = new Map<string, string>([
 	["gift", "🎁"],
@@ -10,6 +11,7 @@ let notifEmojis = new Map<string, string>([
 ]);
 
 export default function Home() {
+	const loggedIn = isLoggedIn();
 	const notifs: string[] = [];
 
 	const title = notifs.length > 0 ? `Deveelo | ${notifEmojis.get(notifs[0]) + notifs.length}` : "Deveelo - The Social Platform for Gamedevs";
@@ -23,7 +25,7 @@ export default function Home() {
 				showBanner={true}
 				color="#f54278"
 			/>
-			<PostArea />
+			{loggedIn && <PostArea />}
 		</>
 	);
 }
