@@ -4,11 +4,12 @@ import ProfilePicture from "../micro/ProfilePicture";
 import { useMyPfpAndStatusQuery } from "../../hooks/backend/generated/graphql";
 import { isLoggedIn } from "../../hooks/userChecks";
 import IconButton from "../micro/IconButton";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const PostArea = () => {
 	//state management
 	const [postText, setPostText] = useState("");
+	const textInput = useRef<HTMLTextAreaElement>();
 
 	//automatically expand the size of the text area upon new lines
 	//instead of wrapping & hiding old lines
@@ -47,12 +48,20 @@ const PostArea = () => {
 		return <div></div>;
 	}
 
+	const selectInput = () => {
+		if (textInput && textInput.current) {
+			console.log("click");
+
+			textInput.current.focus();
+		}
+	};
+
 	return (
 		<div className={postStyles.wrapper}>
 			<ProfilePicture size="w32" source={user.profile.pictureUrl} status={user.status} />
 			<form className={postStyles.form} action="">
-				<div className={postStyles.textbox}>
-					<textarea name="post" id="postarea" className={postStyles.input} placeholder="What have you been working on?" onChange={(e) => setPostText(e.target.value)} />
+				<div className={postStyles.textbox} onClick={selectInput}>
+					<textarea name="post" id="postarea" className={postStyles.input} ref={textInput} placeholder="What have you been working on?" onChange={(e) => setPostText(e.target.value)} />
 					{/* <input className={postStyles.input} type="text" /> */}
 					<IconButton src="/resources/post_emoji.svg" width="1.3em" height="1.3em" paddingLR={0} paddingTB={0} hoverFxOff={true} action={undefined} />
 				</div>
