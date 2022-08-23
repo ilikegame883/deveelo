@@ -34,7 +34,7 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    padding: 0.5em 0.75em 0.5em 1.3125em;
+    padding: 0em 0.75em 0em 1.3125em;
     background: transparent;
 
     border: 0.09375em solid #D7E0EF;
@@ -42,17 +42,17 @@
 }
 
 .input {
-    height: 1.5em;
+    height: 2.85em;
     width: 100%;
 
-    color: #7D8CA9;
+    color: var(--textNormalCol);
     font-family: 'DM Sans';
     font-style: normal;
     font-weight: 400;
     font-size: 0.844em;
     line-height: 1.125em;
 
-    /* padding-top: 0.9375em; */
+    padding-top: .9em;
 
     display: flex;
     align-items: center;
@@ -60,5 +60,11 @@
     resize: none;
     outline: none;
     border: none;
-    background: rgba(0, 0, 255, 0.087);
+    background: transparent;
+    /* hide scrollbar */
+    overflow: hidden;
+}
+
+.input::placeholder {
+    color: #7D8CA9;
 }
