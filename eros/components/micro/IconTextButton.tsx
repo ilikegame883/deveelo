@@ -78,7 +78,14 @@ const IconTextButton = ({ src, text, activesrc, failsrc, gold, width, action, st
 	//override the borderstyle
 
 	return (
-		<button style={borderStyle()} className={gold ? buttonStyles.gold : regularStyle} type={submit ? "submit" : undefined} onClick={() => handlePress()}>
+		<button
+			style={borderStyle()}
+			className={gold ? buttonStyles.gold : regularStyle}
+			type={submit ? "submit" : undefined}
+			onClick={(e) => {
+				e.preventDefault();
+				handlePress();
+			}}>
 			<img style={buttonStyle()} src={icon} />
 			<p className={buttonStyles.text}>{text}</p>
 		</button>
