@@ -70,13 +70,14 @@ const PostArea = () => {
 						src="/resources/ITB/add.svg"
 						activesrc="/resources/ITB/success.svg"
 						failsrc="/resources/ITB/fail.svg"
-						width="1.125em"
+						width="1rem"
 						action={{
 							activeAction: () => console.log("trigger upload"),
 							inactiveAction: () => console.log("trigger reupload"),
 							options: { toggleActive: true },
 						}}
 					/>
+					<div style={{ width: "80px" }}></div>
 				</div>
 			</form>
 		</div>
