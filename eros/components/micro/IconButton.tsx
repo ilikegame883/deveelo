@@ -1,5 +1,5 @@
 import router from "next/router";
-import React, { useState } from "react";
+import { useState } from "react";
 import buttonStyles from "../../styles/micro/iconbutton.module.css";
 
 interface IB_Props {
