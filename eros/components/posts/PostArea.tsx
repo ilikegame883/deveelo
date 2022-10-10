@@ -5,6 +5,7 @@ import { useMyPfpAndStatusQuery } from "../../hooks/backend/generated/graphql";
 import { isLoggedIn } from "../../hooks/userChecks";
 import IconButton from "../micro/IconButton";
 import { useEffect, useRef, useState } from "react";
+import IconTextButton from "../micro/IconTextButton";
 
 const PostArea = () => {
 	//state management
@@ -50,8 +51,6 @@ const PostArea = () => {
 
 	const selectInput = () => {
 		if (textInput && textInput.current) {
-			console.log("click");
-
 			textInput.current.focus();
 		}
 	};
@@ -64,6 +63,20 @@ const PostArea = () => {
 					<textarea name="post" id="postarea" className={postStyles.input} ref={textInput} placeholder="What have you been working on?" onChange={(e) => setPostText(e.target.value)} />
 					{/* <input className={postStyles.input} type="text" /> */}
 					<IconButton src="/resources/post_emoji.svg" width="1.3em" height="1.3em" paddingLR={0} paddingTB={0} hoverFxOff={true} action={undefined} />
+				</div>
+				<div className={postStyles.buttonWrapper}>
+					<IconTextButton
+						text="Photo / Video"
+						src="/resources/ITB/add.svg"
+						activesrc="/resources/ITB/success.svg"
+						failsrc="/resources/ITB/fail.svg"
+						width="1.125em"
+						action={{
+							activeAction: () => console.log("trigger upload"),
+							inactiveAction: () => console.log("trigger reupload"),
+							options: { toggleActive: true },
+						}}
+					/>
 				</div>
 			</form>
 		</div>
