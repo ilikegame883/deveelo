@@ -55,6 +55,8 @@ export const FileSelectArea = ({ type, text, maxSize }: FileAreaInput) => {
 				}
 
 				//remember, the filename is: <payload.id>.webp
+				//therefore it does not change on upload after
+				//the first time which is default to custom
 				const saveName = data.singleUpload.file.filename;
 
 				store.writeQuery<MyNameAndPfpQuery>({
@@ -128,7 +130,7 @@ export const FileSelectArea = ({ type, text, maxSize }: FileAreaInput) => {
 						setNewFile(file);
 						setError("");
 					} else {
-						setError("Over the 2mb upload limit");
+						setError(`Over the ${maxSize} upload limit`);
 					}
 				}}
 			/>
