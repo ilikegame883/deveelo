@@ -5,7 +5,7 @@ import { useMyPfpAndStatusQuery } from "../../hooks/backend/generated/graphql";
 import { isLoggedIn } from "../../hooks/userChecks";
 import IconButton from "../micro/IconButton";
 import { useEffect, useRef, useState } from "react";
-import IconTextButton from "../micro/IconTextButton";
+import { UploadIconTextButton } from "../micro/IconTextButton";
 
 const PostArea = () => {
 	//state management
@@ -65,12 +65,13 @@ const PostArea = () => {
 					<IconButton src="/resources/post_emoji.svg" width="1.3em" height="1.3em" paddingLR={0} paddingTB={0} hoverFxOff={true} action={undefined} />
 				</div>
 				<div className={postStyles.buttonWrapper}>
-					<IconTextButton
+					<UploadIconTextButton
 						text="Photo / Video"
 						src="/resources/ITB/add.svg"
 						activesrc="/resources/ITB/success.svg"
 						failsrc="/resources/ITB/fail.svg"
 						width="1rem"
+						type="post"
 						action={{
 							activeAction: () => console.log("trigger upload"),
 							inactiveAction: () => console.log("trigger reupload"),
