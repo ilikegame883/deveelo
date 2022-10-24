@@ -103,6 +103,7 @@ export const UploadIconTextButton = ({ src, type, text, activesrc, failsrc, gold
 	const [newFile, setNewFile] = useState<File>();
 	const [error, setError] = useState("");
 	const isError = error !== "";
+	const active = newFile && !isError;
 
 	const [uploadSingle] = useUploadSingleMutation();
 
@@ -137,16 +138,15 @@ export const UploadIconTextButton = ({ src, type, text, activesrc, failsrc, gold
 		);
 	}
 
-	const [active, setActive] = useState(false);
+	let borderStyle = active ? successStyle : normStyle;
 
-	const borderStyle = active ? successStyle : normStyle;
-
+	//state overrides before rendering
 	const icon = active ? activesrc : src;
-	const filename = newFile && !isError ? newFile.name.split(".") : null;
-	const content = filename ? filename[0] : text;
-	const extension = filename ? filename[1] : null;
-	//override the icon to success or error ones here
-	//override the borderstyle
+	const content = active ? newFile.name : text;
+
+	if (isError) {
+		borderStyle = errorStyle;
+	}
 
 	return (
 		<button style={borderStyle()} className={gold ? buttonStyles.gold : regularStyle} type={submit ? "submit" : "button"} onClick={selectFile}>
