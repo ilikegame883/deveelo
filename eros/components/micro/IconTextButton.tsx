@@ -2,6 +2,7 @@ import { useRouter } from "next/router";
 import { useRef, useState } from "react";
 import { useUploadSingleMutation } from "../../hooks/backend/generated/graphql";
 import { checkFileSize } from "../../hooks/inputUtils";
+import { updatePostArea } from "../../hooks/socialhooks";
 import buttonStyles from "../../styles/micro/icontextbutton.module.css";
 
 interface ITB_Props {
@@ -112,6 +113,27 @@ export const UploadIconTextButton = ({ src, type, text, activesrc, failsrc, gold
 	const selectFile = () => {
 		if (fileInput && fileInput.current) {
 			fileInput.current.click();
+		}
+	};
+
+	const handleNewUpload = async () => {
+		if (!newFile || isError) {
+			return;
+		}
+
+		const response = await uploadSingle({
+			variables: {
+				file: newFile,
+				type: type,
+			},
+		});
+
+		if (response && response.data) {
+			//successfully created post, switch to share screen.
+			//also pass the name (and therefore the file path) that
+			//the image was saved at for the share preview
+			const serversideName = response.data.singleUpload.file.filename;
+			updatePostArea("afterpost", serversideName);
 		}
 	};
 
