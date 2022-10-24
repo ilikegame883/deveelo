@@ -96,7 +96,7 @@ export const IconTextButton = ({ src, text, activesrc, failsrc, gold, width, act
 };
 
 //same system but w/ file upload capabilities
-export const UploadIconTextButton = ({ src, type, text, activesrc, failsrc, gold, width, action, startActive, submit, disabled }: ITB_Props) => {
+export const UploadIconTextButton = ({ src, type, text, activesrc, failsrc, gold, width, submit, disabled }: ITB_Props) => {
 	const router = useRouter();
 
 	// UPLOAD STUFF
@@ -137,30 +137,9 @@ export const UploadIconTextButton = ({ src, type, text, activesrc, failsrc, gold
 		);
 	}
 
-	const [active, setActive] = useState(startActive);
+	const [active, setActive] = useState(false);
 
 	const borderStyle = active ? successStyle : normStyle;
-
-	const currentAction = active ? action?.activeAction : action?.inactiveAction;
-
-	const handlePress = () => {
-		//if the type is submit, it already has a form specific action
-		if (action !== null && action !== undefined && !submit) {
-			//get the type of the input, and decide what to do with it
-			const type = typeof currentAction;
-			if (type === "string") {
-				//string actions are assumed to be path to another page
-				router.push(currentAction);
-			} else {
-				//we assume it is a function, so run it
-				currentAction();
-				if (!action.options) return;
-				if (!action.options.toggleActive) return;
-
-				setActive(!active);
-			}
-		}
-	};
 
 	const icon = active ? activesrc : src;
 	//override the icon to success or error ones here
@@ -183,12 +162,12 @@ export const UploadIconTextButton = ({ src, type, text, activesrc, failsrc, gold
 						setNewFile(file);
 						setError("");
 					} else {
-						setError(`Over the ${maxSize} upload limit`);
+						setError(`Over the ${maxSize} limit`);
 					}
 				}}
 			/>
 			<img style={buttonStyle()} src={icon} />
-			<p className={buttonStyles.text}>{text}</p>
+			<p className={buttonStyles.text}>{isError ? error : text}</p>
 		</button>
 	);
 };
