@@ -8,10 +8,13 @@ import { useEffect, useRef, useState } from "react";
 import { UploadIconTextButton } from "../micro/IconTextButton";
 
 const PostArea = () => {
-	//state management
+	//STATE MANAGEMENT
 	const [postText, setPostText] = useState("");
 	const textInput = useRef<HTMLTextAreaElement>();
+	/* states for loading the share & preview area */
+	const [previewFile, setPreviewFile] = useState<string>(); //the img file name
 
+	//EVERYTHING ELSE
 	//automatically expand the size of the text area upon new lines
 	//instead of wrapping & hiding old lines
 	useEffect(() => {
@@ -30,6 +33,43 @@ const PostArea = () => {
 			textarea?.removeEventListener("input", autoResize, false);
 		};
 	}, [postText]);
+
+	//handle swtiching to share screen when recieving successful post event
+	useEffect(() => {
+		const handleUpdate = (e: CustomEvent) => {
+			//detail is packed with: type|serverfilename (see socialHooks.ts)
+			//i.e. afterpost|fue745gfaiu.webp
+			const decoded: string = e.detail.split("|");
+			const type = decoded[0];
+			const filename = decoded[1];
+
+			if (type === "afterpost") {
+				// User successfully launched a post, remove form and replace it
+				// with a preview & share options
+				setPreviewFile(filename);
+			}
+		};
+		setTimeout(() => {
+			//add event listener to the postarea which listens for
+			//events telling to swap the create post form out for a
+			//post preview alongside a couple share buttons
+			//the source of these dispatched events are socialhoots.ts
+			const postarea = document.getElementById("postarea");
+
+			if (postarea) {
+				postarea.addEventListener("updatePostArea", handleUpdate);
+			}
+		}, 1000);
+
+		return () => {
+			//remove listener on unmount
+			const postarea = document.getElementById("postarea");
+
+			if (postarea) {
+				postarea.removeEventListener("updatePostArea", handleUpdate);
+			}
+		};
+	}, []);
 
 	const { data, loading, error } = useMyPfpAndStatusQuery();
 	const loggedIn = isLoggedIn();
@@ -56,7 +96,7 @@ const PostArea = () => {
 	};
 
 	return (
-		<div className={postStyles.container}>
+		<div id="postarea" className={postStyles.container}>
 			{/* container swaps out the following: */}
 			<div className={postStyles.wrapper}>
 				<ProfilePicture size="w32" source={user.profile.pictureUrl} status={user.status} />
