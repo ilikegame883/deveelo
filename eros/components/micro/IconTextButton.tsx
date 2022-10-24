@@ -14,6 +14,7 @@ interface ITB_Props {
 	width: string;
 	//should this be a defined-width gold grad major button (i.e. post button)
 	gold?: boolean;
+	green?: boolean;
 	action?: {
 		activeAction: any;
 		inactiveAction: any;
@@ -27,7 +28,7 @@ interface ITB_Props {
 	type?: string; //necessary for the upload button, not used by regular button
 }
 
-export const IconTextButton = ({ src, text, activesrc, failsrc, gold, width, action, startActive, submit, disabled }: ITB_Props) => {
+export const IconTextButton = ({ src, text, activesrc, failsrc, gold, green, width, action, startActive, submit, disabled }: ITB_Props) => {
 	const router = useRouter();
 
 	const buttonStyle = () => ({
@@ -81,10 +82,13 @@ export const IconTextButton = ({ src, text, activesrc, failsrc, gold, width, act
 	//override the icon to success or error ones here
 	//override the borderstyle
 
+	//gold or green button?
+	const colored = gold || green;
+
 	return (
 		<button
-			style={gold ? null : borderStyle()}
-			className={gold ? buttonStyles.gold : regularStyle}
+			style={colored ? null : borderStyle()}
+			className={colored ? (gold ? buttonStyles.gold : buttonStyles.green) : regularStyle}
 			type={submit ? "submit" : undefined}
 			onClick={(e) => {
 				e.preventDefault();

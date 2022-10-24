@@ -55,11 +55,34 @@
     transition: 0.2s ease;
 }
 
+.green {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 0 1.24em 0 1.15em;
+    gap: 0.469em;
+
+    width: fit-content;
+    height: 100%;
+
+    background: linear-gradient(91.48deg, #2ED9A6 0%, #17C6A6 100%);
+    box-shadow: 0px 0.375em 1.875em rgba(23, 198, 166, 0.43);
+    border-radius: 2.156em;
+
+    flex: none;
+    flex-grow: 0;
+    transition: 0.2s ease;
+}
+
 /* hoverFX GOLD & GREEN */
 .gold::after, .gold::before {
     background: linear-gradient(91.48deg, #FFD74A 0%, #FFB129 100%);
 }
-/* insert green start */
+
+.green::after, .green::before{
+    background: linear-gradient(91.48deg, #2ED9A6 0%, #2CCD9D 100%);
+}
 
 .gold::after, .gold::before, .green::after, .green::before {
     content: "";
