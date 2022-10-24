@@ -141,10 +141,11 @@ export const UploadIconTextButton = ({ src, type, text, activesrc, failsrc, gold
 	let borderStyle = active ? successStyle : normStyle;
 
 	//state overrides before rendering
-	const icon = active ? activesrc : src;
+	let icon = active ? activesrc : src;
 	const content = active ? newFile.name : text;
 
 	if (isError) {
+		icon = failsrc;
 		borderStyle = errorStyle;
 	}
 
