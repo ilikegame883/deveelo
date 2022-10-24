@@ -142,6 +142,9 @@ export const UploadIconTextButton = ({ src, type, text, activesrc, failsrc, gold
 	const borderStyle = active ? successStyle : normStyle;
 
 	const icon = active ? activesrc : src;
+	const filename = newFile && !isError ? newFile.name.split(".") : null;
+	const content = filename ? filename[0] : text;
+	const extension = filename ? filename[1] : null;
 	//override the icon to success or error ones here
 	//override the borderstyle
 
@@ -167,7 +170,7 @@ export const UploadIconTextButton = ({ src, type, text, activesrc, failsrc, gold
 				}}
 			/>
 			<img style={buttonStyle()} src={icon} />
-			<p className={buttonStyles.text}>{isError ? error : text}</p>
+			<p className={buttonStyles.text}>{isError ? error : content}</p>
 		</button>
 	);
 };
