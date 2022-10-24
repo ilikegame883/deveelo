@@ -167,7 +167,7 @@ export const UploadIconTextButton = ({ src, type, text, activesrc, failsrc, gold
 	//override the borderstyle
 
 	return (
-		<button style={borderStyle()} className={gold ? buttonStyles.gold : regularStyle} type={submit ? "submit" : undefined} onClick={selectFile}>
+		<button style={borderStyle()} className={gold ? buttonStyles.gold : regularStyle} type={submit ? "submit" : "button"} onClick={selectFile}>
 			<input
 				type="file"
 				id={`${type}file`}
