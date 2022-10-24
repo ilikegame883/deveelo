@@ -5,7 +5,7 @@ import { useMyPfpAndStatusQuery } from "../../hooks/backend/generated/graphql";
 import { isLoggedIn } from "../../hooks/userChecks";
 import IconButton from "../micro/IconButton";
 import { useEffect, useRef, useState } from "react";
-import { UploadIconTextButton } from "../micro/IconTextButton";
+import { IconTextButton, UploadIconTextButton } from "../micro/IconTextButton";
 
 const PostArea = () => {
 	//STATE MANAGEMENT
@@ -120,7 +120,7 @@ const PostArea = () => {
 								options: { toggleActive: true },
 							}}
 						/>
-						<div style={{ width: "80px" }}></div>
+						<IconTextButton text="Post" src="/resources/ITB/pencil.svg" gold={true} width="0.9375em" />
 					</div>
 				</form>
 			</div>

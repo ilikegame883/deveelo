@@ -83,7 +83,7 @@ export const IconTextButton = ({ src, text, activesrc, failsrc, gold, width, act
 
 	return (
 		<button
-			style={borderStyle()}
+			style={gold ? null : borderStyle()}
 			className={gold ? buttonStyles.gold : regularStyle}
 			type={submit ? "submit" : undefined}
 			onClick={(e) => {
