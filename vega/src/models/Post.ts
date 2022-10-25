@@ -16,6 +16,7 @@ const postSchema = new Schema({
 			imageUrl: String,
 			user: {
 				username: String,
+				tag: String,
 				picutreUrl: String,
 				status: String,
 			},
@@ -25,6 +26,7 @@ const postSchema = new Schema({
 		{
 			user: {
 				username: String,
+				tag: String,
 				picutreUrl: String,
 				status: String,
 			},
