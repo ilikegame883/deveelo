@@ -99,7 +99,7 @@ const uploadsResolvers = {
                     const newPost = new Post_1.default({
                         imageUrls: [`/posts/${saveName}`],
                         body: edata.field1,
-                        tags: [edata.field2],
+                        tags: edata.field2,
                         createdAt: new Date().toISOString(),
                         username: edata.field3,
                         user: {

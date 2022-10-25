@@ -20,6 +20,13 @@ export type BoolRes = {
   success: Scalars['Boolean'];
 };
 
+export type ExtraData = {
+  field1?: Maybe<Scalars['String']>;
+  field2?: Maybe<Scalars['String']>;
+  field3?: Maybe<Array<Maybe<Scalars['String']>>>;
+  field4?: Maybe<Scalars['String']>;
+};
+
 export type File = {
   __typename?: 'File';
   encoding: Scalars['String'];
@@ -63,6 +70,7 @@ export type MutationRegisterArgs = {
 
 
 export type MutationSingleUploadArgs = {
+  edata?: Maybe<ExtraData>;
   file: Scalars['Upload'];
   type: Scalars['String'];
 };
@@ -179,6 +187,7 @@ export type U_Social = {
 
 export type UploadResult = {
   __typename?: 'UploadResult';
+  doc?: Maybe<Scalars['String']>;
   file: File;
   user: User;
 };
@@ -295,10 +304,11 @@ export type UpdateProfileMutation = { __typename?: 'Mutation', updateProfile: { 
 export type UploadSingleMutationVariables = Exact<{
   file: Scalars['Upload'];
   type: Scalars['String'];
+  edata?: Maybe<ExtraData>;
 }>;
 
 
-export type UploadSingleMutation = { __typename?: 'Mutation', singleUpload: { __typename?: 'UploadResult', user: { __typename?: 'User', _id: string, status: string, account: { __typename?: 'U_Account', username: string, tag: string, private: boolean }, profile: { __typename?: 'U_Profile', bannerUrl: string, pictureUrl: string, description: string, followingIds: Array<Maybe<string>>, followerIds: Array<Maybe<string>>, badges: Array<Maybe<string>>, linkedProfiles: Array<Maybe<string>> }, social: { __typename?: 'U_Social', postIds: Array<Maybe<string>>, blogIds: Array<Maybe<string>> } }, file: { __typename?: 'File', filename: string } } };
+export type UploadSingleMutation = { __typename?: 'Mutation', singleUpload: { __typename?: 'UploadResult', doc?: Maybe<string>, user: { __typename?: 'User', _id: string, status: string, account: { __typename?: 'U_Account', username: string, tag: string, private: boolean }, profile: { __typename?: 'U_Profile', bannerUrl: string, pictureUrl: string, description: string, followingIds: Array<Maybe<string>>, followerIds: Array<Maybe<string>>, badges: Array<Maybe<string>>, linkedProfiles: Array<Maybe<string>> }, social: { __typename?: 'U_Social', postIds: Array<Maybe<string>>, blogIds: Array<Maybe<string>> } }, file: { __typename?: 'File', filename: string } } };
 
 
 export const GetPostsDocument = gql`
@@ -1006,7 +1016,7 @@ export type UpdateProfileMutationHookResult = ReturnType<typeof useUpdateProfile
 export type UpdateProfileMutationResult = Apollo.MutationResult<UpdateProfileMutation>;
 export type UpdateProfileMutationOptions = Apollo.BaseMutationOptions<UpdateProfileMutation, UpdateProfileMutationVariables>;
 export const UploadSingleDocument = gql`
-    mutation uploadSingle($file: Upload!, $type: String!) {
+    mutation uploadSingle($file: Upload!, $type: String!, $edata: ExtraData) {
   singleUpload(file: $file, type: $type) {
     user {
       _id
@@ -1033,6 +1043,7 @@ export const UploadSingleDocument = gql`
     file {
       filename
     }
+    doc
   }
 }
     `;
@@ -1053,6 +1064,7 @@ export type UploadSingleMutationFn = Apollo.MutationFunction<UploadSingleMutatio
  *   variables: {
  *      file: // value for 'file'
  *      type: // value for 'type'
+ *      edata: // value for 'edata'
  *   },
  * });
  */

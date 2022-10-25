@@ -26,7 +26,7 @@ exports.typeDefs = graphql_tag_1.default `
 	input ExtraData {
 		field1: String
 		field2: String
-		field3: String
+		field3: [String]
 		field4: String
 	}
 
