@@ -7,6 +7,7 @@ import Context from "../../context";
 import { validateFileExtensions } from "../../util/validators";
 import { UserInputError } from "apollo-server-express";
 import User, { UserType } from "../../models/User";
+import Post from "../../models/Post";
 
 const contentDir = "public/uploads/";
 let uploadedPfps: string[];
@@ -34,19 +35,30 @@ fs.readdir(contentDir + "banners/", (err, files) => {
 	}
 });
 
+interface ExtraData {
+	field1: string;
+	field2: string;
+	field3: string;
+	field4: string;
+}
+
 const uploadsResolvers = {
 	Mutation: {
-		singleUpload: async (_parent: any, { file, type }: { file: any; type: string }, { payload }: Context) => {
+		singleUpload: async (_parent: any, { file, type, edata }: { file: any; type: string; edata: any }, { payload }: Context) => {
 			//variables which control the different behaviors of the types of uploads
 			//let existingUploads: string[];
 			let savePath: string;
-			let imageOptimization: any;
+			let imageOptimization: any = null;
+			let allowedExtensions: string[];
+			//return any mongodb documents if they are created
+			let document: any;
 
 			switch (type) {
 				case "pfp":
 					//existingUploads = uploadedPfps;
 					//copy of image opts convertToWebpPfp;
 					savePath = contentDir + "pfps";
+					allowedExtensions = ["png", "jpg", "jpeg", "webp", "jfif", "avif"];
 					imageOptimization = sharp()
 						.resize({
 							width: 400,
@@ -58,6 +70,7 @@ const uploadsResolvers = {
 				case "banner":
 					//existingUploads = uploadedBanners;
 					savePath = contentDir + "banners";
+					allowedExtensions = ["png", "jpg", "jpeg", "webp", "jfif", "avif"];
 					imageOptimization = sharp()
 						.resize({
 							width: 990,
@@ -65,6 +78,10 @@ const uploadsResolvers = {
 							fit: "cover",
 						})
 						.webp({ quality: 75 });
+					break;
+				case "post":
+					savePath = contentDir + "posts";
+					allowedExtensions = ["png", "jpg", "jpeg", "webp", "jfif", "avif", "mov", "mp4"];
 					break;
 				default:
 					throw new Error("No valid type --banner, pfp, etc-- passed in as a prop with this upload");
@@ -78,13 +95,25 @@ const uploadsResolvers = {
 
 			//check if we recieved a supported image format, this is a secondary check
 			//since the frontend only allows these in the file exporter, but if a direct req is sent?
-			const { errors, valid } = validateFileExtensions(extension, ["png", "jpg", "jpeg", "webp", "jfif", "avif"]);
+			const { errors, valid } = validateFileExtensions(extension, allowedExtensions);
 			if (!valid) {
 				throw new UserInputError(errors.file);
 			}
 
 			//use the user id as the name
-			const saveName = `${payload?.id}.webp`;
+			const generateName = () => {
+				const idonly = type === "pfp" || type === "banner";
+
+				if (idonly) {
+					return `${payload?.id}.webp`;
+				} else {
+					//take the id + milliseconds since epoch .extension
+					//= completely unique url for all nonpfp nonbanner uploads
+					const time = Date.now();
+					return `${payload?.id}${time}.${extension}`;
+				}
+			};
+			const saveName = generateName();
 
 			//change the user's profile data if pfp or banner
 			try {
@@ -94,18 +123,50 @@ const uploadsResolvers = {
 				} else if (type === "banner") {
 					//update the user's banner url to the new
 					await User.findByIdAndUpdate(payload!.id, { $set: { "profile.bannerUrl": `/banners/${saveName}` } }, { useFindAndModify: false });
+				} else if (type === "post") {
+					//create the post
+					await Post.init();
+
+					const newPost = new Post({
+						imageUrls: [`/posts/${saveName}`],
+						body: edata.field1,
+						tags: [edata.field2],
+						createdAt: new Date().toISOString(),
+						username: edata.field3,
+						user: {
+							type: new ObjectID(payload?.id),
+							ref: "users",
+						},
+						comments: [],
+						likes: [],
+					});
+
+					try {
+						await newPost.save();
+						document = await Post.findById(newPost._id);
+					} catch (error) {
+						throw new Error("Unable to save post to database");
+					}
 				}
 			} catch (err) {
 				throw new Error("Error finding and updating user's pfp or banner image on new upload");
 			}
 
 			//upload the file
-			await new Promise((res) =>
-				createReadStream()
-					.pipe(imageOptimization)
-					.pipe(fs.createWriteStream(path.join(savePath, saveName)))
-					.on("close", res)
-			);
+			if (imageOptimization) {
+				await new Promise((res) =>
+					createReadStream()
+						.pipe(imageOptimization)
+						.pipe(fs.createWriteStream(path.join(savePath, saveName)))
+						.on("close", res)
+				);
+			} else {
+				await new Promise((res) =>
+					createReadStream()
+						.pipe(fs.createWriteStream(path.join(savePath, saveName)))
+						.on("close", res)
+				);
+			}
 
 			//store the filename in the array of uploads
 			switch (type) {
@@ -140,6 +201,7 @@ const uploadsResolvers = {
 					mimetype: mimetype,
 					encoding: encoding,
 				},
+				doc: document ? JSON.stringify(document) : null,
 			};
 		},
 	},
