@@ -161,7 +161,7 @@ const uploadsResolvers = {
 					}
 					break;
 				default:
-					throw new Error("Error when saving new file name to variable array storage of uploaded files");
+					break;
 			}
 
 			//fetch the user AFTER we have changed their pfp or banner, nor before
