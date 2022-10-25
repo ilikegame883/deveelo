@@ -20,9 +20,8 @@ export const typeDefs = gql`
 	}
 	input ExtraData {
 		field1: String
-		field2: String
-		field3: [String]
-		field4: String
+		field2: [String]
+		field3: String
 	}
 
 	#posting

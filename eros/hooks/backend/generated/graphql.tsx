@@ -22,9 +22,8 @@ export type BoolRes = {
 
 export type ExtraData = {
   field1?: Maybe<Scalars['String']>;
-  field2?: Maybe<Scalars['String']>;
-  field3?: Maybe<Array<Maybe<Scalars['String']>>>;
-  field4?: Maybe<Scalars['String']>;
+  field2?: Maybe<Array<Maybe<Scalars['String']>>>;
+  field3?: Maybe<Scalars['String']>;
 };
 
 export type File = {
