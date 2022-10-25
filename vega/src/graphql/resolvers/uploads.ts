@@ -123,30 +123,6 @@ const uploadsResolvers = {
 				} else if (type === "banner") {
 					//update the user's banner url to the new
 					await User.findByIdAndUpdate(payload!.id, { $set: { "profile.bannerUrl": `/banners/${saveName}` } }, { useFindAndModify: false });
-				} else if (type === "post") {
-					//create the post
-					await Post.init();
-
-					const newPost = new Post({
-						imageUrls: [`/posts/${saveName}`],
-						body: edata.field1,
-						tags: edata.field2,
-						createdAt: new Date().toISOString(),
-						username: edata.field3,
-						user: {
-							type: new ObjectID(payload?.id),
-							ref: "users",
-						},
-						comments: [],
-						likes: [],
-					});
-
-					try {
-						await newPost.save();
-						document = await Post.findById(newPost._id);
-					} catch (error) {
-						throw new Error("Unable to save post to database");
-					}
 				}
 			} catch (err) {
 				throw new Error("Error finding and updating user's pfp or banner image on new upload");
@@ -192,6 +168,32 @@ const uploadsResolvers = {
 			const user: UserType = await User.findById(new ObjectID(payload!.id));
 			if (!user) {
 				throw new Error("account not found");
+			}
+
+			if (type === "post") {
+				//create the post
+				await Post.init();
+
+				const newPost = new Post({
+					imageUrls: [`/posts/${saveName}`],
+					body: edata.field1,
+					tags: edata.field3,
+					createdAt: new Date().toISOString(),
+					username: user.account.username,
+					user: {
+						type: new ObjectID(payload?.id),
+						ref: "User",
+					},
+					comments: [],
+					likes: [],
+				});
+
+				try {
+					await newPost.save();
+					document = await Post.findById(newPost._id);
+				} catch (error) {
+					throw new Error("Unable to save post to database");
+				}
 			}
 
 			return {

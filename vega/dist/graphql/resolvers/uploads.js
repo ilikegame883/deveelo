@@ -94,29 +94,6 @@ const uploadsResolvers = {
                 else if (type === "banner") {
                     await User_1.default.findByIdAndUpdate(payload.id, { $set: { "profile.bannerUrl": `/banners/${saveName}` } }, { useFindAndModify: false });
                 }
-                else if (type === "post") {
-                    await Post_1.default.init();
-                    const newPost = new Post_1.default({
-                        imageUrls: [`/posts/${saveName}`],
-                        body: edata.field1,
-                        tags: edata.field2,
-                        createdAt: new Date().toISOString(),
-                        username: edata.field3,
-                        user: {
-                            type: new mongodb_1.ObjectID(payload === null || payload === void 0 ? void 0 : payload.id),
-                            ref: "users",
-                        },
-                        comments: [],
-                        likes: [],
-                    });
-                    try {
-                        await newPost.save();
-                        document = await Post_1.default.findById(newPost._id);
-                    }
-                    catch (error) {
-                        throw new Error("Unable to save post to database");
-                    }
-                }
             }
             catch (err) {
                 throw new Error("Error finding and updating user's pfp or banner image on new upload");
@@ -149,6 +126,29 @@ const uploadsResolvers = {
             const user = await User_1.default.findById(new mongodb_1.ObjectID(payload.id));
             if (!user) {
                 throw new Error("account not found");
+            }
+            if (type === "post") {
+                await Post_1.default.init();
+                const newPost = new Post_1.default({
+                    imageUrls: [`/posts/${saveName}`],
+                    body: edata.field1,
+                    tags: edata.field3,
+                    createdAt: new Date().toISOString(),
+                    username: user.account.username,
+                    user: {
+                        type: new mongodb_1.ObjectID(payload === null || payload === void 0 ? void 0 : payload.id),
+                        ref: "User",
+                    },
+                    comments: [],
+                    likes: [],
+                });
+                try {
+                    await newPost.save();
+                    document = await Post_1.default.findById(newPost._id);
+                }
+                catch (error) {
+                    throw new Error("Unable to save post to database");
+                }
             }
             return {
                 user: user,

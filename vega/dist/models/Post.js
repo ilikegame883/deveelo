@@ -9,7 +9,7 @@ const postSchema = new mongoose_1.Schema({
     username: String,
     user: {
         type: mongoose_1.Schema.Types.ObjectId,
-        ref: 'users',
+        ref: "User",
     },
     comments: [
         {
@@ -18,20 +18,20 @@ const postSchema = new mongoose_1.Schema({
             user: {
                 username: String,
                 picutreUrl: String,
-                status: String
-            }
-        }
+                status: String,
+            },
+        },
     ],
     likes: [
         {
             user: {
                 username: String,
                 picutreUrl: String,
-                status: String
+                status: String,
             },
-            createdAt: String
-        }
-    ]
+            createdAt: String,
+        },
+    ],
 });
-exports.default = mongoose_1.model('Post', postSchema);
+exports.default = mongoose_1.model("Post", postSchema);
 //# sourceMappingURL=Post.js.map
