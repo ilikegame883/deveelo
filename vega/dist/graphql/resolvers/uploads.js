@@ -121,7 +121,7 @@ const uploadsResolvers = {
                     }
                     break;
                 default:
-                    throw new Error("Error when saving new file name to variable array storage of uploaded files");
+                    break;
             }
             const user = await User_1.default.findById(new mongodb_1.ObjectID(payload.id));
             if (!user) {
