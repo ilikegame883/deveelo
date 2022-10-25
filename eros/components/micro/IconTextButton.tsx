@@ -182,7 +182,7 @@ export const UploadIconTextButton = ({ src, type, text, activesrc, failsrc, gold
 				id={`${type}file`}
 				style={{ display: "none" }}
 				ref={fileInput}
-				accept="image/png, image/jpeg, image/jfif, image/webp, image/avif, video/mp4, video/quicktime, video/ogg"
+				accept="image/png, image/jpeg, image/jfif, image/webp, image/avif, video/mp4, video/quicktime"
 				onChange={(e) => {
 					const file = e.target.files[0];
 					const maxSize = "15mb";
