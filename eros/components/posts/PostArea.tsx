@@ -96,33 +96,37 @@ const PostArea = () => {
 				//postarea.style.letterSpacing = ".02em"
 
 				const pickers = document.getElementsByClassName("EmojiPickerReact epr-main");
-				//@ts-ignore
+				if (pickers === undefined) return;
+
 				wrapper.style.top = offsets.y + "px";
 				wrapper.style.left = postarea.offsetWidth + 100 + "px";
-				pickers[0]?.style.setProperty("--epr-emoji-size", "1.2em");
-				pickers[0]?.style.setProperty("--epr-category-label-height", "2em");
-				pickers[0]?.style.setProperty("--epr-emoji-padding", ".7em");
-				pickers[0]?.style.setProperty("--epr-category-icon-active-color", "var(--idle)");
-				pickers[0]?.style.setProperty("--epr-search-input-bg-color", "var(--searchGray)");
-				pickers[0]?.style.setProperty("--epr-search-input-height", "2.5em");
-				pickers[0]?.style.setProperty("--epr-search-input-placeholder-color", "var(--midLightGray)");
-				pickers[0]?.style.setProperty("--epr-search-input-text-color", "var(--textNormalCol)");
-				pickers[0]?.style.setProperty("--epr-header-padding", ".7em .7em");
-				pickers[0]?.style.setProperty("--epr-category-navigation-button-size", "1.2em");
-				pickers[0]?.style.setProperty("--epr-text-color", "var(--midFadeGray)");
-				// pickers[0]?.style.setProperty("", "");
-				// pickers[0]?.style.setProperty("", "");
-				// pickers[0]?.style.setProperty("", "");
-				// pickers[0]?.style.setProperty("", "");
-				// pickers[0]?.style.setProperty("", "");
+
+				const picker = pickers[0] as HTMLElement;
+				picker.style.setProperty("--epr-emoji-size", "1.2em");
+				picker.style.setProperty("--epr-category-label-height", "2em");
+				picker.style.setProperty("--epr-emoji-padding", ".7em");
+				picker.style.setProperty("--epr-category-icon-active-color", "var(--idle)");
+				picker.style.setProperty("--epr-search-input-bg-color", "var(--searchGray)");
+				picker.style.setProperty("--epr-search-input-height", "2.5em");
+				picker.style.setProperty("--epr-search-input-placeholder-color", "var(--midLightGray)");
+				picker.style.setProperty("--epr-search-input-text-color", "var(--textNormalCol)");
+				picker.style.setProperty("--epr-header-padding", ".7em .7em");
+				picker.style.setProperty("--epr-category-navigation-button-size", "1.2em");
+				picker.style.setProperty("--epr-text-color", "var(--midFadeGray)");
+				// picker.style.setProperty("", "");
+				// picker.style.setProperty("", "");
+				// picker.style.setProperty("", "");
+				// picker.style.setProperty("", "");
+				// picker.style.setProperty("", "");
 
 				// SETTING CATEGORY FONTS (we have to do them individually)
 				const labels = document.getElementsByClassName("epr-emoji-category-label");
 
 				for (let i = 0; i < labels.length; i++) {
-					const element = labels[i];
+					const element = labels[i] as HTMLElement;
+
 					element.style.fontFamily = "DM Sans";
-					element.style.fontWeight = 400;
+					element.style.fontWeight = "400";
 					element.style.letterSpacing = ".02em";
 				}
 			}, 0);
