@@ -87,9 +87,36 @@ const PostArea = () => {
 	useEffect(() => {
 		if (showEmoji) {
 			setTimeout(() => {
+				const postarea = document.getElementById("postarea");
+				if (postarea === undefined) return;
+				console.log("found postarea");
+
+				const offsets = postarea.getBoundingClientRect();
+				console.log("offsets: " + offsets);
+				const wrapper = document.getElementById("pickerwrapper");
+				if (wrapper === undefined) return;
+				console.log("found wrapper");
+
 				const pickers = document.getElementsByClassName("EmojiPickerReact epr-main");
 				//@ts-ignore
-				pickers[0]?.style.setProperty("--epr-emoji-size", "15px");
+				wrapper.style.top = offsets.y + "px";
+				wrapper.style.left = offsets.x + "px";
+				pickers[0]?.style.setProperty("--epr-emoji-size", "1.2em");
+				pickers[0]?.style.setProperty("--epr-category-label-height", "2em");
+				pickers[0]?.style.setProperty("--epr-emoji-padding", ".7em");
+				pickers[0]?.style.setProperty("--epr-category-icon-active-color", "var(--idle)");
+				pickers[0]?.style.setProperty("--epr-search-input-bg-color", "var(--searchGray)");
+				pickers[0]?.style.setProperty("--epr-search-input-height", "2.5em");
+				pickers[0]?.style.setProperty("--epr-search-input-placeholder-color", "var(--midLightGray)");
+				pickers[0]?.style.setProperty("--epr-search-input-text-color", "var(--textNormalCol)");
+				pickers[0]?.style.setProperty("--epr-header-padding", ".7em .7em");
+				pickers[0]?.style.setProperty("--epr-category-navigation-button-size", "1.2em");
+				// pickers[0]?.style.setProperty("--epr-text-color", "");
+				// pickers[0]?.style.setProperty("", "");
+				// pickers[0]?.style.setProperty("", "");
+				// pickers[0]?.style.setProperty("", "");
+				// pickers[0]?.style.setProperty("", "");
+				// pickers[0]?.style.setProperty("", "");
 			}, 0);
 		}
 
@@ -123,6 +150,7 @@ const PostArea = () => {
 	const selectInput = () => {
 		if (textInput && textInput.current) {
 			textInput.current.focus();
+			console.log("focus set");
 		}
 	};
 
@@ -169,65 +197,65 @@ const PostArea = () => {
 									},
 								}}
 							/>
-							{showEmoji ? (
-								<div className={emojiStyles.pickerWrapper}>
-									<EmojiPicker
-										onEmojiClick={onClick}
-										autoFocusSearch={false}
-										theme={Theme.LIGHT}
-										height={350}
-										width={200}
-										lazyLoadEmojis={true}
-										previewConfig={{
-											showPreview: false,
-										}}
-										suggestedEmojisMode={SuggestionMode.FREQUENT}
-										skinTonesDisabled
-										// searchPlaceHolder="Filter"
-										emojiStyle={EmojiStyle.NATIVE}
-										categories={[
-											{
-												name: "Frequent",
-												category: Categories.SUGGESTED,
-											},
-											{
-												name: "Smiles & People",
-												category: Categories.SMILEYS_PEOPLE,
-											},
-											{
-												name: "Animals",
-												category: Categories.ANIMALS_NATURE,
-											},
-											{
-												name: "Food & Drinks",
-												category: Categories.FOOD_DRINK,
-											},
-											{
-												name: "Fun and Games",
-												category: Categories.ACTIVITIES,
-											},
-											{
-												name: "Objects & Celebrations",
-												category: Categories.OBJECTS,
-											},
-											{
-												name: "Travel",
-												category: Categories.TRAVEL_PLACES,
-											},
-											{
-												name: "Flags",
-												category: Categories.FLAGS,
-											},
-											{
-												name: "Symbols",
-												category: Categories.SYMBOLS,
-											},
-										]}
-									/>
-								</div>
-							) : null}
 						</div>
 					</div>
+					{showEmoji ? (
+						<div id="pickerwrapper" className={emojiStyles.pickerWrapper}>
+							<EmojiPicker
+								onEmojiClick={onClick}
+								autoFocusSearch={false}
+								theme={Theme.LIGHT}
+								height="25em"
+								width="30em"
+								lazyLoadEmojis={true}
+								previewConfig={{
+									showPreview: false,
+								}}
+								suggestedEmojisMode={SuggestionMode.FREQUENT}
+								skinTonesDisabled
+								// searchPlaceHolder="Filter"
+								emojiStyle={EmojiStyle.NATIVE}
+								categories={[
+									{
+										name: "Frequent",
+										category: Categories.SUGGESTED,
+									},
+									{
+										name: "Smiles & People",
+										category: Categories.SMILEYS_PEOPLE,
+									},
+									{
+										name: "Animals",
+										category: Categories.ANIMALS_NATURE,
+									},
+									{
+										name: "Food & Drinks",
+										category: Categories.FOOD_DRINK,
+									},
+									{
+										name: "Fun and Games",
+										category: Categories.ACTIVITIES,
+									},
+									{
+										name: "Objects & Celebrations",
+										category: Categories.OBJECTS,
+									},
+									{
+										name: "Travel",
+										category: Categories.TRAVEL_PLACES,
+									},
+									{
+										name: "Flags",
+										category: Categories.FLAGS,
+									},
+									{
+										name: "Symbols",
+										category: Categories.SYMBOLS,
+									},
+								]}
+							/>
+						</div>
+					) : null}
 					<div className={postStyles.buttonWrapper}>
 						<UploadIconTextButton
 							text="Photo / Video"

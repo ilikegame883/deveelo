@@ -45,6 +45,7 @@
     border: 0.09375em solid #D7E0EF;
     border-radius:1.781em;
     flex-shrink: 0;
+    background-color: red;
 }
 
 .input {
