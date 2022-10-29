@@ -22,9 +22,10 @@ interface IB_Props {
 	hoverFxOff?: boolean;
 	submit?: boolean;
 	disabled?: boolean;
+	prevent: boolean; //e.preventdefault
 }
 
-const IconButton = ({ src, activesrc, width, height, paddingTB, paddingLR, action, startActive, submit, disabled, hoverFxOff }: IB_Props) => {
+const IconButton = ({ src, activesrc, prevent, width, height, paddingTB, paddingLR, action, startActive, submit, disabled, hoverFxOff }: IB_Props) => {
 	const tb = paddingTB ? paddingTB : 0;
 	const lr = paddingLR ? paddingLR : 0;
 
@@ -78,7 +79,15 @@ const IconButton = ({ src, activesrc, width, height, paddingTB, paddingLR, actio
 	};
 
 	return (
-		<button className={useRed && active ? buttonStyles.simpleWarn : regularStyle} type={submit ? "submit" : undefined} onClick={() => handlePress()}>
+		<button
+			className={useRed && active ? buttonStyles.simpleWarn : regularStyle}
+			type={submit ? "submit" : undefined}
+			onClick={(e) => {
+				if (prevent) {
+					e.preventDefault();
+				}
+				handlePress();
+			}}>
 			<img style={buttonStyle()} className={useRed && active ? buttonStyles.warnColor : undefined} src={active ? activesrc : src} />
 		</button>
 	);
