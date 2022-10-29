@@ -105,7 +105,7 @@ const PostArea = () => {
 				picker.style.setProperty("--epr-emoji-size", "1.2em");
 				picker.style.setProperty("--epr-category-label-height", "2em");
 				picker.style.setProperty("--epr-emoji-padding", ".7em");
-				picker.style.setProperty("--epr-category-icon-active-color", "var(--idle)");
+				picker.style.setProperty("--epr-category-icon-active-color", "#fff");
 				picker.style.setProperty("--epr-search-input-bg-color", "var(--searchGray)");
 				picker.style.setProperty("--epr-search-input-height", "2.5em");
 				picker.style.setProperty("--epr-search-input-placeholder-color", "var(--midLightGray)");
@@ -113,6 +113,15 @@ const PostArea = () => {
 				picker.style.setProperty("--epr-header-padding", ".7em .7em");
 				picker.style.setProperty("--epr-category-navigation-button-size", "1.2em");
 				picker.style.setProperty("--epr-text-color", "var(--midFadeGray)");
+				picker.style.setProperty("--epr-category-label-padding", "0em 1.6em");
+				picker.style.setProperty("--epr-preview-border-color", "#fff");
+				picker.style.setProperty("--epr-preview-text-size", "1em");
+				picker.style.setProperty("--epr-preview-height", "4em");
+				picker.style.setProperty("--epr-picker-border-color", "#fff");
+				picker.style.setProperty("--epr-hover-bg-color", "#ffb12914");
+				picker.style.setProperty("--epr-focus-bg-color", "#ffb1292a");
+				picker.style.setProperty("--epr-highlight-color", "var(--idle)");
+				// picker.style.setProperty("", "");
 				// picker.style.setProperty("", "");
 				// picker.style.setProperty("", "");
 				// picker.style.setProperty("", "");
@@ -223,7 +232,7 @@ const PostArea = () => {
 									showPreview: false,
 								}}
 								suggestedEmojisMode={SuggestionMode.FREQUENT}
-								skinTonesDisabled
+								skinTonesDisabled={false}
 								// searchPlaceHolder="Filter"
 								emojiStyle={EmojiStyle.NATIVE}
 								categories={[
