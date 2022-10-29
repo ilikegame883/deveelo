@@ -1,3 +1,6 @@
+import EmojiPicker, { EmojiStyle, Theme, Categories, EmojiClickData, Emoji, SuggestionMode } from "emoji-picker-react";
+import emojiStyles from "../../styles/micro/emoji.module.css";
+
 import postStyles from "../../styles/posts/postarea.module.css";
 import ProfilePicture from "../micro/ProfilePicture";
 
@@ -9,6 +12,8 @@ import { IconTextButton, UploadIconTextButton } from "../micro/IconTextButton";
 
 const PostArea = () => {
 	//STATE MANAGEMENT
+	const [showEmoji, setShowEmoji] = useState(false);
+	const [caretPos, setCaretPos] = useState(0);
 	const [postText, setPostText] = useState("");
 	localStorage.setItem("postbody", postText);
 
@@ -41,9 +46,12 @@ const PostArea = () => {
 		const handleUpdate = (e: CustomEvent) => {
 			//detail is packed with: type|serverfilename (see socialHooks.ts)
 			//i.e. afterpost|fue745gfaiu.webp
-			const decoded: string = e.detail.split("|");
-			const type = decoded[0];
-			const filename = decoded[1];
+			const decoded = JSON.parse(e.detail);
+			console.log(decoded);
+
+			const type = decoded.type;
+			const filename = decoded.imageName;
+			const body = decoded.document.body;
 
 			if (type === "afterpost") {
 				// User successfully launched a post, remove form and replace it
@@ -72,6 +80,12 @@ const PostArea = () => {
 			}
 		};
 	}, []);
+
+	// EMOJI SELECTION
+	function onClick(emojiData: EmojiClickData, event: MouseEvent) {
+		//setSelectedEmoji(emojiData.unified);
+		console.log(emojiData.emoji);
+	}
 
 	const { data, loading, error } = useMyPfpAndStatusQuery();
 	const loggedIn = isLoggedIn();
@@ -102,11 +116,82 @@ const PostArea = () => {
 			{/* container swaps out the following: */}
 			<div className={postStyles.wrapper}>
 				<ProfilePicture size="w32" source={user.profile.pictureUrl} status={user.status} />
-				<form className={postStyles.form} action="">
+				<form className={postStyles.form} onSubmit={() => console.log("submitted")}>
 					<div className={postStyles.textbox} onClick={selectInput}>
-						<textarea name="post" id="postarea" className={postStyles.input} ref={textInput} placeholder="What have you been working on?" onChange={(e) => setPostText(e.target.value)} />
-						{/* <input className={postStyles.input} type="text" /> */}
-						<IconButton src="/resources/post_emoji.svg" width="1.3em" height="1.3em" paddingLR={0} paddingTB={0} hoverFxOff={true} action={undefined} />
+						<textarea
+							name="post"
+							id="postarea"
+							className={postStyles.input}
+							ref={textInput}
+							placeholder="What have you been working on?"
+							onClick={(e) => {
+								e.preventDefault();
+								console.log(e.currentTarget.selectionStart);
+								setCaretPos(e.currentTarget.selectionStart);
+							}}
+							onChange={(e) => {
+								setPostText(e.target.value);
+								console.log(e.currentTarget.selectionStart);
+								setCaretPos(e.currentTarget.selectionStart);
+							}}
+						/>
+						{/* EMOJI BUTTON AND PICKER */}
+						<IconButton src="/resources/post_emoji.svg" width="1.3em" height="1.3em" paddingLR={0} paddingTB={0} hoverFxOff={true} action={undefined} prevent={true} />
+						<div className={emojiStyles.pickerWrapper}>
+							<EmojiPicker
+								onEmojiClick={onClick}
+								autoFocusSearch={false}
+								theme={Theme.LIGHT}
+								height={350}
+								width="90%"
+								lazyLoadEmojis={true}
+								previewConfig={{
+									showPreview: false,
+								}}
+								suggestedEmojisMode={SuggestionMode.FREQUENT}
+								skinTonesDisabled
+								// searchPlaceHolder="Filter"
+								emojiStyle={EmojiStyle.NATIVE}
+								categories={[
+									{
+										name: "Frequent",
+										category: Categories.SUGGESTED,
+									},
+									{
+										name: "Smiles & People",
+										category: Categories.SMILEYS_PEOPLE,
+									},
+									{
+										name: "Animals",
+										category: Categories.ANIMALS_NATURE,
+									},
+									{
+										name: "Food & Drinks",
+										category: Categories.FOOD_DRINK,
+									},
+									{
+										name: "Fun and Games",
+										category: Categories.ACTIVITIES,
+									},
+									{
+										name: "Objects & Celebrations",
+										category: Categories.OBJECTS,
+									},
+									{
+										name: "Travel",
+										category: Categories.TRAVEL_PLACES,
+									},
+									{
+										name: "Flags",
+										category: Categories.FLAGS,
+									},
+									{
+										name: "Symbols",
+										category: Categories.SYMBOLS,
+									},
+								]}
+							/>
+						</div>
 					</div>
 					<div className={postStyles.buttonWrapper}>
 						<UploadIconTextButton
@@ -122,7 +207,7 @@ const PostArea = () => {
 								options: { toggleActive: true },
 							}}
 						/>
-						<IconTextButton text="Post" src="/resources/ITB/pencil.svg" gold={true} width="0.9375em" />
+						<IconTextButton submit={true} text="Post" src="/resources/ITB/pencil.svg" gold={true} width="0.9375em" />
 					</div>
 				</form>
 			</div>
