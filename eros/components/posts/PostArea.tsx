@@ -1,4 +1,7 @@
-import EmojiPicker, { EmojiStyle, Theme, Categories, EmojiClickData, Emoji, SuggestionMode } from "emoji-picker-react";
+import dynamic from "next/dynamic";
+
+const EmojiPicker = dynamic(() => import("emoji-picker-react"), { ssr: false });
+import { EmojiStyle, Theme, Categories, EmojiClickData, SuggestionMode } from "emoji-picker-react";
 import emojiStyles from "../../styles/micro/emoji.module.css";
 
 import postStyles from "../../styles/posts/postarea.module.css";
@@ -136,61 +139,81 @@ const PostArea = () => {
 							}}
 						/>
 						{/* EMOJI BUTTON AND PICKER */}
-						<IconButton src="/resources/post_emoji.svg" width="1.3em" height="1.3em" paddingLR={0} paddingTB={0} hoverFxOff={true} action={undefined} prevent={true} />
-						<div className={emojiStyles.pickerWrapper}>
-							<EmojiPicker
-								onEmojiClick={onClick}
-								autoFocusSearch={false}
-								theme={Theme.LIGHT}
-								height={350}
-								width="90%"
-								lazyLoadEmojis={true}
-								previewConfig={{
-									showPreview: false,
+						<div className={emojiStyles.picker}>
+							<IconButton
+								src="/resources/post_emoji.svg"
+								activesrc="/resources/post_emoji.svg"
+								width="1.3em"
+								height="1.3em"
+								paddingLR={0}
+								paddingTB={0}
+								hoverFxOff={true}
+								prevent={true}
+								action={{
+									activeAction: () => setShowEmoji(false),
+									inactiveAction: () => setShowEmoji(true),
+									options: {
+										toggleActive: true,
+									},
 								}}
-								suggestedEmojisMode={SuggestionMode.FREQUENT}
-								skinTonesDisabled
-								// searchPlaceHolder="Filter"
-								emojiStyle={EmojiStyle.NATIVE}
-								categories={[
-									{
-										name: "Frequent",
-										category: Categories.SUGGESTED,
-									},
-									{
-										name: "Smiles & People",
-										category: Categories.SMILEYS_PEOPLE,
-									},
-									{
-										name: "Animals",
-										category: Categories.ANIMALS_NATURE,
-									},
-									{
-										name: "Food & Drinks",
-										category: Categories.FOOD_DRINK,
-									},
-									{
-										name: "Fun and Games",
-										category: Categories.ACTIVITIES,
-									},
-									{
-										name: "Objects & Celebrations",
-										category: Categories.OBJECTS,
-									},
-									{
-										name: "Travel",
-										category: Categories.TRAVEL_PLACES,
-									},
-									{
-										name: "Flags",
-										category: Categories.FLAGS,
-									},
-									{
-										name: "Symbols",
-										category: Categories.SYMBOLS,
-									},
-								]}
 							/>
+							{showEmoji ? (
+								<div className={emojiStyles.pickerWrapper}>
+									<EmojiPicker
+										onEmojiClick={onClick}
+										autoFocusSearch={false}
+										theme={Theme.LIGHT}
+										height={350}
+										width={200}
+										lazyLoadEmojis={true}
+										previewConfig={{
+											showPreview: false,
+										}}
+										suggestedEmojisMode={SuggestionMode.FREQUENT}
+										skinTonesDisabled
+										// searchPlaceHolder="Filter"
+										emojiStyle={EmojiStyle.NATIVE}
+										categories={[
+											{
+												name: "Frequent",
+												category: Categories.SUGGESTED,
+											},
+											{
+												name: "Smiles & People",
+												category: Categories.SMILEYS_PEOPLE,
+											},
+											{
+												name: "Animals",
+												category: Categories.ANIMALS_NATURE,
+											},
+											{
+												name: "Food & Drinks",
+												category: Categories.FOOD_DRINK,
+											},
+											{
+												name: "Fun and Games",
+												category: Categories.ACTIVITIES,
+											},
+											{
+												name: "Objects & Celebrations",
+												category: Categories.OBJECTS,
+											},
+											{
+												name: "Travel",
+												category: Categories.TRAVEL_PLACES,
+											},
+											{
+												name: "Flags",
+												category: Categories.FLAGS,
+											},
+											{
+												name: "Symbols",
+												category: Categories.SYMBOLS,
+											},
+										]}
+									/>
+								</div>
+							) : null}
 						</div>
 					</div>
 					<div className={postStyles.buttonWrapper}>
