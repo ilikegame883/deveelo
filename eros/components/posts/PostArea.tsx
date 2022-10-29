@@ -179,7 +179,7 @@ const PostArea = () => {
 						<div className={emojiStyles.picker}>
 							<IconButton
 								src="/resources/post_emoji.svg"
-								activesrc="/resources/post_emoji.svg"
+								activesrc="/resources/post_emoji_on.svg"
 								width="1.3em"
 								height="1.3em"
 								paddingLR={0}
