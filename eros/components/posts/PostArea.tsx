@@ -84,6 +84,18 @@ const PostArea = () => {
 		};
 	}, []);
 
+	useEffect(() => {
+		if (showEmoji) {
+			setTimeout(() => {
+				const pickers = document.getElementsByClassName("EmojiPickerReact epr-main");
+				//@ts-ignore
+				pickers[0]?.style.setProperty("--epr-emoji-size", "15px");
+			}, 0);
+		}
+
+		return () => {};
+	}, [showEmoji]);
+
 	// EMOJI SELECTION
 	function onClick(emojiData: EmojiClickData, event: MouseEvent) {
 		//setSelectedEmoji(emojiData.unified);
