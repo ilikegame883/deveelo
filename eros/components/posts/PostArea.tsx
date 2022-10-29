@@ -93,6 +93,7 @@ const PostArea = () => {
 				const offsets = postarea.getBoundingClientRect();
 				const wrapper = document.getElementById("pickerwrapper");
 				if (wrapper === undefined) return;
+				//postarea.style.letterSpacing = ".02em"
 
 				const pickers = document.getElementsByClassName("EmojiPickerReact epr-main");
 				//@ts-ignore
@@ -108,12 +109,22 @@ const PostArea = () => {
 				pickers[0]?.style.setProperty("--epr-search-input-text-color", "var(--textNormalCol)");
 				pickers[0]?.style.setProperty("--epr-header-padding", ".7em .7em");
 				pickers[0]?.style.setProperty("--epr-category-navigation-button-size", "1.2em");
-				// pickers[0]?.style.setProperty("--epr-text-color", "");
+				pickers[0]?.style.setProperty("--epr-text-color", "var(--midFadeGray)");
 				// pickers[0]?.style.setProperty("", "");
 				// pickers[0]?.style.setProperty("", "");
 				// pickers[0]?.style.setProperty("", "");
 				// pickers[0]?.style.setProperty("", "");
 				// pickers[0]?.style.setProperty("", "");
+
+				// SETTING CATEGORY FONTS (we have to do them individually)
+				const labels = document.getElementsByClassName("epr-emoji-category-label");
+
+				for (let i = 0; i < labels.length; i++) {
+					const element = labels[i];
+					element.style.fontFamily = "DM Sans";
+					element.style.fontWeight = 400;
+					element.style.letterSpacing = ".02em";
+				}
 			}, 0);
 		}
 
@@ -147,7 +158,6 @@ const PostArea = () => {
 	const selectInput = () => {
 		if (textInput && textInput.current) {
 			textInput.current.focus();
-			console.log("focus set");
 		}
 	};
 
