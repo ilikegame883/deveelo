@@ -89,18 +89,15 @@ const PostArea = () => {
 			setTimeout(() => {
 				const postarea = document.getElementById("postarea");
 				if (postarea === undefined) return;
-				console.log("found postarea");
 
 				const offsets = postarea.getBoundingClientRect();
-				console.log("offsets: " + offsets);
 				const wrapper = document.getElementById("pickerwrapper");
 				if (wrapper === undefined) return;
-				console.log("found wrapper");
 
 				const pickers = document.getElementsByClassName("EmojiPickerReact epr-main");
 				//@ts-ignore
 				wrapper.style.top = offsets.y + "px";
-				wrapper.style.left = offsets.x + "px";
+				wrapper.style.left = postarea.offsetWidth + 100 + "px";
 				pickers[0]?.style.setProperty("--epr-emoji-size", "1.2em");
 				pickers[0]?.style.setProperty("--epr-category-label-height", "2em");
 				pickers[0]?.style.setProperty("--epr-emoji-padding", ".7em");
