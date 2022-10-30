@@ -175,6 +175,7 @@ const PostArea = () => {
 			//sync the visible change w/ the variable copy used in code
 			//also rerenders!
 			setPostText(withEmoji);
+			setCaretPos(caretPos + 1);
 		}
 	}
 
