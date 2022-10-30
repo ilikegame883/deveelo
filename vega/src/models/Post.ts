@@ -1,4 +1,5 @@
 import { model, Schema } from "mongoose";
+import { UserType } from "./User";
 
 const postSchema = new Schema({
 	imageUrls: [String],
@@ -34,5 +35,37 @@ const postSchema = new Schema({
 		},
 	],
 });
+
+export interface PostType {
+	imageUrls: [string];
+	body: string;
+	tags: [string];
+	createdAt: string;
+	username: string;
+	user: UserType;
+	comments: [
+		{
+			body: string;
+			imageUrl: string;
+			user: {
+				username: string;
+				tag: string;
+				picutreUrl: string;
+				status: string;
+			};
+		}
+	];
+	likes: [
+		{
+			user: {
+				username: string;
+				tag: string;
+				picutreUrl: string;
+				status: string;
+			};
+			createdAt: string;
+		}
+	];
+}
 
 export default model("Post", postSchema);
