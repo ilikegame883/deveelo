@@ -28,6 +28,8 @@ interface ITB_Props {
 	submit?: boolean;
 	disabled?: boolean;
 	type?: string; //necessary for the upload button, not used by regular button
+	startUpload?: boolean; //sends the gql request and uploads the post, only for upload button
+	onFailedUpload?: any; //used to reset starter prop if no file was selected but post attempt was attempted & failed
 }
 
 export const IconTextButton = ({ src, text, activesrc, failsrc, gold, green, width, action, startActive, forcedActive, submit, disabled }: ITB_Props) => {
@@ -108,10 +110,11 @@ export const IconTextButton = ({ src, text, activesrc, failsrc, gold, green, wid
 };
 
 //same system but w/ file upload capabilities
-export const UploadIconTextButton = ({ src, type, text, activesrc, failsrc, gold, width, submit, disabled }: ITB_Props) => {
-	const router = useRouter();
-	const [uploadnow, setUploadNow] = useState(false);
+export const UploadIconTextButton = ({ src, type, startUpload, onFailedUpload, text, activesrc, failsrc, gold, width, submit, disabled }: ITB_Props) => {
+	//const router = useRouter();
+	//const [uploadnow, setUploadNow] = useState(false);
 
+	/*
 	useEffect(() => {
 		const handleUpdate = (e: CustomEvent) => {
 			console.log("cheeky start");
@@ -140,11 +143,13 @@ export const UploadIconTextButton = ({ src, type, text, activesrc, failsrc, gold
 			}
 		};
 	}, []);
+	*/
 
 	// UPLOAD STUFF
 	const [newFile, setNewFile] = useState<File>();
 	const [error, setError] = useState("");
 	const isError = error !== "";
+	//turn button green if user selected a valid file
 	const active = newFile && !isError;
 
 	const [uploadSingle] = useUploadSingleMutation();
@@ -158,10 +163,18 @@ export const UploadIconTextButton = ({ src, type, text, activesrc, failsrc, gold
 	};
 
 	const handleNewUpload = async () => {
-		return;
 		if (!newFile || isError) {
+			//reset posted in parent to false where it can be reused to trigger
+			//otherwise, upload will attempt w/ every component rerender...which
+			//happens to be w/ every letter entered into the textbox :|
+			onFailedUpload();
+			console.log("----------RESET----------");
+
 			return;
 		}
+		console.log("real start!");
+		return;
+
 		const hashtags: string[] = [];
 		console.log("beginning upload");
 
@@ -189,12 +202,11 @@ export const UploadIconTextButton = ({ src, type, text, activesrc, failsrc, gold
 			const info = response.data.singleUpload;
 			const serversideName = info.file.filename;
 			updatePostArea("afterpost", serversideName, info.doc);
-			setUploadNow(false);
 		}
 	};
 
-	if (uploadnow) {
-		console.log("actual start");
+	if (startUpload) {
+		console.log("Attempting to start...");
 
 		handleNewUpload();
 	}

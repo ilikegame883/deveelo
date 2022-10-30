@@ -15,6 +15,12 @@ import { IconTextButton, UploadIconTextButton } from "../micro/IconTextButton";
 
 const PostArea = () => {
 	//STATE MANAGEMENT
+	//how posting works: (a) create this "posted" state on the parent (this is the parent)
+	//(b) then pass setPosted into the submit button child, so it changes the state of parent on click
+	//(c) on that state change, parent changes "startUpload" prop of upload button to true
+	//(d) in the upload button, the file stored there already so we also run the mutation there
+	//(e) posted now = true, so swap out for the post preview.
+	const [posted, setPosted] = useState(false);
 	const [showEmoji, setShowEmoji] = useState(false);
 	const [caretPos, setCaretPos] = useState(0);
 	const [postText, setPostText] = useState("");
@@ -45,6 +51,7 @@ const PostArea = () => {
 	}, [postText]);
 
 	//handle swtiching to share screen when recieving successful post event
+	/*
 	useEffect(() => {
 		const handleUpdate = (e: CustomEvent) => {
 			//detail is packed with: type|serverfilename (see socialHooks.ts)
@@ -83,7 +90,9 @@ const PostArea = () => {
 			}
 		};
 	}, []);
+	*/
 
+	//emoji picker styling
 	useEffect(() => {
 		if (showEmoji) {
 			setTimeout(() => {
@@ -93,7 +102,6 @@ const PostArea = () => {
 				const offsets = postarea.getBoundingClientRect();
 				const wrapper = document.getElementById("pickerwrapper");
 				if (wrapper === undefined) return;
-				//postarea.style.letterSpacing = ".02em"
 
 				const pickers = document.getElementsByClassName("EmojiPickerReact epr-main");
 				if (pickers === undefined) return;
@@ -203,12 +211,32 @@ const PostArea = () => {
 		}
 	};
 
+	// const submitForm = () => {
+	// 	if (postForm && postForm.current) {
+	// 		postForm.current.onsubmit = (e) => {
+	// 			e.preventDefault();
+	// 			console.log("submitted yea");
+	// 			return "success";
+	// 		};
+
+	// 		postForm.current.submit();
+	// 	}
+	// };
+
 	return (
 		<div id="postarea" className={postStyles.container}>
 			{/* container swaps out the following: */}
 			<div className={postStyles.wrapper}>
 				<ProfilePicture size="w32" source={user.profile.pictureUrl} status={user.status} />
-				<form className={postStyles.form} onSubmit={() => console.log("submitted")}>
+				<form
+					className={postStyles.form}
+					// ref={postForm}
+					// onSubmit={(e) => {
+					// 	e.preventDefault();
+					// 	console.log("submitted yea");
+					// 	return "success";
+					// }}
+				>
 					<div className={postStyles.textbox} onClick={selectInput}>
 						<textarea
 							name="post"
@@ -309,13 +337,27 @@ const PostArea = () => {
 							failsrc="/resources/ITB/fail.svg"
 							width="1rem"
 							type="post"
+							startUpload={posted}
+							onFailedUpload={() => setPosted(false)}
 							action={{
 								activeAction: () => console.log("trigger upload"),
 								inactiveAction: () => console.log("trigger reupload"),
 								options: { toggleActive: true },
 							}}
 						/>
-						<IconTextButton submit={true} text="Post" src="/resources/ITB/pencil.svg" gold={true} width="0.9375em" />
+						<IconTextButton
+							submit={false}
+							text="Post"
+							src="/resources/ITB/pencil.svg"
+							gold={true}
+							width="0.9375em"
+							action={{
+								activeAction: () => setPosted(true),
+								inactiveAction: () => console.log("blocked"),
+								options: { controlActive: true },
+							}}
+							forcedActive={postText.length > 0}
+						/>
 					</div>
 				</form>
 			</div>
