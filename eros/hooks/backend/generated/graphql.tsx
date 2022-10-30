@@ -1,325 +1,468 @@
-import { gql } from '@apollo/client';
-import * as Apollo from '@apollo/client';
+import { gql } from "@apollo/client";
+import * as Apollo from "@apollo/client";
 export type Maybe<T> = T | null;
+export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
-const defaultOptions =  {}
+const defaultOptions = {} as const;
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
-  ID: string;
-  String: string;
-  Boolean: boolean;
-  Int: number;
-  Float: number;
-  Upload: any;
+	ID: string;
+	String: string;
+	Boolean: boolean;
+	Int: number;
+	Float: number;
+	Upload: any;
 };
 
 export type BoolRes = {
-  __typename?: 'BoolRes';
-  success: Scalars['Boolean'];
+	__typename?: "BoolRes";
+	success: Scalars["Boolean"];
 };
 
 export type ExtraData = {
-  field1?: Maybe<Scalars['String']>;
-  field2?: Maybe<Array<Maybe<Scalars['String']>>>;
-  field3?: Maybe<Scalars['String']>;
+	field1?: InputMaybe<Scalars["String"]>;
+	field2?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
+	field3?: InputMaybe<Scalars["String"]>;
 };
 
 export type File = {
-  __typename?: 'File';
-  encoding: Scalars['String'];
-  filename: Scalars['String'];
-  mimetype: Scalars['String'];
+	__typename?: "File";
+	encoding: Scalars["String"];
+	filename: Scalars["String"];
+	mimetype: Scalars["String"];
 };
 
 export type LoginResponse = {
-  __typename?: 'LoginResponse';
-  accessToken: Scalars['String'];
-  user: User;
+	__typename?: "LoginResponse";
+	accessToken: Scalars["String"];
+	user: User;
 };
 
 export type Mutation = {
-  __typename?: 'Mutation';
-  follow?: Maybe<BoolRes>;
-  login: LoginResponse;
-  logout: Scalars['Boolean'];
-  register: LoginResponse;
-  singleUpload: UploadResult;
-  unfollow?: Maybe<BoolRes>;
-  updateProfile: User;
+	__typename?: "Mutation";
+	follow?: Maybe<BoolRes>;
+	login: LoginResponse;
+	logout: Scalars["Boolean"];
+	register: LoginResponse;
+	singleUpload: UploadResult;
+	unfollow?: Maybe<BoolRes>;
+	updateProfile: User;
 };
-
 
 export type MutationFollowArgs = {
-  id: Scalars['String'];
+	id: Scalars["String"];
 };
-
 
 export type MutationLoginArgs = {
-  input: Scalars['String'];
-  password: Scalars['String'];
+	input: Scalars["String"];
+	password: Scalars["String"];
 };
-
 
 export type MutationRegisterArgs = {
-  email: Scalars['String'];
-  password: Scalars['String'];
+	email: Scalars["String"];
+	password: Scalars["String"];
 };
-
 
 export type MutationSingleUploadArgs = {
-  edata?: Maybe<ExtraData>;
-  file: Scalars['Upload'];
-  type: Scalars['String'];
+	edata?: InputMaybe<ExtraData>;
+	file: Scalars["Upload"];
+	type: Scalars["String"];
 };
-
 
 export type MutationUnfollowArgs = {
-  id: Scalars['String'];
+	id: Scalars["String"];
 };
 
-
 export type MutationUpdateProfileArgs = {
-  description?: Maybe<Scalars['String']>;
-  name?: Maybe<Scalars['String']>;
-  tag?: Maybe<Scalars['String']>;
+	description?: InputMaybe<Scalars["String"]>;
+	name?: InputMaybe<Scalars["String"]>;
+	tag?: InputMaybe<Scalars["String"]>;
 };
 
 export type PAccount = {
-  __typename?: 'PAccount';
-  tag: Scalars['String'];
-  username: Scalars['String'];
+	__typename?: "PAccount";
+	tag: Scalars["String"];
+	username: Scalars["String"];
 };
 
 export type PProfile = {
-  __typename?: 'PProfile';
-  bannerUrl: Scalars['String'];
-  description: Scalars['String'];
-  pictureUrl: Scalars['String'];
+	__typename?: "PProfile";
+	bannerUrl: Scalars["String"];
+	description: Scalars["String"];
+	pictureUrl: Scalars["String"];
 };
 
 export type PUser = {
-  __typename?: 'PUser';
-  _id: Scalars['ID'];
-  account: PAccount;
-  profile: PProfile;
+	__typename?: "PUser";
+	_id: Scalars["ID"];
+	account: PAccount;
+	profile: PProfile;
 };
 
 export type Post = {
-  __typename?: 'Post';
-  _id: Scalars['ID'];
-  body: Scalars['String'];
-  createdAt: Scalars['String'];
-  username: Scalars['String'];
+	__typename?: "Post";
+	_id: Scalars["ID"];
+	body: Scalars["String"];
+	createdAt: Scalars["String"];
+	username: Scalars["String"];
 };
 
 export type Query = {
-  __typename?: 'Query';
-  allUsers: Array<Maybe<User>>;
-  findUserByTag: User;
-  findUsersById: Array<Maybe<User>>;
-  getPosts: Array<Maybe<Post>>;
-  myAccount?: Maybe<User>;
-  randomUser: User;
-  randomUsers: Array<Maybe<User>>;
+	__typename?: "Query";
+	allUsers: Array<Maybe<User>>;
+	findUserByTag: User;
+	findUsersById: Array<Maybe<User>>;
+	getPosts: Array<Maybe<Post>>;
+	myAccount?: Maybe<User>;
+	randomUser: User;
+	randomUsers: Array<Maybe<User>>;
 };
-
 
 export type QueryFindUserByTagArgs = {
-  tag: Scalars['String'];
+	tag: Scalars["String"];
 };
-
 
 export type QueryFindUsersByIdArgs = {
-  ids: Array<Scalars['String']>;
+	ids: Array<Scalars["String"]>;
 };
 
-
 export type QueryRandomUsersArgs = {
-  count: Scalars['Int'];
+	count: Scalars["Int"];
 };
 
 export type U_Account = {
-  __typename?: 'U_Account';
-  blockedIds: Array<Maybe<Scalars['String']>>;
-  createdAt: Scalars['String'];
-  email: Scalars['String'];
-  lastOnline: Scalars['String'];
-  password: Scalars['String'];
-  private: Scalars['Boolean'];
-  pro: Scalars['Boolean'];
-  short: Scalars['String'];
-  tag: Scalars['String'];
-  tokenVersion: Scalars['Int'];
-  username: Scalars['String'];
+	__typename?: "U_Account";
+	blockedIds: Array<Maybe<Scalars["String"]>>;
+	createdAt: Scalars["String"];
+	email: Scalars["String"];
+	lastOnline: Scalars["String"];
+	password: Scalars["String"];
+	private: Scalars["Boolean"];
+	pro: Scalars["Boolean"];
+	short: Scalars["String"];
+	tag: Scalars["String"];
+	tokenVersion: Scalars["Int"];
+	username: Scalars["String"];
 };
 
 export type U_BetaIds = {
-  __typename?: 'U_BetaIds';
-  hostedIds: Array<Maybe<Scalars['String']>>;
-  joinedIds: Array<Maybe<Scalars['String']>>;
+	__typename?: "U_BetaIds";
+	hostedIds: Array<Maybe<Scalars["String"]>>;
+	joinedIds: Array<Maybe<Scalars["String"]>>;
 };
 
 export type U_Profile = {
-  __typename?: 'U_Profile';
-  badges: Array<Maybe<Scalars['String']>>;
-  bannerUrl: Scalars['String'];
-  description: Scalars['String'];
-  followerIds: Array<Maybe<Scalars['String']>>;
-  followingIds: Array<Maybe<Scalars['String']>>;
-  friendIds: Array<Maybe<Scalars['String']>>;
-  friendRqIds: Array<Maybe<Scalars['String']>>;
-  linkedProfiles: Array<Maybe<Scalars['String']>>;
-  pictureUrl: Scalars['String'];
+	__typename?: "U_Profile";
+	badges: Array<Maybe<Scalars["String"]>>;
+	bannerUrl: Scalars["String"];
+	description: Scalars["String"];
+	followerIds: Array<Maybe<Scalars["String"]>>;
+	followingIds: Array<Maybe<Scalars["String"]>>;
+	friendIds: Array<Maybe<Scalars["String"]>>;
+	friendRqIds: Array<Maybe<Scalars["String"]>>;
+	linkedProfiles: Array<Maybe<Scalars["String"]>>;
+	pictureUrl: Scalars["String"];
 };
 
 export type U_Social = {
-  __typename?: 'U_Social';
-  betaIds: U_BetaIds;
-  blogIds: Array<Maybe<Scalars['String']>>;
-  chatIds: Array<Maybe<Scalars['String']>>;
-  groupIds: Array<Maybe<Scalars['String']>>;
-  postIds: Array<Maybe<Scalars['String']>>;
+	__typename?: "U_Social";
+	betaIds: U_BetaIds;
+	blogIds: Array<Maybe<Scalars["String"]>>;
+	chatIds: Array<Maybe<Scalars["String"]>>;
+	groupIds: Array<Maybe<Scalars["String"]>>;
+	postIds: Array<Maybe<Scalars["String"]>>;
 };
 
-
 export type UploadResult = {
-  __typename?: 'UploadResult';
-  doc?: Maybe<Scalars['String']>;
-  file: File;
-  user: User;
+	__typename?: "UploadResult";
+	doc?: Maybe<Scalars["String"]>;
+	file: File;
+	user: User;
 };
 
 export type User = {
-  __typename?: 'User';
-  _id: Scalars['ID'];
-  account: U_Account;
-  profile: U_Profile;
-  social: U_Social;
-  status: Scalars['String'];
+	__typename?: "User";
+	_id: Scalars["ID"];
+	account: U_Account;
+	profile: U_Profile;
+	social: U_Social;
+	status: Scalars["String"];
 };
 
-export type GetPostsQueryVariables = Exact<{ [key: string]: never; }>;
+export type GetPostsQueryVariables = Exact<{ [key: string]: never }>;
 
+export type GetPostsQuery = { __typename?: "Query"; getPosts: Array<{ __typename?: "Post"; _id: string; body: string; createdAt: string; username: string } | null> };
 
-export type GetPostsQuery = { __typename?: 'Query', getPosts: Array<Maybe<{ __typename?: 'Post', _id: string, body: string, createdAt: string, username: string }>> };
+export type AllTagsQueryVariables = Exact<{ [key: string]: never }>;
 
-export type AllTagsQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type AllTagsQuery = { __typename?: 'Query', allUsers: Array<Maybe<{ __typename?: 'User', account: { __typename?: 'U_Account', tag: string } }>> };
+export type AllTagsQuery = { __typename?: "Query"; allUsers: Array<{ __typename?: "User"; account: { __typename?: "U_Account"; tag: string } } | null> };
 
 export type FindCardUsersByIdsQueryVariables = Exact<{
-  idList: Array<Scalars['String']> | Scalars['String'];
+	idList: Array<Scalars["String"]> | Scalars["String"];
 }>;
 
-
-export type FindCardUsersByIdsQuery = { __typename?: 'Query', findUsersById: Array<Maybe<{ __typename?: 'User', _id: string, status: string, account: { __typename?: 'U_Account', username: string, tag: string }, profile: { __typename?: 'U_Profile', pictureUrl: string, badges: Array<Maybe<string>> } }>> };
+export type FindCardUsersByIdsQuery = {
+	__typename?: "Query";
+	findUsersById: Array<{
+		__typename?: "User";
+		_id: string;
+		status: string;
+		account: { __typename?: "U_Account"; username: string; tag: string };
+		profile: { __typename?: "U_Profile"; pictureUrl: string; badges: Array<string | null> };
+	} | null>;
+};
 
 export type FindMinProfileByTagQueryVariables = Exact<{
-  tagInput: Scalars['String'];
+	tagInput: Scalars["String"];
 }>;
 
-
-export type FindMinProfileByTagQuery = { __typename?: 'Query', findUserByTag: { __typename?: 'User', _id: string, status: string, account: { __typename?: 'U_Account', username: string, tag: string, private: boolean }, profile: { __typename?: 'U_Profile', bannerUrl: string, pictureUrl: string, description: string, followingIds: Array<Maybe<string>>, followerIds: Array<Maybe<string>>, badges: Array<Maybe<string>>, linkedProfiles: Array<Maybe<string>> }, social: { __typename?: 'U_Social', postIds: Array<Maybe<string>>, blogIds: Array<Maybe<string>> } } };
+export type FindMinProfileByTagQuery = {
+	__typename?: "Query";
+	findUserByTag: {
+		__typename?: "User";
+		_id: string;
+		status: string;
+		account: { __typename?: "U_Account"; username: string; tag: string; private: boolean };
+		profile: {
+			__typename?: "U_Profile";
+			bannerUrl: string;
+			pictureUrl: string;
+			description: string;
+			followingIds: Array<string | null>;
+			followerIds: Array<string | null>;
+			badges: Array<string | null>;
+			linkedProfiles: Array<string | null>;
+		};
+		social: { __typename?: "U_Social"; postIds: Array<string | null>; blogIds: Array<string | null> };
+	};
+};
 
 export type FollowMutationVariables = Exact<{
-  targetId: Scalars['String'];
+	targetId: Scalars["String"];
 }>;
 
-
-export type FollowMutation = { __typename?: 'Mutation', follow?: Maybe<{ __typename?: 'BoolRes', success: boolean }> };
+export type FollowMutation = { __typename?: "Mutation"; follow?: { __typename?: "BoolRes"; success: boolean } | null };
 
 export type LoginMutationVariables = Exact<{
-  loginInput: Scalars['String'];
-  loginPassword: Scalars['String'];
+	loginInput: Scalars["String"];
+	loginPassword: Scalars["String"];
 }>;
 
+export type LoginMutation = {
+	__typename?: "Mutation";
+	login: {
+		__typename?: "LoginResponse";
+		accessToken: string;
+		user: {
+			__typename?: "User";
+			_id: string;
+			status: string;
+			account: { __typename?: "U_Account"; username: string; tag: string; email: string; private: boolean; pro: boolean };
+			profile: {
+				__typename?: "U_Profile";
+				bannerUrl: string;
+				pictureUrl: string;
+				description: string;
+				followingIds: Array<string | null>;
+				followerIds: Array<string | null>;
+				badges: Array<string | null>;
+				linkedProfiles: Array<string | null>;
+			};
+			social: { __typename?: "U_Social"; postIds: Array<string | null>; blogIds: Array<string | null> };
+		};
+	};
+};
 
-export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'LoginResponse', accessToken: string, user: { __typename?: 'User', _id: string, status: string, account: { __typename?: 'U_Account', username: string, tag: string, email: string, private: boolean, pro: boolean }, profile: { __typename?: 'U_Profile', bannerUrl: string, pictureUrl: string, description: string, followingIds: Array<Maybe<string>>, followerIds: Array<Maybe<string>>, badges: Array<Maybe<string>>, linkedProfiles: Array<Maybe<string>> }, social: { __typename?: 'U_Social', postIds: Array<Maybe<string>>, blogIds: Array<Maybe<string>> } } } };
+export type LogoutMutationVariables = Exact<{ [key: string]: never }>;
 
-export type LogoutMutationVariables = Exact<{ [key: string]: never; }>;
+export type LogoutMutation = { __typename?: "Mutation"; logout: boolean };
 
+export type MyAccountMinProfileQueryVariables = Exact<{ [key: string]: never }>;
 
-export type LogoutMutation = { __typename?: 'Mutation', logout: boolean };
+export type MyAccountMinProfileQuery = {
+	__typename?: "Query";
+	myAccount?: {
+		__typename?: "User";
+		_id: string;
+		status: string;
+		account: { __typename?: "U_Account"; username: string; tag: string; private: boolean };
+		profile: {
+			__typename?: "U_Profile";
+			bannerUrl: string;
+			pictureUrl: string;
+			description: string;
+			followingIds: Array<string | null>;
+			followerIds: Array<string | null>;
+			badges: Array<string | null>;
+			linkedProfiles: Array<string | null>;
+		};
+		social: { __typename?: "U_Social"; postIds: Array<string | null>; blogIds: Array<string | null> };
+	} | null;
+};
 
-export type MyAccountMinProfileQueryVariables = Exact<{ [key: string]: never; }>;
+export type MyFollowingQueryVariables = Exact<{ [key: string]: never }>;
 
+export type MyFollowingQuery = {
+	__typename?: "Query";
+	myAccount?: { __typename?: "User"; _id: string; profile: { __typename?: "U_Profile"; followerIds: Array<string | null>; followingIds: Array<string | null> } } | null;
+};
 
-export type MyAccountMinProfileQuery = { __typename?: 'Query', myAccount?: Maybe<{ __typename?: 'User', _id: string, status: string, account: { __typename?: 'U_Account', username: string, tag: string, private: boolean }, profile: { __typename?: 'U_Profile', bannerUrl: string, pictureUrl: string, description: string, followingIds: Array<Maybe<string>>, followerIds: Array<Maybe<string>>, badges: Array<Maybe<string>>, linkedProfiles: Array<Maybe<string>> }, social: { __typename?: 'U_Social', postIds: Array<Maybe<string>>, blogIds: Array<Maybe<string>> } }> };
+export type MyNameAndPfpQueryVariables = Exact<{ [key: string]: never }>;
 
-export type MyFollowingQueryVariables = Exact<{ [key: string]: never; }>;
+export type MyNameAndPfpQuery = {
+	__typename?: "Query";
+	myAccount?: { __typename?: "User"; _id: string; account: { __typename?: "U_Account"; username: string; tag: string }; profile: { __typename?: "U_Profile"; pictureUrl: string } } | null;
+};
 
+export type MyPfpAndStatusQueryVariables = Exact<{ [key: string]: never }>;
 
-export type MyFollowingQuery = { __typename?: 'Query', myAccount?: Maybe<{ __typename?: 'User', _id: string, profile: { __typename?: 'U_Profile', followerIds: Array<Maybe<string>>, followingIds: Array<Maybe<string>> } }> };
+export type MyPfpAndStatusQuery = { __typename?: "Query"; myAccount?: { __typename?: "User"; _id: string; status: string; profile: { __typename?: "U_Profile"; pictureUrl: string } } | null };
 
-export type MyNameAndPfpQueryVariables = Exact<{ [key: string]: never; }>;
+export type RandomMinProfileQueryVariables = Exact<{ [key: string]: never }>;
 
-
-export type MyNameAndPfpQuery = { __typename?: 'Query', myAccount?: Maybe<{ __typename?: 'User', _id: string, account: { __typename?: 'U_Account', username: string, tag: string }, profile: { __typename?: 'U_Profile', pictureUrl: string } }> };
-
-export type MyPfpAndStatusQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type MyPfpAndStatusQuery = { __typename?: 'Query', myAccount?: Maybe<{ __typename?: 'User', _id: string, status: string, profile: { __typename?: 'U_Profile', pictureUrl: string } }> };
-
-export type RandomMinProfileQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type RandomMinProfileQuery = { __typename?: 'Query', randomUser: { __typename?: 'User', _id: string, status: string, account: { __typename?: 'U_Account', username: string, tag: string, private: boolean }, profile: { __typename?: 'U_Profile', bannerUrl: string, pictureUrl: string, description: string, followingIds: Array<Maybe<string>>, followerIds: Array<Maybe<string>>, badges: Array<Maybe<string>>, linkedProfiles: Array<Maybe<string>> }, social: { __typename?: 'U_Social', postIds: Array<Maybe<string>>, blogIds: Array<Maybe<string>> } } };
+export type RandomMinProfileQuery = {
+	__typename?: "Query";
+	randomUser: {
+		__typename?: "User";
+		_id: string;
+		status: string;
+		account: { __typename?: "U_Account"; username: string; tag: string; private: boolean };
+		profile: {
+			__typename?: "U_Profile";
+			bannerUrl: string;
+			pictureUrl: string;
+			description: string;
+			followingIds: Array<string | null>;
+			followerIds: Array<string | null>;
+			badges: Array<string | null>;
+			linkedProfiles: Array<string | null>;
+		};
+		social: { __typename?: "U_Social"; postIds: Array<string | null>; blogIds: Array<string | null> };
+	};
+};
 
 export type RegisterMutationVariables = Exact<{
-  registerEmail: Scalars['String'];
-  registerPassword: Scalars['String'];
+	registerEmail: Scalars["String"];
+	registerPassword: Scalars["String"];
 }>;
 
-
-export type RegisterMutation = { __typename?: 'Mutation', register: { __typename?: 'LoginResponse', accessToken: string, user: { __typename?: 'User', _id: string, status: string, account: { __typename?: 'U_Account', username: string, tag: string, email: string, private: boolean, pro: boolean }, profile: { __typename?: 'U_Profile', bannerUrl: string, pictureUrl: string, description: string, followingIds: Array<Maybe<string>>, followerIds: Array<Maybe<string>>, badges: Array<Maybe<string>>, linkedProfiles: Array<Maybe<string>> }, social: { __typename?: 'U_Social', postIds: Array<Maybe<string>>, blogIds: Array<Maybe<string>> } } } };
+export type RegisterMutation = {
+	__typename?: "Mutation";
+	register: {
+		__typename?: "LoginResponse";
+		accessToken: string;
+		user: {
+			__typename?: "User";
+			_id: string;
+			status: string;
+			account: { __typename?: "U_Account"; username: string; tag: string; email: string; private: boolean; pro: boolean };
+			profile: {
+				__typename?: "U_Profile";
+				bannerUrl: string;
+				pictureUrl: string;
+				description: string;
+				followingIds: Array<string | null>;
+				followerIds: Array<string | null>;
+				badges: Array<string | null>;
+				linkedProfiles: Array<string | null>;
+			};
+			social: { __typename?: "U_Social"; postIds: Array<string | null>; blogIds: Array<string | null> };
+		};
+	};
+};
 
 export type SampleUsersQueryVariables = Exact<{
-  amount: Scalars['Int'];
+	amount: Scalars["Int"];
 }>;
 
-
-export type SampleUsersQuery = { __typename?: 'Query', randomUsers: Array<Maybe<{ __typename?: 'User', _id: string, status: string, account: { __typename?: 'U_Account', username: string, tag: string }, profile: { __typename?: 'U_Profile', pictureUrl: string, badges: Array<Maybe<string>> } }>> };
+export type SampleUsersQuery = {
+	__typename?: "Query";
+	randomUsers: Array<{
+		__typename?: "User";
+		_id: string;
+		status: string;
+		account: { __typename?: "U_Account"; username: string; tag: string };
+		profile: { __typename?: "U_Profile"; pictureUrl: string; badges: Array<string | null> };
+	} | null>;
+};
 
 export type UnfollowMutationVariables = Exact<{
-  targetId: Scalars['String'];
+	targetId: Scalars["String"];
 }>;
 
-
-export type UnfollowMutation = { __typename?: 'Mutation', unfollow?: Maybe<{ __typename?: 'BoolRes', success: boolean }> };
+export type UnfollowMutation = { __typename?: "Mutation"; unfollow?: { __typename?: "BoolRes"; success: boolean } | null };
 
 export type UpdateProfileMutationVariables = Exact<{
-  newname?: Maybe<Scalars['String']>;
-  newtag?: Maybe<Scalars['String']>;
-  newdes?: Maybe<Scalars['String']>;
+	newname?: InputMaybe<Scalars["String"]>;
+	newtag?: InputMaybe<Scalars["String"]>;
+	newdes?: InputMaybe<Scalars["String"]>;
 }>;
 
-
-export type UpdateProfileMutation = { __typename?: 'Mutation', updateProfile: { __typename?: 'User', _id: string, status: string, account: { __typename?: 'U_Account', username: string, tag: string, private: boolean }, profile: { __typename?: 'U_Profile', bannerUrl: string, pictureUrl: string, description: string, followingIds: Array<Maybe<string>>, followerIds: Array<Maybe<string>>, badges: Array<Maybe<string>>, linkedProfiles: Array<Maybe<string>> }, social: { __typename?: 'U_Social', postIds: Array<Maybe<string>>, blogIds: Array<Maybe<string>> } } };
+export type UpdateProfileMutation = {
+	__typename?: "Mutation";
+	updateProfile: {
+		__typename?: "User";
+		_id: string;
+		status: string;
+		account: { __typename?: "U_Account"; username: string; tag: string; private: boolean };
+		profile: {
+			__typename?: "U_Profile";
+			bannerUrl: string;
+			pictureUrl: string;
+			description: string;
+			followingIds: Array<string | null>;
+			followerIds: Array<string | null>;
+			badges: Array<string | null>;
+			linkedProfiles: Array<string | null>;
+		};
+		social: { __typename?: "U_Social"; postIds: Array<string | null>; blogIds: Array<string | null> };
+	};
+};
 
 export type UploadSingleMutationVariables = Exact<{
-  file: Scalars['Upload'];
-  type: Scalars['String'];
-  edata?: Maybe<ExtraData>;
+	file: Scalars["Upload"];
+	type: Scalars["String"];
+	edata?: InputMaybe<ExtraData>;
 }>;
 
-
-export type UploadSingleMutation = { __typename?: 'Mutation', singleUpload: { __typename?: 'UploadResult', doc?: Maybe<string>, user: { __typename?: 'User', _id: string, status: string, account: { __typename?: 'U_Account', username: string, tag: string, private: boolean }, profile: { __typename?: 'U_Profile', bannerUrl: string, pictureUrl: string, description: string, followingIds: Array<Maybe<string>>, followerIds: Array<Maybe<string>>, badges: Array<Maybe<string>>, linkedProfiles: Array<Maybe<string>> }, social: { __typename?: 'U_Social', postIds: Array<Maybe<string>>, blogIds: Array<Maybe<string>> } }, file: { __typename?: 'File', filename: string } } };
-
+export type UploadSingleMutation = {
+	__typename?: "Mutation";
+	singleUpload: {
+		__typename?: "UploadResult";
+		doc?: string | null;
+		user: {
+			__typename?: "User";
+			_id: string;
+			status: string;
+			account: { __typename?: "U_Account"; username: string; tag: string; private: boolean };
+			profile: {
+				__typename?: "U_Profile";
+				bannerUrl: string;
+				pictureUrl: string;
+				description: string;
+				followingIds: Array<string | null>;
+				followerIds: Array<string | null>;
+				badges: Array<string | null>;
+				linkedProfiles: Array<string | null>;
+			};
+			social: { __typename?: "U_Social"; postIds: Array<string | null>; blogIds: Array<string | null> };
+		};
+		file: { __typename?: "File"; filename: string };
+	};
+};
 
 export const GetPostsDocument = gql`
-    query GetPosts {
-  getPosts {
-    _id
-    body
-    createdAt
-    username
-  }
-}
-    `;
+	query GetPosts {
+		getPosts {
+			_id
+			body
+			createdAt
+			username
+		}
+	}
+`;
 
 /**
  * __useGetPostsQuery__
@@ -337,25 +480,25 @@ export const GetPostsDocument = gql`
  * });
  */
 export function useGetPostsQuery(baseOptions?: Apollo.QueryHookOptions<GetPostsQuery, GetPostsQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetPostsQuery, GetPostsQueryVariables>(GetPostsDocument, options);
-      }
+	const options = { ...defaultOptions, ...baseOptions };
+	return Apollo.useQuery<GetPostsQuery, GetPostsQueryVariables>(GetPostsDocument, options);
+}
 export function useGetPostsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetPostsQuery, GetPostsQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetPostsQuery, GetPostsQueryVariables>(GetPostsDocument, options);
-        }
+	const options = { ...defaultOptions, ...baseOptions };
+	return Apollo.useLazyQuery<GetPostsQuery, GetPostsQueryVariables>(GetPostsDocument, options);
+}
 export type GetPostsQueryHookResult = ReturnType<typeof useGetPostsQuery>;
 export type GetPostsLazyQueryHookResult = ReturnType<typeof useGetPostsLazyQuery>;
 export type GetPostsQueryResult = Apollo.QueryResult<GetPostsQuery, GetPostsQueryVariables>;
 export const AllTagsDocument = gql`
-    query AllTags {
-  allUsers {
-    account {
-      tag
-    }
-  }
-}
-    `;
+	query AllTags {
+		allUsers {
+			account {
+				tag
+			}
+		}
+	}
+`;
 
 /**
  * __useAllTagsQuery__
@@ -373,32 +516,32 @@ export const AllTagsDocument = gql`
  * });
  */
 export function useAllTagsQuery(baseOptions?: Apollo.QueryHookOptions<AllTagsQuery, AllTagsQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<AllTagsQuery, AllTagsQueryVariables>(AllTagsDocument, options);
-      }
+	const options = { ...defaultOptions, ...baseOptions };
+	return Apollo.useQuery<AllTagsQuery, AllTagsQueryVariables>(AllTagsDocument, options);
+}
 export function useAllTagsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<AllTagsQuery, AllTagsQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<AllTagsQuery, AllTagsQueryVariables>(AllTagsDocument, options);
-        }
+	const options = { ...defaultOptions, ...baseOptions };
+	return Apollo.useLazyQuery<AllTagsQuery, AllTagsQueryVariables>(AllTagsDocument, options);
+}
 export type AllTagsQueryHookResult = ReturnType<typeof useAllTagsQuery>;
 export type AllTagsLazyQueryHookResult = ReturnType<typeof useAllTagsLazyQuery>;
 export type AllTagsQueryResult = Apollo.QueryResult<AllTagsQuery, AllTagsQueryVariables>;
 export const FindCardUsersByIdsDocument = gql`
-    query findCardUsersByIds($idList: [String!]!) {
-  findUsersById(ids: $idList) {
-    _id
-    account {
-      username
-      tag
-    }
-    profile {
-      pictureUrl
-      badges
-    }
-    status
-  }
-}
-    `;
+	query findCardUsersByIds($idList: [String!]!) {
+		findUsersById(ids: $idList) {
+			_id
+			account {
+				username
+				tag
+			}
+			profile {
+				pictureUrl
+				badges
+			}
+			status
+		}
+	}
+`;
 
 /**
  * __useFindCardUsersByIdsQuery__
@@ -417,42 +560,42 @@ export const FindCardUsersByIdsDocument = gql`
  * });
  */
 export function useFindCardUsersByIdsQuery(baseOptions: Apollo.QueryHookOptions<FindCardUsersByIdsQuery, FindCardUsersByIdsQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<FindCardUsersByIdsQuery, FindCardUsersByIdsQueryVariables>(FindCardUsersByIdsDocument, options);
-      }
+	const options = { ...defaultOptions, ...baseOptions };
+	return Apollo.useQuery<FindCardUsersByIdsQuery, FindCardUsersByIdsQueryVariables>(FindCardUsersByIdsDocument, options);
+}
 export function useFindCardUsersByIdsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindCardUsersByIdsQuery, FindCardUsersByIdsQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<FindCardUsersByIdsQuery, FindCardUsersByIdsQueryVariables>(FindCardUsersByIdsDocument, options);
-        }
+	const options = { ...defaultOptions, ...baseOptions };
+	return Apollo.useLazyQuery<FindCardUsersByIdsQuery, FindCardUsersByIdsQueryVariables>(FindCardUsersByIdsDocument, options);
+}
 export type FindCardUsersByIdsQueryHookResult = ReturnType<typeof useFindCardUsersByIdsQuery>;
 export type FindCardUsersByIdsLazyQueryHookResult = ReturnType<typeof useFindCardUsersByIdsLazyQuery>;
 export type FindCardUsersByIdsQueryResult = Apollo.QueryResult<FindCardUsersByIdsQuery, FindCardUsersByIdsQueryVariables>;
 export const FindMinProfileByTagDocument = gql`
-    query findMinProfileByTag($tagInput: String!) {
-  findUserByTag(tag: $tagInput) {
-    _id
-    account {
-      username
-      tag
-      private
-    }
-    profile {
-      bannerUrl
-      pictureUrl
-      description
-      followingIds
-      followerIds
-      badges
-      linkedProfiles
-    }
-    social {
-      postIds
-      blogIds
-    }
-    status
-  }
-}
-    `;
+	query findMinProfileByTag($tagInput: String!) {
+		findUserByTag(tag: $tagInput) {
+			_id
+			account {
+				username
+				tag
+				private
+			}
+			profile {
+				bannerUrl
+				pictureUrl
+				description
+				followingIds
+				followerIds
+				badges
+				linkedProfiles
+			}
+			social {
+				postIds
+				blogIds
+			}
+			status
+		}
+	}
+`;
 
 /**
  * __useFindMinProfileByTagQuery__
@@ -471,23 +614,23 @@ export const FindMinProfileByTagDocument = gql`
  * });
  */
 export function useFindMinProfileByTagQuery(baseOptions: Apollo.QueryHookOptions<FindMinProfileByTagQuery, FindMinProfileByTagQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<FindMinProfileByTagQuery, FindMinProfileByTagQueryVariables>(FindMinProfileByTagDocument, options);
-      }
+	const options = { ...defaultOptions, ...baseOptions };
+	return Apollo.useQuery<FindMinProfileByTagQuery, FindMinProfileByTagQueryVariables>(FindMinProfileByTagDocument, options);
+}
 export function useFindMinProfileByTagLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindMinProfileByTagQuery, FindMinProfileByTagQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<FindMinProfileByTagQuery, FindMinProfileByTagQueryVariables>(FindMinProfileByTagDocument, options);
-        }
+	const options = { ...defaultOptions, ...baseOptions };
+	return Apollo.useLazyQuery<FindMinProfileByTagQuery, FindMinProfileByTagQueryVariables>(FindMinProfileByTagDocument, options);
+}
 export type FindMinProfileByTagQueryHookResult = ReturnType<typeof useFindMinProfileByTagQuery>;
 export type FindMinProfileByTagLazyQueryHookResult = ReturnType<typeof useFindMinProfileByTagLazyQuery>;
 export type FindMinProfileByTagQueryResult = Apollo.QueryResult<FindMinProfileByTagQuery, FindMinProfileByTagQueryVariables>;
 export const FollowDocument = gql`
-    mutation follow($targetId: String!) {
-  follow(id: $targetId) {
-    success
-  }
-}
-    `;
+	mutation follow($targetId: String!) {
+		follow(id: $targetId) {
+			success
+		}
+	}
+`;
 export type FollowMutationFn = Apollo.MutationFunction<FollowMutation, FollowMutationVariables>;
 
 /**
@@ -508,43 +651,43 @@ export type FollowMutationFn = Apollo.MutationFunction<FollowMutation, FollowMut
  * });
  */
 export function useFollowMutation(baseOptions?: Apollo.MutationHookOptions<FollowMutation, FollowMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<FollowMutation, FollowMutationVariables>(FollowDocument, options);
-      }
+	const options = { ...defaultOptions, ...baseOptions };
+	return Apollo.useMutation<FollowMutation, FollowMutationVariables>(FollowDocument, options);
+}
 export type FollowMutationHookResult = ReturnType<typeof useFollowMutation>;
 export type FollowMutationResult = Apollo.MutationResult<FollowMutation>;
 export type FollowMutationOptions = Apollo.BaseMutationOptions<FollowMutation, FollowMutationVariables>;
 export const LoginDocument = gql`
-    mutation Login($loginInput: String!, $loginPassword: String!) {
-  login(input: $loginInput, password: $loginPassword) {
-    accessToken
-    user {
-      _id
-      account {
-        username
-        tag
-        email
-        private
-        pro
-      }
-      profile {
-        bannerUrl
-        pictureUrl
-        description
-        followingIds
-        followerIds
-        badges
-        linkedProfiles
-      }
-      social {
-        postIds
-        blogIds
-      }
-      status
-    }
-  }
-}
-    `;
+	mutation Login($loginInput: String!, $loginPassword: String!) {
+		login(input: $loginInput, password: $loginPassword) {
+			accessToken
+			user {
+				_id
+				account {
+					username
+					tag
+					email
+					private
+					pro
+				}
+				profile {
+					bannerUrl
+					pictureUrl
+					description
+					followingIds
+					followerIds
+					badges
+					linkedProfiles
+				}
+				social {
+					postIds
+					blogIds
+				}
+				status
+			}
+		}
+	}
+`;
 export type LoginMutationFn = Apollo.MutationFunction<LoginMutation, LoginMutationVariables>;
 
 /**
@@ -566,17 +709,17 @@ export type LoginMutationFn = Apollo.MutationFunction<LoginMutation, LoginMutati
  * });
  */
 export function useLoginMutation(baseOptions?: Apollo.MutationHookOptions<LoginMutation, LoginMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<LoginMutation, LoginMutationVariables>(LoginDocument, options);
-      }
+	const options = { ...defaultOptions, ...baseOptions };
+	return Apollo.useMutation<LoginMutation, LoginMutationVariables>(LoginDocument, options);
+}
 export type LoginMutationHookResult = ReturnType<typeof useLoginMutation>;
 export type LoginMutationResult = Apollo.MutationResult<LoginMutation>;
 export type LoginMutationOptions = Apollo.BaseMutationOptions<LoginMutation, LoginMutationVariables>;
 export const LogoutDocument = gql`
-    mutation Logout {
-  logout
-}
-    `;
+	mutation Logout {
+		logout
+	}
+`;
 export type LogoutMutationFn = Apollo.MutationFunction<LogoutMutation, LogoutMutationVariables>;
 
 /**
@@ -596,38 +739,38 @@ export type LogoutMutationFn = Apollo.MutationFunction<LogoutMutation, LogoutMut
  * });
  */
 export function useLogoutMutation(baseOptions?: Apollo.MutationHookOptions<LogoutMutation, LogoutMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<LogoutMutation, LogoutMutationVariables>(LogoutDocument, options);
-      }
+	const options = { ...defaultOptions, ...baseOptions };
+	return Apollo.useMutation<LogoutMutation, LogoutMutationVariables>(LogoutDocument, options);
+}
 export type LogoutMutationHookResult = ReturnType<typeof useLogoutMutation>;
 export type LogoutMutationResult = Apollo.MutationResult<LogoutMutation>;
 export type LogoutMutationOptions = Apollo.BaseMutationOptions<LogoutMutation, LogoutMutationVariables>;
 export const MyAccountMinProfileDocument = gql`
-    query myAccountMinProfile {
-  myAccount {
-    _id
-    account {
-      username
-      tag
-      private
-    }
-    profile {
-      bannerUrl
-      pictureUrl
-      description
-      followingIds
-      followerIds
-      badges
-      linkedProfiles
-    }
-    social {
-      postIds
-      blogIds
-    }
-    status
-  }
-}
-    `;
+	query myAccountMinProfile {
+		myAccount {
+			_id
+			account {
+				username
+				tag
+				private
+			}
+			profile {
+				bannerUrl
+				pictureUrl
+				description
+				followingIds
+				followerIds
+				badges
+				linkedProfiles
+			}
+			social {
+				postIds
+				blogIds
+			}
+			status
+		}
+	}
+`;
 
 /**
  * __useMyAccountMinProfileQuery__
@@ -645,27 +788,27 @@ export const MyAccountMinProfileDocument = gql`
  * });
  */
 export function useMyAccountMinProfileQuery(baseOptions?: Apollo.QueryHookOptions<MyAccountMinProfileQuery, MyAccountMinProfileQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<MyAccountMinProfileQuery, MyAccountMinProfileQueryVariables>(MyAccountMinProfileDocument, options);
-      }
+	const options = { ...defaultOptions, ...baseOptions };
+	return Apollo.useQuery<MyAccountMinProfileQuery, MyAccountMinProfileQueryVariables>(MyAccountMinProfileDocument, options);
+}
 export function useMyAccountMinProfileLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<MyAccountMinProfileQuery, MyAccountMinProfileQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<MyAccountMinProfileQuery, MyAccountMinProfileQueryVariables>(MyAccountMinProfileDocument, options);
-        }
+	const options = { ...defaultOptions, ...baseOptions };
+	return Apollo.useLazyQuery<MyAccountMinProfileQuery, MyAccountMinProfileQueryVariables>(MyAccountMinProfileDocument, options);
+}
 export type MyAccountMinProfileQueryHookResult = ReturnType<typeof useMyAccountMinProfileQuery>;
 export type MyAccountMinProfileLazyQueryHookResult = ReturnType<typeof useMyAccountMinProfileLazyQuery>;
 export type MyAccountMinProfileQueryResult = Apollo.QueryResult<MyAccountMinProfileQuery, MyAccountMinProfileQueryVariables>;
 export const MyFollowingDocument = gql`
-    query myFollowing {
-  myAccount {
-    _id
-    profile {
-      followerIds
-      followingIds
-    }
-  }
-}
-    `;
+	query myFollowing {
+		myAccount {
+			_id
+			profile {
+				followerIds
+				followingIds
+			}
+		}
+	}
+`;
 
 /**
  * __useMyFollowingQuery__
@@ -683,30 +826,30 @@ export const MyFollowingDocument = gql`
  * });
  */
 export function useMyFollowingQuery(baseOptions?: Apollo.QueryHookOptions<MyFollowingQuery, MyFollowingQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<MyFollowingQuery, MyFollowingQueryVariables>(MyFollowingDocument, options);
-      }
+	const options = { ...defaultOptions, ...baseOptions };
+	return Apollo.useQuery<MyFollowingQuery, MyFollowingQueryVariables>(MyFollowingDocument, options);
+}
 export function useMyFollowingLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<MyFollowingQuery, MyFollowingQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<MyFollowingQuery, MyFollowingQueryVariables>(MyFollowingDocument, options);
-        }
+	const options = { ...defaultOptions, ...baseOptions };
+	return Apollo.useLazyQuery<MyFollowingQuery, MyFollowingQueryVariables>(MyFollowingDocument, options);
+}
 export type MyFollowingQueryHookResult = ReturnType<typeof useMyFollowingQuery>;
 export type MyFollowingLazyQueryHookResult = ReturnType<typeof useMyFollowingLazyQuery>;
 export type MyFollowingQueryResult = Apollo.QueryResult<MyFollowingQuery, MyFollowingQueryVariables>;
 export const MyNameAndPfpDocument = gql`
-    query myNameAndPfp {
-  myAccount {
-    _id
-    account {
-      username
-      tag
-    }
-    profile {
-      pictureUrl
-    }
-  }
-}
-    `;
+	query myNameAndPfp {
+		myAccount {
+			_id
+			account {
+				username
+				tag
+			}
+			profile {
+				pictureUrl
+			}
+		}
+	}
+`;
 
 /**
  * __useMyNameAndPfpQuery__
@@ -724,27 +867,27 @@ export const MyNameAndPfpDocument = gql`
  * });
  */
 export function useMyNameAndPfpQuery(baseOptions?: Apollo.QueryHookOptions<MyNameAndPfpQuery, MyNameAndPfpQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<MyNameAndPfpQuery, MyNameAndPfpQueryVariables>(MyNameAndPfpDocument, options);
-      }
+	const options = { ...defaultOptions, ...baseOptions };
+	return Apollo.useQuery<MyNameAndPfpQuery, MyNameAndPfpQueryVariables>(MyNameAndPfpDocument, options);
+}
 export function useMyNameAndPfpLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<MyNameAndPfpQuery, MyNameAndPfpQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<MyNameAndPfpQuery, MyNameAndPfpQueryVariables>(MyNameAndPfpDocument, options);
-        }
+	const options = { ...defaultOptions, ...baseOptions };
+	return Apollo.useLazyQuery<MyNameAndPfpQuery, MyNameAndPfpQueryVariables>(MyNameAndPfpDocument, options);
+}
 export type MyNameAndPfpQueryHookResult = ReturnType<typeof useMyNameAndPfpQuery>;
 export type MyNameAndPfpLazyQueryHookResult = ReturnType<typeof useMyNameAndPfpLazyQuery>;
 export type MyNameAndPfpQueryResult = Apollo.QueryResult<MyNameAndPfpQuery, MyNameAndPfpQueryVariables>;
 export const MyPfpAndStatusDocument = gql`
-    query myPfpAndStatus {
-  myAccount {
-    _id
-    profile {
-      pictureUrl
-    }
-    status
-  }
-}
-    `;
+	query myPfpAndStatus {
+		myAccount {
+			_id
+			profile {
+				pictureUrl
+			}
+			status
+		}
+	}
+`;
 
 /**
  * __useMyPfpAndStatusQuery__
@@ -762,42 +905,42 @@ export const MyPfpAndStatusDocument = gql`
  * });
  */
 export function useMyPfpAndStatusQuery(baseOptions?: Apollo.QueryHookOptions<MyPfpAndStatusQuery, MyPfpAndStatusQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<MyPfpAndStatusQuery, MyPfpAndStatusQueryVariables>(MyPfpAndStatusDocument, options);
-      }
+	const options = { ...defaultOptions, ...baseOptions };
+	return Apollo.useQuery<MyPfpAndStatusQuery, MyPfpAndStatusQueryVariables>(MyPfpAndStatusDocument, options);
+}
 export function useMyPfpAndStatusLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<MyPfpAndStatusQuery, MyPfpAndStatusQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<MyPfpAndStatusQuery, MyPfpAndStatusQueryVariables>(MyPfpAndStatusDocument, options);
-        }
+	const options = { ...defaultOptions, ...baseOptions };
+	return Apollo.useLazyQuery<MyPfpAndStatusQuery, MyPfpAndStatusQueryVariables>(MyPfpAndStatusDocument, options);
+}
 export type MyPfpAndStatusQueryHookResult = ReturnType<typeof useMyPfpAndStatusQuery>;
 export type MyPfpAndStatusLazyQueryHookResult = ReturnType<typeof useMyPfpAndStatusLazyQuery>;
 export type MyPfpAndStatusQueryResult = Apollo.QueryResult<MyPfpAndStatusQuery, MyPfpAndStatusQueryVariables>;
 export const RandomMinProfileDocument = gql`
-    query randomMinProfile {
-  randomUser {
-    _id
-    account {
-      username
-      tag
-      private
-    }
-    profile {
-      bannerUrl
-      pictureUrl
-      description
-      followingIds
-      followerIds
-      badges
-      linkedProfiles
-    }
-    social {
-      postIds
-      blogIds
-    }
-    status
-  }
-}
-    `;
+	query randomMinProfile {
+		randomUser {
+			_id
+			account {
+				username
+				tag
+				private
+			}
+			profile {
+				bannerUrl
+				pictureUrl
+				description
+				followingIds
+				followerIds
+				badges
+				linkedProfiles
+			}
+			social {
+				postIds
+				blogIds
+			}
+			status
+		}
+	}
+`;
 
 /**
  * __useRandomMinProfileQuery__
@@ -815,47 +958,47 @@ export const RandomMinProfileDocument = gql`
  * });
  */
 export function useRandomMinProfileQuery(baseOptions?: Apollo.QueryHookOptions<RandomMinProfileQuery, RandomMinProfileQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<RandomMinProfileQuery, RandomMinProfileQueryVariables>(RandomMinProfileDocument, options);
-      }
+	const options = { ...defaultOptions, ...baseOptions };
+	return Apollo.useQuery<RandomMinProfileQuery, RandomMinProfileQueryVariables>(RandomMinProfileDocument, options);
+}
 export function useRandomMinProfileLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<RandomMinProfileQuery, RandomMinProfileQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<RandomMinProfileQuery, RandomMinProfileQueryVariables>(RandomMinProfileDocument, options);
-        }
+	const options = { ...defaultOptions, ...baseOptions };
+	return Apollo.useLazyQuery<RandomMinProfileQuery, RandomMinProfileQueryVariables>(RandomMinProfileDocument, options);
+}
 export type RandomMinProfileQueryHookResult = ReturnType<typeof useRandomMinProfileQuery>;
 export type RandomMinProfileLazyQueryHookResult = ReturnType<typeof useRandomMinProfileLazyQuery>;
 export type RandomMinProfileQueryResult = Apollo.QueryResult<RandomMinProfileQuery, RandomMinProfileQueryVariables>;
 export const RegisterDocument = gql`
-    mutation Register($registerEmail: String!, $registerPassword: String!) {
-  register(email: $registerEmail, password: $registerPassword) {
-    accessToken
-    user {
-      _id
-      account {
-        username
-        tag
-        email
-        private
-        pro
-      }
-      profile {
-        bannerUrl
-        pictureUrl
-        description
-        followingIds
-        followerIds
-        badges
-        linkedProfiles
-      }
-      social {
-        postIds
-        blogIds
-      }
-      status
-    }
-  }
-}
-    `;
+	mutation Register($registerEmail: String!, $registerPassword: String!) {
+		register(email: $registerEmail, password: $registerPassword) {
+			accessToken
+			user {
+				_id
+				account {
+					username
+					tag
+					email
+					private
+					pro
+				}
+				profile {
+					bannerUrl
+					pictureUrl
+					description
+					followingIds
+					followerIds
+					badges
+					linkedProfiles
+				}
+				social {
+					postIds
+					blogIds
+				}
+				status
+			}
+		}
+	}
+`;
 export type RegisterMutationFn = Apollo.MutationFunction<RegisterMutation, RegisterMutationVariables>;
 
 /**
@@ -877,28 +1020,28 @@ export type RegisterMutationFn = Apollo.MutationFunction<RegisterMutation, Regis
  * });
  */
 export function useRegisterMutation(baseOptions?: Apollo.MutationHookOptions<RegisterMutation, RegisterMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<RegisterMutation, RegisterMutationVariables>(RegisterDocument, options);
-      }
+	const options = { ...defaultOptions, ...baseOptions };
+	return Apollo.useMutation<RegisterMutation, RegisterMutationVariables>(RegisterDocument, options);
+}
 export type RegisterMutationHookResult = ReturnType<typeof useRegisterMutation>;
 export type RegisterMutationResult = Apollo.MutationResult<RegisterMutation>;
 export type RegisterMutationOptions = Apollo.BaseMutationOptions<RegisterMutation, RegisterMutationVariables>;
 export const SampleUsersDocument = gql`
-    query sampleUsers($amount: Int!) {
-  randomUsers(count: $amount) {
-    _id
-    account {
-      username
-      tag
-    }
-    profile {
-      pictureUrl
-      badges
-    }
-    status
-  }
-}
-    `;
+	query sampleUsers($amount: Int!) {
+		randomUsers(count: $amount) {
+			_id
+			account {
+				username
+				tag
+			}
+			profile {
+				pictureUrl
+				badges
+			}
+			status
+		}
+	}
+`;
 
 /**
  * __useSampleUsersQuery__
@@ -917,23 +1060,23 @@ export const SampleUsersDocument = gql`
  * });
  */
 export function useSampleUsersQuery(baseOptions: Apollo.QueryHookOptions<SampleUsersQuery, SampleUsersQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<SampleUsersQuery, SampleUsersQueryVariables>(SampleUsersDocument, options);
-      }
+	const options = { ...defaultOptions, ...baseOptions };
+	return Apollo.useQuery<SampleUsersQuery, SampleUsersQueryVariables>(SampleUsersDocument, options);
+}
 export function useSampleUsersLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<SampleUsersQuery, SampleUsersQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<SampleUsersQuery, SampleUsersQueryVariables>(SampleUsersDocument, options);
-        }
+	const options = { ...defaultOptions, ...baseOptions };
+	return Apollo.useLazyQuery<SampleUsersQuery, SampleUsersQueryVariables>(SampleUsersDocument, options);
+}
 export type SampleUsersQueryHookResult = ReturnType<typeof useSampleUsersQuery>;
 export type SampleUsersLazyQueryHookResult = ReturnType<typeof useSampleUsersLazyQuery>;
 export type SampleUsersQueryResult = Apollo.QueryResult<SampleUsersQuery, SampleUsersQueryVariables>;
 export const UnfollowDocument = gql`
-    mutation unfollow($targetId: String!) {
-  unfollow(id: $targetId) {
-    success
-  }
-}
-    `;
+	mutation unfollow($targetId: String!) {
+		unfollow(id: $targetId) {
+			success
+		}
+	}
+`;
 export type UnfollowMutationFn = Apollo.MutationFunction<UnfollowMutation, UnfollowMutationVariables>;
 
 /**
@@ -954,38 +1097,38 @@ export type UnfollowMutationFn = Apollo.MutationFunction<UnfollowMutation, Unfol
  * });
  */
 export function useUnfollowMutation(baseOptions?: Apollo.MutationHookOptions<UnfollowMutation, UnfollowMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<UnfollowMutation, UnfollowMutationVariables>(UnfollowDocument, options);
-      }
+	const options = { ...defaultOptions, ...baseOptions };
+	return Apollo.useMutation<UnfollowMutation, UnfollowMutationVariables>(UnfollowDocument, options);
+}
 export type UnfollowMutationHookResult = ReturnType<typeof useUnfollowMutation>;
 export type UnfollowMutationResult = Apollo.MutationResult<UnfollowMutation>;
 export type UnfollowMutationOptions = Apollo.BaseMutationOptions<UnfollowMutation, UnfollowMutationVariables>;
 export const UpdateProfileDocument = gql`
-    mutation updateProfile($newname: String, $newtag: String, $newdes: String) {
-  updateProfile(name: $newname, tag: $newtag, description: $newdes) {
-    _id
-    account {
-      username
-      tag
-      private
-    }
-    profile {
-      bannerUrl
-      pictureUrl
-      description
-      followingIds
-      followerIds
-      badges
-      linkedProfiles
-    }
-    social {
-      postIds
-      blogIds
-    }
-    status
-  }
-}
-    `;
+	mutation updateProfile($newname: String, $newtag: String, $newdes: String) {
+		updateProfile(name: $newname, tag: $newtag, description: $newdes) {
+			_id
+			account {
+				username
+				tag
+				private
+			}
+			profile {
+				bannerUrl
+				pictureUrl
+				description
+				followingIds
+				followerIds
+				badges
+				linkedProfiles
+			}
+			social {
+				postIds
+				blogIds
+			}
+			status
+		}
+	}
+`;
 export type UpdateProfileMutationFn = Apollo.MutationFunction<UpdateProfileMutation, UpdateProfileMutationVariables>;
 
 /**
@@ -1008,44 +1151,44 @@ export type UpdateProfileMutationFn = Apollo.MutationFunction<UpdateProfileMutat
  * });
  */
 export function useUpdateProfileMutation(baseOptions?: Apollo.MutationHookOptions<UpdateProfileMutation, UpdateProfileMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<UpdateProfileMutation, UpdateProfileMutationVariables>(UpdateProfileDocument, options);
-      }
+	const options = { ...defaultOptions, ...baseOptions };
+	return Apollo.useMutation<UpdateProfileMutation, UpdateProfileMutationVariables>(UpdateProfileDocument, options);
+}
 export type UpdateProfileMutationHookResult = ReturnType<typeof useUpdateProfileMutation>;
 export type UpdateProfileMutationResult = Apollo.MutationResult<UpdateProfileMutation>;
 export type UpdateProfileMutationOptions = Apollo.BaseMutationOptions<UpdateProfileMutation, UpdateProfileMutationVariables>;
 export const UploadSingleDocument = gql`
-    mutation uploadSingle($file: Upload!, $type: String!, $edata: ExtraData) {
-  singleUpload(file: $file, type: $type) {
-    user {
-      _id
-      account {
-        username
-        tag
-        private
-      }
-      profile {
-        bannerUrl
-        pictureUrl
-        description
-        followingIds
-        followerIds
-        badges
-        linkedProfiles
-      }
-      social {
-        postIds
-        blogIds
-      }
-      status
-    }
-    file {
-      filename
-    }
-    doc
-  }
-}
-    `;
+	mutation uploadSingle($file: Upload!, $type: String!, $edata: ExtraData) {
+		singleUpload(file: $file, type: $type, edata: $edata) {
+			user {
+				_id
+				account {
+					username
+					tag
+					private
+				}
+				profile {
+					bannerUrl
+					pictureUrl
+					description
+					followingIds
+					followerIds
+					badges
+					linkedProfiles
+				}
+				social {
+					postIds
+					blogIds
+				}
+				status
+			}
+			file {
+				filename
+			}
+			doc
+		}
+	}
+`;
 export type UploadSingleMutationFn = Apollo.MutationFunction<UploadSingleMutation, UploadSingleMutationVariables>;
 
 /**
@@ -1068,9 +1211,9 @@ export type UploadSingleMutationFn = Apollo.MutationFunction<UploadSingleMutatio
  * });
  */
 export function useUploadSingleMutation(baseOptions?: Apollo.MutationHookOptions<UploadSingleMutation, UploadSingleMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<UploadSingleMutation, UploadSingleMutationVariables>(UploadSingleDocument, options);
-      }
+	const options = { ...defaultOptions, ...baseOptions };
+	return Apollo.useMutation<UploadSingleMutation, UploadSingleMutationVariables>(UploadSingleDocument, options);
+}
 export type UploadSingleMutationHookResult = ReturnType<typeof useUploadSingleMutation>;
 export type UploadSingleMutationResult = Apollo.MutationResult<UploadSingleMutation>;
 export type UploadSingleMutationOptions = Apollo.BaseMutationOptions<UploadSingleMutation, UploadSingleMutationVariables>;
