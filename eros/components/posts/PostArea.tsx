@@ -122,7 +122,7 @@ const PostArea = () => {
 				picker.style.setProperty("--epr-search-input-border-radius", "1em");
 				picker.style.setProperty("--epr-picker-border-radius", "1em");
 				picker.style.setProperty("--epr-horizontal-padding", ".625em");
-				// picker.style.setProperty("", "");
+				picker.style.boxShadow = "0px 0px 1.875em rgba(30, 50, 90, 0.05)";
 
 				// SETTING CATEGORY FONTS (we have to do them individually)
 				const labels = document.getElementsByClassName("epr-emoji-category-label");
