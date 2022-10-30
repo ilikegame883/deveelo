@@ -212,6 +212,7 @@ const initServer = async () => {
     const server = new apollo_server_express_1.ApolloServer({
         schema: schema,
         context: ({ req, res }) => ({ req, res }),
+        cache: "bounded",
     });
     await server.start();
     server.applyMiddleware({

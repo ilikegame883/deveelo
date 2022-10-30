@@ -263,6 +263,7 @@ const initServer = async () => {
 	const server = new ApolloServer({
 		schema: schema,
 		context: ({ req, res }) => ({ req, res }),
+		cache: "bounded",
 	});
 
 	await server.start();
