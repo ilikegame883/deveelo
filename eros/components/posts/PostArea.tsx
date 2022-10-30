@@ -108,24 +108,20 @@ const PostArea = () => {
 				picker.style.setProperty("--epr-category-icon-active-color", "#fff");
 				picker.style.setProperty("--epr-search-input-bg-color", "var(--searchGray)");
 				picker.style.setProperty("--epr-search-input-height", "2.5em");
-				picker.style.setProperty("--epr-search-input-placeholder-color", "var(--midLightGray)");
+				picker.style.setProperty("--epr-search-input-placeholder-color", "var(--midFadeGray)");
 				picker.style.setProperty("--epr-search-input-text-color", "var(--textNormalCol)");
+				picker.style.setProperty("--epr-search-input-padding", "0 2.5em");
 				picker.style.setProperty("--epr-header-padding", ".7em .7em");
 				picker.style.setProperty("--epr-category-navigation-button-size", "1.2em");
 				picker.style.setProperty("--epr-text-color", "var(--midFadeGray)");
 				picker.style.setProperty("--epr-category-label-padding", "0em 1.6em");
-				picker.style.setProperty("--epr-preview-border-color", "#fff");
-				picker.style.setProperty("--epr-preview-text-size", "1em");
-				picker.style.setProperty("--epr-preview-height", "4em");
 				picker.style.setProperty("--epr-picker-border-color", "#fff");
 				picker.style.setProperty("--epr-hover-bg-color", "#ffb12914");
 				picker.style.setProperty("--epr-focus-bg-color", "#ffb1292a");
 				picker.style.setProperty("--epr-highlight-color", "var(--idle)");
-				// picker.style.setProperty("", "");
-				// picker.style.setProperty("", "");
-				// picker.style.setProperty("", "");
-				// picker.style.setProperty("", "");
-				// picker.style.setProperty("", "");
+				picker.style.setProperty("--epr-search-input-border-radius", "1em");
+				picker.style.setProperty("--epr-picker-border-radius", "1em");
+				picker.style.setProperty("--epr-horizontal-padding", ".625em");
 				// picker.style.setProperty("", "");
 
 				// SETTING CATEGORY FONTS (we have to do them individually)
@@ -137,6 +133,26 @@ const PostArea = () => {
 					element.style.fontFamily = "DM Sans";
 					element.style.fontWeight = "400";
 					element.style.letterSpacing = ".02em";
+				}
+
+				// EMOJI SEARCHBAR
+				const searches = document.getElementsByClassName("epr-search");
+				for (let i = 0; i < searches.length; i++) {
+					const element = searches[i] as HTMLElement;
+
+					element.style.fontFamily = "DM Sans";
+					element.style.fontWeight = "400";
+				}
+
+				// SEARCHBAR ICON
+				const searchIcons = document.getElementsByClassName("epr-icn-search");
+				for (let i = 0; i < searchIcons.length; i++) {
+					const element = searchIcons[i] as HTMLElement;
+
+					element.style.backgroundSize = "1.5em";
+					element.style.height = "1.5em";
+					element.style.width = "1.5em";
+					element.style.backgroundImage = "url(/resources/mag.svg)";
 				}
 			}, 0);
 		}
@@ -233,7 +249,7 @@ const PostArea = () => {
 								}}
 								suggestedEmojisMode={SuggestionMode.FREQUENT}
 								skinTonesDisabled={false}
-								// searchPlaceHolder="Filter"
+								searchPlaceHolder="Search for emojis"
 								emojiStyle={EmojiStyle.NATIVE}
 								categories={[
 									{
