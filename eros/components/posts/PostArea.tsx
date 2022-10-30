@@ -216,14 +216,10 @@ const PostArea = () => {
 							className={postStyles.input}
 							ref={textInput}
 							placeholder="What have you been working on?"
-							onClick={(e) => {
-								e.preventDefault();
-								console.log(e.currentTarget.selectionStart);
-								setCaretPos(e.currentTarget.selectionStart);
-							}}
 							onChange={(e) => {
 								setPostText(e.target.value);
-								console.log(e.currentTarget.selectionStart);
+							}}
+							onSelect={(e) => {
 								setCaretPos(e.currentTarget.selectionStart);
 							}}
 						/>
