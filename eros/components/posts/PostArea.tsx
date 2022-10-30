@@ -156,14 +156,26 @@ const PostArea = () => {
 				}
 			}, 0);
 		}
-
-		return () => {};
 	}, [showEmoji]);
 
 	// EMOJI SELECTION
 	function onClick(emojiData: EmojiClickData, event: MouseEvent) {
-		//setSelectedEmoji(emojiData.unified);
+		// setInsertEmoji(emojiData.emoji);
 		console.log(emojiData.emoji);
+		if (textInput && textInput.current) {
+			//allows you to keep typing seemlessly
+			textInput.current.focus();
+			//store the unaltered text & split at cursor
+			const text = textInput.current.value;
+			const original = [text.substring(0, caretPos), text.substring(caretPos, text.length)];
+
+			//insert our emoji at the cursor
+			const withEmoji = original[0] + emojiData.emoji + original[1];
+			textInput.current.value = withEmoji;
+			//sync the visible change w/ the variable copy used in code
+			//also rerenders!
+			setPostText(withEmoji);
+		}
 	}
 
 	const { data, loading, error } = useMyPfpAndStatusQuery();
