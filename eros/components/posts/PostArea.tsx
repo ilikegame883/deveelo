@@ -170,12 +170,12 @@ const PostArea = () => {
 			const original = [text.substring(0, caretPos), text.substring(caretPos, text.length)];
 
 			//insert our emoji at the cursor
-			const withEmoji = original[0] + emojiData.emoji + original[1];
+			const withEmoji = original[0] + emojiData.emoji + " " + original[1];
 			textInput.current.value = withEmoji;
 			//sync the visible change w/ the variable copy used in code
 			//also rerenders!
 			setPostText(withEmoji);
-			setCaretPos(caretPos + 1);
+			setCaretPos(caretPos + 2);
 		}
 	}
 
