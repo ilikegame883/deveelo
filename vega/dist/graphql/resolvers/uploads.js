@@ -128,6 +128,9 @@ const uploadsResolvers = {
                 throw new Error("account not found");
             }
             if (type === "post") {
+                if (edata === undefined) {
+                    throw new Error("No extra data (body, tags, etc) provided alongside the file upload. Cancelled.");
+                }
                 await Post_1.default.init();
                 const newPost = new Post_1.default({
                     imageUrls: [`/posts/${saveName}`],
@@ -144,7 +147,11 @@ const uploadsResolvers = {
                 });
                 try {
                     await newPost.save();
-                    document = await Post_1.default.findById(newPost._id);
+                    const post = await Post_1.default.findById(newPost._id);
+                    document = {
+                        body: post.body,
+                        previewUrl: post.imageUrls[0],
+                    };
                 }
                 catch (error) {
                     throw new Error("Unable to save post to database");

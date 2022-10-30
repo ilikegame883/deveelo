@@ -7,7 +7,7 @@ import Context from "../../context";
 import { validateFileExtensions } from "../../util/validators";
 import { UserInputError } from "apollo-server-express";
 import User, { UserType } from "../../models/User";
-import Post from "../../models/Post";
+import Post, { PostType } from "../../models/Post";
 
 const contentDir = "public/uploads/";
 let uploadedPfps: string[];
@@ -44,7 +44,7 @@ interface ExtraData {
 
 const uploadsResolvers = {
 	Mutation: {
-		singleUpload: async (_parent: any, { file, type, edata }: { file: any; type: string; edata: any }, { payload }: Context) => {
+		singleUpload: async (_parent: any, { file, type, edata }: { file: any; type: string; edata?: ExtraData }, { payload }: Context) => {
 			//variables which control the different behaviors of the types of uploads
 			//let existingUploads: string[];
 			let savePath: string;
@@ -171,6 +171,9 @@ const uploadsResolvers = {
 			}
 
 			if (type === "post") {
+				if (edata === undefined) {
+					throw new Error("No extra data (body, tags, etc) provided alongside the file upload. Cancelled.");
+				}
 				//create the post
 				await Post.init();
 
@@ -190,7 +193,11 @@ const uploadsResolvers = {
 
 				try {
 					await newPost.save();
-					document = await Post.findById(newPost._id);
+					const post: PostType = await Post.findById(newPost._id);
+					document = {
+						body: post.body,
+						previewUrl: post.imageUrls[0],
+					};
 				} catch (error) {
 					throw new Error("Unable to save post to database");
 				}
