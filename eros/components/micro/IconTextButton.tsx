@@ -1,8 +1,8 @@
 import { useRouter } from "next/router";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useUploadSingleMutation } from "../../hooks/backend/generated/graphql";
 import { checkFileSize } from "../../hooks/inputUtils";
-import { updatePostArea } from "../../hooks/socialhooks";
+import { createPost, updatePostArea } from "../../hooks/socialhooks";
 import buttonStyles from "../../styles/micro/icontextbutton.module.css";
 
 interface ITB_Props {
@@ -20,15 +20,17 @@ interface ITB_Props {
 		inactiveAction: any;
 		options?: {
 			toggleActive?: boolean;
+			controlActive?: boolean;
 		};
 	};
 	startActive?: boolean;
+	forcedActive?: boolean; //for controlled active
 	submit?: boolean;
 	disabled?: boolean;
 	type?: string; //necessary for the upload button, not used by regular button
 }
 
-export const IconTextButton = ({ src, text, activesrc, failsrc, gold, green, width, action, startActive, submit, disabled }: ITB_Props) => {
+export const IconTextButton = ({ src, text, activesrc, failsrc, gold, green, width, action, startActive, forcedActive, submit, disabled }: ITB_Props) => {
 	const router = useRouter();
 
 	const buttonStyle = () => ({
@@ -55,9 +57,12 @@ export const IconTextButton = ({ src, text, activesrc, failsrc, gold, green, wid
 
 	const [active, setActive] = useState(startActive);
 
-	const borderStyle = active ? successStyle : normStyle;
+	const shouldOverride = action.options.controlActive;
+	const useActive = shouldOverride ? forcedActive : active;
 
-	const currentAction = active ? action?.activeAction : action?.inactiveAction;
+	const borderStyle = useActive ? successStyle : normStyle;
+
+	const currentAction = useActive ? action?.activeAction : action?.inactiveAction;
 
 	const handlePress = () => {
 		//if the type is submit, it already has a form specific action
@@ -92,6 +97,8 @@ export const IconTextButton = ({ src, text, activesrc, failsrc, gold, green, wid
 			type={submit ? "submit" : undefined}
 			onClick={(e) => {
 				e.preventDefault();
+				console.log("submit from source");
+				//createPost();
 				handlePress();
 			}}>
 			<img style={buttonStyle()} src={icon} />
@@ -103,6 +110,36 @@ export const IconTextButton = ({ src, text, activesrc, failsrc, gold, green, wid
 //same system but w/ file upload capabilities
 export const UploadIconTextButton = ({ src, type, text, activesrc, failsrc, gold, width, submit, disabled }: ITB_Props) => {
 	const router = useRouter();
+	const [uploadnow, setUploadNow] = useState(false);
+
+	useEffect(() => {
+		const handleUpdate = (e: CustomEvent) => {
+			console.log("cheeky start");
+			setUploadNow(true);
+
+			//handleNewUpload();
+		};
+		setTimeout(() => {
+			//add event listener to the postarea which listens for
+			//events telling to swap the create post form out for a
+			//post preview alongside a couple share buttons
+			//the source of these dispatched events are socialhoots.ts
+			const post = document.getElementById("postfile");
+
+			if (post) {
+				post.addEventListener("createPost", handleUpdate);
+			}
+		}, 1000);
+
+		return () => {
+			//remove listener on unmount
+			const post = document.getElementById("postfile");
+
+			if (post) {
+				post.removeEventListener("createPost", handleUpdate);
+			}
+		};
+	}, []);
 
 	// UPLOAD STUFF
 	const [newFile, setNewFile] = useState<File>();
@@ -121,25 +158,46 @@ export const UploadIconTextButton = ({ src, type, text, activesrc, failsrc, gold
 	};
 
 	const handleNewUpload = async () => {
+		return;
 		if (!newFile || isError) {
 			return;
 		}
+		const hashtags: string[] = [];
+		console.log("beginning upload");
 
 		const response = await uploadSingle({
 			variables: {
 				file: newFile,
 				type: type,
+				edata: {
+					field1: localStorage.getItem("postbody"), //body
+					field2: hashtags, //hashtags
+					field3: null,
+				},
 			},
 		});
 
 		if (response && response.data) {
+			//remove the body from localstore, we used it already and storage is
+			//becoming cluttered tbh
+			localStorage.removeItem("postbody");
 			//successfully created post, switch to share screen.
 			//also pass the name (and therefore the file path) that
 			//the image was saved at for the share preview
-			const serversideName = response.data.singleUpload.file.filename;
-			updatePostArea("afterpost", serversideName);
+			console.log("successfully uploaded");
+
+			const info = response.data.singleUpload;
+			const serversideName = info.file.filename;
+			updatePostArea("afterpost", serversideName, info.doc);
+			setUploadNow(false);
 		}
 	};
+
+	if (uploadnow) {
+		console.log("actual start");
+
+		handleNewUpload();
+	}
 
 	//REGULAR STUFF
 	const buttonStyle = () => ({
@@ -176,7 +234,7 @@ export const UploadIconTextButton = ({ src, type, text, activesrc, failsrc, gold
 	}
 
 	return (
-		<button style={borderStyle()} className={gold ? buttonStyles.gold : regularStyle} type={submit ? "submit" : "button"} onClick={selectFile}>
+		<button style={borderStyle()} className={gold ? buttonStyles.gold : regularStyle} type={submit ? "submit" : "button"} onClick={selectFile} onSubmit={handleNewUpload}>
 			<input
 				type="file"
 				id={`${type}file`}
