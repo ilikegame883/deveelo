@@ -25,6 +25,9 @@ mutation uploadSingle($file: Upload!, $type: String!, $edata: ExtraData) {
 		file {
 			filename
 		}
-		doc
+		doc {
+			body
+			text2
+		}
 	}
 }

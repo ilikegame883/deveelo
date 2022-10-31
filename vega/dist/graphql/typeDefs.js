@@ -21,7 +21,11 @@ exports.typeDefs = graphql_tag_1.default `
 	type UploadResult {
 		user: User!
 		file: File!
-		doc: String
+		doc: KeyFields
+	}
+	type KeyFields {
+		body: String!
+		text2: String
 	}
 	input ExtraData {
 		field1: String
@@ -129,7 +133,7 @@ exports.typeDefs = graphql_tag_1.default `
 		follow(id: String!): BoolRes
 		unfollow(id: String!): BoolRes
 		updateProfile(name: String, tag: String, description: String): User!
-		singleUpload(file: Upload!, type: String!, edata: ExtraData): UploadResult
+		singleUpload(file: Upload!, type: String!, edata: ExtraData): UploadResult!
 	}
 `;
 //# sourceMappingURL=typeDefs.js.map
