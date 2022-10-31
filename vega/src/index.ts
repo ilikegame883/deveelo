@@ -254,6 +254,7 @@ const initServer = async () => {
 	//send the images when route is loaded
 	app.use("/uploads/pfps", express.static(path.join(__dirname, "../public/uploads/pfps")));
 	app.use("/uploads/banners", express.static(path.join(__dirname, "../public/uploads/banners")));
+	app.use("/uploads/posts", express.static(path.join(__dirname, "../public/uploads/posts")));
 
 	const schema = makeExecutableSchema({
 		typeDefs,
