@@ -30,6 +30,7 @@ interface ITB_Props {
 	type?: string; //necessary for the upload button, not used by regular button
 	startUpload?: boolean; //sends the gql request and uploads the post, only for upload button
 	onFailedUpload?: any; //used to reset starter prop if no file was selected but post attempt was attempted & failed
+	onSuccess?: any; //used to set state in parent which will unmount this and load post preview
 }
 
 export const IconTextButton = ({ src, text, activesrc, failsrc, gold, green, width, action, startActive, forcedActive, submit, disabled }: ITB_Props) => {
@@ -59,7 +60,7 @@ export const IconTextButton = ({ src, text, activesrc, failsrc, gold, green, wid
 
 	const [active, setActive] = useState(startActive);
 
-	const shouldOverride = action.options.controlActive;
+	const shouldOverride = action?.options?.controlActive;
 	const useActive = shouldOverride ? forcedActive : active;
 
 	const borderStyle = useActive ? successStyle : normStyle;
@@ -110,7 +111,7 @@ export const IconTextButton = ({ src, text, activesrc, failsrc, gold, green, wid
 };
 
 //same system but w/ file upload capabilities
-export const UploadIconTextButton = ({ src, type, startUpload, onFailedUpload, text, activesrc, failsrc, gold, width, submit, disabled }: ITB_Props) => {
+export const UploadIconTextButton = ({ src, type, startUpload, onSuccess, onFailedUpload, text, activesrc, failsrc, gold, width, submit, disabled }: ITB_Props) => {
 	//const router = useRouter();
 	//const [uploadnow, setUploadNow] = useState(false);
 
@@ -207,9 +208,12 @@ export const UploadIconTextButton = ({ src, type, startUpload, onFailedUpload, t
 			console.log("successfully uploaded");
 
 			const info = response.data.singleUpload;
-			const serversideName = info.file.filename;
-			const body = info.doc.body;
 			console.log(info);
+
+			//the preview link
+			const imageLink = info.doc.text2;
+			console.log("running onsuccess w/ link: " + imageLink);
+			onSuccess(imageLink);
 
 			//updatePostArea("afterpost", serversideName, info.doc);
 		}

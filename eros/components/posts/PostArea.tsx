@@ -12,6 +12,8 @@ import { isLoggedIn } from "../../hooks/userChecks";
 import IconButton from "../micro/IconButton";
 import { useEffect, useRef, useState } from "react";
 import { IconTextButton, UploadIconTextButton } from "../micro/IconTextButton";
+import Image from "next/image";
+import { postLoader } from "../../hooks/loaders";
 
 const PostArea = () => {
 	//STATE MANAGEMENT
@@ -21,6 +23,8 @@ const PostArea = () => {
 	//(d) in the upload button, the file stored there already so we also run the mutation there
 	//(e) posted now = true, so swap out for the post preview.
 	const [posted, setPosted] = useState(false);
+	//we'll store the preview link here, if empty = false, text = show preview w/ that image
+	const [showPreview, setShowPreview] = useState("");
 	const [showEmoji, setShowEmoji] = useState(false);
 	const [caretPos, setCaretPos] = useState(0);
 	const [postText, setPostText] = useState("");
@@ -31,25 +35,6 @@ const PostArea = () => {
 	const [previewFile, setPreviewFile] = useState<string>(); //the img file name
 
 	//EVERYTHING ELSE
-	//automatically expand the size of the text area upon new lines
-	//instead of wrapping & hiding old lines
-	useEffect(() => {
-		//fetch the text area by id
-		const textarea = document.querySelector("#postarea");
-		textarea?.addEventListener("input", autoResize, false);
-
-		function autoResize() {
-			this.style.height = "auto";
-			this.style.height = this.scrollHeight - 5 + "px";
-		}
-
-		return () => {
-			//remove the event lisner on unmound
-			const textarea = document.querySelector("#postarea");
-			textarea?.removeEventListener("input", autoResize, false);
-		};
-	}, [postText]);
-
 	//handle swtiching to share screen when recieving successful post event
 	/*
 	useEffect(() => {
@@ -223,144 +208,167 @@ const PostArea = () => {
 	// 	}
 	// };
 
+	const posting = (
+		<div className={postStyles.wrapper}>
+			<ProfilePicture size="w32" source={user.profile.pictureUrl} status={user.status} />
+			<form className={postStyles.form}>
+				<div className={postStyles.textbox} onClick={selectInput}>
+					<textarea
+						name="post"
+						id="postarea"
+						className={postStyles.input}
+						ref={textInput}
+						placeholder="What have you been working on?"
+						onChange={(e) => {
+							setPostText(e.target.value);
+						}}
+						onSelect={(e) => {
+							setCaretPos(e.currentTarget.selectionStart);
+						}}
+					/>
+					{/* EMOJI BUTTON AND PICKER */}
+					<div className={emojiStyles.picker}>
+						<IconButton
+							src="/resources/post_emoji.svg"
+							activesrc="/resources/post_emoji_on.svg"
+							width="1.3em"
+							height="1.3em"
+							paddingLR={0}
+							paddingTB={0}
+							hoverFxOff={true}
+							prevent={true}
+							action={{
+								activeAction: () => setShowEmoji(false),
+								inactiveAction: () => setShowEmoji(true),
+								options: {
+									toggleActive: true,
+								},
+							}}
+						/>
+					</div>
+				</div>
+				{showEmoji ? (
+					<div id="pickerwrapper" className={emojiStyles.pickerWrapper}>
+						<EmojiPicker
+							onEmojiClick={onClick}
+							autoFocusSearch={false}
+							theme={Theme.LIGHT}
+							height="25em"
+							width="30em"
+							lazyLoadEmojis={true}
+							previewConfig={{
+								showPreview: false,
+							}}
+							suggestedEmojisMode={SuggestionMode.FREQUENT}
+							skinTonesDisabled={false}
+							searchPlaceHolder="Search for emojis"
+							emojiStyle={EmojiStyle.NATIVE}
+							categories={[
+								{
+									name: "Frequent",
+									category: Categories.SUGGESTED,
+								},
+								{
+									name: "Smiles & People",
+									category: Categories.SMILEYS_PEOPLE,
+								},
+								{
+									name: "Animals",
+									category: Categories.ANIMALS_NATURE,
+								},
+								{
+									name: "Food & Drinks",
+									category: Categories.FOOD_DRINK,
+								},
+								{
+									name: "Fun and Games",
+									category: Categories.ACTIVITIES,
+								},
+								{
+									name: "Objects & Celebrations",
+									category: Categories.OBJECTS,
+								},
+								{
+									name: "Travel",
+									category: Categories.TRAVEL_PLACES,
+								},
+								{
+									name: "Flags",
+									category: Categories.FLAGS,
+								},
+								{
+									name: "Symbols",
+									category: Categories.SYMBOLS,
+								},
+							]}
+						/>
+					</div>
+				) : null}
+				<div className={postStyles.buttonWrapper}>
+					<UploadIconTextButton
+						text="Photo / Video"
+						src="/resources/ITB/add.svg"
+						activesrc="/resources/ITB/success.svg"
+						failsrc="/resources/ITB/fail.svg"
+						width="1rem"
+						type="post"
+						startUpload={posted}
+						onSuccess={(link: string) => setShowPreview(link)}
+						onFailedUpload={() => setPosted(false)}
+						action={{
+							activeAction: () => console.log("trigger upload"),
+							inactiveAction: () => console.log("trigger reupload"),
+							options: { toggleActive: true },
+						}}
+					/>
+					<IconTextButton
+						submit={false}
+						text="Post"
+						src="/resources/ITB/pencil.svg"
+						gold={true}
+						width="0.9375em"
+						action={{
+							activeAction: () => setPosted(true),
+							inactiveAction: () => console.log("blocked"),
+							options: { controlActive: true },
+						}}
+						forcedActive={postText.length > 0}
+					/>
+				</div>
+			</form>
+		</div>
+	);
+
+	const copyText = () => navigator.clipboard.writeText(postText);
+
+	const preview = (
+		<div className={postStyles.wrapper} style={{ padding: "0 0" }}>
+			<div className={postStyles.minipost}>
+				<div className={postStyles.imageWrapper}>
+					<Image loader={postLoader} className={postStyles.image} src={showPreview} alt="post preview" layout="fill" objectFit="cover" />
+				</div>
+				<p className={postStyles.text}>{postText}</p>
+			</div>
+			<div className={postStyles.shareWrapper}>
+				<IconTextButton
+					submit={false}
+					text="Copy Link"
+					src="/resources/ITB/link.svg"
+					activesrc="/resources/ITB/check.svg"
+					width="0.9375em"
+					action={{ activeAction: copyText, inactiveAction: copyText, options: { toggleActive: true } }}
+				/>
+				<IconTextButton submit={false} text="Share in Groups" src="/resources/ITB/groups.svg" green={true} width="0.9375em" />
+			</div>
+		</div>
+	);
+
+	const showPosting = showPreview === "";
+
 	return (
 		<div id="postarea" className={postStyles.container}>
 			{/* container swaps out the following: */}
-			<div className={postStyles.wrapper}>
-				<ProfilePicture size="w32" source={user.profile.pictureUrl} status={user.status} />
-				<form
-					className={postStyles.form}
-					// ref={postForm}
-					// onSubmit={(e) => {
-					// 	e.preventDefault();
-					// 	console.log("submitted yea");
-					// 	return "success";
-					// }}
-				>
-					<div className={postStyles.textbox} onClick={selectInput}>
-						<textarea
-							name="post"
-							id="postarea"
-							className={postStyles.input}
-							ref={textInput}
-							placeholder="What have you been working on?"
-							onChange={(e) => {
-								setPostText(e.target.value);
-							}}
-							onSelect={(e) => {
-								setCaretPos(e.currentTarget.selectionStart);
-							}}
-						/>
-						{/* EMOJI BUTTON AND PICKER */}
-						<div className={emojiStyles.picker}>
-							<IconButton
-								src="/resources/post_emoji.svg"
-								activesrc="/resources/post_emoji_on.svg"
-								width="1.3em"
-								height="1.3em"
-								paddingLR={0}
-								paddingTB={0}
-								hoverFxOff={true}
-								prevent={true}
-								action={{
-									activeAction: () => setShowEmoji(false),
-									inactiveAction: () => setShowEmoji(true),
-									options: {
-										toggleActive: true,
-									},
-								}}
-							/>
-						</div>
-					</div>
-					{showEmoji ? (
-						<div id="pickerwrapper" className={emojiStyles.pickerWrapper}>
-							<EmojiPicker
-								onEmojiClick={onClick}
-								autoFocusSearch={false}
-								theme={Theme.LIGHT}
-								height="25em"
-								width="30em"
-								lazyLoadEmojis={true}
-								previewConfig={{
-									showPreview: false,
-								}}
-								suggestedEmojisMode={SuggestionMode.FREQUENT}
-								skinTonesDisabled={false}
-								searchPlaceHolder="Search for emojis"
-								emojiStyle={EmojiStyle.NATIVE}
-								categories={[
-									{
-										name: "Frequent",
-										category: Categories.SUGGESTED,
-									},
-									{
-										name: "Smiles & People",
-										category: Categories.SMILEYS_PEOPLE,
-									},
-									{
-										name: "Animals",
-										category: Categories.ANIMALS_NATURE,
-									},
-									{
-										name: "Food & Drinks",
-										category: Categories.FOOD_DRINK,
-									},
-									{
-										name: "Fun and Games",
-										category: Categories.ACTIVITIES,
-									},
-									{
-										name: "Objects & Celebrations",
-										category: Categories.OBJECTS,
-									},
-									{
-										name: "Travel",
-										category: Categories.TRAVEL_PLACES,
-									},
-									{
-										name: "Flags",
-										category: Categories.FLAGS,
-									},
-									{
-										name: "Symbols",
-										category: Categories.SYMBOLS,
-									},
-								]}
-							/>
-						</div>
-					) : null}
-					<div className={postStyles.buttonWrapper}>
-						<UploadIconTextButton
-							text="Photo / Video"
-							src="/resources/ITB/add.svg"
-							activesrc="/resources/ITB/success.svg"
-							failsrc="/resources/ITB/fail.svg"
-							width="1rem"
-							type="post"
-							startUpload={posted}
-							onFailedUpload={() => setPosted(false)}
-							action={{
-								activeAction: () => console.log("trigger upload"),
-								inactiveAction: () => console.log("trigger reupload"),
-								options: { toggleActive: true },
-							}}
-						/>
-						<IconTextButton
-							submit={false}
-							text="Post"
-							src="/resources/ITB/pencil.svg"
-							gold={true}
-							width="0.9375em"
-							action={{
-								activeAction: () => setPosted(true),
-								inactiveAction: () => console.log("blocked"),
-								options: { controlActive: true },
-							}}
-							forcedActive={postText.length > 0}
-						/>
-					</div>
-				</form>
-			</div>
+			{showPosting ? posting : preview}
 		</div>
 	);
 };
