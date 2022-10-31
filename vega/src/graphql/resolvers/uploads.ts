@@ -35,6 +35,19 @@ fs.readdir(contentDir + "banners/", (err, files) => {
 	}
 });
 
+const generateName = (type: string, id: string | undefined, fileExtention: string) => {
+	const idonly = type === "pfp" || type === "banner";
+
+	if (idonly) {
+		return `${id}.webp`;
+	} else {
+		//take the id + milliseconds since epoch .extension
+		//= completely unique url for all nonpfp nonbanner uploads
+		const time = Date.now();
+		return `${id}${time}.${fileExtention}`;
+	}
+};
+
 interface ExtraData {
 	field1: string;
 	field2: string;
@@ -88,6 +101,9 @@ const uploadsResolvers = {
 			}
 
 			const { createReadStream, filename, mimetype, encoding } = await file;
+			console.log("mimetype is: \n" + mimetype);
+			console.log("encoding is: " + encoding);
+			console.log("filename is: " + filename);
 
 			//split the name at the . and take the file extention
 			const name = filename as string;
@@ -100,20 +116,8 @@ const uploadsResolvers = {
 				throw new UserInputError(errors.file);
 			}
 
-			//use the user id as the name
-			const generateName = () => {
-				const idonly = type === "pfp" || type === "banner";
-
-				if (idonly) {
-					return `${payload?.id}.webp`;
-				} else {
-					//take the id + milliseconds since epoch .extension
-					//= completely unique url for all nonpfp nonbanner uploads
-					const time = Date.now();
-					return `${payload?.id}${time}.${extension}`;
-				}
-			};
-			const saveName = generateName();
+			//use the user id and/or time as the name
+			const saveName = generateName(type, payload?.id, extension);
 
 			//change the user's profile data if pfp or banner
 			try {
@@ -175,43 +179,57 @@ const uploadsResolvers = {
 					throw new Error("No extra data (body, tags, etc) provided alongside the file upload. Cancelled.");
 				}
 				//create the post
+				console.log("☝️ about to begin creating post");
+
 				await Post.init();
+				console.log("🧙‍♂️ post innitiated");
 
 				const newPost = new Post({
 					imageUrls: [`/posts/${saveName}`],
 					body: edata.field1,
 					tags: edata.field2,
 					createdAt: new Date().toISOString(),
-					username: user.account.username,
-					user: {
-						type: new ObjectID(payload?.id),
-						ref: "User",
-					},
+					user_id: new ObjectID(payload?.id),
 					comments: [],
 					likes: [],
 				});
 
 				try {
+					console.log("📜 Post created, about to save");
 					await newPost.save();
-					const post: PostType = await Post.findById(newPost._id);
-					document = {
-						body: post.body,
-						previewUrl: post.imageUrls[0],
-					};
 				} catch (error) {
 					throw new Error("Unable to save post to database");
 				}
-			}
 
-			return {
-				user: user,
-				file: {
-					filename: saveName,
-					mimetype: mimetype,
-					encoding: encoding,
-				},
-				doc: document ? JSON.stringify(document) : null,
-			};
+				console.log("😇 Post saved, about cast it");
+				const post: PostType = newPost as any;
+				console.log("📗 Post casted, about to create document");
+				document = {
+					body: post.body,
+					previewUrl: post.imageUrls[0],
+				};
+				console.log("✅ Post uploaded successfully & found in database!");
+				// note
+				return {
+					user,
+					file: {
+						filename: saveName,
+						mimetype: mimetype,
+						encoding: encoding,
+					},
+					doc: JSON.stringify(document),
+				};
+			} else {
+				// note  return for all but post uploads
+				return {
+					user,
+					file: {
+						filename: saveName,
+						mimetype: mimetype,
+						encoding: encoding,
+					},
+				};
+			}
 		},
 	},
 };

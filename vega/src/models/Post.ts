@@ -1,16 +1,11 @@
 import { model, Schema } from "mongoose";
-import { UserType } from "./User";
 
 const postSchema = new Schema({
 	imageUrls: [String],
 	body: String,
 	tags: [String],
 	createdAt: String,
-	username: String,
-	user: {
-		type: Schema.Types.ObjectId,
-		ref: "User",
-	},
+	user_id: Schema.Types.ObjectId,
 	comments: [
 		{
 			body: String,
@@ -41,8 +36,7 @@ export interface PostType {
 	body: string;
 	tags: [string];
 	createdAt: string;
-	username: string;
-	user: UserType;
+	user_id: Schema.Types.ObjectId;
 	comments: [
 		{
 			body: string;

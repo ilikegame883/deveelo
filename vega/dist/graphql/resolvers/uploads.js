@@ -32,6 +32,16 @@ fs_1.default.readdir(contentDir + "banners/", (err, files) => {
         console.log("🍧 Banner filenames fetched and saved");
     }
 });
+const generateName = (type, id, fileExtention) => {
+    const idonly = type === "pfp" || type === "banner";
+    if (idonly) {
+        return `${id}.webp`;
+    }
+    else {
+        const time = Date.now();
+        return `${id}${time}.${fileExtention}`;
+    }
+};
 const uploadsResolvers = {
     Mutation: {
         singleUpload: async (_parent, { file, type, edata }, { payload }) => {
@@ -70,23 +80,16 @@ const uploadsResolvers = {
                     throw new Error("No valid type --banner, pfp, etc-- passed in as a prop with this upload");
             }
             const { createReadStream, filename, mimetype, encoding } = await file;
+            console.log("mimetype is: \n" + mimetype);
+            console.log("encoding is: " + encoding);
+            console.log("filename is: " + filename);
             const name = filename;
             const extension = name.split(".")[1];
             const { errors, valid } = validators_1.validateFileExtensions(extension, allowedExtensions);
             if (!valid) {
                 throw new apollo_server_express_1.UserInputError(errors.file);
             }
-            const generateName = () => {
-                const idonly = type === "pfp" || type === "banner";
-                if (idonly) {
-                    return `${payload === null || payload === void 0 ? void 0 : payload.id}.webp`;
-                }
-                else {
-                    const time = Date.now();
-                    return `${payload === null || payload === void 0 ? void 0 : payload.id}${time}.${extension}`;
-                }
-            };
-            const saveName = generateName();
+            const saveName = generateName(type, payload === null || payload === void 0 ? void 0 : payload.id, extension);
             try {
                 if (type === "pfp") {
                     await User_1.default.findByIdAndUpdate(payload.id, { $set: { "profile.pictureUrl": `/pfps/${saveName}` } }, { useFindAndModify: false });
@@ -131,41 +134,53 @@ const uploadsResolvers = {
                 if (edata === undefined) {
                     throw new Error("No extra data (body, tags, etc) provided alongside the file upload. Cancelled.");
                 }
+                console.log("☝️ about to begin creating post");
                 await Post_1.default.init();
+                console.log("🧙‍♂️ post innitiated");
                 const newPost = new Post_1.default({
                     imageUrls: [`/posts/${saveName}`],
                     body: edata.field1,
                     tags: edata.field2,
                     createdAt: new Date().toISOString(),
-                    username: user.account.username,
-                    user: {
-                        type: new mongodb_1.ObjectID(payload === null || payload === void 0 ? void 0 : payload.id),
-                        ref: "User",
-                    },
+                    user_id: new mongodb_1.ObjectID(payload === null || payload === void 0 ? void 0 : payload.id),
                     comments: [],
                     likes: [],
                 });
                 try {
+                    console.log("📜 Post created, about to save");
                     await newPost.save();
-                    const post = await Post_1.default.findById(newPost._id);
-                    document = {
-                        body: post.body,
-                        previewUrl: post.imageUrls[0],
-                    };
                 }
                 catch (error) {
                     throw new Error("Unable to save post to database");
                 }
+                console.log("😇 Post saved, about cast it");
+                const post = newPost;
+                console.log("📗 Post casted, about to create document");
+                document = {
+                    body: post.body,
+                    previewUrl: post.imageUrls[0],
+                };
+                console.log("✅ Post uploaded successfully & found in database!");
+                return {
+                    user,
+                    file: {
+                        filename: saveName,
+                        mimetype: mimetype,
+                        encoding: encoding,
+                    },
+                    doc: JSON.stringify(document),
+                };
             }
-            return {
-                user: user,
-                file: {
-                    filename: saveName,
-                    mimetype: mimetype,
-                    encoding: encoding,
-                },
-                doc: document ? JSON.stringify(document) : null,
-            };
+            else {
+                return {
+                    user,
+                    file: {
+                        filename: saveName,
+                        mimetype: mimetype,
+                        encoding: encoding,
+                    },
+                };
+            }
         },
     },
 };

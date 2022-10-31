@@ -6,11 +6,7 @@ const postSchema = new mongoose_1.Schema({
     body: String,
     tags: [String],
     createdAt: String,
-    username: String,
-    user: {
-        type: mongoose_1.Schema.Types.ObjectId,
-        ref: "User",
-    },
+    user_id: mongoose_1.Schema.Types.ObjectId,
     comments: [
         {
             body: String,
