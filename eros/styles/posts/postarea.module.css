@@ -34,7 +34,7 @@
 .textbox {
     height: fit-content;
     min-height: 3em;
-    width: 31.031em;
+    width: 29em;
     
     display: flex;
     flex-direction: row;
@@ -85,4 +85,73 @@
     flex-direction: row;
     align-items: flex-start;
     gap: 0.9375em;
+}
+
+/* POST PREVIEW */
+.minipost {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0.468em 0.9375em 0.468em 0.468em;
+    gap: 0.9375em;
+    margin-right: 0.9375em;
+
+    width: 36em;
+    height: 4.875em;
+
+    background: #EAEDF2;
+    border-radius: 1.0313em;
+
+    flex: none;
+    flex-grow: 0;
+}
+
+.imageWrapper {
+    position: relative;
+    width: 7.013em;
+    height: 3.9375em;
+    border-radius: 1.0313em;
+    overflow: hidden;
+
+    flex: none;
+    flex-grow: 0;
+}
+
+.image {
+    width: inherit;
+    height: inherit;
+    background: #BBC8DB;
+    /*image-rendering: -webkit-optimize-contrast; stops blur*/
+}
+
+.text {
+    width: 2em;
+    height: 3.9375em;
+    margin: 0;
+
+    font-family: 'DM Sans';
+    color: var(--textNormalCol);
+    font-style: normal;
+    font-weight: 400;
+    font-size: 0.9375em;
+    line-height: 1.2187em;
+    display: flex;
+    align-items: center;
+
+    flex: none;
+    flex-grow: 1;
+}
+
+.shareWrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 0.468em 0px 1.4062em;
+    gap: 0.9375em;
+
+    width: 2em;
+    height: 4.875em;
+
+    flex: none;
+    flex-grow: 1;
 }
