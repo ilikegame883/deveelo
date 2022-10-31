@@ -163,6 +163,11 @@ export const UploadIconTextButton = ({ src, type, startUpload, onFailedUpload, t
 	};
 
 	const handleNewUpload = async () => {
+		const storage = localStorage;
+		if (storage.getItem("uploading") !== null) {
+			//this is a duplicate request, we are already processing an upload
+			return;
+		}
 		if (!newFile || isError) {
 			//reset posted in parent to false where it can be reused to trigger
 			//otherwise, upload will attempt w/ every component rerender...which
@@ -173,7 +178,8 @@ export const UploadIconTextButton = ({ src, type, startUpload, onFailedUpload, t
 			return;
 		}
 		console.log("real start!");
-		return;
+		//return;
+		storage.setItem("uploading", "true");
 
 		const hashtags: string[] = [];
 		console.log("beginning upload");
@@ -183,7 +189,7 @@ export const UploadIconTextButton = ({ src, type, startUpload, onFailedUpload, t
 				file: newFile,
 				type: type,
 				edata: {
-					field1: localStorage.getItem("postbody"), //body
+					field1: storage.getItem("postbody"), //body
 					field2: hashtags, //hashtags
 					field3: null,
 				},
@@ -193,7 +199,8 @@ export const UploadIconTextButton = ({ src, type, startUpload, onFailedUpload, t
 		if (response && response.data) {
 			//remove the body from localstore, we used it already and storage is
 			//becoming cluttered tbh
-			localStorage.removeItem("postbody");
+			storage.removeItem("postbody");
+			storage.removeItem("uploading");
 			//successfully created post, switch to share screen.
 			//also pass the name (and therefore the file path) that
 			//the image was saved at for the share preview
@@ -201,7 +208,10 @@ export const UploadIconTextButton = ({ src, type, startUpload, onFailedUpload, t
 
 			const info = response.data.singleUpload;
 			const serversideName = info.file.filename;
-			updatePostArea("afterpost", serversideName, info.doc);
+			const body = info.doc.body;
+			console.log(info);
+
+			//updatePostArea("afterpost", serversideName, info.doc);
 		}
 	};
 
