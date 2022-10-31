@@ -48,7 +48,9 @@ const uploadsResolvers = {
             let savePath;
             let imageOptimization = null;
             let allowedExtensions;
-            let document;
+            const { createReadStream, filename, mimetype, encoding } = await file;
+            const name = filename;
+            let extension = name.split(".")[1];
             switch (type) {
                 case "pfp":
                     savePath = contentDir + "pfps";
@@ -75,16 +77,21 @@ const uploadsResolvers = {
                 case "post":
                     savePath = contentDir + "posts";
                     allowedExtensions = ["png", "jpg", "jpeg", "webp", "jfif", "avif", "mov", "mp4"];
+                    const pictureExtsns = ["png", "jpg", "jpeg", "webp", "jfif", "avif"];
+                    if (pictureExtsns.includes(extension.toLowerCase())) {
+                        extension = "webp";
+                        imageOptimization = sharp_1.default()
+                            .resize({
+                            width: 1920,
+                            height: 1080,
+                            fit: "cover",
+                        })
+                            .webp({ quality: 75 });
+                    }
                     break;
                 default:
                     throw new Error("No valid type --banner, pfp, etc-- passed in as a prop with this upload");
             }
-            const { createReadStream, filename, mimetype, encoding } = await file;
-            console.log("mimetype is: \n" + mimetype);
-            console.log("encoding is: " + encoding);
-            console.log("filename is: " + filename);
-            const name = filename;
-            const extension = name.split(".")[1];
             const { errors, valid } = validators_1.validateFileExtensions(extension, allowedExtensions);
             if (!valid) {
                 throw new apollo_server_express_1.UserInputError(errors.file);
@@ -153,13 +160,7 @@ const uploadsResolvers = {
                 catch (error) {
                     throw new Error("Unable to save post to database");
                 }
-                console.log("😇 Post saved, about cast it");
                 const post = newPost;
-                console.log("📗 Post casted, about to create document");
-                document = {
-                    body: post.body,
-                    previewUrl: post.imageUrls[0],
-                };
                 console.log("✅ Post uploaded successfully & found in database!");
                 return {
                     user,
@@ -168,7 +169,10 @@ const uploadsResolvers = {
                         mimetype: mimetype,
                         encoding: encoding,
                     },
-                    doc: JSON.stringify(document),
+                    doc: {
+                        body: post.body,
+                        text2: post.imageUrls[0],
+                    },
                 };
             }
             else {
