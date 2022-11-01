@@ -1,8 +1,7 @@
 import { useRouter } from "next/router";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { useUploadSingleMutation } from "../../hooks/backend/generated/graphql";
 import { checkFileSize } from "../../hooks/inputUtils";
-import { createPost, updatePostArea } from "../../hooks/socialhooks";
 import buttonStyles from "../../styles/micro/icontextbutton.module.css";
 
 interface ITB_Props {
@@ -100,8 +99,6 @@ export const IconTextButton = ({ src, text, activesrc, failsrc, gold, green, wid
 			type={submit ? "submit" : undefined}
 			onClick={(e) => {
 				e.preventDefault();
-				console.log("submit from source");
-				//createPost();
 				handlePress();
 			}}>
 			<img style={buttonStyle()} src={icon} />
@@ -112,40 +109,6 @@ export const IconTextButton = ({ src, text, activesrc, failsrc, gold, green, wid
 
 //same system but w/ file upload capabilities
 export const UploadIconTextButton = ({ src, type, startUpload, onSuccess, onFailedUpload, text, activesrc, failsrc, gold, width, submit, disabled }: ITB_Props) => {
-	//const router = useRouter();
-	//const [uploadnow, setUploadNow] = useState(false);
-
-	/*
-	useEffect(() => {
-		const handleUpdate = (e: CustomEvent) => {
-			console.log("cheeky start");
-			setUploadNow(true);
-
-			//handleNewUpload();
-		};
-		setTimeout(() => {
-			//add event listener to the postarea which listens for
-			//events telling to swap the create post form out for a
-			//post preview alongside a couple share buttons
-			//the source of these dispatched events are socialhoots.ts
-			const post = document.getElementById("postfile");
-
-			if (post) {
-				post.addEventListener("createPost", handleUpdate);
-			}
-		}, 1000);
-
-		return () => {
-			//remove listener on unmount
-			const post = document.getElementById("postfile");
-
-			if (post) {
-				post.removeEventListener("createPost", handleUpdate);
-			}
-		};
-	}, []);
-	*/
-
 	// UPLOAD STUFF
 	const [newFile, setNewFile] = useState<File>();
 	const [error, setError] = useState("");
@@ -174,16 +137,12 @@ export const UploadIconTextButton = ({ src, type, startUpload, onSuccess, onFail
 			//otherwise, upload will attempt w/ every component rerender...which
 			//happens to be w/ every letter entered into the textbox :|
 			onFailedUpload();
-			console.log("----------RESET----------");
-
 			return;
 		}
-		console.log("real start!");
-		//return;
+
 		storage.setItem("uploading", "true");
 
 		const hashtags: string[] = [];
-		console.log("beginning upload");
 
 		const response = await uploadSingle({
 			variables: {
@@ -205,23 +164,15 @@ export const UploadIconTextButton = ({ src, type, startUpload, onSuccess, onFail
 			//successfully created post, switch to share screen.
 			//also pass the name (and therefore the file path) that
 			//the image was saved at for the share preview
-			console.log("successfully uploaded");
-
 			const info = response.data.singleUpload;
-			console.log(info);
 
 			//the preview link
 			const imageLink = info.doc.text2;
-			console.log("running onsuccess w/ link: " + imageLink);
 			onSuccess(imageLink);
-
-			//updatePostArea("afterpost", serversideName, info.doc);
 		}
 	};
 
 	if (startUpload) {
-		console.log("Attempting to start...");
-
 		handleNewUpload();
 	}
 

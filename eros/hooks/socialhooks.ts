@@ -9,14 +9,3 @@ export const updateSidebar = (tag: string) => {
 		side.dispatchEvent(updateEvent);
 	}
 };
-
-//clear fields & switch to share after posting
-export const updatePostArea = (newscreen: "afterpost" | "reset", imageName: string) => {
-	const postarea = document.getElementById("postarea");
-	if (postarea) {
-		const updateEvent = new CustomEvent("updatePostArea", { detail: newscreen + "|" + imageName });
-		console.log("dispatched");
-
-		postarea.dispatchEvent(updateEvent);
-	}
-};

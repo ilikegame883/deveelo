@@ -35,48 +35,6 @@ const PostArea = () => {
 	const [previewFile, setPreviewFile] = useState<string>(); //the img file name
 
 	//EVERYTHING ELSE
-	//handle swtiching to share screen when recieving successful post event
-	/*
-	useEffect(() => {
-		const handleUpdate = (e: CustomEvent) => {
-			//detail is packed with: type|serverfilename (see socialHooks.ts)
-			//i.e. afterpost|fue745gfaiu.webp
-			const decoded = JSON.parse(e.detail);
-			console.log(decoded);
-
-			const type = decoded.type;
-			const filename = decoded.imageName;
-			const body = decoded.document.body;
-
-			if (type === "afterpost") {
-				// User successfully launched a post, remove form and replace it
-				// with a preview & share options
-				setPreviewFile(filename);
-			}
-		};
-		setTimeout(() => {
-			//add event listener to the postarea which listens for
-			//events telling to swap the create post form out for a
-			//post preview alongside a couple share buttons
-			//the source of these dispatched events are socialhoots.ts
-			const postarea = document.getElementById("postarea");
-
-			if (postarea) {
-				postarea.addEventListener("updatePostArea", handleUpdate);
-			}
-		}, 1000);
-
-		return () => {
-			//remove listener on unmount
-			const postarea = document.getElementById("postarea");
-
-			if (postarea) {
-				postarea.removeEventListener("updatePostArea", handleUpdate);
-			}
-		};
-	}, []);
-	*/
-
 	//emoji picker styling
 	useEffect(() => {
 		if (showEmoji) {
@@ -195,18 +153,6 @@ const PostArea = () => {
 			textInput.current.focus();
 		}
 	};
-
-	// const submitForm = () => {
-	// 	if (postForm && postForm.current) {
-	// 		postForm.current.onsubmit = (e) => {
-	// 			e.preventDefault();
-	// 			console.log("submitted yea");
-	// 			return "success";
-	// 		};
-
-	// 		postForm.current.submit();
-	// 	}
-	// };
 
 	const posting = (
 		<div className={postStyles.wrapper}>
