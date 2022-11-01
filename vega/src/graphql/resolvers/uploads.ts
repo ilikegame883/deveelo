@@ -190,10 +190,7 @@ const uploadsResolvers = {
 					throw new Error("No extra data (body, tags, etc) provided alongside the file upload. Cancelled.");
 				}
 				//create the post
-				console.log("☝️ about to begin creating post");
-
 				await Post.init();
-				console.log("🧙‍♂️ post innitiated");
 
 				const newPost = new Post({
 					imageUrls: [`/posts/${saveName}`],
@@ -206,7 +203,6 @@ const uploadsResolvers = {
 				});
 
 				try {
-					console.log("📜 Post created, about to save");
 					await newPost.save();
 				} catch (error) {
 					throw new Error("Unable to save post to database");
@@ -214,8 +210,7 @@ const uploadsResolvers = {
 
 				const post: PostType = newPost as any;
 
-				console.log("✅ Post uploaded successfully & found in database!");
-				// note
+				// note  return for posts
 				return {
 					user,
 					file: {

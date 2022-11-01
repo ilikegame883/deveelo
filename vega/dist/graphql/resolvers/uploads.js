@@ -141,9 +141,7 @@ const uploadsResolvers = {
                 if (edata === undefined) {
                     throw new Error("No extra data (body, tags, etc) provided alongside the file upload. Cancelled.");
                 }
-                console.log("☝️ about to begin creating post");
                 await Post_1.default.init();
-                console.log("🧙‍♂️ post innitiated");
                 const newPost = new Post_1.default({
                     imageUrls: [`/posts/${saveName}`],
                     body: edata.field1,
@@ -154,14 +152,12 @@ const uploadsResolvers = {
                     likes: [],
                 });
                 try {
-                    console.log("📜 Post created, about to save");
                     await newPost.save();
                 }
                 catch (error) {
                     throw new Error("Unable to save post to database");
                 }
                 const post = newPost;
-                console.log("✅ Post uploaded successfully & found in database!");
                 return {
                     user,
                     file: {
