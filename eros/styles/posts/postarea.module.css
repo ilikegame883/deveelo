@@ -127,6 +127,7 @@
 .text {
     width: 2em;
     height: 3.9375em;
+    overflow-y: scroll;
     margin: 0;
 
     font-family: 'DM Sans';
@@ -136,7 +137,8 @@
     font-size: 0.9375em;
     line-height: 1.2187em;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
+    padding: .7em 0;
 
     flex: none;
     flex-grow: 1;
