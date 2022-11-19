@@ -31,8 +31,6 @@ const PostArea = () => {
 	localStorage.setItem("postbody", postText);
 
 	const textInput = useRef<HTMLTextAreaElement>();
-	/* states for loading the share & preview area */
-	const [previewFile, setPreviewFile] = useState<string>(); //the img file name
 
 	//EVERYTHING ELSE
 	//emoji picker styling
