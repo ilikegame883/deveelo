@@ -105,11 +105,12 @@ This project follows the [Semantic Versioning 2.0](https://semver.org/) standard
 - [x] Searchbar
 - [x] Handle token expiration & logouts
 - [x] Following
-- [ ] Friending (next)
+- [ ] Friending (next-next)
 - [x] Update profile information
 - [x] Support file uploads
-- [ ] Posting
-- [ ] Notifications
+- [x] Posting
+- [ ] Feed (in progress)
+- [ ] Notifications (next)
 - [ ] Luna v1-alpha Release
 
 ### 📬 Contact
