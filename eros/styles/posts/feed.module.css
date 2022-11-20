@@ -1,0 +1,25 @@
+.scrollview {
+    /* just inherit, full height scrollable */
+    /* for full height places like groups & chats */
+    height: inherit;
+    width: inherit;
+}
+
+.scrollviewpadded {
+    /* just inherit, full height scrollable */
+    /* for full height places like groups & chats */
+    height: inherit;
+    width: inherit;
+    padding-top: 14.53em;
+}
+
+.nogapwrapper {
+    flex: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+  
+    width: inherit;
+    height: inherit;
+}
