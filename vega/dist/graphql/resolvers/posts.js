@@ -8,7 +8,7 @@ const postsResolvers = {
     Query: {
         getPosts: async (_parent, { number }, _context) => {
             try {
-                const posts = await Post_1.default.find({ $query: {}, $orderby: { $natural: -1 } }).limit(number);
+                const posts = await Post_1.default.find().sort({ _id: -1 }).limit(number);
                 return posts;
             }
             catch (err) {
