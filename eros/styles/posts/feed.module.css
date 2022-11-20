@@ -14,6 +14,11 @@
 }
 
 .nogapwrapper {
+    /* split left & right main content padding between this & main content container so that
+    the scrollbar does not show over the top of content, but to the side, this does the padding
+    outside of the scrollbar's scope */
+    padding: 0 2.625em 0 0;
+
     flex: 0;
     display: flex;
     flex-direction: column;
