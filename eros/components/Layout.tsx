@@ -94,36 +94,7 @@ const Layout = ({ children, route, showSidebar, showActivityBar, showNav, useWid
 
 					{useWide && <SideImage route={route} hardEdge={full} />}
 					<div className={useWide ? (full ? styles.containerWide_full : styles.containerWide) : styles.container}>
-						<main className={styles.main}>
-							{getAccessToken() && !useWide ? (
-								<button
-									onClick={async () => {
-										const { data } = await logout();
-
-										if (data) {
-											const ok = data.logout;
-
-											if (ok) {
-												//logout was successful
-												setAccessToken("");
-												console.log("access token cleared");
-
-												//clear the cache
-												await client!.resetStore();
-												await client.clearStore();
-
-												//rerender page
-												router.push("/");
-											}
-										}
-									}}>
-									Logout
-								</button>
-							) : null}
-							{/* <h2>Full</h2>
-							<p>Logged in user: {error && !loading ? error : text}</p> */}
-							{children}
-						</main>
+						<main className={styles.main}>{children}</main>
 					</div>
 				</>
 			);
