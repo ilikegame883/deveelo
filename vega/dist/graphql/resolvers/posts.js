@@ -6,9 +6,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const Post_1 = __importDefault(require("../../models/Post"));
 const postsResolvers = {
     Query: {
-        getPosts: async () => {
+        getPosts: async (_parent, { number }, _context) => {
             try {
-                const posts = await Post_1.default.find();
+                const posts = await Post_1.default.find({ $query: {}, $orderby: { $natural: -1 } }).limit(number);
                 return posts;
             }
             catch (err) {
