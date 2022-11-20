@@ -10,7 +10,7 @@ const DesktopSidebar = dynamic(() => import("./Sidebar"), { ssr: false });
 const SideImage = dynamic(() => import("./SideImage"), { ssr: false });
 import styles from "../styles/Layout.module.css";
 import useScreenType from "../hooks/useScreenType";
-import { useGetPostsQuery, useLogoutMutation } from "../hooks/backend/generated/graphql";
+import { useLogoutMutation } from "../hooks/backend/generated/graphql";
 import onConnectionError from "../hooks/popups/connectionError";
 import { getAccessToken, setAccessToken } from "../accessToken";
 import { useEffect, useState } from "react";
