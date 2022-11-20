@@ -1,0 +1,29 @@
+query newPosts($number: Int!) {
+	getPosts(number: $number) {
+		_id
+		imageUrls
+		body
+		tags
+		createdAt
+		user_id
+		comments {
+			body
+			imageUrl
+			user {
+				username
+				tag
+				pictureUrl
+				status
+			}
+		}
+		likes {
+			createdAt
+			user {
+				username
+				tag
+				pictureUrl
+				status
+			}
+		}
+	}
+}
