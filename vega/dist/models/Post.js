@@ -14,7 +14,7 @@ const postSchema = new mongoose_1.Schema({
             user: {
                 username: String,
                 tag: String,
-                picutreUrl: String,
+                pictureUrl: String,
                 status: String,
             },
         },
@@ -24,7 +24,7 @@ const postSchema = new mongoose_1.Schema({
             user: {
                 username: String,
                 tag: String,
-                picutreUrl: String,
+                pictureUrl: String,
                 status: String,
             },
             createdAt: String,
