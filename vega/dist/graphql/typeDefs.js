@@ -53,7 +53,6 @@ exports.typeDefs = graphql_tag_1.default `
 		username: String!
 		tag: String!
 		pictureUrl: String!
-		status: String!
 	}
 	type Like {
 		user: CUser!

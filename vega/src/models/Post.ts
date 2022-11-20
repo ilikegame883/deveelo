@@ -14,7 +14,6 @@ const postSchema = new Schema({
 				username: String,
 				tag: String,
 				pictureUrl: String,
-				status: String,
 			},
 		},
 	],
@@ -24,7 +23,6 @@ const postSchema = new Schema({
 				username: String,
 				tag: String,
 				pictureUrl: String,
-				status: String,
 			},
 			createdAt: String,
 		},
@@ -45,7 +43,6 @@ export interface PostType {
 				username: string;
 				tag: string;
 				pictureUrl: string;
-				status: string;
 			};
 		}
 	];
@@ -55,7 +52,6 @@ export interface PostType {
 				username: string;
 				tag: string;
 				pictureUrl: string;
-				status: string;
 			};
 			createdAt: string;
 		}

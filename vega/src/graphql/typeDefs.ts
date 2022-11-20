@@ -48,7 +48,6 @@ export const typeDefs = gql`
 		username: String!
 		tag: String!
 		pictureUrl: String!
-		status: String!
 	}
 	type Like {
 		user: CUser!

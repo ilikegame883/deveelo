@@ -24,7 +24,6 @@ export type BoolRes = {
 export type CUser = {
   __typename?: 'CUser';
   pictureUrl: Scalars['String'];
-  status: Scalars['String'];
   tag: Scalars['String'];
   username: Scalars['String'];
 };
@@ -305,7 +304,7 @@ export type NewPostsQueryVariables = Exact<{
 }>;
 
 
-export type NewPostsQuery = { __typename?: 'Query', getPosts: Array<{ __typename?: 'Post', _id: string, imageUrls: Array<string>, body?: string | null, tags?: Array<string | null> | null, createdAt: string, user_id: string, comments: Array<{ __typename?: 'Comment', body: string, imageUrl?: string | null, user: { __typename?: 'CUser', username: string, tag: string, pictureUrl: string, status: string } } | null>, likes: Array<{ __typename?: 'Like', createdAt: string, user: { __typename?: 'CUser', username: string, tag: string, pictureUrl: string, status: string } } | null> } | null> };
+export type NewPostsQuery = { __typename?: 'Query', getPosts: Array<{ __typename?: 'Post', _id: string, imageUrls: Array<string>, body?: string | null, tags?: Array<string | null> | null, createdAt: string, user_id: string, comments: Array<{ __typename?: 'Comment', body: string, imageUrl?: string | null, user: { __typename?: 'CUser', username: string, tag: string, pictureUrl: string } } | null>, likes: Array<{ __typename?: 'Like', createdAt: string, user: { __typename?: 'CUser', username: string, tag: string, pictureUrl: string } } | null> } | null> };
 
 export type RegisterMutationVariables = Exact<{
   registerEmail: Scalars['String'];
@@ -842,7 +841,6 @@ export const NewPostsDocument = gql`
         username
         tag
         pictureUrl
-        status
       }
     }
     likes {
@@ -851,7 +849,6 @@ export const NewPostsDocument = gql`
         username
         tag
         pictureUrl
-        status
       }
     }
   }
