@@ -31,9 +31,28 @@ export const typeDefs = gql`
 	#posting
 	type Post {
 		_id: ID!
-		body: String!
+		imageUrls: [String!]!
+		body: String
+		tags: [String]
 		createdAt: String!
+		user_id: ID!
+		comments: [Comment]!
+		likes: [Like]!
+	}
+	type Comment {
+		body: String!
+		imageUrl: String
+		user: CUser!
+	}
+	type CUser {
 		username: String!
+		tag: String!
+		pictureUrl: String!
+		status: String!
+	}
+	type Like {
+		user: CUser!
+		createdAt: String!
 	}
 
 	#general
@@ -111,7 +130,7 @@ export const typeDefs = gql`
 
 	# note  Queries (searches)
 	type Query {
-		getPosts: [Post]!
+		getPosts(number: Number!): [Post]!
 		myAccount: User
 		findUserByTag(tag: String!): User!
 		findUsersById(ids: [String!]!): [User]!
