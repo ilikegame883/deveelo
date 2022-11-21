@@ -1,6 +1,8 @@
 import Meta from "../components/micro/Meta";
 import MiddleBar from "../components/MiddleBar";
 import PostArea from "../components/posts/PostArea";
+import { PostFeed } from "../components/posts/PostFeed";
+
 import { isLoggedIn } from "../hooks/userChecks";
 import feedStyles from "../styles/posts/feed.module.css";
 
@@ -28,7 +30,10 @@ export default function Home() {
 				color="#f54278"
 			/>
 			<MiddleBar padded={true}>
-				<div className={feedStyles.nogapwrapper}>{loggedIn && <PostArea />}</div>
+				<div className={feedStyles.nogapwrapper}>
+					{loggedIn && <PostArea />}
+					<PostFeed amount={10} />
+				</div>
 			</MiddleBar>
 		</>
 	);
