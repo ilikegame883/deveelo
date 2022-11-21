@@ -1,5 +1,7 @@
 /* sidebar/main/activty split, sidebar & activity bar are as margin */
 .container {
+  height: 100vh;
+  overflow: hidden;
   margin-left: 30.9375em;
   margin-right: 23.344em;
   min-height: 100vh;
