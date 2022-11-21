@@ -8,6 +8,7 @@ export const PostFeed = ({ amount }: { amount: number }) => {
 		variables: {
 			number: amount,
 		},
+		fetchPolicy: "no-cache",
 	});
 
 	if (loading && !data) {
