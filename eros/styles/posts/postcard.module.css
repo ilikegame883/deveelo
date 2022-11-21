@@ -13,7 +13,9 @@
     position: relative;
     width: 100%;
     aspect-ratio: 215/121;
-    background: rgba(255, 0, 0, 0.233);
+    
+    border-radius: 2.344em;
+    overflow: hidden;
 }
 
 .image {
