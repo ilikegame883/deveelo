@@ -18,6 +18,8 @@
     justify-content: center;
     /* status icons are 3, so just above that */
     z-index: 4;
+    /* allow scrollbar to be used under the fade area */
+    pointer-events: none;
 }
 
 .notch {
