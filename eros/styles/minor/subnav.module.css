@@ -32,6 +32,9 @@
     
     background: var(--sidebarBackground);
     border-radius: 0 0 2.06em 2.06em;
+    /* re-enable clicking on buttons after fade area (overarching parent)
+    disabled clicking bc the notch buttons inherit click-able-ity :^] */
+    pointer-events: all;
 }
 
 .buttonList {
