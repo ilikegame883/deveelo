@@ -39,7 +39,7 @@ const PostCard = ({ post }: PC_Props) => {
 			<div className={styles.header}>
 				<div className={styles.nameGroup}>
 					<div className={styles.nameWrapper}>
-						<NameGroup username={user.account.username} badges={user.profile.badges} size={4} showBadges={true} disableSpacer={true} />
+						<NameGroup username={user.account.username} badges={user.profile.badges} size={3} showBadges={true} disableSpacer={true} />
 					</div>
 					<p className={styles.date}>{timeAgo(createdAt)} ago</p>
 				</div>
