@@ -29,6 +29,7 @@
     height: fit-content;
     width: auto;
     margin-top: 1.5em;
+    padding: 0 0 0 0.4116em;
 
     display: flex;
     flex-direction: row;
@@ -46,7 +47,8 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    padding: 7px;
+    padding: 0.55em 0.65em;
+    margin-left: 0.4116em;
 
     width: fit-content;
     height: fit-content;
@@ -72,4 +74,13 @@
     display: flex;
     align-items: center;
     letter-spacing: -0.02em;
+}
+
+.nameWrapper {
+    width: fit-content;
+    height: fit-content;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0px;
 }
