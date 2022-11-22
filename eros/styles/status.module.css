@@ -95,3 +95,12 @@
     border-radius: 50%;
     border: .1875rem solid var(--activitybarBackground);
 }
+
+/* CIRCLE STATUSES */
+.w36circle {
+    position: relative;
+    width: 4.219em;
+    height: 4.219em;
+    left: -0.4em;
+    top: -0.42em;
+}
