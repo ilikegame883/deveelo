@@ -42,6 +42,18 @@
     flex-grow: 0;
 }
 
+.profile {
+    height: fit-content;
+    width: fit-content;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    
+    flex: none;
+    cursor: pointer;
+}
+
 .nameGroup {
     display: flex;
     flex-direction: column;
