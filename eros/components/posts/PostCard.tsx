@@ -1,10 +1,13 @@
 import Image from "next/image";
-import { useFindCardUsersByIdsQuery } from "../../hooks/backend/generated/graphql";
-import { postLoader } from "../../hooks/loaders";
-import { PostType } from "../../lib/postTypes";
-import { timeAgo } from "../../lib/time";
-import { SearchUserIdType } from "../../lib/userTypes";
+
+import NameGroup from "../micro/NameGroup";
 import styles from "../../styles/posts/postcard.module.css";
+
+import { postLoader } from "../../hooks/loaders";
+import { useFindCardUsersByIdsQuery } from "../../hooks/backend/generated/graphql";
+import { timeAgo } from "../../lib/time";
+import { PostType } from "../../lib/postTypes";
+import { SearchUserIdType } from "../../lib/userTypes";
 
 interface PC_Props {
 	post: PostType;
@@ -35,6 +38,9 @@ const PostCard = ({ post }: PC_Props) => {
 			</div>
 			<div className={styles.header}>
 				<div className={styles.nameGroup}>
+					<div className={styles.nameWrapper}>
+						<NameGroup username={user.account.username} badges={user.profile.badges} size={4} showBadges={true} disableSpacer={true} />
+					</div>
 					<p className={styles.date}>{timeAgo(createdAt)} ago</p>
 				</div>
 			</div>
