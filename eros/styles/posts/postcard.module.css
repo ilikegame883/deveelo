@@ -40,7 +40,6 @@
     order: 1;
     align-self: stretch;
     flex-grow: 0;
-    background: rgba(0, 128, 255, 0.219);
 }
 
 .nameGroup {
