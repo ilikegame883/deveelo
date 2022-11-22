@@ -24,3 +24,52 @@
     background: #EEF0F4;
     /*image-rendering: -webkit-optimize-contrast; stops blur*/
 }
+
+.header {
+    height: fit-content;
+    width: auto;
+    margin-top: 1.5em;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    
+    /* Inside auto layout */
+    flex: none;
+    order: 1;
+    align-self: stretch;
+    flex-grow: 0;
+    background: rgba(0, 128, 255, 0.219);
+}
+
+.nameGroup {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 7px;
+
+    width: fit-content;
+    height: fit-content;
+
+    /* Inside auto layout */
+    flex: none;
+    order: 1;
+    flex-grow: 0;
+}
+
+.date {
+    width: fit-content;
+    height: 1.219em;
+    margin: 0;
+
+    font-family: 'DM Sans';
+    color: var(--midFadeGray);
+    font-style: normal;
+    font-weight: 400;
+    font-size: 0.9375em;
+    line-height: 1.219em;
+
+    display: flex;
+    align-items: center;
+    letter-spacing: -0.02em;
+}
