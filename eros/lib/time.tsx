@@ -7,7 +7,7 @@ export const timeAgo = (isoTime: string): string => {
 	const diff = Math.abs(nowInSeconds - dateInSeconds);
 
 	if (diff < 60) {
-		return diff + " seconds";
+		return Math.floor(diff) + " seconds";
 	} else if (diff < 3600) {
 		return Math.floor(diff / 60) + " minutes";
 	} else if (diff < 86400) {
