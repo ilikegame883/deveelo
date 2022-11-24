@@ -10,6 +10,7 @@ import { timeAgo } from "../../lib/time";
 import { PostType } from "../../lib/postTypes";
 import { SearchUserIdType } from "../../lib/userTypes";
 import { updateSidebar } from "../../hooks/socialhooks";
+import { Like } from "../micro/LabelButtons";
 
 interface PC_Props {
 	post: PostType;
@@ -57,6 +58,9 @@ const PostCard = ({ post }: PC_Props) => {
 						</div>
 						<p className={styles.date}>{timeAgo(createdAt)} ago</p>
 					</div>
+				</div>
+				<div className={styles.buttonGroup}>
+					<Like count={likes.length} startActive={false} cardType="post" />
 				</div>
 			</div>
 		</div>

@@ -95,3 +95,20 @@
     align-items: center;
     padding: 0px;
 }
+
+/* COMMENT/LIKE BUTTONS & WRAPPER */
+
+.buttonGroup {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 0 0.609em;
+
+    width: auto;
+    height: fit-content;
+
+    /* Inside auto layout */
+    flex: none;
+    flex-grow: 1;
+}
