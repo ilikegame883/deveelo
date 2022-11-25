@@ -14,7 +14,7 @@ export const Like = ({ count, cardType, startActive }: LikeProps) => {
 
 	return (
 		<div className={styles.buttonWrapper}>
-			<p className={styles.label}>{likes}</p>
+			<p className={active ? styles.labelActive : styles.label}>{likes}</p>
 			<IconButton
 				src="/resources/posts/heart.svg"
 				activesrc="/resources/posts/heartOn.svg"
