@@ -10,12 +10,27 @@ interface LikeProps {
 
 export const Like = ({ count, cardType, startActive }: LikeProps) => {
 	const [likes, setLikes] = useState(count);
-	const [active, setActive] = useState(startActive);
+	const [active, setActive] = useState(startActive); //use for text color
 
 	return (
 		<div className={styles.buttonWrapper}>
 			<p className={styles.label}>{likes}</p>
-			<IconButton src="/resources/posts/heart.svg" paddingTB={0.281} paddingLR={0.281} width="1.969em" height="1.969em" />
+			<IconButton
+				src="/resources/posts/heart.svg"
+				activesrc="/resources/posts/heartOn.svg"
+				paddingTB={0.281}
+				paddingLR={0.281}
+				width="1.969em"
+				height="1.969em"
+				startActive={startActive}
+				action={{
+					activeAction: () => setActive(false),
+					inactiveAction: () => setActive(true),
+					options: {
+						toggleActive: true,
+					},
+				}}
+			/>
 		</div>
 	);
 };
