@@ -1,5 +1,6 @@
 import { useState } from "react";
 import styles from "../../styles/micro/labelbutton.module.css";
+import IconButton from "./IconButton";
 
 interface LikeProps {
 	count: number;
@@ -14,6 +15,7 @@ export const Like = ({ count, cardType, startActive }: LikeProps) => {
 	return (
 		<div className={styles.buttonWrapper}>
 			<p className={styles.label}>{likes}</p>
+			<IconButton src="/resources/posts/heart.svg" paddingTB={0.281} paddingLR={0.281} width="1.969em" height="1.969em" />
 		</div>
 	);
 };
