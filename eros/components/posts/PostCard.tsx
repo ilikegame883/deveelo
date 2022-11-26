@@ -10,7 +10,7 @@ import { timeAgo } from "../../lib/time";
 import { PostType } from "../../lib/postTypes";
 import { SearchUserIdType } from "../../lib/userTypes";
 import { updateSidebar } from "../../hooks/socialhooks";
-import { Like } from "../micro/LabelButtons";
+import { Like, Comment } from "../micro/LabelButtons";
 
 interface PC_Props {
 	post: PostType;
@@ -61,6 +61,7 @@ const PostCard = ({ post }: PC_Props) => {
 				</div>
 				<div className={styles.buttonGroup}>
 					<Like count={likes.length} startActive={false} cardType="post" />
+					<Comment count={comments.length} startActive={false} cardType="post" />
 				</div>
 			</div>
 		</div>
