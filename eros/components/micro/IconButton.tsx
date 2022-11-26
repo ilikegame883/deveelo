@@ -37,6 +37,7 @@ const IconButton = ({ src, activesrc, prevent, width, height, paddingTB, padding
 		padding: `${tb}em ${lr}em`,
 	});
 
+	//set stype to NoHover or SimpleButton... regardless, this is later overriden by warn type later if prop is true
 	const regularStyle = hoverFxOff ? buttonStyles.hoverlessButton : buttonStyles.simpleButton;
 
 	// we are not logged in
@@ -83,9 +84,18 @@ const IconButton = ({ src, activesrc, prevent, width, height, paddingTB, padding
 		}
 	};
 
+	let hoverStyle = regularStyle;
+	if (active) {
+		if (useRed) {
+			hoverStyle = buttonStyles.simpleWarn;
+		} else if (spinOnClick) {
+			hoverStyle = buttonStyles.spinButton;
+		}
+	}
+
 	return (
 		<button
-			className={useRed && active ? buttonStyles.simpleWarn : regularStyle}
+			className={hoverStyle}
 			type={submit ? "submit" : undefined}
 			onClick={(e) => {
 				if (forcedPrevent) {
