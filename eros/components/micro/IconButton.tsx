@@ -19,13 +19,14 @@ interface IB_Props {
 		};
 	};
 	startActive?: boolean;
+	spinOnClick?: boolean; //like button click effect (warn hover spinFX but now on click)
 	hoverFxOff?: boolean;
 	submit?: boolean;
 	disabled?: boolean;
 	prevent?: boolean; //e.preventdefault
 }
 
-const IconButton = ({ src, activesrc, prevent, width, height, paddingTB, paddingLR, action, startActive, submit, disabled, hoverFxOff }: IB_Props) => {
+const IconButton = ({ src, activesrc, prevent, width, height, paddingTB, paddingLR, action, startActive, submit, disabled, hoverFxOff, spinOnClick }: IB_Props) => {
 	const tb = paddingTB ? paddingTB : 0;
 	const lr = paddingLR ? paddingLR : 0;
 	const forcedPrevent = prevent ? prevent : false;
@@ -49,6 +50,9 @@ const IconButton = ({ src, activesrc, prevent, width, height, paddingTB, padding
 
 	const [active, setActive] = useState(startActive);
 	let useRed: boolean;
+
+	//set class of image to spinable one or static nothingness
+	const imageStyle = spinOnClick ? (active ? buttonStyles.spin : buttonStyles.spinable) : undefined;
 
 	if (action) {
 		if (action.options) {
@@ -89,7 +93,7 @@ const IconButton = ({ src, activesrc, prevent, width, height, paddingTB, padding
 				}
 				handlePress();
 			}}>
-			<img style={buttonStyle()} className={useRed && active ? buttonStyles.warnColor : undefined} src={active ? activesrc : src} />
+			<img style={buttonStyle()} className={useRed && active ? buttonStyles.warnColor : imageStyle} src={active ? activesrc : src} />
 		</button>
 	);
 };

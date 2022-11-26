@@ -23,7 +23,18 @@
     background-color: rgba(0, 23, 78, 0.082);;
 }
 
-  /* DANGEROUS BUTTONS - RED */
+/* SPIN ON CLICK BUTTONS */
+.spinable {
+    transition: .6s cubic-bezier(.12,.12,.35,1.36);
+}
+
+.spin {
+    transform: rotateZ(360deg);
+    transition: .6s cubic-bezier(.12,.12,.35,1.36);
+    /* filter: brightness(0) saturate(100%) invert(48%) sepia(91%) saturate(625%) hue-rotate(308deg) brightness(101%) contrast(101%); */
+}
+
+/* DANGEROUS BUTTONS - RED */
 
 .simpleWarn {
     height: fit-content;
