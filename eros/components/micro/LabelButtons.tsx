@@ -35,3 +35,31 @@ export const Like = ({ count, cardType, startActive }: LikeProps) => {
 		</div>
 	);
 };
+
+export const Comment = ({ count, cardType, startActive }: LikeProps) => {
+	const [comments, setComment] = useState(count);
+	const [active, setActive] = useState(startActive); //use for text color
+
+	return (
+		<div className={styles.buttonWrapper}>
+			<p className={active ? styles.labelActive : styles.label}>{comments}</p>
+			<IconButton
+				src="/resources/posts/commentDot.svg"
+				activesrc="/resources/posts/commentOn.svg"
+				paddingTB={0.281}
+				paddingLR={0.281}
+				width="1.969em"
+				height="1.969em"
+				startActive={startActive}
+				spinOnClick={true}
+				action={{
+					activeAction: () => setActive(false),
+					inactiveAction: () => setActive(true),
+					options: {
+						toggleActive: true,
+					},
+				}}
+			/>
+		</div>
+	);
+};
