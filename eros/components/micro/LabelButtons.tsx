@@ -51,14 +51,6 @@ export const Comment = ({ count, cardType, startActive }: LikeProps) => {
 				width="1.969em"
 				height="1.969em"
 				startActive={startActive}
-				spinOnClick={true}
-				action={{
-					activeAction: () => setActive(false),
-					inactiveAction: () => setActive(true),
-					options: {
-						toggleActive: true,
-					},
-				}}
 			/>
 		</div>
 	);
