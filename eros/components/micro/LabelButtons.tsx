@@ -25,8 +25,14 @@ export const Like = ({ count, cardType, startActive }: LikeProps) => {
 				startActive={startActive}
 				spinOnClick={true}
 				action={{
-					activeAction: () => setActive(false),
-					inactiveAction: () => setActive(true),
+					activeAction: () => {
+						setActive(false);
+						setLikes(likes - 1);
+					},
+					inactiveAction: () => {
+						setActive(true);
+						setLikes(likes + 1);
+					},
 					options: {
 						toggleActive: true,
 					},
