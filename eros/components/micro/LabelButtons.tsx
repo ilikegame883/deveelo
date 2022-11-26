@@ -17,7 +17,7 @@ export const Like = ({ count, cardType, startActive }: LikeProps) => {
 			<p className={active ? styles.labelActive : styles.label}>{likes}</p>
 			<IconButton
 				src="/resources/posts/heart.svg"
-				activesrc="/resources/posts/heartOn.svg"
+				activesrc="/resources/posts/heartFilled.svg"
 				paddingTB={0.281}
 				paddingLR={0.281}
 				width="1.969em"
