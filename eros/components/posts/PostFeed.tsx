@@ -1,4 +1,4 @@
-import { useNewPostsQuery } from "../../hooks/backend/generated/graphql";
+import { useNewPostsQuery, usePostsByTagQuery } from "../../hooks/backend/generated/graphql";
 import { PostType } from "../../lib/postTypes";
 import feedStyles from "../../styles/posts/feed.module.css";
 import PostCard from "./PostCard";
@@ -19,6 +19,32 @@ export const PostFeed = ({ amount }: { amount: number }) => {
 	}
 
 	const posts: PostType[] = data.getPosts as any;
+
+	return (
+		<div className={feedStyles.contentContainer}>
+			{posts.map((post) => (
+				<PostCard key={posts.indexOf(post).toString()} post={post} />
+			))}
+		</div>
+	);
+};
+
+export const ProfileFeed = ({ tag, amount }: { tag: string; amount: number }) => {
+	const { data, loading, error } = usePostsByTagQuery({
+		variables: {
+			tag: tag,
+			number: amount,
+		},
+	});
+
+	if (loading && !data) {
+		return <div />;
+	}
+	if (error) {
+		return <div>Error occurred</div>;
+	}
+
+	const posts: PostType[] = data.getPostsByTag as any;
 
 	return (
 		<div className={feedStyles.contentContainer}>
