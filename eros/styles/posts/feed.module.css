@@ -39,3 +39,29 @@
     justify-content: flex-start;
     align-items: center;
 }
+
+.noPostsWrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    position: absolute;
+    height: 100%;
+    width: inherit;
+    padding-bottom: 14.53em;
+}
+
+.noPosts {
+    width: fit-content;
+    height: fit-content;
+
+    font-family: 'DM Sans';
+    color: #5D6B86;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1.219em;
+    line-height: 1.594em;
+    text-align: center;
+    letter-spacing: -0.02em;
+}

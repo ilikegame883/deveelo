@@ -46,11 +46,15 @@ export const ProfileFeed = ({ tag, amount }: { tag: string; amount: number }) =>
 
 	const posts: PostType[] = data.getPostsByTag as any;
 
-	return (
+	return posts.length > 0 ? (
 		<div className={feedStyles.contentContainer}>
 			{posts.map((post) => (
 				<PostCard key={posts.indexOf(post).toString()} post={post} />
 			))}
+		</div>
+	) : (
+		<div className={feedStyles.noPostsWrapper}>
+			<p className={feedStyles.noPosts}>@{tag} has not made any posts 😢</p>
 		</div>
 	);
 };
