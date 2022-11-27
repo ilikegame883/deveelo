@@ -48,6 +48,7 @@ const PostCard = ({ post }: PC_Props) => {
 		<div className={styles.card}>
 			<div className={styles.imageWrapper}>
 				<Image loader={postLoader} src={imageUrls[0]} className={styles.image} layout="fill" priority={true} objectFit="cover" />
+				<div className={styles.blurArea}>{post?.body}</div>
 			</div>
 			<div className={styles.header}>
 				<div className={styles.profile} onClick={() => changeSidebar(user.account.tag)}>
