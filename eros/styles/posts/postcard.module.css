@@ -141,5 +141,42 @@
 }
 
 .postBody {
-    color: black;
+    width: inherit;
+    height: fit-content;
+    padding: 0 0 1.5em;
+
+
+    font-family: 'DM Sans';
+    color: var(--postGray);
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1.219em;
+    line-height: 1.594em;
+    text-align: justify;
+    letter-spacing: -0.02em;
+    
+}
+
+.tagList {
+    width: inherit;
+    height: fit-content;
+    padding-bottom: 1.5em;
+    gap: 0.75em;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+}
+
+.hashtag {
+    width: fit-content;
+    height: fit-content;
+
+    font-family: 'DM Sans';
+    color: #5D6B86;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 1.219em;
+    line-height: 1.594em;
+    text-align: center;
+    letter-spacing: -0.02em;
 }

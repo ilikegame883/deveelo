@@ -17,7 +17,10 @@ interface PC_Props {
 }
 
 const PostCard = ({ post }: PC_Props) => {
-	const { body, imageUrls, user_id, createdAt, likes, comments } = post;
+	const { body, imageUrls, user_id, createdAt, likes, comments, tags } = post;
+
+	const hashtags = tags;
+	const showHashtags = hashtags !== null;
 
 	const { data, loading, error } = useFindCardUsersByIdsQuery({
 		variables: {
@@ -52,6 +55,13 @@ const PostCard = ({ post }: PC_Props) => {
 					{/* swap out content at this level */}
 					<div className={styles.contentWrapper}>
 						<p className={styles.postBody}>{post?.body}</p>
+						{showHashtags ? (
+							<div className={styles.tagList}>
+								{hashtags.map((tag) => (
+									<p className={styles.hashtag}>{tag}</p>
+								))}
+							</div>
+						) : null}
 					</div>
 				</div>
 			</div>
