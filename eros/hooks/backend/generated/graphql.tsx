@@ -151,6 +151,7 @@ export type Query = {
   findUserByTag: User;
   findUsersById: Array<Maybe<User>>;
   getPosts: Array<Maybe<Post>>;
+  getPostsByTag: Array<Maybe<Post>>;
   myAccount?: Maybe<User>;
   randomUser: User;
   randomUsers: Array<Maybe<User>>;
@@ -169,6 +170,12 @@ export type QueryFindUsersByIdArgs = {
 
 export type QueryGetPostsArgs = {
   number: Scalars['Int'];
+};
+
+
+export type QueryGetPostsByTagArgs = {
+  number: Scalars['Int'];
+  tag: Scalars['String'];
 };
 
 
@@ -293,6 +300,14 @@ export type MyPfpAndStatusQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type MyPfpAndStatusQuery = { __typename?: 'Query', myAccount?: { __typename?: 'User', _id: string, status: string, profile: { __typename?: 'U_Profile', pictureUrl: string } } | null };
+
+export type PostsByTagQueryVariables = Exact<{
+  tag: Scalars['String'];
+  number: Scalars['Int'];
+}>;
+
+
+export type PostsByTagQuery = { __typename?: 'Query', getPostsByTag: Array<{ __typename?: 'Post', _id: string, imageUrls: Array<string>, body?: string | null, tags?: Array<string | null> | null, createdAt: string, user_id: string, comments: Array<{ __typename?: 'Comment', body: string, imageUrl?: string | null, user: { __typename?: 'CUser', username: string, tag: string, pictureUrl: string } } | null>, likes: Array<{ __typename?: 'Like', createdAt: string, user: { __typename?: 'CUser', username: string, tag: string, pictureUrl: string } } | null> } | null> };
 
 export type RandomMinProfileQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -772,6 +787,64 @@ export function useMyPfpAndStatusLazyQuery(baseOptions?: Apollo.LazyQueryHookOpt
 export type MyPfpAndStatusQueryHookResult = ReturnType<typeof useMyPfpAndStatusQuery>;
 export type MyPfpAndStatusLazyQueryHookResult = ReturnType<typeof useMyPfpAndStatusLazyQuery>;
 export type MyPfpAndStatusQueryResult = Apollo.QueryResult<MyPfpAndStatusQuery, MyPfpAndStatusQueryVariables>;
+export const PostsByTagDocument = gql`
+    query postsByTag($tag: String!, $number: Int!) {
+  getPostsByTag(tag: $tag, number: $number) {
+    _id
+    imageUrls
+    body
+    tags
+    createdAt
+    user_id
+    comments {
+      body
+      imageUrl
+      user {
+        username
+        tag
+        pictureUrl
+      }
+    }
+    likes {
+      createdAt
+      user {
+        username
+        tag
+        pictureUrl
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __usePostsByTagQuery__
+ *
+ * To run a query within a React component, call `usePostsByTagQuery` and pass it any options that fit your needs.
+ * When your component renders, `usePostsByTagQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = usePostsByTagQuery({
+ *   variables: {
+ *      tag: // value for 'tag'
+ *      number: // value for 'number'
+ *   },
+ * });
+ */
+export function usePostsByTagQuery(baseOptions: Apollo.QueryHookOptions<PostsByTagQuery, PostsByTagQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<PostsByTagQuery, PostsByTagQueryVariables>(PostsByTagDocument, options);
+      }
+export function usePostsByTagLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<PostsByTagQuery, PostsByTagQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<PostsByTagQuery, PostsByTagQueryVariables>(PostsByTagDocument, options);
+        }
+export type PostsByTagQueryHookResult = ReturnType<typeof usePostsByTagQuery>;
+export type PostsByTagLazyQueryHookResult = ReturnType<typeof usePostsByTagLazyQuery>;
+export type PostsByTagQueryResult = Apollo.QueryResult<PostsByTagQuery, PostsByTagQueryVariables>;
 export const RandomMinProfileDocument = gql`
     query randomMinProfile {
   randomUser {
