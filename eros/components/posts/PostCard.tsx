@@ -1,8 +1,10 @@
 import Image from "next/image";
+import { useState } from "react";
 
 import NameGroup from "../micro/NameGroup";
 import ProfilePicture from "../micro/ProfilePicture";
 import styles from "../../styles/posts/postcard.module.css";
+import { Like, Comment } from "../micro/LabelButtons";
 
 import { postLoader } from "../../hooks/loaders";
 import { useFindCardUsersByIdsQuery } from "../../hooks/backend/generated/graphql";
@@ -10,7 +12,6 @@ import { timeAgo } from "../../lib/time";
 import { PostType } from "../../lib/postTypes";
 import { SearchUserIdType } from "../../lib/userTypes";
 import { updateSidebar } from "../../hooks/socialhooks";
-import { Like, Comment } from "../micro/LabelButtons";
 
 interface PC_Props {
 	key: string;
@@ -18,6 +19,9 @@ interface PC_Props {
 }
 
 const PostCard = ({ key, post }: PC_Props) => {
+	const [showContent, setShowContent] = useState(false);
+	const [fade, setFade] = useState(false);
+
 	const { body, imageUrls, user_id, createdAt, likes, comments, tags } = post;
 
 	const hashtags = tags;
@@ -48,23 +52,40 @@ const PostCard = ({ key, post }: PC_Props) => {
 		updateSidebar(tag);
 	};
 
+	const toggleContent = () => {
+		if (showContent) {
+			//user is trying to hide the content
+			//1 second delay for the hide animation
+			setFade(true);
+			setTimeout(() => {
+				setShowContent(false);
+				setFade(false);
+			}, 1000);
+		} else {
+			//user wants to see the post content
+			setShowContent(true);
+		}
+	};
+
 	return (
 		<div className={styles.card}>
-			<div className={styles.imageWrapper}>
+			<div className={styles.imageWrapper} onClick={() => toggleContent()}>
 				<Image loader={postLoader} src={imageUrls[0]} className={styles.image} layout="fill" priority={true} objectFit="cover" />
-				<div className={styles.blurArea}>
-					{/* swap out content at this level */}
-					<div className={styles.contentWrapper}>
-						<p className={styles.postBody}>{post?.body}</p>
-						{showHashtags ? (
-							<div className={styles.tagList}>
-								{hashtags.map((tag) => (
-									<p className={styles.hashtag}>{tag}</p>
-								))}
-							</div>
-						) : null}
+				{showContent ? (
+					<div className={fade ? styles.blurOut : styles.blurArea}>
+						{/* swap out content at this level */}
+						<div className={styles.contentWrapper}>
+							<p className={styles.postBody}>{post?.body}</p>
+							{showHashtags ? (
+								<div className={styles.tagList}>
+									{hashtags.map((tag) => (
+										<p className={styles.hashtag}>{tag}</p>
+									))}
+								</div>
+							) : null}
+						</div>
 					</div>
-				</div>
+				) : null}
 			</div>
 			<div className={styles.header}>
 				<div className={styles.profile} onClick={() => changeSidebar(user.account.tag)}>
