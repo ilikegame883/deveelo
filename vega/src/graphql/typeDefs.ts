@@ -130,6 +130,7 @@ export const typeDefs = gql`
 	# note  Queries (searches)
 	type Query {
 		getPosts(number: Int!): [Post]!
+		getPostsByTag(tag: String!, number: Int!): [Post]!
 		myAccount: User
 		findUserByTag(tag: String!): User!
 		findUsersById(ids: [String!]!): [User]!

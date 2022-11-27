@@ -135,6 +135,7 @@ exports.typeDefs = graphql_tag_1.default `
 	# note  Queries (searches)
 	type Query {
 		getPosts(number: Int!): [Post]!
+		getPostsByTag(tag: String!, number: Int!): [Post]!
 		myAccount: User
 		findUserByTag(tag: String!): User!
 		findUsersById(ids: [String!]!): [User]!
