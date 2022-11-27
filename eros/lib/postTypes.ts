@@ -1,4 +1,5 @@
 export interface PostType {
+	_id: string;
 	imageUrls: string[];
 	body?: string;
 	tags?: string[];
