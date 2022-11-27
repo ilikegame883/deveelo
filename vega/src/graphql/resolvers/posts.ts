@@ -1,5 +1,5 @@
 import Context from "src/context";
-import User, { UserType } from "src/models/User";
+import User, { UserType } from "../../models/User";
 import Post from "../../models/Post";
 
 const postsResolvers = {
