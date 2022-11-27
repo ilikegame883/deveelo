@@ -23,7 +23,7 @@ export const PostFeed = ({ amount }: { amount: number }) => {
 	return (
 		<div className={feedStyles.contentContainer}>
 			{posts.map((post) => (
-				<PostCard post={post} />
+				<PostCard key={posts.indexOf(post).toString()} post={post} />
 			))}
 		</div>
 	);

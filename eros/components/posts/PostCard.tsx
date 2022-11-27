@@ -13,10 +13,11 @@ import { updateSidebar } from "../../hooks/socialhooks";
 import { Like, Comment } from "../micro/LabelButtons";
 
 interface PC_Props {
+	key: string;
 	post: PostType;
 }
 
-const PostCard = ({ post }: PC_Props) => {
+const PostCard = ({ key, post }: PC_Props) => {
 	const { body, imageUrls, user_id, createdAt, likes, comments, tags } = post;
 
 	const hashtags = tags;
