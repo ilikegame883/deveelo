@@ -207,15 +207,12 @@ const initServer = async () => {
     app.use("/uploads/pfps", express_1.default.static(path_1.default.join(__dirname, "../public/uploads/pfps")));
     app.use("/uploads/banners", express_1.default.static(path_1.default.join(__dirname, "../public/uploads/banners")));
     app.use("/uploads/posts", express_1.default.static(path_1.default.join(__dirname, "../public/uploads/posts")));
-    app.get("/media", cors_1.default(corsAllowUndefined), async (req, res) => {
+    app.get("/media", cors_1.default(corsAllowUndefined), async (_req, res) => {
         var archive = archiver("zip");
         archive.on("error", function (err) {
             res.status(500).send({ error: err.message });
         });
-        archive.on("end", function () {
-            console.log("Archive wrote %d bytes", archive.pointer());
-        });
-        res.attachment("archive-name.zip");
+        res.attachment("vega-uploads-backup.zip");
         archive.pipe(res);
         archive.directory(path_1.default.join(__dirname, "../public/uploads/pfps"), "pfps");
         archive.directory(path_1.default.join(__dirname, "../public/uploads/banners"), "banners");

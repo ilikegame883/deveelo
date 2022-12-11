@@ -256,20 +256,15 @@ const initServer = async () => {
 	app.use("/uploads/pfps", express.static(path.join(__dirname, "../public/uploads/pfps")));
 	app.use("/uploads/banners", express.static(path.join(__dirname, "../public/uploads/banners")));
 	app.use("/uploads/posts", express.static(path.join(__dirname, "../public/uploads/posts")));
-	app.get("/media", cors(corsAllowUndefined), async (req, res) => {
+	app.get("/media", cors(corsAllowUndefined), async (_req, res) => {
 		var archive = archiver("zip");
 
 		archive.on("error", function (err: any) {
 			res.status(500).send({ error: err.message });
 		});
 
-		//on stream closed we can end the request
-		archive.on("end", function () {
-			console.log("Archive wrote %d bytes", archive.pointer());
-		});
-
 		//set the archive name
-		res.attachment("archive-name.zip");
+		res.attachment("vega-uploads-backup.zip");
 
 		archive.pipe(res);
 
@@ -277,7 +272,6 @@ const initServer = async () => {
 		archive.directory(path.join(__dirname, "../public/uploads/banners"), "banners");
 		archive.directory(path.join(__dirname, "../public/uploads/posts"), "posts");
 
-		// res.download(path.join(__dirname, "../public/uploads"));
 		archive.finalize();
 	});
 
