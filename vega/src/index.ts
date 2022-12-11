@@ -256,6 +256,7 @@ const initServer = async () => {
 	app.use("/uploads/pfps", express.static(path.join(__dirname, "../public/uploads/pfps")));
 	app.use("/uploads/banners", express.static(path.join(__dirname, "../public/uploads/banners")));
 	app.use("/uploads/posts", express.static(path.join(__dirname, "../public/uploads/posts")));
+	//zip & prompt download of live uploads folder to allow for backups before server restart
 	app.get("/media", cors(corsAllowUndefined), async (_req, res) => {
 		var archive = archiver("zip");
 
