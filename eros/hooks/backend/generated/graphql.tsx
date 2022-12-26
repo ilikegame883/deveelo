@@ -54,12 +54,6 @@ export type KeyFields = {
   text2?: Maybe<Scalars['String']>;
 };
 
-export type Like = {
-  __typename?: 'Like';
-  createdAt: Scalars['String'];
-  user: CUser;
-};
-
 export type LoginResponse = {
   __typename?: 'LoginResponse';
   accessToken: Scalars['String'];
@@ -140,7 +134,7 @@ export type Post = {
   comments: Array<Maybe<Comment>>;
   createdAt: Scalars['String'];
   imageUrls: Array<Scalars['String']>;
-  likes: Array<Maybe<Like>>;
+  likes: Array<Maybe<Scalars['String']>>;
   tags?: Maybe<Array<Maybe<Scalars['String']>>>;
   user_id: Scalars['ID'];
 };
@@ -307,7 +301,7 @@ export type PostsByTagQueryVariables = Exact<{
 }>;
 
 
-export type PostsByTagQuery = { __typename?: 'Query', getPostsByTag: Array<{ __typename?: 'Post', _id: string, imageUrls: Array<string>, body?: string | null, tags?: Array<string | null> | null, createdAt: string, user_id: string, comments: Array<{ __typename?: 'Comment', body: string, imageUrl?: string | null, user: { __typename?: 'CUser', username: string, tag: string, pictureUrl: string } } | null>, likes: Array<{ __typename?: 'Like', createdAt: string, user: { __typename?: 'CUser', username: string, tag: string, pictureUrl: string } } | null> } | null> };
+export type PostsByTagQuery = { __typename?: 'Query', getPostsByTag: Array<{ __typename?: 'Post', _id: string, imageUrls: Array<string>, body?: string | null, tags?: Array<string | null> | null, createdAt: string, user_id: string, likes: Array<string | null>, comments: Array<{ __typename?: 'Comment', body: string, imageUrl?: string | null, user: { __typename?: 'CUser', username: string, tag: string, pictureUrl: string } } | null> } | null> };
 
 export type RandomMinProfileQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -319,7 +313,7 @@ export type NewPostsQueryVariables = Exact<{
 }>;
 
 
-export type NewPostsQuery = { __typename?: 'Query', getPosts: Array<{ __typename?: 'Post', _id: string, imageUrls: Array<string>, body?: string | null, tags?: Array<string | null> | null, createdAt: string, user_id: string, comments: Array<{ __typename?: 'Comment', body: string, imageUrl?: string | null, user: { __typename?: 'CUser', username: string, tag: string, pictureUrl: string } } | null>, likes: Array<{ __typename?: 'Like', createdAt: string, user: { __typename?: 'CUser', username: string, tag: string, pictureUrl: string } } | null> } | null> };
+export type NewPostsQuery = { __typename?: 'Query', getPosts: Array<{ __typename?: 'Post', _id: string, imageUrls: Array<string>, body?: string | null, tags?: Array<string | null> | null, createdAt: string, user_id: string, likes: Array<string | null>, comments: Array<{ __typename?: 'Comment', body: string, imageUrl?: string | null, user: { __typename?: 'CUser', username: string, tag: string, pictureUrl: string } } | null> } | null> };
 
 export type RegisterMutationVariables = Exact<{
   registerEmail: Scalars['String'];
@@ -805,14 +799,7 @@ export const PostsByTagDocument = gql`
         pictureUrl
       }
     }
-    likes {
-      createdAt
-      user {
-        username
-        tag
-        pictureUrl
-      }
-    }
+    likes
   }
 }
     `;
@@ -916,14 +903,7 @@ export const NewPostsDocument = gql`
         pictureUrl
       }
     }
-    likes {
-      createdAt
-      user {
-        username
-        tag
-        pictureUrl
-      }
-    }
+    likes
   }
 }
     `;
