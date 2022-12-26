@@ -42,7 +42,7 @@ exports.typeDefs = graphql_tag_1.default `
 		createdAt: String!
 		user_id: ID!
 		comments: [Comment]!
-		likes: [Like]!
+		likes: [String]!
 	}
 	type Comment {
 		body: String!
@@ -53,10 +53,6 @@ exports.typeDefs = graphql_tag_1.default `
 		username: String!
 		tag: String!
 		pictureUrl: String!
-	}
-	type Like {
-		user: CUser!
-		createdAt: String!
 	}
 
 	#general

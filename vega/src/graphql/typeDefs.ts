@@ -37,7 +37,7 @@ export const typeDefs = gql`
 		createdAt: String!
 		user_id: ID!
 		comments: [Comment]!
-		likes: [Like]!
+		likes: [String]!
 	}
 	type Comment {
 		body: String!
@@ -48,10 +48,6 @@ export const typeDefs = gql`
 		username: String!
 		tag: String!
 		pictureUrl: String!
-	}
-	type Like {
-		user: CUser!
-		createdAt: String!
 	}
 
 	#general
