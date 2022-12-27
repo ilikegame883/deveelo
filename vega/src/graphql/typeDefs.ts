@@ -123,7 +123,7 @@ export const typeDefs = gql`
 		success: Boolean!
 	}
 
-	# note  Queries (searches)
+	# note  Queries (read)
 	type Query {
 		getPosts(number: Int!): [Post]!
 		getPostsByTag(tag: String!, number: Int!): [Post]!
@@ -135,7 +135,7 @@ export const typeDefs = gql`
 		allUsers: [User]!
 	}
 
-	# note  Mutations (read/write/updates)
+	# note  Mutations (write)
 	type Mutation {
 		register(email: String!, password: String!): LoginResponse!
 		login(input: String!, password: String!): LoginResponse!

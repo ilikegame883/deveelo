@@ -128,7 +128,7 @@ exports.typeDefs = graphql_tag_1.default `
 		success: Boolean!
 	}
 
-	# note  Queries (searches)
+	# note  Queries (read)
 	type Query {
 		getPosts(number: Int!): [Post]!
 		getPostsByTag(tag: String!, number: Int!): [Post]!
@@ -140,7 +140,7 @@ exports.typeDefs = graphql_tag_1.default `
 		allUsers: [User]!
 	}
 
-	# note  Mutations (read/write/updates)
+	# note  Mutations (write)
 	type Mutation {
 		register(email: String!, password: String!): LoginResponse!
 		login(input: String!, password: String!): LoginResponse!
