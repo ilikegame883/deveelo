@@ -44,6 +44,18 @@ const postsResolvers = {
                 throw new Error(error);
             }
         },
+        unlike: async (_parent, { id }, context) => {
+            const myID = context.payload.id;
+            try {
+                await Post_1.default.findByIdAndUpdate(new mongodb_1.ObjectID(id), { $pull: { likes: myID } }, { useFindAndModify: false });
+                return {
+                    success: true,
+                };
+            }
+            catch (error) {
+                throw new Error(error);
+            }
+        },
     },
 };
 exports.default = postsResolvers;

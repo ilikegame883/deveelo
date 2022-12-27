@@ -44,6 +44,20 @@ const postsResolvers = {
 				throw new Error(error);
 			}
 		},
+		unlike: async (_parent: any, { id }: { id: string }, context: Context) => {
+			const myID = context.payload!.id;
+
+			try {
+				//add our id to the post's list of like(rs)
+				await Post.findByIdAndUpdate(new ObjectID(id), { $pull: { likes: myID } }, { useFindAndModify: false });
+
+				return {
+					success: true,
+				};
+			} catch (error) {
+				throw new Error(error);
+			}
+		},
 	},
 };
 
