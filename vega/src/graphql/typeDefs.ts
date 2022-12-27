@@ -144,5 +144,7 @@ export const typeDefs = gql`
 		unfollow(id: String!): BoolRes
 		updateProfile(name: String, tag: String, description: String): User!
 		singleUpload(file: Upload!, type: String!, edata: ExtraData): UploadResult!
+		like(id: String!): BoolRes
+		unlike(id: String!): BoolRes
 	}
 `;
