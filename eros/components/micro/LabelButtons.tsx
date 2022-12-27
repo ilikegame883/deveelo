@@ -5,10 +5,11 @@ import IconButton from "./IconButton";
 interface LikeProps {
 	count: number;
 	cardType: "post" | "blog";
+	id: string;
 	startActive: boolean;
 }
 
-export const Like = ({ count, cardType, startActive }: LikeProps) => {
+export const Like = ({ count, cardType, id, startActive }: LikeProps) => {
 	const [likes, setLikes] = useState(count);
 	const [active, setActive] = useState(startActive); //use for text color
 
@@ -42,7 +43,7 @@ export const Like = ({ count, cardType, startActive }: LikeProps) => {
 	);
 };
 
-export const Comment = ({ count, cardType, startActive }: LikeProps) => {
+export const Comment = ({ count, cardType, id, startActive }: LikeProps) => {
 	const [comments, setComment] = useState(count);
 	const [active, setActive] = useState(startActive); //use for text color
 
