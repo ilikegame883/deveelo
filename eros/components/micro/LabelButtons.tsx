@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { isLoggedIn } from "../../hooks/userChecks";
 import styles from "../../styles/micro/labelbutton.module.css";
 import IconButton from "./IconButton";
 
@@ -13,6 +14,23 @@ export const Like = ({ count, cardType, id, startActive }: LikeProps) => {
 	const [likes, setLikes] = useState(count);
 	const [active, setActive] = useState(startActive); //use for text color
 
+	//only allow logged-in users to click this button
+	const enabled = isLoggedIn();
+
+	const actions = {
+		activeAction: () => {
+			setActive(false);
+			setLikes(likes - 1);
+		},
+		inactiveAction: () => {
+			setActive(true);
+			setLikes(likes + 1);
+		},
+		options: {
+			toggleActive: true,
+		},
+	};
+
 	return (
 		<div className={styles.buttonWrapper}>
 			<p className={active ? styles.labelActive : styles.label}>{likes}</p>
@@ -25,19 +43,7 @@ export const Like = ({ count, cardType, id, startActive }: LikeProps) => {
 				height="1.969em"
 				startActive={startActive}
 				spinOnClick={true}
-				action={{
-					activeAction: () => {
-						setActive(false);
-						setLikes(likes - 1);
-					},
-					inactiveAction: () => {
-						setActive(true);
-						setLikes(likes + 1);
-					},
-					options: {
-						toggleActive: true,
-					},
-				}}
+				action={enabled ? actions : undefined}
 			/>
 		</div>
 	);
